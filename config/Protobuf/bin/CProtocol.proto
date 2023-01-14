@@ -1,0 +1,39 @@
+syntax = "proto3";
+package Protocol;
+
+enum INGAME
+{
+	MOVE = 0;
+	CHARATERS_CRASH = 1;
+	OBSTACLE_CRASH = 2;
+	NO_MOVE = 3;
+	DROP = 4;
+	COMPLTE = 5;
+	FAIL = 6;
+	PACKET_FAIL = 7;
+	OBSTACLE_MOVE = 8;
+}
+
+message S_DATA
+{
+	uint32 id = 1;
+	uint32 map_level = 2;
+	uint32 match_room = 3;
+	repeated S_PLYAER plyaer = 4;
+	repeated S_ENEMY  enemy = 5;
+}
+
+message S_ENEMY
+{
+	uint32 id = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+}
+
+message S_PLYAER
+{
+	float x = 2;
+	float y = 3;
+	float z = 4;
+}
