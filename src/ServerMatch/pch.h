@@ -9,3 +9,13 @@
 #pragma comment(lib, "ServerCore\\Release\\ServerCore.lib")
 #pragma comment(lib, "Protobuf\\Release\\libprotobufd.lib")
 #endif
+
+#include <iostream>
+#include <pch.h>
+using namespace std;
+
+#include "ProtocolMatch.pb.h"
+#include "PacketSession.h"
+#include "PacketHandler.h"
+
+#define THREAD_SIZE 10

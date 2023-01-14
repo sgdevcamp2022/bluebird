@@ -7,6 +7,12 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{6ecd2095-bbc5-4d11-9511-b1f7fa546a46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{9dfaab66-16af-4b49-9ef7-96eedccfcedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Session">
+      <UniqueIdentifier>{e13bc1fe-ca04-4d2a-8e83-c885e0320dfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerMain.cpp">
@@ -15,9 +21,33 @@
     <ClCompile Include="pch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="ProtocolMatch.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolMatch.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
