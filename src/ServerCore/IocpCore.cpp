@@ -2,11 +2,17 @@
 #include "IocpCore.h"
 #include "IocpEvent.h"
 
+// TEMP
+IocpCore GIocpCore;
+
+/*--------------
+	IocpCore
+---------------*/
+
 IocpCore::IocpCore()
 {
-	_iocpHandle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0, 0);
-	if (_iocpHandle == INVALID_HANDLE_VALUE)
-		HandleError("CreateIoCOmpletionPort");
+	_iocpHandle = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0, 0);
+	ASSERT_CRASH(_iocpHandle != INVALID_HANDLE_VALUE);
 }
 
 IocpCore::~IocpCore()
@@ -14,21 +20,23 @@ IocpCore::~IocpCore()
 	::CloseHandle(_iocpHandle);
 }
 
-bool IocpCore::Register(IocpObjectRef iocpobject)
+bool IocpCore::Register(IocpObjectRef iocpObject)
 {
-	return CreateIoCompletionPort(iocpobject->GetHandle(), _iocpHandle, 0, 0);
+	return ::CreateIoCompletionPort(iocpObject->GetHandle(), _iocpHandle, 0, 0);
 }
 
-bool IocpCore::Dispatch(uint32 timeoutMS)
+bool IocpCore::Dispatch(uint32 timeoutMs)
 {
-	DWORD numOfBytes = 0 ;
+	DWORD numOfBytes = 0;
 	ULONG_PTR key = 0;
 	IocpEvent* iocpEvent = nullptr;
 
-	if (GetQueuedCompletionStatus(_iocpHandle, &numOfBytes, &key, reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMS)) {
+	if (::GetQueuedCompletionStatus(_iocpHandle, OUT &numOfBytes, OUT &key, OUT reinterpret_cast<LPOVERLAPPED*>(&iocpEvent), timeoutMs))
+	{
 		IocpObjectRef iocpObject = iocpEvent->owner;
 		iocpObject->Dispatch(iocpEvent, numOfBytes);
-	}else
+	}
+	else
 	{
 		int32 errCode = ::WSAGetLastError();
 		switch (errCode)

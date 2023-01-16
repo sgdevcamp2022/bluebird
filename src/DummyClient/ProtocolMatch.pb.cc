@@ -21,7 +21,8 @@ constexpr S_DATA::S_DATA(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(0u)
   , maplevel_(0u)
-  , matchroom_(0u){}
+  , matchroom_(0u)
+  , stae_(false){}
 struct S_DATADefaultTypeInternal {
   constexpr S_DATADefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -58,6 +59,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DATA, id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DATA, maplevel_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DATA, matchroom_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_DATA, stae_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::C_DATA, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -68,7 +70,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Protocol::S_DATA)},
-  { 8, -1, sizeof(::Protocol::C_DATA)},
+  { 9, -1, sizeof(::Protocol::C_DATA)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -77,16 +79,16 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\023ProtocolMatch.proto\022\010Protocol\"9\n\006S_DAT"
+  "\n\023ProtocolMatch.proto\022\010Protocol\"G\n\006S_DAT"
   "A\022\n\n\002id\030\001 \001(\r\022\020\n\010mapLevel\030\002 \001(\r\022\021\n\tmatch"
-  "Room\030\003 \001(\r\"&\n\006C_DATA\022\n\n\002id\030\001 \001(\r\022\020\n\010mapL"
-  "evel\030\002 \001(\r*L\n\005STATE\022\017\n\013MATCH_LOGIN\020\000\022\017\n\013"
-  "MATCH_CLOSE\020\001\022\016\n\nMATCH_FAIL\020\002\022\021\n\rMATCH_S"
-  "UCCESS\020\003b\006proto3"
+  "Room\030\003 \001(\r\022\014\n\004stae\030\004 \001(\010\"&\n\006C_DATA\022\n\n\002id"
+  "\030\001 \001(\r\022\020\n\010mapLevel\030\002 \001(\r*T\n\005STATE\022\013\n\007C_L"
+  "OGIN\020\000\022\014\n\010C_CANCLE\020\001\022\010\n\004FAIL\020\002\022\013\n\007S_LOGI"
+  "N\020\003\022\013\n\007S_MATCH\020\004\022\014\n\010S_CANCLE\020\005b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolMatch_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto = {
-  false, false, 216, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
+  false, false, 238, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
   &descriptor_table_ProtocolMatch_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_ProtocolMatch_2eproto::offsets,
   file_level_metadata_ProtocolMatch_2eproto, file_level_enum_descriptors_ProtocolMatch_2eproto, file_level_service_descriptors_ProtocolMatch_2eproto,
@@ -108,6 +110,8 @@ bool STATE_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;
@@ -131,16 +135,16 @@ S_DATA::S_DATA(const S_DATA& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&matchroom_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(matchroom_));
+    static_cast<size_t>(reinterpret_cast<char*>(&stae_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(stae_));
   // @@protoc_insertion_point(copy_constructor:Protocol.S_DATA)
 }
 
 void S_DATA::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&matchroom_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(matchroom_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&stae_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(stae_));
 }
 
 S_DATA::~S_DATA() {
@@ -170,8 +174,8 @@ void S_DATA::Clear() {
   (void) cached_has_bits;
 
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&matchroom_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(matchroom_));
+      reinterpret_cast<char*>(&stae_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(stae_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -199,6 +203,13 @@ const char* S_DATA::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           matchroom_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool stae = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          stae_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -249,6 +260,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_matchroom(), target);
   }
 
+  // bool stae = 4;
+  if (this->stae() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_stae(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -284,6 +301,11 @@ size_t S_DATA::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_matchroom());
+  }
+
+  // bool stae = 4;
+  if (this->stae() != 0) {
+    total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -326,6 +348,9 @@ void S_DATA::MergeFrom(const S_DATA& from) {
   if (from.matchroom() != 0) {
     _internal_set_matchroom(from._internal_matchroom());
   }
+  if (from.stae() != 0) {
+    _internal_set_stae(from._internal_stae());
+  }
 }
 
 void S_DATA::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -350,8 +375,8 @@ void S_DATA::InternalSwap(S_DATA* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_DATA, matchroom_)
-      + sizeof(S_DATA::matchroom_)
+      PROTOBUF_FIELD_OFFSET(S_DATA, stae_)
+      + sizeof(S_DATA::stae_)
       - PROTOBUF_FIELD_OFFSET(S_DATA, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));

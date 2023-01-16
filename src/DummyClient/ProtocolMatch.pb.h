@@ -69,16 +69,18 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum STATE : int {
-  MATCH_LOGIN = 0,
-  MATCH_CLOSE = 1,
-  MATCH_FAIL = 2,
-  MATCH_SUCCESS = 3,
+  C_LOGIN = 0,
+  C_CANCLE = 1,
+  FAIL = 2,
+  S_LOGIN = 3,
+  S_MATCH = 4,
+  S_CANCLE = 5,
   STATE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   STATE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool STATE_IsValid(int value);
-constexpr STATE STATE_MIN = MATCH_LOGIN;
-constexpr STATE STATE_MAX = MATCH_SUCCESS;
+constexpr STATE STATE_MIN = C_LOGIN;
+constexpr STATE STATE_MAX = S_CANCLE;
 constexpr int STATE_ARRAYSIZE = STATE_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* STATE_descriptor();
@@ -208,6 +210,7 @@ class S_DATA final :
     kIdFieldNumber = 1,
     kMapLevelFieldNumber = 2,
     kMatchRoomFieldNumber = 3,
+    kStaeFieldNumber = 4,
   };
   // uint32 id = 1;
   void clear_id();
@@ -236,6 +239,15 @@ class S_DATA final :
   void _internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // bool stae = 4;
+  void clear_stae();
+  bool stae() const;
+  void set_stae(bool value);
+  private:
+  bool _internal_stae() const;
+  void _internal_set_stae(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_DATA)
  private:
   class _Internal;
@@ -246,6 +258,7 @@ class S_DATA final :
   ::PROTOBUF_NAMESPACE_ID::uint32 id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 maplevel_;
   ::PROTOBUF_NAMESPACE_ID::uint32 matchroom_;
+  bool stae_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
 };
@@ -461,6 +474,26 @@ inline void S_DATA::_internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 valu
 inline void S_DATA::set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_matchroom(value);
   // @@protoc_insertion_point(field_set:Protocol.S_DATA.matchRoom)
+}
+
+// bool stae = 4;
+inline void S_DATA::clear_stae() {
+  stae_ = false;
+}
+inline bool S_DATA::_internal_stae() const {
+  return stae_;
+}
+inline bool S_DATA::stae() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_DATA.stae)
+  return _internal_stae();
+}
+inline void S_DATA::_internal_set_stae(bool value) {
+  
+  stae_ = value;
+}
+inline void S_DATA::set_stae(bool value) {
+  _internal_set_stae(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_DATA.stae)
 }
 
 // -------------------------------------------------------------------

@@ -1,14 +1,23 @@
 #include "pch.h"
 #include "Listener.h"
-#include "IocpEvent.h"
 #include "SocketUtils.h"
+#include "IocpEvent.h"
 #include "Session.h"
+#include "Service.h"
+
+/*--------------
+	Listener
+---------------*/
 
 Listener::~Listener()
 {
-	CloseSocket();
-	for (AcceptEvent* acceptEvent : _acceptEvents) {
-		delete acceptEvent;
+	SocketUtils::Close(_socket);
+
+	for (AcceptEvent* acceptEvent : _acceptEvents)
+	{
+		// TODO
+
+		xdelete(acceptEvent);
 	}
 }
 
@@ -38,10 +47,9 @@ bool Listener::StartAccept(ServerServiceRef service)
 		return false;
 
 	const int32 acceptCount = _service->GetMaxSessionCount();
-
 	for (int32 i = 0; i < acceptCount; i++)
 	{
-		AcceptEvent* acceptEvent = new AcceptEvent;
+		AcceptEvent* acceptEvent = xnew<AcceptEvent>();
 		acceptEvent->owner = shared_from_this();
 		_acceptEvents.push_back(acceptEvent);
 		RegisterAccept(acceptEvent);
@@ -62,8 +70,7 @@ HANDLE Listener::GetHandle()
 
 void Listener::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes)
 {
-	if (iocpEvent->GetType() != EventType::Accept)
-		HandleError("Listener Dispatch error");
+	ASSERT_CRASH(iocpEvent->GetType() == EventType::Accept);
 	AcceptEvent* acceptEvent = static_cast<AcceptEvent*>(iocpEvent);
 	ProcessAccept(acceptEvent);
 }
@@ -73,10 +80,10 @@ void Listener::RegisterAccept(AcceptEvent* acceptEvent)
 	SessionRef session = _service->CreateSession();
 
 	acceptEvent->Init();
-	acceptEvent->_session = session;
+	acceptEvent->session = session;
 
 	DWORD bytesReceived = 0;
-	if (false == SocketUtils::AcceptEx(_socket, session->GetSocket(), session->_recv_buffer.Write_pos(), 0, sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, OUT & bytesReceived, static_cast<LPOVERLAPPED>(acceptEvent)))
+	if (false == SocketUtils::AcceptEx(_socket, session->GetSocket(), session->_recvBuffer.WritePos(), 0, sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, OUT & bytesReceived, static_cast<LPOVERLAPPED>(acceptEvent)))
 	{
 		const int32 errorCode = ::WSAGetLastError();
 		if (errorCode != WSA_IO_PENDING)
@@ -89,26 +96,24 @@ void Listener::RegisterAccept(AcceptEvent* acceptEvent)
 
 void Listener::ProcessAccept(AcceptEvent* acceptEvent)
 {
-	SessionRef session = acceptEvent->_session;
-	if (false == SocketUtils::SetUpdateAcceptSocket(session->GetSocket(), _socket)) {
+	SessionRef session = acceptEvent->session;
+
+	if (false == SocketUtils::SetUpdateAcceptSocket(session->GetSocket(), _socket))
+	{
 		RegisterAccept(acceptEvent);
 		return;
 	}
 
 	SOCKADDR_IN sockAddress;
 	int32 sizeOfSockAddr = sizeof(sockAddress);
-	if (SOCKET_ERROR == ::getpeername(session->GetSocket(), reinterpret_cast<SOCKADDR*>(&sockAddress), &sizeOfSockAddr)) {
+	if (SOCKET_ERROR == ::getpeername(session->GetSocket(), OUT reinterpret_cast<SOCKADDR*>(&sockAddress), &sizeOfSockAddr))
+	{
 		RegisterAccept(acceptEvent);
 		return;
 	}
 
 	session->SetNetAddress(NetAddress(sockAddress));
-	
-	char ipbuf[INET_ADDRSTRLEN] = {};
-	inet_ntop(AF_INET, &(sockAddress.sin_addr), ipbuf, INET_ADDRSTRLEN);
+	session->ProcessConncet();
 
-	cout << "IP : " << ipbuf << " Client Connect\n";
-	
-	session->ProcessConnect();
 	RegisterAccept(acceptEvent);
 }
