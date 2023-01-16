@@ -5,10 +5,11 @@ class PacketHandler
 public:
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
 
-	static SendBufferRef MakeSendBuffer(Protocol::S_DATA pkt, Protocol::STATE type);
+	static SendBufferRef MakeSendBuffer(Protocol::DATA pkt, Protocol::STATE type);
 
 private:
-	static void HandlerLogin(PacketSessionRef& ref, Protocol::S_DATA&& pkt);
+	static void HandlerLogin(PacketSessionRef& ref, Protocol::DATA&& pkt);
+	static void HandlerCancle(PacketSessionRef& ref, Protocol::DATA&& pkt);
 };
 
 struct PacketHeader {

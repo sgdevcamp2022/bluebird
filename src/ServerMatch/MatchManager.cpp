@@ -21,12 +21,14 @@ void MatchManager::MatchEnter(PlayerRef player, int32 roomNum)
 	if (roomNum > 5)
 		return;
 	int count = _matchRooms[roomNum]->Enter(player);
-	cout << "ÀÎ¿ø ¼ö : " << count << endl;
+	cout << "Enter" << endl;
 	if (count == ROOM_COUNT) {
 		cout << "²ËÂü" << endl;
-		Protocol::S_DATA data;
-		data.set_stae(true);
-		data.set_matchroom(roomNum);
+		Protocol::DATA data;
+
+		data.set_id(player->playerId);
+		data.set_maplevel(roomNum);
+		data.set_state(true);
 
 		auto ref = PacketHandler::MakeSendBuffer(data, Protocol::S_MATCH);
 		_matchRooms[roomNum]->Broadcast(ref);
@@ -38,5 +40,6 @@ void MatchManager::MatchEnter(PlayerRef player, int32 roomNum)
 
 void MatchManager::MatchLeave(PlayerRef player, int32 roomNum)
 {
+	cout << "Leave" << endl;
 	_matchRooms[roomNum]->Leave(player);
 }

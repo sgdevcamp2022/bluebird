@@ -11,16 +11,9 @@ enum STATE
 	S_CANCLE = 5;
 }
 
-message S_DATA
+message DATA
 {
 	uint32 id = 1;
 	uint32 mapLevel= 2;
-	uint32 matchRoom = 3;
-	bool stae = 4;
-}
-
-message C_DATA
-{
-	uint32 id = 1;
-	uint32 mapLevel= 2;
+	bool state = 4;
 }

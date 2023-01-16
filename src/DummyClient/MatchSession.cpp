@@ -4,13 +4,16 @@
 void MatchSession::OnConnected()
 {
     static atomic<int> th(0);
-    Protocol::S_DATA pkt;
+    Protocol::DATA pkt;
     pkt.set_id(th.fetch_add(1));
     pkt.set_maplevel(2);
-    pkt.set_matchroom(1);
-    SendBufferRef ref = PacketHandler::MakeSendBuffer(pkt, Protocol::C_LOGIN);
-
+    pkt.set_state(false);
+    auto ref = PacketHandler::MakeSendBuffer(pkt, Protocol::C_LOGIN);
     Send(ref);
+
+    ref = PacketHandler::MakeSendBuffer(pkt, Protocol::C_CANCLE);
+    Send(ref);
+
 }
 
 void MatchSession::OnDisconnected()

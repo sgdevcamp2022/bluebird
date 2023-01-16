@@ -19,6 +19,7 @@ void MatchRoom::Broadcast(SendBufferRef sendBuffer)
 {
 	for (auto& p : _players)
 	{
+		p.second->playerId;
 		p.second->ownerSession->Send(sendBuffer);
 	}
 }

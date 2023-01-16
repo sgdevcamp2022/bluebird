@@ -27,7 +27,7 @@ int main() {
 	ClientServiceRef service = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 8000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 20);
+		MakeShared<MatchSession>, 5);
 
 	ASSERT_CRASH(service->Start());
 
