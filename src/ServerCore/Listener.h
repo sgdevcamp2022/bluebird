@@ -3,6 +3,11 @@
 #include "NetAddress.h"
 
 class AcceptEvent;
+class ServerService;
+
+/*--------------
+	Listener
+---------------*/
 
 class Listener : public IocpObject
 {
@@ -27,6 +32,7 @@ private:
 
 protected:
 	SOCKET _socket = INVALID_SOCKET;
-	vector<AcceptEvent*> _acceptEvents;
+	Vector<AcceptEvent*> _acceptEvents;
 	ServerServiceRef _service;
 };
+

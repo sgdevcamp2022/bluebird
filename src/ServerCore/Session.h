@@ -1,9 +1,13 @@
 #pragma once
-#include "IocpEvent.h"
 #include "IocpCore.h"
+#include "IocpEvent.h"
 #include "NetAddress.h"
-#include "Service.h"
 #include "RecvBuffer.h"
+
+class Service;
+/*--------------
+	Session
+---------------*/
 
 class Session : public IocpObject
 {
@@ -12,67 +16,74 @@ class Session : public IocpObject
 	friend class Service;
 
 	enum {
-		BUFFER_SIZE = 0x10000, // 64KB
+		BUFFER_SIZE = 0x10000, //64KB
 	};
+
 public:
 	Session();
 	virtual ~Session();
 
 public:
-	void				Send(SendBufferRef buffer);
+	void				Send(SendBufferRef sendBuffer);
 	bool				Connect();
-	void				DisConnect(const WCHAR* cause);
-
-	shared_ptr<Service>	GetService() { return _service.lock(); }
+	void				Disconnect(const WCHAR* cause);
+	
+	shared_ptr<Service> GetService() { return _service.lock(); }
 	void				SetService(shared_ptr<Service> service) { _service = service; }
 
 public:
-	void				SetNetAddress(NetAddress address) { _addr = address; };
-	NetAddress			GetAddress() { return _addr; }
-	SOCKET				GetSocket() { return _sock; }
+				/* 정보 관련 */
+	void				SetNetAddress(NetAddress address) { _netAddress = address; }
+	NetAddress			GetAddress() { return _netAddress; }
+	SOCKET				GetSocket() { return _socket; }
 	bool				IsConnected() { return _connected; }
-	shared_ptr<Session> GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
+	SessionRef			GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
 
 private:
+				/* 인터페이스 구현 */
 	virtual HANDLE		GetHandle() override;
 	virtual void		Dispatch(class IocpEvent* iocpEvent, int32 numOfBytes = 0) override;
 
 private:
-	void ProcessSend(int32 numOfBytes);
-	void ProcessRecv(int32 numOfBytes);
-	void ProcessDisconnect();
-	void ProcessConnect();
+				/* 전송 관련 */
+	bool				RegisterConnect();
+	bool				RegisterDisconnect();
+	void				RegisterRecv();
+	void				RegisterSend();
 
-	// 작업 등록
-	void RegisterSend();
-	void RegisterRecv();
-	bool RegisterDisconnect();
-	bool RegisterConnect();
+	void				ProcessConncet();
+	void				ProcessDisconnect();
+	void				ProcessRecv(int32 numOfBytes);
+	void				ProcessSend(int32 numOfBytes);
+
+	void				HandleError(int32 errCode);
 
 protected:
-	virtual void OnConnected() { }
-	virtual int32 OnRecv(BYTE* buffer, int32 len) { return len; }
-	virtual void OnSend(int32 len) { }
-	virtual void OnDisconnected() { }
+				/* 컨텐츠 코드에서 오버로딩 */
+	virtual void		OnConnected() { }
+	virtual int32		OnRecv(BYTE* buffer, int32 len) { return len; }
+	virtual void		OnSend(int32 len) { }
+	virtual void		OnDisconnected() { }
+
 
 private:
-	weak_ptr<Service>		_service;
-	NetAddress				_addr = { };
-	SOCKET					_sock = INVALID_SOCKET;
-	atomic<bool>			_connected = false;
+	weak_ptr<Service>	_service;
+	SOCKET				_socket = INVALID_SOCKET;
+	NetAddress			_netAddress = {};
+	Atomic<bool>		_connected = false;
 
 private:
-	// 재활용
-	DisconnectEvent			_disconnectEvent;
-	ConnectEvent			_connectEvent;
-	RecvEvent				_recvEvent;
-	SendEvent				_send_event;
+	USE_LOCK;
+							/* 수신 관련 */
+	RecvBuffer				_recvBuffer;
 
+							/* 송신 관련 */
+	Queue<SendBufferRef>	_sendQueue;
+	Atomic<bool>			_sendRegistered = false;
 private:
-	RecvBuffer				_recv_buffer;
-	SpinLock				_lock;
-	queue<SendBufferRef>	_send_queue;
-	atomic<bool>			_send_registered = false;
-
-	
+				/* IocpEvent 재사용 */
+	DisconnectEvent _disconnectEvent;
+	ConnectEvent	_connectEvent;
+	RecvEvent		_recvEvent;
+	SendEvent		_sendEvent;
 };

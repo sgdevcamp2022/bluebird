@@ -47,7 +47,7 @@ struct TableStruct_ProtocolMatch_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,30 +55,28 @@ struct TableStruct_ProtocolMatch_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto;
 namespace Protocol {
-class C_DATA;
-struct C_DATADefaultTypeInternal;
-extern C_DATADefaultTypeInternal _C_DATA_default_instance_;
-class S_DATA;
-struct S_DATADefaultTypeInternal;
-extern S_DATADefaultTypeInternal _S_DATA_default_instance_;
+class DATA;
+struct DATADefaultTypeInternal;
+extern DATADefaultTypeInternal _DATA_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::C_DATA* Arena::CreateMaybeMessage<::Protocol::C_DATA>(Arena*);
-template<> ::Protocol::S_DATA* Arena::CreateMaybeMessage<::Protocol::S_DATA>(Arena*);
+template<> ::Protocol::DATA* Arena::CreateMaybeMessage<::Protocol::DATA>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum STATE : int {
-  MATCH_LOGIN = 0,
-  MATCH_CLOSE = 1,
-  MATCH_FAIL = 2,
-  MATCH_SUCCESS = 3,
+  C_LOGIN = 0,
+  C_CANCLE = 1,
+  FAIL = 2,
+  S_LOGIN = 3,
+  S_MATCH = 4,
+  S_CANCLE = 5,
   STATE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   STATE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool STATE_IsValid(int value);
-constexpr STATE STATE_MIN = MATCH_LOGIN;
-constexpr STATE STATE_MAX = MATCH_SUCCESS;
+constexpr STATE STATE_MIN = C_LOGIN;
+constexpr STATE STATE_MAX = S_CANCLE;
 constexpr int STATE_ARRAYSIZE = STATE_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* STATE_descriptor();
@@ -97,24 +95,24 @@ inline bool STATE_Parse(
 }
 // ===================================================================
 
-class S_DATA final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_DATA) */ {
+class DATA final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.DATA) */ {
  public:
-  inline S_DATA() : S_DATA(nullptr) {}
-  ~S_DATA() override;
-  explicit constexpr S_DATA(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline DATA() : DATA(nullptr) {}
+  ~DATA() override;
+  explicit constexpr DATA(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_DATA(const S_DATA& from);
-  S_DATA(S_DATA&& from) noexcept
-    : S_DATA() {
+  DATA(const DATA& from);
+  DATA(DATA&& from) noexcept
+    : DATA() {
     *this = ::std::move(from);
   }
 
-  inline S_DATA& operator=(const S_DATA& from) {
+  inline DATA& operator=(const DATA& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_DATA& operator=(S_DATA&& from) noexcept {
+  inline DATA& operator=(DATA&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -133,20 +131,20 @@ class S_DATA final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_DATA& default_instance() {
+  static const DATA& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_DATA* internal_default_instance() {
-    return reinterpret_cast<const S_DATA*>(
-               &_S_DATA_default_instance_);
+  static inline const DATA* internal_default_instance() {
+    return reinterpret_cast<const DATA*>(
+               &_DATA_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(S_DATA& a, S_DATA& b) {
+  friend void swap(DATA& a, DATA& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_DATA* other) {
+  inline void Swap(DATA* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -154,7 +152,7 @@ class S_DATA final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_DATA* other) {
+  void UnsafeArenaSwap(DATA* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -162,17 +160,17 @@ class S_DATA final :
 
   // implements Message ----------------------------------------------
 
-  inline S_DATA* New() const final {
-    return new S_DATA();
+  inline DATA* New() const final {
+    return new DATA();
   }
 
-  S_DATA* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<S_DATA>(arena);
+  DATA* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DATA>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const S_DATA& from);
-  void MergeFrom(const S_DATA& from);
+  void CopyFrom(const DATA& from);
+  void MergeFrom(const DATA& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -186,13 +184,13 @@ class S_DATA final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_DATA* other);
+  void InternalSwap(DATA* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_DATA";
+    return "Protocol.DATA";
   }
   protected:
-  explicit S_DATA(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit DATA(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -207,7 +205,7 @@ class S_DATA final :
   enum : int {
     kIdFieldNumber = 1,
     kMapLevelFieldNumber = 2,
-    kMatchRoomFieldNumber = 3,
+    kStateFieldNumber = 4,
   };
   // uint32 id = 1;
   void clear_id();
@@ -227,16 +225,16 @@ class S_DATA final :
   void _internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 matchRoom = 3;
-  void clear_matchroom();
-  ::PROTOBUF_NAMESPACE_ID::uint32 matchroom() const;
-  void set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  // bool state = 4;
+  void clear_state();
+  bool state() const;
+  void set_state(bool value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_matchroom() const;
-  void _internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  bool _internal_state() const;
+  void _internal_set_state(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_DATA)
+  // @@protoc_insertion_point(class_scope:Protocol.DATA)
  private:
   class _Internal;
 
@@ -245,150 +243,7 @@ class S_DATA final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::uint32 id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 maplevel_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 matchroom_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_ProtocolMatch_2eproto;
-};
-// -------------------------------------------------------------------
-
-class C_DATA final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_DATA) */ {
- public:
-  inline C_DATA() : C_DATA(nullptr) {}
-  ~C_DATA() override;
-  explicit constexpr C_DATA(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  C_DATA(const C_DATA& from);
-  C_DATA(C_DATA&& from) noexcept
-    : C_DATA() {
-    *this = ::std::move(from);
-  }
-
-  inline C_DATA& operator=(const C_DATA& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline C_DATA& operator=(C_DATA&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const C_DATA& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const C_DATA* internal_default_instance() {
-    return reinterpret_cast<const C_DATA*>(
-               &_C_DATA_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(C_DATA& a, C_DATA& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(C_DATA* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(C_DATA* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline C_DATA* New() const final {
-    return new C_DATA();
-  }
-
-  C_DATA* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<C_DATA>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const C_DATA& from);
-  void MergeFrom(const C_DATA& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(C_DATA* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_DATA";
-  }
-  protected:
-  explicit C_DATA(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kIdFieldNumber = 1,
-    kMapLevelFieldNumber = 2,
-  };
-  // uint32 id = 1;
-  void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 mapLevel = 2;
-  void clear_maplevel();
-  ::PROTOBUF_NAMESPACE_ID::uint32 maplevel() const;
-  void set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_maplevel() const;
-  void _internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.C_DATA)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 maplevel_;
+  bool state_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
 };
@@ -401,117 +256,71 @@ class C_DATA final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// S_DATA
+// DATA
 
 // uint32 id = 1;
-inline void S_DATA::clear_id() {
+inline void DATA::clear_id() {
   id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::id() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_DATA.id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.DATA.id)
   return _internal_id();
 }
-inline void S_DATA::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void DATA::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   id_ = value;
 }
-inline void S_DATA::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void DATA::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_DATA.id)
+  // @@protoc_insertion_point(field_set:Protocol.DATA.id)
 }
 
 // uint32 mapLevel = 2;
-inline void S_DATA::clear_maplevel() {
+inline void DATA::clear_maplevel() {
   maplevel_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::_internal_maplevel() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::_internal_maplevel() const {
   return maplevel_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::maplevel() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_DATA.mapLevel)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::maplevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.DATA.mapLevel)
   return _internal_maplevel();
 }
-inline void S_DATA::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void DATA::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   maplevel_ = value;
 }
-inline void S_DATA::set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void DATA::set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_maplevel(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_DATA.mapLevel)
+  // @@protoc_insertion_point(field_set:Protocol.DATA.mapLevel)
 }
 
-// uint32 matchRoom = 3;
-inline void S_DATA::clear_matchroom() {
-  matchroom_ = 0u;
+// bool state = 4;
+inline void DATA::clear_state() {
+  state_ = false;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::_internal_matchroom() const {
-  return matchroom_;
+inline bool DATA::_internal_state() const {
+  return state_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 S_DATA::matchroom() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_DATA.matchRoom)
-  return _internal_matchroom();
+inline bool DATA::state() const {
+  // @@protoc_insertion_point(field_get:Protocol.DATA.state)
+  return _internal_state();
 }
-inline void S_DATA::_internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void DATA::_internal_set_state(bool value) {
   
-  matchroom_ = value;
+  state_ = value;
 }
-inline void S_DATA::set_matchroom(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_matchroom(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_DATA.matchRoom)
-}
-
-// -------------------------------------------------------------------
-
-// C_DATA
-
-// uint32 id = 1;
-inline void C_DATA::clear_id() {
-  id_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 C_DATA::_internal_id() const {
-  return id_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 C_DATA::id() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_DATA.id)
-  return _internal_id();
-}
-inline void C_DATA::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  id_ = value;
-}
-inline void C_DATA::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_DATA.id)
-}
-
-// uint32 mapLevel = 2;
-inline void C_DATA::clear_maplevel() {
-  maplevel_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 C_DATA::_internal_maplevel() const {
-  return maplevel_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 C_DATA::maplevel() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_DATA.mapLevel)
-  return _internal_maplevel();
-}
-inline void C_DATA::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  maplevel_ = value;
-}
-inline void C_DATA::set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_maplevel(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_DATA.mapLevel)
+inline void DATA::set_state(bool value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:Protocol.DATA.state)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 

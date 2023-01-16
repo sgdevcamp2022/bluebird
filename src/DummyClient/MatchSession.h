@@ -1,9 +1,9 @@
 #pragma once
+#include <Session.h>
 
 class MatchSession : public PacketSession
 {
 public:
-	MatchSession() { }
 	~MatchSession()
 	{
 		cout << "~GameSession" << endl;

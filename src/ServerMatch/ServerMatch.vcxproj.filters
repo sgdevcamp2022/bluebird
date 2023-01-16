@@ -13,6 +13,9 @@
     <Filter Include="Session">
       <UniqueIdentifier>{e13bc1fe-ca04-4d2a-8e83-c885e0320dfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Match">
+      <UniqueIdentifier>{fab4f95e-4d72-4a24-8d54-411a11ad8990}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerMain.cpp">
@@ -33,6 +36,15 @@
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="MatchRoom.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchManager.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -48,6 +60,18 @@
       <Filter>Session</Filter>
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchRoom.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchManager.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

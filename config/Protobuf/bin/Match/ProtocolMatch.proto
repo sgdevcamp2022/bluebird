@@ -3,21 +3,17 @@ package Protocol;
 
 enum STATE
 {
-	MATCH_LOGIN = 0;
-	MATCH_CLOSE = 1;
-	MATCH_FAIL = 2;
-	MATCH_SUCCESS = 3;
+	C_LOGIN = 0;
+	C_CANCLE = 1;
+	FAIL = 2;
+	S_LOGIN = 3;
+	S_MATCH = 4;
+	S_CANCLE = 5;
 }
 
-message S_DATA
+message DATA
 {
 	uint32 id = 1;
 	uint32 mapLevel= 2;
-	uint32 matchRoom = 3;
-}
-
-message C_DATA
-{
-	uint32 id = 1;
-	uint32 mapLevel= 2;
+	bool state = 4;
 }

@@ -1,26 +1,36 @@
 #include "pch.h"
 #include "PacketHandler.h"
+#include "MatchSession.h"
 
-void PacketHandler::HandlerPacket(SessionRef ref, BYTE* buffer, int32 len)
+void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {
-    Pkt_Header* head = reinterpret_cast<Pkt_Header*>(buffer);
+   
+    PacketHeader* head = reinterpret_cast<PacketHeader*>(buffer);
     switch (head->type)
     {
-    case Protocol::MATCH_LOGIN :
-        HandlerLogin(ref, ParsingPacket<Protocol::S_DATA>(buffer, (int32)head->size));
+    case Protocol::S_LOGIN:
+        HandlerLogin(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
+        break;
+    case Protocol::S_MATCH:
+        HandlerMatch(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
         break;
     default:
         break;
     }
 }
 
-void PacketHandler::HandlerLogin(SessionRef ref, Protocol::S_DATA&& pkt)
+void PacketHandler::HandlerLogin(PacketSessionRef& ref, Protocol::DATA&& pkt)
 {
-    cout << pkt.id() << " " << pkt.maplevel() << endl;
-    ref->Send(MakeSendBuffer(pkt, Protocol::MATCH_LOGIN));
+    if(pkt.state())
+        cout << pkt.id() << " " << pkt.maplevel() << endl;
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Protocol::S_DATA ptr, Protocol::STATE type)
+void PacketHandler::HandlerMatch(PacketSessionRef& ref, Protocol::DATA&& pkt)
 {
-    return _MakeSendBuffer(ptr, type);
+    cout << "MatchSuccess " << pkt.id() << " " << pkt.maplevel() << endl;
+}
+
+SendBufferRef PacketHandler::MakeSendBuffer(Protocol::DATA pkt, Protocol::STATE type)
+{
+    return _MakeSendBuffer(pkt, type);
 }

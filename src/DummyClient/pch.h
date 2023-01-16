@@ -10,10 +10,16 @@
 #pragma comment(lib, "Protobuf\\Release\\libprotobufd.lib")
 #endif
 
-#include <iostream>
-using namespace std;
-
 #include <pch.h>
+#include <Service.h>
+
 #include "ProtocolMatch.pb.h"
 #include "PacketSession.h"
+#define THREAD_SIZE 10
+
+using PacketSessionRef = shared_ptr<class PacketSession>;
+using MatchSessionRef = shared_ptr<class MatchSession>;
+using PlayerRef = shared_ptr<class Player>;
+using MatchRoomRef = shared_ptr<class MatchRoom>;
+
 #include "PacketHandler.h"
