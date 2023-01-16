@@ -1,0 +1,26 @@
+syntax = "proto3";
+package Protocol;
+
+enum STATE
+{
+	C_LOGIN = 0;
+	C_CANCLE = 1;
+	FAIL = 2;
+	S_LOGIN = 3;
+	S_MATCH = 4;
+	S_CANCLE = 5;
+}
+
+message S_DATA
+{
+	uint32 id = 1;
+	uint32 mapLevel= 2;
+	uint32 matchRoom = 3;
+	bool stae = 4;
+}
+
+message C_DATA
+{
+	uint32 id = 1;
+	uint32 mapLevel= 2;
+}
