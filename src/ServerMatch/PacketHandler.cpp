@@ -9,18 +9,18 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len
     PacketHeader* head = reinterpret_cast<PacketHeader*>(buffer);
     switch (head->type)
     {
-    case Protocol::C_LOGIN:
-        HandlerLogin(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
+    case Match::C_LOGIN:
+        HandlerLogin(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
         break;
-    case Protocol::C_CANCLE:
-        HandlerCancle(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
+    case Match::C_CANCLE:
+        HandlerCancle(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
         break;
     default:
         break;
     }
 }
 
-void PacketHandler::HandlerLogin(PacketSessionRef& ref, Protocol::DATA&& pkt)
+void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::DATA&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
@@ -35,10 +35,10 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Protocol::DATA&& pkt)
     GMatch->DoAsync(&MatchManager::MatchEnter, player, index);
 
     pkt.set_state(true);
-    _ref->Send(MakeSendBuffer(pkt, Protocol::S_LOGIN));
+    _ref->Send(MakeSendBuffer(pkt, Match::S_LOGIN));
 }
 
-void PacketHandler::HandlerCancle(PacketSessionRef& ref, Protocol::DATA&& pkt)
+void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::DATA&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
@@ -50,7 +50,12 @@ void PacketHandler::HandlerCancle(PacketSessionRef& ref, Protocol::DATA&& pkt)
     GMatch->DoAsync(&MatchManager::MatchLeave, player, index);
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Protocol::DATA pkt, Protocol::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::DATA pkt, Match::STATE type)
+{
+    return _MakeSendBuffer(pkt, type);
+}
+
+SendBufferRef PacketHandler::MakeSendBuffer(Match::Users pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }

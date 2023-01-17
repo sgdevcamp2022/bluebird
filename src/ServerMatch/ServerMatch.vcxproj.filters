@@ -45,6 +45,12 @@
     <ClCompile Include="MatchManager.cpp">
       <Filter>Match</Filter>
     </ClCompile>
+    <ClCompile Include="ConnectSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolServer.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="Constant.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolServer.pb.h">
+      <Filter>Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

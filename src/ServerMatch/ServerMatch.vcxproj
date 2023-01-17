@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConnectSession.cpp" />
     <ClCompile Include="MatchManager.cpp" />
     <ClCompile Include="MatchRoom.cpp" />
     <ClCompile Include="MatchSession.cpp" />
@@ -151,9 +152,13 @@
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ProtocolServer.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConnectSession.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="MatchManager.h" />
     <ClInclude Include="MatchRoom.h" />
@@ -163,6 +168,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
+    <ClInclude Include="ProtocolServer.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

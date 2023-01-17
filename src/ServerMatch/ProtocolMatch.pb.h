@@ -54,15 +54,15 @@ struct TableStruct_ProtocolMatch_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto;
-namespace Protocol {
+namespace Match {
 class DATA;
 struct DATADefaultTypeInternal;
 extern DATADefaultTypeInternal _DATA_default_instance_;
-}  // namespace Protocol
+}  // namespace Match
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::DATA* Arena::CreateMaybeMessage<::Protocol::DATA>(Arena*);
+template<> ::Match::DATA* Arena::CreateMaybeMessage<::Match::DATA>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
-namespace Protocol {
+namespace Match {
 
 enum STATE : int {
   C_LOGIN = 0,
@@ -96,7 +96,7 @@ inline bool STATE_Parse(
 // ===================================================================
 
 class DATA final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.DATA) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Match.DATA) */ {
  public:
   inline DATA() : DATA(nullptr) {}
   ~DATA() override;
@@ -187,7 +187,7 @@ class DATA final :
   void InternalSwap(DATA* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.DATA";
+    return "Match.DATA";
   }
   protected:
   explicit DATA(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -234,7 +234,7 @@ class DATA final :
   void _internal_set_state(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.DATA)
+  // @@protoc_insertion_point(class_scope:Match.DATA)
  private:
   class _Internal;
 
@@ -266,7 +266,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::_internal_id() const {
   return id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::id() const {
-  // @@protoc_insertion_point(field_get:Protocol.DATA.id)
+  // @@protoc_insertion_point(field_get:Match.DATA.id)
   return _internal_id();
 }
 inline void DATA::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -275,7 +275,7 @@ inline void DATA::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 }
 inline void DATA::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.DATA.id)
+  // @@protoc_insertion_point(field_set:Match.DATA.id)
 }
 
 // uint32 mapLevel = 2;
@@ -286,7 +286,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::_internal_maplevel() const {
   return maplevel_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 DATA::maplevel() const {
-  // @@protoc_insertion_point(field_get:Protocol.DATA.mapLevel)
+  // @@protoc_insertion_point(field_get:Match.DATA.mapLevel)
   return _internal_maplevel();
 }
 inline void DATA::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -295,7 +295,7 @@ inline void DATA::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) 
 }
 inline void DATA::set_maplevel(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_maplevel(value);
-  // @@protoc_insertion_point(field_set:Protocol.DATA.mapLevel)
+  // @@protoc_insertion_point(field_set:Match.DATA.mapLevel)
 }
 
 // bool state = 4;
@@ -306,7 +306,7 @@ inline bool DATA::_internal_state() const {
   return state_;
 }
 inline bool DATA::state() const {
-  // @@protoc_insertion_point(field_get:Protocol.DATA.state)
+  // @@protoc_insertion_point(field_get:Match.DATA.state)
   return _internal_state();
 }
 inline void DATA::_internal_set_state(bool value) {
@@ -315,7 +315,7 @@ inline void DATA::_internal_set_state(bool value) {
 }
 inline void DATA::set_state(bool value) {
   _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:Protocol.DATA.state)
+  // @@protoc_insertion_point(field_set:Match.DATA.state)
 }
 
 #ifdef __GNUC__
@@ -324,14 +324,14 @@ inline void DATA::set_state(bool value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace Protocol
+}  // namespace Match
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::Protocol::STATE> : ::std::true_type {};
+template <> struct is_proto_enum< ::Match::STATE> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::STATE>() {
-  return ::Protocol::STATE_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Match::STATE>() {
+  return ::Match::STATE_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

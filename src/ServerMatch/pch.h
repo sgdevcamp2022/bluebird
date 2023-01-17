@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #define WIN32_LEAN_AND_MEAN // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
@@ -14,6 +14,7 @@
 #include <Service.h>
 
 #include "ProtocolMatch.pb.h"
+#include "ProtocolServer.pb.h"
 #include "PacketSession.h"
 #include "Constant.h"
 

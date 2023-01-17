@@ -20,18 +20,11 @@ void MatchManager::MatchEnter(PlayerRef player, int32 roomNum)
 {
 	if (roomNum > 5)
 		return;
+	//에러 체크 필요함
 	int count = _matchRooms[roomNum]->Enter(player);
-	cout << "Enter" << endl;
 	if (count == ROOM_COUNT) {
-		cout << "꽉참" << endl;
-		Protocol::DATA data;
-
-		data.set_id(player->playerId);
-		data.set_maplevel(roomNum);
-		data.set_state(true);
-
-		auto ref = PacketHandler::MakeSendBuffer(data, Protocol::S_MATCH);
-		_matchRooms[roomNum]->Broadcast(ref);
+		//브로드 캐스트 이후에 확인 작업 필요 한가..?
+		_matchRooms[roomNum]->Broadcast(_ref);
 
 		_matchRooms[roomNum]->Clear();
 	}
@@ -40,6 +33,10 @@ void MatchManager::MatchEnter(PlayerRef player, int32 roomNum)
 
 void MatchManager::MatchLeave(PlayerRef player, int32 roomNum)
 {
-	cout << "Leave" << endl;
 	_matchRooms[roomNum]->Leave(player);
+}
+
+void MatchManager::SetService(ClientServiceRef ref)
+{
+	_ref = ref;
 }
