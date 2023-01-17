@@ -8,29 +8,28 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len
     PacketHeader* head = reinterpret_cast<PacketHeader*>(buffer);
     switch (head->type)
     {
-    case Protocol::S_LOGIN:
-        HandlerLogin(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
+    case Match::S_LOGIN:
+        HandlerLogin(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
         break;
-    case Protocol::S_MATCH:
-        HandlerMatch(ref, ParsingPacket<Protocol::DATA>(buffer, (int32)head->size));
+    case Match::S_MATCH:
+        HandlerMatch(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
         break;
     default:
         break;
     }
 }
 
-void PacketHandler::HandlerLogin(PacketSessionRef& ref, Protocol::DATA&& pkt)
+void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::DATA&& pkt)
 {
-    if(pkt.state())
-        cout << pkt.id() << " " << pkt.maplevel() << endl;
+   
 }
 
-void PacketHandler::HandlerMatch(PacketSessionRef& ref, Protocol::DATA&& pkt)
+void PacketHandler::HandlerMatch(PacketSessionRef& ref, Match::DATA&& pkt)
 {
     cout << "MatchSuccess " << pkt.id() << " " << pkt.maplevel() << endl;
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Protocol::DATA pkt, Protocol::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::DATA pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }

@@ -4,15 +4,15 @@
 void MatchSession::OnConnected()
 {
     static atomic<int> th(0);
-    Protocol::DATA pkt;
+    Match::DATA pkt;
     pkt.set_id(th.fetch_add(1));
     pkt.set_maplevel(2);
     pkt.set_state(false);
-    auto ref = PacketHandler::MakeSendBuffer(pkt, Protocol::C_LOGIN);
+    auto ref = PacketHandler::MakeSendBuffer(pkt, Match::C_LOGIN);
     Send(ref);
 
-    ref = PacketHandler::MakeSendBuffer(pkt, Protocol::C_CANCLE);
-    Send(ref);
+    /*ref = PacketHandler::MakeSendBuffer(pkt, Match::C_CANCLE);
+    Send(ref);*/
 
 }
 
