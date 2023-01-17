@@ -1,0 +1,11 @@
+syntax = "proto3";
+package Match;
+
+import "ProtocolMatch.proto";
+
+message Users
+{
+	uint32 userSize = 1;
+	repeated DATA users = 2;
+}
+
