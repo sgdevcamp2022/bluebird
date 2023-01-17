@@ -1,4 +1,5 @@
-﻿  Allocator.cpp
+﻿  pch.cpp
+  Allocator.cpp
   BufferReader.cpp
   BufferWriter.cpp
   CoreGlobal.cpp
@@ -9,10 +10,10 @@
   IocpCore.cpp
   IocpEvent.cpp
   Job.cpp
+  LockQueue.cpp
   JobQueue.cpp
   Listener.cpp
   Lock.cpp
-  LockQueue.cpp
   Memory.cpp
   MemoryPool.cpp
   NetAddress.cpp
@@ -21,5 +22,9 @@
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
   SendBuffer.cpp
+  Service.cpp
+  Session.cpp
+  SocketUtils.cpp
+  ThreadManager.cpp
   코드를 생성하고 있습니다...
-  ServerCore.vcxproj -> E:\GitHub\camp2022_bluebird\src\Libraries\Libs\ServerCore\Debug\ServerCore.lib
+  ServerCore.vcxproj -> E:\GitHub\bluebird\src\Libraries\Libs\ServerCore\Debug\ServerCore.lib
