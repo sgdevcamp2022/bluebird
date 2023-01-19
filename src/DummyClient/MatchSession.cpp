@@ -4,7 +4,7 @@
 void MatchSession::OnConnected()
 {
     static atomic<int> th(0);
-    Match::DATA pkt;
+    Match::Data pkt;
     pkt.set_id(th.fetch_add(1));
     pkt.set_maplevel(2);
     pkt.set_state(false);

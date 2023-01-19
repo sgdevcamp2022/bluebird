@@ -27,20 +27,29 @@
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="PacketSession.cpp">
-      <Filter>Session</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSession.cpp">
+    <ClCompile Include="MatchSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
     <ClCompile Include="ProtocolMatch.pb.cc">
       <Filter>Protocol</Filter>
     </ClCompile>
-    <ClCompile Include="Players.cpp">
+    <ClCompile Include="Room.cpp">
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="ProtocolServer.pb.cc">
       <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketSession.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,10 +59,7 @@
     <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="PacketSession.h">
-      <Filter>Session</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSession.h">
+    <ClInclude Include="MatchSession.h">
       <Filter>Session</Filter>
     </ClInclude>
     <ClInclude Include="Constant.h">
@@ -62,11 +68,28 @@
     <ClInclude Include="ProtocolMatch.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="Players.h">
+    <ClInclude Include="Room.h">
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="ProtocolServer.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
+    <ClInclude Include="GameSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketSession.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\config\Protobuf\bin\InGame\ProtocolGame.proto">
+      <Filter>Protocol</Filter>
+    </None>
   </ItemGroup>
 </Project>

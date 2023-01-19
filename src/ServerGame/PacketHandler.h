@@ -3,12 +3,12 @@
 class PacketHandler
 {
 public:
+	static SendBufferRef MakeSendBuffer(Match::Data pkt, Match::STATE type);
+
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
-
-	static SendBufferRef MakeSendBuffer(Match::DATA pkt, Match::STATE type);
-
 private:
 	static void HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt);
+	//static void HandlerConnect(PacketSessionRef& ref, )
 };
 
 struct PacketHeader {

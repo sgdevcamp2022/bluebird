@@ -3,11 +3,11 @@
 #include "MatchSession.h"
 #include "Player.h"
 
-int MatchRoom::Enter(PlayerRef player)
+int32 MatchRoom::Enter(PlayerRef player)
 {
 	_players[player->playerId] = player;
 
-	return _players.size();
+	return static_cast<int32>(_players.size());
 }
 
 void MatchRoom::Leave(PlayerRef player)
@@ -15,23 +15,20 @@ void MatchRoom::Leave(PlayerRef player)
 	_players.erase(player->playerId);
 }
 
-void MatchRoom::Broadcast(ClientServiceRef& service)
+void MatchRoom::Broadcast(Match::Users& users, int32 matchRoom)
 {
-	Match::Users datas;
-	datas.set_usersize(_players.size());
+	users.set_usersize(static_cast<uint32>(_players.size()));
+
 	for (auto& p : _players)
 	{
-		auto data = datas.add_users();
+		users.add_ids(p.second->playerId);
+		Match::Success data;
+		data.set_id(p.second->playerId);
+		data.set_matchroom(matchRoom);
+		data.set_gameport(5000);
 
-		data->set_id(p.second->playerId);
-		data->set_maplevel(p.second->mapLevel);
-		data->set_state(true);
-
-		auto ref = PacketHandler::MakeSendBuffer(*data, Match::S_MATCH);
+		auto ref = PacketHandler::MakeSendBuffer(data, Match::S_MATCH);
 		p.second->ownerSession->Send(ref);
 	}
-	auto ref = PacketHandler::MakeSendBuffer(datas, Match::S_MATCH);
-	service->Broadcast(ref);
-	cout << "Send" << endl;
 }
 

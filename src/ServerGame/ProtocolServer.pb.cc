@@ -19,8 +19,11 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace Match {
 constexpr Users::Users(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : users_()
-  , usersize_(0u){}
+  : ids_()
+  , _ids_cached_byte_size_()
+  , usersize_(0u)
+  , room_(0u)
+  , level_(0u){}
 struct UsersDefaultTypeInternal {
   constexpr UsersDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -42,7 +45,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Match::Users, usersize_),
-  PROTOBUF_FIELD_OFFSET(::Match::Users, users_),
+  PROTOBUF_FIELD_OFFSET(::Match::Users, room_),
+  PROTOBUF_FIELD_OFFSET(::Match::Users, level_),
+  PROTOBUF_FIELD_OFFSET(::Match::Users, ids_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Match::Users)},
@@ -53,17 +58,14 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024ProtocolServer.proto\022\005Match\032\023ProtocolM"
-  "atch.proto\"5\n\005Users\022\020\n\010userSize\030\001 \001(\r\022\032\n"
-  "\005users\030\002 \003(\0132\013.Match.DATAb\006proto3"
+  "\n\024ProtocolServer.proto\022\005Match\"C\n\005Users\022\020"
+  "\n\010userSize\030\001 \001(\r\022\014\n\004room\030\002 \001(\r\022\r\n\005level\030"
+  "\003 \001(\r\022\013\n\003ids\030\004 \003(\rb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ProtocolServer_2eproto_deps[1] = {
-  &::descriptor_table_ProtocolMatch_2eproto,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 113, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
-  &descriptor_table_ProtocolServer_2eproto_once, descriptor_table_ProtocolServer_2eproto_deps, 1, 1,
+  false, false, 106, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
 };
@@ -81,26 +83,28 @@ class Users::_Internal {
  public:
 };
 
-void Users::clear_users() {
-  users_.Clear();
-}
 Users::Users(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  users_(arena) {
+  ids_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:Match.Users)
 }
 Users::Users(const Users& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      users_(from.users_) {
+      ids_(from.ids_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  usersize_ = from.usersize_;
+  ::memcpy(&usersize_, &from.usersize_,
+    static_cast<size_t>(reinterpret_cast<char*>(&level_) -
+    reinterpret_cast<char*>(&usersize_)) + sizeof(level_));
   // @@protoc_insertion_point(copy_constructor:Match.Users)
 }
 
 void Users::SharedCtor() {
-usersize_ = 0u;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&usersize_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&level_) -
+    reinterpret_cast<char*>(&usersize_)) + sizeof(level_));
 }
 
 Users::~Users() {
@@ -129,8 +133,10 @@ void Users::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  users_.Clear();
-  usersize_ = 0u;
+  ids_.Clear();
+  ::memset(&usersize_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&level_) -
+      reinterpret_cast<char*>(&usersize_)) + sizeof(level_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -147,16 +153,28 @@ const char* Users::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .Match.DATA users = 2;
+      // uint32 room = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_users(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint32 level = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated uint32 ids = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_ids(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32) {
+          _internal_add_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -194,12 +212,25 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_usersize(), target);
   }
 
-  // repeated .Match.DATA users = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_users_size()); i < n; i++) {
+  // uint32 room = 2;
+  if (this->room() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_users(i), target, stream);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_room(), target);
+  }
+
+  // uint32 level = 3;
+  if (this->level() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_level(), target);
+  }
+
+  // repeated uint32 ids = 4;
+  {
+    int byte_size = _ids_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(
+          4, _internal_ids(), byte_size, target);
+    }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -218,11 +249,19 @@ size_t Users::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Match.DATA users = 2;
-  total_size += 1UL * this->_internal_users_size();
-  for (const auto& msg : this->users_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // repeated uint32 ids = 4;
+  {
+    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      UInt32Size(this->ids_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _ids_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
   }
 
   // uint32 userSize = 1;
@@ -230,6 +269,20 @@ size_t Users::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_usersize());
+  }
+
+  // uint32 room = 2;
+  if (this->room() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_room());
+  }
+
+  // uint32 level = 3;
+  if (this->level() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_level());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -263,9 +316,15 @@ void Users::MergeFrom(const Users& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  users_.MergeFrom(from.users_);
+  ids_.MergeFrom(from.ids_);
   if (from.usersize() != 0) {
     _internal_set_usersize(from._internal_usersize());
+  }
+  if (from.room() != 0) {
+    _internal_set_room(from._internal_room());
+  }
+  if (from.level() != 0) {
+    _internal_set_level(from._internal_level());
   }
 }
 
@@ -290,8 +349,13 @@ bool Users::IsInitialized() const {
 void Users::InternalSwap(Users* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  users_.InternalSwap(&other->users_);
-  swap(usersize_, other->usersize_);
+  ids_.InternalSwap(&other->ids_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Users, level_)
+      + sizeof(Users::level_)
+      - PROTOBUF_FIELD_OFFSET(Users, usersize_)>(
+          reinterpret_cast<char*>(&usersize_),
+          reinterpret_cast<char*>(&other->usersize_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Users::GetMetadata() const {

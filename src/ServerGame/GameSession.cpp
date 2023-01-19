@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "GameSession.h"
+#include "Room.h"
 
 void GameSession::OnConnected()
 {
-	cout << "Connected" << endl;
+	
 }
 
 void GameSession::OnDisconnected()

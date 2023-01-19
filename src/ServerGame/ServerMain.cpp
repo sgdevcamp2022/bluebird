@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "MatchSession.h"
 #include "GameSession.h"
 #include <ThreadManager.h>
 enum
@@ -21,22 +22,27 @@ void DoWorkerJob(T& service)
 }
 
 int main() {
-	ServerServiceRef service = MakeShared<ServerService>(
+	ServerServiceRef matchService = MakeShared<ServerService>(
 		NetAddress(L"127.0.0.1", 7777),
+		MakeShared<IocpCore>(),
+		MakeShared<MatchSession>, 1);
+	ServerServiceRef gameService = MakeShared<ServerService>(
+		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
 		MakeShared<GameSession>, 10);
 
-	ASSERT_CRASH(service->Start());
+	ASSERT_CRASH(matchService->Start());
+	ASSERT_CRASH(gameService->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service]() 
+		GThreadManager->Launch([&matchService]()
 			{
 				while (true) 
 				{
-					DoWorkerJob(service);
+					DoWorkerJob(matchService);
 				}
 			});
 	}
-
+	DoWorkerJob(matchService);
 	GThreadManager->Join();
 }
