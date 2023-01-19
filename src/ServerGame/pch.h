@@ -20,6 +20,7 @@
 
 using PacketSessionRef	= shared_ptr<class PacketSession>;
 using GameSessionRef	= shared_ptr<class GameSession>;
+using MatchSessionRef	= shared_ptr<class MatchSession>;
 using PlayerRef			= shared_ptr<class Player>;
 using MatchRoomRef		= shared_ptr<class MatchRoom>;
 

@@ -31,7 +31,6 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "ProtocolMatch.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_ProtocolServer_2eproto
@@ -174,26 +173,32 @@ class Users final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUsersFieldNumber = 2,
+    kIdsFieldNumber = 4,
     kUserSizeFieldNumber = 1,
+    kRoomFieldNumber = 2,
+    kLevelFieldNumber = 3,
   };
-  // repeated .Match.DATA users = 2;
-  int users_size() const;
+  // repeated uint32 ids = 4;
+  int ids_size() const;
   private:
-  int _internal_users_size() const;
+  int _internal_ids_size() const;
   public:
-  void clear_users();
-  ::Match::DATA* mutable_users(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Match::DATA >*
-      mutable_users();
+  void clear_ids();
   private:
-  const ::Match::DATA& _internal_users(int index) const;
-  ::Match::DATA* _internal_add_users();
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_ids(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_ids() const;
+  void _internal_add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_ids();
   public:
-  const ::Match::DATA& users(int index) const;
-  ::Match::DATA* add_users();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Match::DATA >&
-      users() const;
+  ::PROTOBUF_NAMESPACE_ID::uint32 ids(int index) const;
+  void set_ids(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_ids();
 
   // uint32 userSize = 1;
   void clear_usersize();
@@ -204,6 +209,24 @@ class Users final :
   void _internal_set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // uint32 room = 2;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::uint32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // uint32 level = 3;
+  void clear_level();
+  ::PROTOBUF_NAMESPACE_ID::uint32 level() const;
+  void set_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_level() const;
+  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Match.Users)
  private:
   class _Internal;
@@ -211,8 +234,11 @@ class Users final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Match::DATA > users_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > ids_;
+  mutable std::atomic<int> _ids_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 usersize_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 room_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -247,40 +273,91 @@ inline void Users::set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:Match.Users.userSize)
 }
 
-// repeated .Match.DATA users = 2;
-inline int Users::_internal_users_size() const {
-  return users_.size();
+// uint32 room = 2;
+inline void Users::clear_room() {
+  room_ = 0u;
 }
-inline int Users::users_size() const {
-  return _internal_users_size();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_room() const {
+  return room_;
 }
-inline ::Match::DATA* Users::mutable_users(int index) {
-  // @@protoc_insertion_point(field_mutable:Match.Users.users)
-  return users_.Mutable(index);
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::room() const {
+  // @@protoc_insertion_point(field_get:Match.Users.room)
+  return _internal_room();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Match::DATA >*
-Users::mutable_users() {
-  // @@protoc_insertion_point(field_mutable_list:Match.Users.users)
-  return &users_;
+inline void Users::_internal_set_room(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  room_ = value;
 }
-inline const ::Match::DATA& Users::_internal_users(int index) const {
-  return users_.Get(index);
+inline void Users::set_room(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Match.Users.room)
 }
-inline const ::Match::DATA& Users::users(int index) const {
-  // @@protoc_insertion_point(field_get:Match.Users.users)
-  return _internal_users(index);
+
+// uint32 level = 3;
+inline void Users::clear_level() {
+  level_ = 0u;
 }
-inline ::Match::DATA* Users::_internal_add_users() {
-  return users_.Add();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_level() const {
+  return level_;
 }
-inline ::Match::DATA* Users::add_users() {
-  // @@protoc_insertion_point(field_add:Match.Users.users)
-  return _internal_add_users();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::level() const {
+  // @@protoc_insertion_point(field_get:Match.Users.level)
+  return _internal_level();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Match::DATA >&
-Users::users() const {
-  // @@protoc_insertion_point(field_list:Match.Users.users)
-  return users_;
+inline void Users::_internal_set_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  level_ = value;
+}
+inline void Users::set_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Match.Users.level)
+}
+
+// repeated uint32 ids = 4;
+inline int Users::_internal_ids_size() const {
+  return ids_.size();
+}
+inline int Users::ids_size() const {
+  return _internal_ids_size();
+}
+inline void Users::clear_ids() {
+  ids_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_ids(int index) const {
+  return ids_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::ids(int index) const {
+  // @@protoc_insertion_point(field_get:Match.Users.ids)
+  return _internal_ids(index);
+}
+inline void Users::set_ids(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Match.Users.ids)
+}
+inline void Users::_internal_add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  ids_.Add(value);
+}
+inline void Users::add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_ids(value);
+  // @@protoc_insertion_point(field_add:Match.Users.ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+Users::_internal_ids() const {
+  return ids_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+Users::ids() const {
+  // @@protoc_insertion_point(field_list:Match.Users.ids)
+  return _internal_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+Users::_internal_mutable_ids() {
+  return &ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+Users::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:Match.Users.ids)
+  return _internal_mutable_ids();
 }
 
 #ifdef __GNUC__

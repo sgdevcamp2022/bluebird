@@ -10,17 +10,17 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len
     switch (head->type)
     {
     case Match::C_LOGIN:
-        HandlerLogin(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
+        HandlerLogin(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size));
         break;
     case Match::C_CANCLE:
-        HandlerCancle(ref, ParsingPacket<Match::DATA>(buffer, (int32)head->size));
+        HandlerCancle(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size));
         break;
     default:
         break;
     }
 }
 
-void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::DATA&& pkt)
+void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
@@ -38,7 +38,7 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::DATA&& pkt)
     _ref->Send(MakeSendBuffer(pkt, Match::S_LOGIN));
 }
 
-void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::DATA&& pkt)
+void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::Data&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
@@ -50,12 +50,17 @@ void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::DATA&& pkt)
     GMatch->DoAsync(&MatchManager::MatchLeave, player, index);
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Match::DATA pkt, Match::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }
 
 SendBufferRef PacketHandler::MakeSendBuffer(Match::Users pkt, Match::STATE type)
+{
+    return _MakeSendBuffer(pkt, type);
+}
+
+SendBufferRef PacketHandler::MakeSendBuffer(Match::Success pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }

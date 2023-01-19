@@ -13,7 +13,7 @@ void ConnectSession::OnDisconnected()
 
 void ConnectSession::OnRecvPacket(BYTE* buffer, int32 len)
 {
-
+	
 }
 
 void ConnectSession::OnSend(int32 len)
