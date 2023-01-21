@@ -3,8 +3,8 @@
 #include "Room.h"
 
 void GameSession::OnConnected()
-{
-	
+{	
+
 }
 
 void GameSession::OnDisconnected()
