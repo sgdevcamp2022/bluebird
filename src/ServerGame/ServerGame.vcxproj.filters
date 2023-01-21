@@ -45,11 +45,11 @@
     <ClCompile Include="NpcSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="PacketSession.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolConnect.pb.cc">
+      <Filter>Protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,16 +80,11 @@
     <ClInclude Include="NpcSession.h">
       <Filter>Session</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.h">
-      <Filter>Protocol</Filter>
-    </ClInclude>
     <ClInclude Include="PacketSession.h">
       <Filter>Utils</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\config\Protobuf\bin\InGame\ProtocolGame.proto">
+    <ClInclude Include="ProtocolConnect.pb.h">
       <Filter>Protocol</Filter>
-    </None>
+    </ClInclude>
   </ItemGroup>
 </Project>

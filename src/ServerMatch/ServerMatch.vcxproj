@@ -149,10 +149,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ProtocolMatch.pb.cc">
+    <ClCompile Include="ProtocolConnect.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ProtocolServer.pb.cc">
+    <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ServerMain.cpp" />
@@ -167,8 +167,8 @@
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ProtocolConnect.pb.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
-    <ClInclude Include="ProtocolServer.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

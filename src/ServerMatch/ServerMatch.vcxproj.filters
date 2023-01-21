@@ -48,7 +48,7 @@
     <ClCompile Include="ConnectSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="ProtocolServer.pb.cc">
+    <ClCompile Include="ProtocolConnect.pb.cc">
       <Filter>Protocol</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClInclude Include="ConnectSession.h">
       <Filter>Session</Filter>
     </ClInclude>
-    <ClInclude Include="ProtocolServer.pb.h">
+    <ClInclude Include="ProtocolConnect.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,6 +8,10 @@ public:
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
 private:
 	static void HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt);
+
+private:
+	static void HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt);
+	static void HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt);
 	//static void HandlerConnect(PacketSessionRef& ref, )
 };
 

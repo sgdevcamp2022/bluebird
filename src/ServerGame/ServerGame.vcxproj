@@ -137,7 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="MatchSession.h" />
@@ -145,14 +144,12 @@
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ProtocolConnect.pb.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
     <ClInclude Include="ProtocolServer.pb.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\camp2022_bluebird\src\ServerGame\ProtocolGame.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="MatchSession.cpp" />
     <ClCompile Include="NpcSession.cpp" />
@@ -162,6 +159,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="ProtocolConnect.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -170,9 +170,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ServerMain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\config\Protobuf\bin\InGame\ProtocolGame.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

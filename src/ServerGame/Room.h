@@ -5,7 +5,8 @@ class Player {
 public:
 	Player(uint32 id, uint32 mapLevel, Vector3 position)
 		:_id(id), _mapLevel(mapLevel), _position(position) {}
-
+	Player(uint32 id, uint32 mapLevel)
+		:_id(id), _mapLevel(mapLevel) {}
 	uint32			_id = 0;
 	uint32			_mapLevel = 0;
 	GameSessionRef	_ownerSession = nullptr;

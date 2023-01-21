@@ -15,6 +15,7 @@
 
 #include "ProtocolMatch.pb.h"
 #include "ProtocolServer.pb.h"
+#include "ProtocolConnect.pb.h"
 #include "PacketSession.h"
 #include "Constant.h"
 
