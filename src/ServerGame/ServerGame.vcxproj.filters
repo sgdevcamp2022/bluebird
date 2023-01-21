@@ -16,6 +16,9 @@
     <Filter Include="Player">
       <UniqueIdentifier>{a2ebfea8-4c31-4028-a00c-3afd04c8f986}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Handler">
+      <UniqueIdentifier>{7af2aa9d-46ab-4540-bee0-0a82e5999667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -23,9 +26,6 @@
     </ClCompile>
     <ClCompile Include="ServerMain.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="PacketHandler.cpp">
-      <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="MatchSession.cpp">
       <Filter>Session</Filter>
@@ -51,12 +51,15 @@
     <ClCompile Include="ProtocolConnect.pb.cc">
       <Filter>Protocol</Filter>
     </ClCompile>
+    <ClCompile Include="GameHandler.cpp">
+      <Filter>Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchHandler.cpp">
+      <Filter>Handler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="MatchSession.h">
@@ -85,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="ProtocolConnect.pb.h">
       <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchHandler.h">
+      <Filter>Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHandler.h">
+      <Filter>Handler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
