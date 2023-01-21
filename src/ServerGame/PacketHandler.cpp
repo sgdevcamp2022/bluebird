@@ -9,13 +9,13 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len
     PacketHeader* head = reinterpret_cast<PacketHeader*>(buffer);
     switch (head->type)
     {
-    case Match::S_MATCH:
+    /*case Match::S_MATCH:
         HandlerMatch(ref, ParsingPacket<Match::Users>(buffer, (int32)head->size));
-        break;
+        break;*/
     case Protocol::CONNECT:
         HandlerConnect(ref, ParsingPacket<Protocol::Data>(buffer, (int32)head->size));
     case Protocol::MOVE:
-
+        HandlerMove(ref, ParsingPacket<Protocol::Data>(buffer, (int32)head->size));
     default:
         break;
     }
@@ -38,7 +38,8 @@ void PacketHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
 
 void PacketHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    PlayerRef player = make_shared<Player>(pkt.id(), pkt.maplevel());
+    PlayerRef player = make_shared<Player>(pkt.id(), pkt.maplevel());  
+    player->_ownerSession = static_pointer_cast<GameSession>(ref);
     cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom();
     GRoom->DoAsync(&Room::GameEnter, static_pointer_cast<GameSession>(ref), player);
 }
@@ -48,9 +49,10 @@ void PacketHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
     Protocol::Player point = pkt.player(0);
 
     cout << "whitch : " << point.x() << " " << point.y() << " " << point.z();
+    ref->Send(MakeSendBuffer(pkt, Protocol::MOVE));
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer(pkt, type);
 }

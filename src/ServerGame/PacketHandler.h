@@ -3,7 +3,7 @@
 class PacketHandler
 {
 public:
-	static SendBufferRef MakeSendBuffer(Match::Data pkt, Match::STATE type);
+	static SendBufferRef MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type);
 
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
 private:
@@ -15,13 +15,18 @@ private:
 	//static void HandlerConnect(PacketSessionRef& ref, )
 };
 
+//struct PacketHeader {
+//	google::protobuf::uint32 size;
+//	Match::STATE type;
+//};
+
 struct PacketHeader {
 	google::protobuf::uint32 size;
-	Match::STATE type;
+	Protocol::INGAME type;
 };
 
 template<typename T>
-inline SendBufferRef _MakeSendBuffer(T& pkt, Match::STATE type)
+inline SendBufferRef _MakeSendBuffer(T& pkt, Protocol::INGAME type)
 {
 	const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
 	const uint16 packetSize = dataSize + sizeof(PacketHeader);

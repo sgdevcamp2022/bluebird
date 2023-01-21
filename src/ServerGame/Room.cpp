@@ -13,7 +13,7 @@ void Room::MatchEnter(vector<PlayerRef>* ref)
 
 void Room::GameEnter(GameSessionRef ref, PlayerRef playerRef)
 {
-	_players[playerRef->_id]->_ownerSession = ref;
+	_players[playerRef->_id] = playerRef;
 }
 
 void Room::Leave(PlayerRef ref)
