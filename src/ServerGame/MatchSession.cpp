@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MatchSession.h"
+#include "MatchHandler.h"
 
 void MatchSession::OnConnected()
 {
