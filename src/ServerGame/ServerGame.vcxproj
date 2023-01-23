@@ -117,7 +117,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>CALL $(SolutionDir)..\..\config\Protobuf\bin\InGame\GenPackets.bat</Command>
+      <Command>CALL $(SolutionDir)..\..\config\Protobuf\bin\InGame\GenPackets.bat
+CALL $(SolutionDir)..\..\config\Protobuf\bin\Npc\GenPackets.bat
+CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,19 +144,23 @@
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="MatchHandler.h" />
     <ClInclude Include="MatchSession.h" />
+    <ClInclude Include="NpcHandler.h" />
     <ClInclude Include="NpcSession.h" />
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProtocolConnect.pb.h" />
+    <ClInclude Include="ProtocolNpc.pb.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
     <ClInclude Include="ProtocolServer.pb.h" />
+    <ClInclude Include="Rooms.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="MatchHandler.cpp" />
     <ClCompile Include="MatchSession.cpp" />
+    <ClCompile Include="NpcHandler.cpp" />
     <ClCompile Include="NpcSession.cpp" />
     <ClCompile Include="PacketSession.cpp" />
     <ClCompile Include="pch.cpp">
@@ -164,6 +170,9 @@
     <ClCompile Include="ProtocolConnect.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ProtocolNpc.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -171,6 +180,7 @@
     <ClCompile Include="ProtocolServer.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Rooms.cpp" />
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

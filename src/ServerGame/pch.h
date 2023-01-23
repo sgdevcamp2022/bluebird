@@ -16,12 +16,15 @@
 #include "ProtocolMatch.pb.h"
 #include "ProtocolServer.pb.h"
 #include "ProtocolConnect.pb.h"
+#include "ProtocolNpc.pb.h"
+
 #include "PacketSession.h"
 #include "Constant.h"
 
 using PacketSessionRef	= shared_ptr<class PacketSession>;
 using GameSessionRef	= shared_ptr<class GameSession>;
 using MatchSessionRef	= shared_ptr<class MatchSession>;
+using NpcSessionRef		= shared_ptr<class NpcSession>;
 using PlayerRef			= shared_ptr<class Player>;
 using MatchRoomRef		= shared_ptr<class MatchRoom>;
 

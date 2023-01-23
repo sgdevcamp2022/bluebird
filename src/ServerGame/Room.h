@@ -1,12 +1,11 @@
 #pragma once
 #include <JobQueue.h>
 
-class Player {
+class Player : JobQueue {
 public:
-	Player(uint32 id, uint32 mapLevel, Vector3 position)
+	Player(uint32 id, uint32 mapLevel, Vector3 position = Vector3{ 0,0,0 })
 		:_id(id), _mapLevel(mapLevel), _position(position) {}
-	Player(uint32 id, uint32 mapLevel)
-		:_id(id), _mapLevel(mapLevel) {}
+
 	uint32			_id = 0;
 	uint32			_mapLevel = 0;
 	GameSessionRef	_ownerSession = nullptr;
@@ -30,7 +29,8 @@ public:
 	void Broadcast(SendBufferRef ref);
 
 private:
-	Map<uint32, PlayerRef> _players;
+	Map<uint32, PlayerRef>	_players;
+	//NpcSessionRef			_obstacles;
 };
 
 extern shared_ptr<Room> GRoom;

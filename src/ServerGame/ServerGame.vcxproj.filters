@@ -13,11 +13,11 @@
     <Filter Include="Session">
       <UniqueIdentifier>{9c145bd5-4ae6-4717-8439-45bc11da6cc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{a2ebfea8-4c31-4028-a00c-3afd04c8f986}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Handler">
       <UniqueIdentifier>{7af2aa9d-46ab-4540-bee0-0a82e5999667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Room">
+      <UniqueIdentifier>{a2ebfea8-4c31-4028-a00c-3afd04c8f986}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,7 +34,7 @@
       <Filter>Protocol</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>Player</Filter>
+      <Filter>Room</Filter>
     </ClCompile>
     <ClCompile Include="ProtocolServer.pb.cc">
       <Filter>Protocol</Filter>
@@ -57,6 +57,15 @@
     <ClCompile Include="MatchHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
+    <ClCompile Include="ProtocolNpc.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="NpcHandler.cpp">
+      <Filter>Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Rooms.cpp">
+      <Filter>Room</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -72,7 +81,7 @@
       <Filter>Protocol</Filter>
     </ClInclude>
     <ClInclude Include="Room.h">
-      <Filter>Player</Filter>
+      <Filter>Room</Filter>
     </ClInclude>
     <ClInclude Include="ProtocolServer.pb.h">
       <Filter>Protocol</Filter>
@@ -94,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="GameHandler.h">
       <Filter>Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolNpc.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcHandler.h">
+      <Filter>Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Rooms.h">
+      <Filter>Room</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

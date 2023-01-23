@@ -18,3 +18,19 @@ inline Packet_Type ParsingPacket(BYTE* buffer, int32 len)
 
 	return pkt;
 }
+
+template<typename T, typename Header, typename S>
+inline SendBufferRef _MakeSendBuffer(T& pkt, S type)
+{
+	const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
+	const uint16 packetSize = dataSize + sizeof(Header);
+
+	SendBufferRef sendBuffer = GSendBufferManager->Open(packetSize);
+	Header* header = reinterpret_cast<Header*>(sendBuffer->Buffer());
+	header->size = dataSize;
+	header->type = type;
+	ASSERT_CRASH(pkt.SerializeToArray(&header[1], dataSize));
+	sendBuffer->Close(packetSize);
+
+	return sendBuffer;
+}
