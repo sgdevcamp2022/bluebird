@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "NpcSession.h"
-#include "NpcHandler.h"
 
 void NpcSession::OnConnected()
 {

@@ -1,10 +1,9 @@
 #include "pch.h"
 #include "MatchSession.h"
-#include "MatchHandler.h"
 
 void MatchSession::OnConnected()
 {
-	cout << "Connected" << endl;
+	
 }
 
 void MatchSession::OnDisconnected()

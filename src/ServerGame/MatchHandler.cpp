@@ -30,6 +30,14 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
         cout << data << " " << pkt.level() << endl;
     }
     GRoom->DoAsync(&Room::MatchEnter, &players);
+    
+    /*auto _ref = service->GetNpc();
+
+    Npc::LoginData data;
+    data.set_maplevel(pkt.level());
+    data.set_matchroom(pkt.room());
+
+    _ref->Broadcast(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));*/
 }
 
 SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)

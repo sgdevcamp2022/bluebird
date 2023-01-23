@@ -21,6 +21,7 @@ void MatchRoom::Broadcast(Match::Users& users, int32 matchRoom)
 
 	for (auto& p : _players)
 	{
+
 		users.add_ids(p.second->playerId);
 		Match::Success data;
 		data.set_id(p.second->playerId);

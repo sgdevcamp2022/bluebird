@@ -25,7 +25,7 @@ void NpcHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 
 void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 {
-	
+	cout << "새로 생성 확인" << endl;
 }
 
 void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)

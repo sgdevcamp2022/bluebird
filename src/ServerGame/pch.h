@@ -29,4 +29,7 @@ using PlayerRef			= shared_ptr<class Player>;
 using MatchRoomRef		= shared_ptr<class MatchRoom>;
 
 #include "GameHandler.h"
+#include "MatchHandler.h"
+#include "NpcHandler.h"
 #include "Room.h"
+#include "MainService.h"
