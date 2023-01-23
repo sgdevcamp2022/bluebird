@@ -25,7 +25,7 @@ void DoWorkerJob(ClientServiceRef& service)
 }
 int main() {
 	ClientServiceRef service = MakeShared<ClientService>(
-		NetAddress(L"127.0.0.1", 8000),
+		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
 		MakeShared<MatchSession>, 20);
 
