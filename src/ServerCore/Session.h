@@ -82,8 +82,8 @@ private:
 	Atomic<bool>			_sendRegistered = false;
 private:
 				/* IocpEvent Àç»ç¿ë */
-	DisconnectEvent _disconnectEvent;
-	ConnectEvent	_connectEvent;
-	RecvEvent		_recvEvent;
-	SendEvent		_sendEvent;
+	DisconnectEvent		_disconnectEvent;
+	ConnectEvent		_connectEvent;
+	RecvEvent			_recvEvent;
+	SendEvent			_sendEvent;
 };

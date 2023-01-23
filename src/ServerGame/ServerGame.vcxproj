@@ -142,6 +142,7 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClInclude Include="Constant.h" />
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="MainService.h" />
     <ClInclude Include="MatchHandler.h" />
     <ClInclude Include="MatchSession.h" />
     <ClInclude Include="NpcHandler.h" />
@@ -153,11 +154,12 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClInclude Include="Room.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
     <ClInclude Include="ProtocolServer.pb.h" />
-    <ClInclude Include="Rooms.h" />
+    <ClInclude Include="Games.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="MainService.cpp" />
     <ClCompile Include="MatchHandler.cpp" />
     <ClCompile Include="MatchSession.cpp" />
     <ClCompile Include="NpcHandler.cpp" />
@@ -180,7 +182,7 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClCompile Include="ProtocolServer.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Rooms.cpp" />
+    <ClCompile Include="Games.cpp" />
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

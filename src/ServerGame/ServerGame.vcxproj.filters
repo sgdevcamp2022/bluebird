@@ -63,8 +63,11 @@
     <ClCompile Include="NpcHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
-    <ClCompile Include="Rooms.cpp">
+    <ClCompile Include="Games.cpp">
       <Filter>Room</Filter>
+    </ClCompile>
+    <ClCompile Include="MainService.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +113,11 @@
     <ClInclude Include="NpcHandler.h">
       <Filter>Handler</Filter>
     </ClInclude>
-    <ClInclude Include="Rooms.h">
+    <ClInclude Include="Games.h">
       <Filter>Room</Filter>
+    </ClInclude>
+    <ClInclude Include="MainService.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

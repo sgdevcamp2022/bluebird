@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "GameSession.h"
-#include "GameHandler.h"
 
 void GameSession::OnConnected()
 {	
