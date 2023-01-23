@@ -34,5 +34,5 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
 
 SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
 {
-    return _MakeSendBuffer(pkt, type);
+    return _MakeSendBuffer<Match::Data, MatchHeader, Match::STATE>(pkt, type);
 }

@@ -1,0 +1,29 @@
+syntax = "proto3";
+package Npc;
+
+enum INGAME
+{
+	LOGIN = 0;
+	GAME = 1;
+}
+
+message LoginData
+{
+	int32 mapLevel = 1;
+	int32 matchRoom = 2;
+}
+
+message GameData
+{
+	int32 matchRoom = 1;
+	int32 obstacleSize = 2;
+	repeated Obstacle obstacle = 3;
+}
+
+message Obstacle
+{
+	int32 id = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+}

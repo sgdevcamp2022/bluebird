@@ -36,5 +36,5 @@ void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
 {
-    return _MakeSendBuffer(pkt, type);
+    return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
 }

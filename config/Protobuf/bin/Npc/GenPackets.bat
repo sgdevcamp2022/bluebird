@@ -1,9 +1,9 @@
 pushd %~dp0
 
-protoc.exe -I=./ --cpp_out=./ ./ProtocolGame.proto
+protoc.exe -I=./ --cpp_out=./ ./ProtocolNpc.proto
 
-XCOPY /Y ProtocolGame.pb.h "../../../../src/ServerGame"
-XCOPY /Y ProtocolGame.pb.cc "../../../../src/ServerGame"
+XCOPY /Y ProtocolNpc.pb.h "../../../../src/ServerGame"
+XCOPY /Y ProtocolNpc.pb.cc "../../../../src/ServerGame"
 
 IF ERRORLEVEL 1 PAUSE
 
