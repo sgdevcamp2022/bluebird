@@ -10,10 +10,11 @@ void Room::MatchEnter(vector<PlayerRef>* ref)
 		_players[_ref->GetId()] = _ref;
 }
 
-void Room::GameEnter(GameSessionRef ref, PlayerRef playerRef)
+void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
-	_players[playerRef->GetId()]->SetOwner(ref);
+	_players[id]->SetOwner(ref);
+	ref->_mySelf = _players[id];
 }
 
 void Room::ObstacleEnter(ObtacleRef obtacleRef)
@@ -23,6 +24,7 @@ void Room::ObstacleEnter(ObtacleRef obtacleRef)
 
 void Room::Leave(PlayerRef ref)
 {
+	_players[ref->GetId()]->SetOwner(nullptr);
 	_players.erase(ref->GetId());
 }
 

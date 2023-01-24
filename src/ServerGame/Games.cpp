@@ -16,6 +16,11 @@ void Games::EndGame()
 	//TODO
 }
 
+//void Games::LeaveGame(PlayerRef ref)
+//{
+//	_games[ref->GetRoom()]->Leave(ref);
+//}
+
 RoomRef Games::GetRoom(int32 id)
 {
 	//에러체크 TODO
