@@ -257,13 +257,13 @@ class Data final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy >&
       enemy() const;
 
-  // int32 id = 1;
+  // int64 id = 1;
   void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::int32 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
   // int32 mapLevel = 2;
@@ -293,7 +293,7 @@ class Data final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player > player_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy > enemy_;
-  ::PROTOBUF_NAMESPACE_ID::int32 id_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 maplevel_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -414,13 +414,13 @@ class Enemy final :
     kYFieldNumber = 3,
     kZFieldNumber = 4,
   };
-  // int32 id = 1;
+  // int64 id = 1;
   void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::int32 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
   // float x = 2;
@@ -457,7 +457,7 @@ class Enemy final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::int32 id_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
   float x_;
   float y_;
   float z_;
@@ -629,22 +629,22 @@ class Player final :
 #endif  // __GNUC__
 // Data
 
-// int32 id = 1;
+// int64 id = 1;
 inline void Data::clear_id() {
-  id_ = 0;
+  id_ = int64_t{0};
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Data::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Data::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Data::id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Data::id() const {
   // @@protoc_insertion_point(field_get:Protocol.Data.id)
   return _internal_id();
 }
-inline void Data::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Data::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   id_ = value;
 }
-inline void Data::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Data::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_id(value);
   // @@protoc_insertion_point(field_set:Protocol.Data.id)
 }
@@ -771,22 +771,22 @@ Data::enemy() const {
 
 // Enemy
 
-// int32 id = 1;
+// int64 id = 1;
 inline void Enemy::clear_id() {
-  id_ = 0;
+  id_ = int64_t{0};
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Enemy::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Enemy::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Enemy::id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Enemy::id() const {
   // @@protoc_insertion_point(field_get:Protocol.Enemy.id)
   return _internal_id();
 }
-inline void Enemy::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Enemy::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   id_ = value;
 }
-inline void Enemy::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Enemy::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_id(value);
   // @@protoc_insertion_point(field_set:Protocol.Enemy.id)
 }
