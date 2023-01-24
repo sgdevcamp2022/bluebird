@@ -21,9 +21,10 @@ class PacketHandler
     public static PacketHandler Instance = new PacketHandler();
 
 
-    public static byte[] Make_login_handler(Data pkt)
+    public static byte[] Make_login_handler(Data pkt, INGAME type)
     {
         Pkt_Head head = new Pkt_Head();
+        head.type = type;
 
         //마샬링에 필요한 만큼의 개체 크기를 반환
         int size = Marshal.SizeOf<Pkt_Head>();
@@ -47,9 +48,10 @@ class PacketHandler
         return send_buffer;
     }
 
-    public static byte[] Make_login_handler(Player pkt)
+    public static byte[] Make_login_handler(Player pkt, INGAME type)
     {
         Pkt_Head head = new Pkt_Head();
+        head.type = type;
 
         //마샬링에 필요한 만큼의 개체 크기를 반환
         int size = Marshal.SizeOf<Pkt_Head>();

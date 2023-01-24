@@ -10,6 +10,7 @@ using System.Threading;
 using Google.Protobuf;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Diagnostics;
 
 public class Networking : MonoBehaviour
 {
@@ -20,13 +21,13 @@ public class Networking : MonoBehaviour
 
     //서버 IP 및 포트번호
     private string mIp = "127.0.0.1";
-    private int mPort = 8000;
+    private int mPort = 5000;
 
 
 
     //종단점 (서버종단점 연결용)
     private IPEndPoint mIpEndPoint;
-    private bool isConnected = false;
+   
 
     public void Start()
     {
@@ -48,7 +49,7 @@ public class Networking : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("On Client connection exception " + e);
+            UnityEngine.Debug.Log("On Client connection exception " + e);
         }
     }
 
@@ -59,7 +60,7 @@ public class Networking : MonoBehaviour
             //ip 주소와 port를 지정하여 자동으로 TCP 연결 
             socket = new TcpClient(mIp, mPort);
 
-            Debug.Log("Connected...");
+            UnityEngine.Debug.Log("Connected...");
             byte[] bytes = new byte[1024];
 
             while(true)
@@ -73,22 +74,22 @@ public class Networking : MonoBehaviour
                     //Read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
                     while( (len = stream.Read(bytes,0,bytes.Length) )!=0)
                     {
+                        UnityEngine.Debug.Log("Something came");
                         var incommingData = new byte[len];
                         Array.Copy(bytes, 0, incommingData, 0, len);
 
                         string serverMessage = Encoding.ASCII.GetString(incommingData);
-                        Debug.Log("server message: " + serverMessage.Length + " " + serverMessage);
+                        UnityEngine.Debug.Log("server message: " + serverMessage.Length + " " + serverMessage);
 
 
-                        for (int i = 0; i < serverMessage.Length; i++)
-                            Debug.Log(serverMessage[i]);
+                      
                     }
                 }
             }
         }
         catch(SocketException socketException)
         {
-            Debug.Log("Socket Exception " + socketException);
+            UnityEngine.Debug.Log("Socket Exception " + socketException);
         }
     }
 
@@ -102,29 +103,96 @@ public class Networking : MonoBehaviour
             NetworkStream stream = socket.GetStream();
             if(stream.CanWrite)
             {
-
+                
                 Data pkt = new Data()
                  {
                      Id = 1,
                      MapLevel = 100,
-                     MatchRoom = 10
+                     MatchRoom = 10,
+                    
                  };
+
+                byte[] datas = PacketHandler.Make_login_handler(pkt,INGAME.Connect);
+
+                //바이트 배열을 넣어 전송
+                stream.Write(datas);
+                UnityEngine.Debug.Log("Client Sent Map Join Message");
+            }
+        }
+        catch (SocketException socketException)
+        {
+            UnityEngine.Debug.Log("Socket exception: " + socketException);
+        }
+    }
+
+    public void SendPlayerMessage(GameObject player)
+    {
+        //소켓 연결이 안된 상태
+        if (socket == null)
+            return;
+        try
+        {
+            NetworkStream stream = socket.GetStream();
+            if (stream.CanWrite)
+            {
+
+              
+
+                Player pkt = new Player()
+                {
+                    X = player.transform.position.x,
+                    Y = player.transform.position.y,
+                    Z = player.transform.position.z
+                };
+
+            
+
+
+
+                byte[] datas = PacketHandler.Make_login_handler(pkt,INGAME.Move);
+
+                //바이트 배열을 넣어 전송
+                stream.Write(datas);
+                UnityEngine.Debug.Log("Client Sent Player Message");
+            }
+        }
+        catch (SocketException socketException)
+        {
+            UnityEngine.Debug.Log("Socket exception: " + socketException);
+        }
+    }
+    /*
+    public void SendMessage(float x,float y,float z)
+    {
+        //소켓 연결이 안된 상태
+        if (socket == null)
+            return;
+        try
+        {
+            NetworkStream stream = socket.GetStream();
+            if (stream.CanWrite)
+            {
+
+                Player pkt = new Data()
+                {
+                    
+                };
 
                 byte[] datas = PacketHandler.Make_login_handler(pkt);
 
                 //바이트 배열을 넣어 전송
                 stream.Write(datas);
-                Debug.Log("Client Sent Map Join Message");
+                UnityEngine.Debug.Log("Client Sent Map Join Message");
             }
         }
         catch (SocketException socketException)
         {
-            Debug.Log("Socket exception: " + socketException);
+            UnityEngine.Debug.Log("Socket exception: " + socketException);
         }
     }
 
 
-           
+
 
     public bool CheckConnection()
     {
@@ -135,7 +203,7 @@ public class Networking : MonoBehaviour
     }
 
 
-    /*
+   
     public void SendPlayerMessage(float x,float y,float z)
     {
         if (!isConnected)
