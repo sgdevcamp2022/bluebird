@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "NpcSession.h"
+#include "Games.h"
 
 void NpcSession::OnConnected()
 {
+	Ggames->DoAsync(&Games::SetNpcRef, static_pointer_cast<NpcSession>(shared_from_this()));
 }
 
 void NpcSession::OnDisconnected()

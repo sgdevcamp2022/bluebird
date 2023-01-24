@@ -1,16 +1,21 @@
 #pragma once
 #include "Room.h"
 
-class Games : JobQueue
+class Games : public JobQueue
 {
 public:
-	Games();
-	~Games();
+	Games() { };
+	~Games() { _games.clear(); };
 
-	void StartGame(vector<PlayerRef> players, Protocol::Data);
-	void EndGame(Protocol::Data);
-
+	void			NewGame(vector<PlayerRef>* players, int32 level, int32 room);
+	void			EndGame();
+	RoomRef			GetRoom(int32 id);
+	void			SetNpcRef(NpcSessionRef);
+	NpcSessionRef	GetNpcRef() { return _npcRef; }
 private:
-	vector<Room> games;
+	map<int32, RoomRef> _games;
+	NpcSessionRef		_npcRef = nullptr;
 };
+
+extern shared_ptr<Games> Ggames;
 

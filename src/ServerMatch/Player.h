@@ -2,8 +2,8 @@
 class Player
 {
 public:
-	uint64	playerId	= 0;
-	uint32	mapLevel	= 0;
+	int64	playerId	= 0;
+	int32	mapLevel	= 0;
 	MatchSessionRef ownerSession = nullptr;
 };
 

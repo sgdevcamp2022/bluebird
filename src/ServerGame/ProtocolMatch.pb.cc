@@ -19,8 +19,8 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace Match {
 constexpr Data::Data(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(uint64_t{0u})
-  , maplevel_(0u)
+  : id_(int64_t{0})
+  , maplevel_(0)
   , state_(false){}
 struct DataDefaultTypeInternal {
   constexpr DataDefaultTypeInternal()
@@ -33,9 +33,9 @@ struct DataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataDefaultTypeInternal _Data_default_instance_;
 constexpr Success::Success(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(uint64_t{0u})
-  , matchroom_(0u)
-  , gameport_(0u){}
+  : id_(int64_t{0})
+  , matchroom_(0)
+  , gameport_(0){}
 struct SuccessDefaultTypeInternal {
   constexpr SuccessDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -80,9 +80,9 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\023ProtocolMatch.proto\022\005Match\"3\n\004Data\022\n\n\002"
-  "id\030\001 \001(\004\022\020\n\010mapLevel\030\002 \001(\r\022\r\n\005state\030\003 \001("
-  "\010\":\n\007Success\022\n\n\002id\030\001 \001(\004\022\021\n\tmatchRoom\030\002 "
-  "\001(\r\022\020\n\010gamePort\030\003 \001(\r*T\n\005STATE\022\013\n\007C_LOGI"
+  "id\030\001 \001(\003\022\020\n\010mapLevel\030\002 \001(\005\022\r\n\005state\030\003 \001("
+  "\010\":\n\007Success\022\n\n\002id\030\001 \001(\003\022\021\n\tmatchRoom\030\002 "
+  "\001(\005\022\020\n\010gamePort\030\003 \001(\005*T\n\005STATE\022\013\n\007C_LOGI"
   "N\020\000\022\014\n\010C_CANCLE\020\001\022\010\n\004FAIL\020\002\022\013\n\007S_LOGIN\020\003"
   "\022\013\n\007S_MATCH\020\004\022\014\n\010S_CANCLE\020\005b\006proto3"
   ;
@@ -185,17 +185,17 @@ const char* Data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint64 id = 1;
+      // int64 id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 mapLevel = 2;
+      // int32 mapLevel = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          maplevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          maplevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -235,16 +235,16 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint64 id = 1;
+  // int64 id = 1;
   if (this->id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // uint32 mapLevel = 2;
+  // int32 mapLevel = 2;
   if (this->maplevel() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_maplevel(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_maplevel(), target);
   }
 
   // bool state = 3;
@@ -269,17 +269,17 @@ size_t Data::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint64 id = 1;
+  // int64 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
         this->_internal_id());
   }
 
-  // uint32 mapLevel = 2;
+  // int32 mapLevel = 2;
   if (this->maplevel() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_maplevel());
   }
 
@@ -431,24 +431,24 @@ const char* Success::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint64 id = 1;
+      // int64 id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 matchRoom = 2;
+      // int32 matchRoom = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          matchroom_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          matchroom_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 gamePort = 3;
+      // int32 gamePort = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          gameport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          gameport_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -481,22 +481,22 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint64 id = 1;
+  // int64 id = 1;
   if (this->id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // uint32 matchRoom = 2;
+  // int32 matchRoom = 2;
   if (this->matchroom() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_matchroom(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_matchroom(), target);
   }
 
-  // uint32 gamePort = 3;
+  // int32 gamePort = 3;
   if (this->gameport() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_gameport(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_gameport(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -515,24 +515,24 @@ size_t Success::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint64 id = 1;
+  // int64 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
         this->_internal_id());
   }
 
-  // uint32 matchRoom = 2;
+  // int32 matchRoom = 2;
   if (this->matchroom() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_matchroom());
   }
 
-  // uint32 gamePort = 3;
+  // int32 gamePort = 3;
   if (this->gameport() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_gameport());
   }
 

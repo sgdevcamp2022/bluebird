@@ -21,9 +21,9 @@ constexpr Users::Users(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : ids_()
   , _ids_cached_byte_size_()
-  , usersize_(0u)
-  , room_(0u)
-  , level_(0u){}
+  , usersize_(0)
+  , room_(0)
+  , level_(0){}
 struct UsersDefaultTypeInternal {
   constexpr UsersDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -59,8 +59,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ProtocolConnect_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\025ProtocolConnect.proto\022\005Match\"C\n\005Users\022"
-  "\020\n\010userSize\030\001 \001(\r\022\014\n\004room\030\002 \001(\r\022\r\n\005level"
-  "\030\003 \001(\r\022\013\n\003ids\030\004 \003(\rb\006proto3"
+  "\020\n\010userSize\030\001 \001(\005\022\014\n\004room\030\002 \001(\005\022\r\n\005level"
+  "\030\003 \001(\005\022\013\n\003ids\030\004 \003(\003b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolConnect_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolConnect_2eproto = {
@@ -146,34 +146,34 @@ const char* Users::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 userSize = 1;
+      // int32 userSize = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          usersize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          usersize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 room = 2;
+      // int32 room = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 level = 3;
+      // int32 level = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated uint32 ids = 4;
+      // repeated int64 ids = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_ids(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_ids(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32) {
-          _internal_add_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_ids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -206,29 +206,29 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 userSize = 1;
+  // int32 userSize = 1;
   if (this->usersize() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_usersize(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_usersize(), target);
   }
 
-  // uint32 room = 2;
+  // int32 room = 2;
   if (this->room() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_room(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_room(), target);
   }
 
-  // uint32 level = 3;
+  // int32 level = 3;
   if (this->level() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_level(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_level(), target);
   }
 
-  // repeated uint32 ids = 4;
+  // repeated int64 ids = 4;
   {
     int byte_size = _ids_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteInt64Packed(
           4, _internal_ids(), byte_size, target);
     }
   }
@@ -249,10 +249,10 @@ size_t Users::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated uint32 ids = 4;
+  // repeated int64 ids = 4;
   {
     size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->ids_);
+      Int64Size(this->ids_);
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
@@ -264,24 +264,24 @@ size_t Users::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // uint32 userSize = 1;
+  // int32 userSize = 1;
   if (this->usersize() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_usersize());
   }
 
-  // uint32 room = 2;
+  // int32 room = 2;
   if (this->room() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_room());
   }
 
-  // uint32 level = 3;
+  // int32 level = 3;
   if (this->level() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_level());
   }
 

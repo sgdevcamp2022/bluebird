@@ -12,5 +12,5 @@ public:
 	int32 GetSize() { return static_cast<int32>(_players.size()); }
 
 private:
-	map<uint64, PlayerRef> _players;
+	map<int64, PlayerRef> _players;
 };

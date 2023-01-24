@@ -66,8 +66,8 @@
     <ClCompile Include="Games.cpp">
       <Filter>Room</Filter>
     </ClCompile>
-    <ClCompile Include="MainService.cpp">
-      <Filter>Main</Filter>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,8 +116,8 @@
     <ClInclude Include="Games.h">
       <Filter>Room</Filter>
     </ClInclude>
-    <ClInclude Include="MainService.h">
-      <Filter>Main</Filter>
+    <ClInclude Include="Creature.h">
+      <Filter>Room</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

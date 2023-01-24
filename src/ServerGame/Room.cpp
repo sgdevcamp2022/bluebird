@@ -1,43 +1,45 @@
 #include "pch.h"
 #include "Room.h"
+#include "Creature.h"
 #include "GameSession.h"
 #include "PacketSession.h"
-
-shared_ptr<Room> GRoom = make_shared<Room>();
 
 void Room::MatchEnter(vector<PlayerRef>* ref)
 {
 	for(auto _ref : *ref)
-		_players[_ref->_id] = _ref;
+		_players[_ref->GetId()] = _ref;
 }
 
 void Room::GameEnter(GameSessionRef ref, PlayerRef playerRef)
 {
-	_players[playerRef->_id] = playerRef;
+	//확인 작업 필요
+	_players[playerRef->GetId()]->SetOwner(ref);
+}
+
+void Room::ObstacleEnter(ObtacleRef obtacleRef)
+{
+	_obstacles[obtacleRef->GetId()] = obtacleRef;
 }
 
 void Room::Leave(PlayerRef ref)
 {
-	_players.erase(ref->_id);
+	_players.erase(ref->GetId());
 }
 
-void Room::Move(PlayerRef ref)
+void Room::PlayerMove(PlayerRef ref)
 {
-	_players[ref->_id]->MovePosition(ref->GetPosition());
+	_players[ref->GetId()]->MovePosition(ref->GetPosition());
 	
+}
+
+void Room::ObstacleMove(int32 id, ObtacleRef ref)
+{
+	_obstacles[id] = ref;
 }
 
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players) {
-		_ref.second->_ownerSession->Send(ref);
+		_ref.second->GetOwner()->Send(ref);
 	}
-}
-
-void Player::MovePosition(Vector3 position)
-{
-	//이동 체크
-	_position.x = position.x;
-	_position.y = position.y;
-	_position.z = position.z;
 }
