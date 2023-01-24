@@ -178,53 +178,53 @@ class Users final :
     kRoomFieldNumber = 2,
     kLevelFieldNumber = 3,
   };
-  // repeated uint32 ids = 4;
+  // repeated int64 ids = 4;
   int ids_size() const;
   private:
   int _internal_ids_size() const;
   public:
   void clear_ids();
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_ids(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_ids(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >&
       _internal_ids() const;
-  void _internal_add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  void _internal_add_ids(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
       _internal_mutable_ids();
   public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 ids(int index) const;
-  void set_ids(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int64 ids(int index) const;
+  void set_ids(int index, ::PROTOBUF_NAMESPACE_ID::int64 value);
+  void add_ids(::PROTOBUF_NAMESPACE_ID::int64 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >&
       ids() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
       mutable_ids();
 
-  // uint32 userSize = 1;
+  // int32 userSize = 1;
   void clear_usersize();
-  ::PROTOBUF_NAMESPACE_ID::uint32 usersize() const;
-  void set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 usersize() const;
+  void set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_usersize() const;
-  void _internal_set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_usersize() const;
+  void _internal_set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // uint32 room = 2;
+  // int32 room = 2;
   void clear_room();
-  ::PROTOBUF_NAMESPACE_ID::uint32 room() const;
-  void set_room(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_room() const;
-  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // uint32 level = 3;
+  // int32 level = 3;
   void clear_level();
-  ::PROTOBUF_NAMESPACE_ID::uint32 level() const;
-  void set_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 level() const;
+  void set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_level() const;
-  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_level() const;
+  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:Match.Users)
@@ -234,11 +234,11 @@ class Users final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > ids_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 > ids_;
   mutable std::atomic<int> _ids_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 usersize_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 room_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 level_;
+  ::PROTOBUF_NAMESPACE_ID::int32 usersize_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
+  ::PROTOBUF_NAMESPACE_ID::int32 level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolConnect_2eproto;
 };
@@ -253,67 +253,67 @@ class Users final :
 #endif  // __GNUC__
 // Users
 
-// uint32 userSize = 1;
+// int32 userSize = 1;
 inline void Users::clear_usersize() {
-  usersize_ = 0u;
+  usersize_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_usersize() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::_internal_usersize() const {
   return usersize_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::usersize() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::usersize() const {
   // @@protoc_insertion_point(field_get:Match.Users.userSize)
   return _internal_usersize();
 }
-inline void Users::_internal_set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::_internal_set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   usersize_ = value;
 }
-inline void Users::set_usersize(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_usersize(value);
   // @@protoc_insertion_point(field_set:Match.Users.userSize)
 }
 
-// uint32 room = 2;
+// int32 room = 2;
 inline void Users::clear_room() {
-  room_ = 0u;
+  room_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_room() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::_internal_room() const {
   return room_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::room() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::room() const {
   // @@protoc_insertion_point(field_get:Match.Users.room)
   return _internal_room();
 }
-inline void Users::_internal_set_room(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   room_ = value;
 }
-inline void Users::set_room(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_room(value);
   // @@protoc_insertion_point(field_set:Match.Users.room)
 }
 
-// uint32 level = 3;
+// int32 level = 3;
 inline void Users::clear_level() {
-  level_ = 0u;
+  level_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_level() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::_internal_level() const {
   return level_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::level() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Users::level() const {
   // @@protoc_insertion_point(field_get:Match.Users.level)
   return _internal_level();
 }
-inline void Users::_internal_set_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::_internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   level_ = value;
 }
-inline void Users::set_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_level(value);
   // @@protoc_insertion_point(field_set:Match.Users.level)
 }
 
-// repeated uint32 ids = 4;
+// repeated int64 ids = 4;
 inline int Users::_internal_ids_size() const {
   return ids_.size();
 }
@@ -323,38 +323,38 @@ inline int Users::ids_size() const {
 inline void Users::clear_ids() {
   ids_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::_internal_ids(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Users::_internal_ids(int index) const {
   return ids_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Users::ids(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Users::ids(int index) const {
   // @@protoc_insertion_point(field_get:Match.Users.ids)
   return _internal_ids(index);
 }
-inline void Users::set_ids(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::set_ids(int index, ::PROTOBUF_NAMESPACE_ID::int64 value) {
   ids_.Set(index, value);
   // @@protoc_insertion_point(field_set:Match.Users.ids)
 }
-inline void Users::_internal_add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::_internal_add_ids(::PROTOBUF_NAMESPACE_ID::int64 value) {
   ids_.Add(value);
 }
-inline void Users::add_ids(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Users::add_ids(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_add_ids(value);
   // @@protoc_insertion_point(field_add:Match.Users.ids)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >&
 Users::_internal_ids() const {
   return ids_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >&
 Users::ids() const {
   // @@protoc_insertion_point(field_list:Match.Users.ids)
   return _internal_ids();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
 Users::_internal_mutable_ids() {
   return &ids_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
 Users::mutable_ids() {
   // @@protoc_insertion_point(field_mutable_list:Match.Users.ids)
   return _internal_mutable_ids();

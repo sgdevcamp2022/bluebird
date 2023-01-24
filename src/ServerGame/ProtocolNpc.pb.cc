@@ -47,6 +47,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GameDataDefaultTypeInternal _Ga
 constexpr Obstacle::Obstacle(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(0)
+  , shape_(0)
   , x_(0)
   , y_(0)
   , z_(0){}
@@ -86,6 +87,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, id_),
+  PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, shape_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, x_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, y_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, z_),
@@ -107,13 +109,13 @@ const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARI
   "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\"T\n\010Ga"
   "meData\022\021\n\tmatchRoom\030\001 \001(\005\022\024\n\014obstacleSiz"
   "e\030\002 \001(\005\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle"
-  "\"7\n\010Obstacle\022\n\n\002id\030\001 \001(\005\022\t\n\001x\030\002 \001(\002\022\t\n\001y"
-  "\030\003 \001(\002\022\t\n\001z\030\004 \001(\002*\035\n\006INGAME\022\t\n\005LOGIN\020\000\022\010"
-  "\n\004GAME\020\001b\006proto3"
+  "\"F\n\010Obstacle\022\n\n\002id\030\001 \001(\005\022\r\n\005shape\030\002 \001(\005\022"
+  "\t\n\001x\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002*\035\n\006INGA"
+  "ME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 256, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 271, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -695,23 +697,30 @@ const char* Obstacle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float x = 2;
+      // int32 shape = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          shape_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float x = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
           x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float y = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+      // float y = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
           y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float z = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+      // float z = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
           z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
@@ -751,22 +760,28 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
   }
 
-  // float x = 2;
+  // int32 shape = 2;
+  if (this->shape() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_shape(), target);
+  }
+
+  // float x = 3;
   if (!(this->x() <= 0 && this->x() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_x(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_x(), target);
   }
 
-  // float y = 3;
+  // float y = 4;
   if (!(this->y() <= 0 && this->y() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_y(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_y(), target);
   }
 
-  // float z = 4;
+  // float z = 5;
   if (!(this->z() <= 0 && this->z() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_z(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_z(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -792,17 +807,24 @@ size_t Obstacle::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // float x = 2;
+  // int32 shape = 2;
+  if (this->shape() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shape());
+  }
+
+  // float x = 3;
   if (!(this->x() <= 0 && this->x() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float y = 3;
+  // float y = 4;
   if (!(this->y() <= 0 && this->y() >= 0)) {
     total_size += 1 + 4;
   }
 
-  // float z = 4;
+  // float z = 5;
   if (!(this->z() <= 0 && this->z() >= 0)) {
     total_size += 1 + 4;
   }
@@ -840,6 +862,9 @@ void Obstacle::MergeFrom(const Obstacle& from) {
 
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
+  }
+  if (from.shape() != 0) {
+    _internal_set_shape(from._internal_shape());
   }
   if (!(from.x() <= 0 && from.x() >= 0)) {
     _internal_set_x(from._internal_x());

@@ -13,14 +13,14 @@ enum STATE
 
 message Data
 {
-	uint64 id = 1;
-	uint32 mapLevel= 2;	
+	int64 id = 1;
+	int32 mapLevel= 2;	
 	bool state = 3;
 }
 
 message Success
 {
-	uint64 id = 1;
-	uint32 matchRoom = 2;
-	uint32 gamePort = 3;
+	int64 id = 1;
+	int32 matchRoom = 2;
+	int32 gamePort = 3;
 }

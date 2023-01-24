@@ -20,16 +20,21 @@ void NpcHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 		break;
 	case Npc::GAME:
 		HandlerGame(ref, ParsingPacket<Npc::GameData, NpcHeader>(buffer, len));
+		break;
+	default:
+		break;
 	}
 }
 
 void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 {
+	//TODO 게임 실행 확인
 	cout << "새로 생성 확인" << endl;
 }
 
 void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 {
+	//에코 서버
 	for (int i = 0; i < pkt.obstaclesize(); i++) {
 		Npc::Obstacle obstacle = pkt.obstacle(i);
 		cout << obstacle.id() << " " << obstacle.x() << " " << obstacle.y() << " " << obstacle.z() << " "<<endl;

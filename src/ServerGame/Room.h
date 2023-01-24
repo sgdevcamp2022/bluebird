@@ -1,36 +1,22 @@
 #pragma once
 #include <JobQueue.h>
 
-class Player : JobQueue {
-public:
-	Player(uint32 id, uint32 mapLevel, Vector3 position = Vector3{ 0,0,0 })
-		:_id(id), _mapLevel(mapLevel), _position(position) {}
-
-	uint32			_id = 0;
-	uint32			_mapLevel = 0;
-	GameSessionRef	_ownerSession = nullptr;
-
-	Vector3&		GetPosition() { return _position; }
-	void			MovePosition(Vector3 position);
-
-private:
-	Vector3			_position;
-	//¿òÁ÷ÀÓ ÆÄ¾Ç 
-};
-
 class Room : public JobQueue
 {
 public:
+	Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room) { }
 	void MatchEnter(vector<PlayerRef>* ref);
 	void GameEnter(GameSessionRef ref, PlayerRef playerRef);
-
+	void ObstacleEnter(ObtacleRef obtacleRef);
 	void Leave(PlayerRef ref);
-	void Move(PlayerRef ref);
+
+	void PlayerMove(PlayerRef ref);
+	void ObstacleMove(int32, ObtacleRef ref);
 	void Broadcast(SendBufferRef ref);
 
 private:
-	Map<uint32, PlayerRef>	_players;
-	//NpcSessionRef			_obstacles;
+	int32					_matchRoom;
+	int32					_mapLevel;
+	Map<int64, PlayerRef>	_players;
+	Map<int64, ObtacleRef>	_obstacles;
 };
-
-extern shared_ptr<Room> GRoom;

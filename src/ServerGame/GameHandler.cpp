@@ -2,7 +2,8 @@
 #include "Gamehandler.h"
 #include "GameSession.h"
 #include "MatchSession.h"
-#include "Room.h"
+#include "Games.h"
+#include "Creature.h"
 
 void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {
@@ -20,10 +21,10 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 
 void GameHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    PlayerRef player = make_shared<Player>(pkt.id(), pkt.maplevel());
-    player->_ownerSession = static_pointer_cast<GameSession>(ref);
+    PlayerRef player = make_shared<Player>(pkt.id());
+    player->SetOwner(static_pointer_cast<GameSession>(ref));
     cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom();
-    GRoom->DoAsync(&Room::GameEnter, static_pointer_cast<GameSession>(ref), player);
+    Ggames->GetRoom(pkt.matchroom())->DoAsync(&Room::GameEnter, static_pointer_cast<GameSession>(ref), player);
 }
 
 void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)

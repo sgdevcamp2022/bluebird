@@ -514,9 +514,10 @@ class Obstacle final :
 
   enum : int {
     kIdFieldNumber = 1,
-    kXFieldNumber = 2,
-    kYFieldNumber = 3,
-    kZFieldNumber = 4,
+    kShapeFieldNumber = 2,
+    kXFieldNumber = 3,
+    kYFieldNumber = 4,
+    kZFieldNumber = 5,
   };
   // int32 id = 1;
   void clear_id();
@@ -527,7 +528,16 @@ class Obstacle final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // float x = 2;
+  // int32 shape = 2;
+  void clear_shape();
+  ::PROTOBUF_NAMESPACE_ID::int32 shape() const;
+  void set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shape() const;
+  void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float x = 3;
   void clear_x();
   float x() const;
   void set_x(float value);
@@ -536,7 +546,7 @@ class Obstacle final :
   void _internal_set_x(float value);
   public:
 
-  // float y = 3;
+  // float y = 4;
   void clear_y();
   float y() const;
   void set_y(float value);
@@ -545,7 +555,7 @@ class Obstacle final :
   void _internal_set_y(float value);
   public:
 
-  // float z = 4;
+  // float z = 5;
   void clear_z();
   float z() const;
   void set_z(float value);
@@ -562,6 +572,7 @@ class Obstacle final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shape_;
   float x_;
   float y_;
   float z_;
@@ -726,7 +737,27 @@ inline void Obstacle::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Npc.Obstacle.id)
 }
 
-// float x = 2;
+// int32 shape = 2;
+inline void Obstacle::clear_shape() {
+  shape_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obstacle::_internal_shape() const {
+  return shape_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obstacle::shape() const {
+  // @@protoc_insertion_point(field_get:Npc.Obstacle.shape)
+  return _internal_shape();
+}
+inline void Obstacle::_internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shape_ = value;
+}
+inline void Obstacle::set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shape(value);
+  // @@protoc_insertion_point(field_set:Npc.Obstacle.shape)
+}
+
+// float x = 3;
 inline void Obstacle::clear_x() {
   x_ = 0;
 }
@@ -746,7 +777,7 @@ inline void Obstacle::set_x(float value) {
   // @@protoc_insertion_point(field_set:Npc.Obstacle.x)
 }
 
-// float y = 3;
+// float y = 4;
 inline void Obstacle::clear_y() {
   y_ = 0;
 }
@@ -766,7 +797,7 @@ inline void Obstacle::set_y(float value) {
   // @@protoc_insertion_point(field_set:Npc.Obstacle.y)
 }
 
-// float z = 4;
+// float z = 5;
 inline void Obstacle::clear_z() {
   z_ = 0;
 }

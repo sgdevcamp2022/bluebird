@@ -3,9 +3,9 @@ package Match;
 
 message Users
 {
-	uint32 userSize = 1;
-	uint32 room = 2;
-	uint32 level = 3;
-	repeated uint32 ids = 4;
+	int32 userSize = 1;
+	int32 room = 2;
+	int32 level = 3;
+	repeated int64 ids = 4;
 }
 
