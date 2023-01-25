@@ -14,6 +14,7 @@
 #include <Service.h>
 
 #include "ProtocolMatch.pb.h"
+#include "ProtocolTest.pb.h"
 #include "PacketSession.h"
 #define THREAD_SIZE 10
 

@@ -30,15 +30,26 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 {
 	//TODO 게임 실행 확인
 	cout << "새로 생성 확인" << endl;
+
+	map<int64, ObtacleRef> datas;
+	
+	if (pkt.obstacle_size() != 0) {
+		for (int i = 0; i < pkt.obstacle_size(); i++) {
+			auto data = pkt.obstacle(i);
+			datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3{ data.x(), data.y(), data.z() });
+		}
+
+		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
+	}
 }
 
 void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 {
 	//에코 서버
+	vector<Npc::Obstacle> datas;
 	for (int i = 0; i < pkt.obstaclesize(); i++) {
-		Npc::Obstacle obstacle = pkt.obstacle(i);
-		cout << obstacle.id() << " " << obstacle.x() << " " << obstacle.y() << " " << obstacle.z() << " "<<endl;
+		datas.push_back(pkt.obstacle(i));
 	}
-
+	//Ggames->GetRoomRef(pkt.matchroom())->DoAsync()
 	ref->Send(MakeSendBuffer(pkt, Npc::GAME));
 }

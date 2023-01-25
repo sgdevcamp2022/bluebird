@@ -1,0 +1,42 @@
+syntax = "proto3";
+package Protocol;
+
+enum INGAME
+{
+	MOVE = 0;
+	CHARATERS_CRASH = 1;
+	OBSTACLE_CRASH = 2;
+	NO_MOVE = 3;
+	DROP = 4;
+	COMPLTE = 5;
+	FAIL = 6;
+	PACKET_FAIL = 7;
+	OBSTACLE_MOVE = 8;
+	OBSTACLE_SETTING = 9;
+	CONNECT = 10;
+}
+
+message Data
+{
+	int64 id = 1;
+	int32 mapLevel = 2;
+	int32 matchRoom = 3;
+	repeated Player player = 4;
+	repeated Obtacle obtacle = 5;
+}
+
+message Obtacle
+{
+	int64 id = 1;
+	int32 shape = 2;
+	float x = 3;
+	float y = 4;
+	float z = 5;
+}
+
+message Player
+{
+	float x = 2;
+	float y = 3;
+	float z = 4;
+}

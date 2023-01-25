@@ -4,6 +4,7 @@
 #include <ThreadManager.h>
 #include "MatchSession.h"
 #include "PacketSession.h"
+#include "GameSession.h"
 
 enum
 {
@@ -24,27 +25,39 @@ void DoWorkerJob(ClientServiceRef& service)
 
 }
 int main() {
-	ClientServiceRef service = MakeShared<ClientService>(
+	ClientServiceRef service1 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 20);
-
-	ASSERT_CRASH(service->Start());
-
-	if (!service->Start())
-		ASSERT_CRASH("Start Error");
+		MakeShared<MatchSession>, 5);
+	ClientServiceRef service2 = MakeShared<ClientService>(
+		NetAddress(L"127.0.0.1", 5000),
+		MakeShared<IocpCore>(),
+		MakeShared<GameSession>, 5);
+	ASSERT_CRASH(service1->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service]()
+		GThreadManager->Launch([&service1]()
 			{
 				while (true)
 				{
-					DoWorkerJob(service);
+					DoWorkerJob(service1);
 				}
 			});
 	}
 
-	DoWorkerJob(service);
+	//게임 클라이언트 접속 테스트
+	this_thread::sleep_for(1s);
+	ASSERT_CRASH(service2->Start());
+
+	for (int i = 0; i < THREAD_SIZE; i++) {
+		GThreadManager->Launch([&service2]()
+			{
+				while (true)
+				{
+					DoWorkerJob(service2);
+				}
+			});
+	}
 
 	GThreadManager->Join();
 }

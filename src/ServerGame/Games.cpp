@@ -11,21 +11,24 @@ void Games::NewGame(vector<PlayerRef>* players, int32 level, int32 room)
 	_games[room]->MatchEnter(players);
 }
 
+void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
+{
+	if (IsRoom(room)) {
+		session->_room = _games[room];
+		_games[room]->GameEnter(session, id);
+	}
+}
+
 void Games::EndGame()
 {
 	//TODO
 }
 
-//void Games::LeaveGame(PlayerRef ref)
-//{
-//	_games[ref->GetRoom()]->Leave(ref);
-//}
-
-RoomRef Games::GetRoom(int32 id)
+bool Games::IsRoom(int64 id)
 {
-	//에러체크 TODO
-
-	return _games[id];
+	if (_games.find(id) == _games.end())
+		return false;
+	return true;
 }
 
 void Games::SetNpcRef(NpcSessionRef ref)

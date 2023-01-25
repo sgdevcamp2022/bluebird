@@ -12,8 +12,10 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     {
     case Protocol::CONNECT:
         HandlerConnect(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        break;
     case Protocol::MOVE:
-        HandlerMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HandlerMove( ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        break;
     default:
         break;
     }
@@ -23,22 +25,20 @@ void GameHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
     GameSessionRef gameSession = static_pointer_cast<GameSession>(ref);
 
-    PlayerRef player = make_shared<Player>(pkt.id(), pkt.matchroom());
-    player->SetOwner(static_pointer_cast<GameSession>(ref));
+    cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom() << endl;
 
-    cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom();
-
-    gameSession->_room = Ggames->GetRoom(pkt.matchroom());
-
-    Ggames->GetRoom(pkt.matchroom())->DoAsync(&Room::GameEnter, gameSession, pkt.id());
+    Ggames->DoAsync(&Games::EnterGame, gameSession, pkt.id(), pkt.matchroom());
 }
 
 void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
+    GameSessionRef gameSession = static_pointer_cast<GameSession>(ref);
     Protocol::Player point = pkt.player(0);
 
-    cout << "whitch : " << point.x() << " " << point.y() << " " << point.z();
-    ref->Send(MakeSendBuffer(pkt, Protocol::MOVE));
+    if (auto room = gameSession->_room.lock()) {
+        if(room->_start)
+            room->DoAsync(&Room::PlayerMove, pkt);
+    }
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)

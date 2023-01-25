@@ -207,9 +207,28 @@ class LoginData final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kObstacleFieldNumber = 3,
     kMapLevelFieldNumber = 1,
     kMatchRoomFieldNumber = 2,
   };
+  // repeated .Npc.Obstacle obstacle = 3;
+  int obstacle_size() const;
+  private:
+  int _internal_obstacle_size() const;
+  public:
+  void clear_obstacle();
+  ::Npc::Obstacle* mutable_obstacle(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >*
+      mutable_obstacle();
+  private:
+  const ::Npc::Obstacle& _internal_obstacle(int index) const;
+  ::Npc::Obstacle* _internal_add_obstacle();
+  public:
+  const ::Npc::Obstacle& obstacle(int index) const;
+  ::Npc::Obstacle* add_obstacle();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >&
+      obstacle() const;
+
   // int32 mapLevel = 1;
   void clear_maplevel();
   ::PROTOBUF_NAMESPACE_ID::int32 maplevel() const;
@@ -235,6 +254,7 @@ class LoginData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle > obstacle_;
   ::PROTOBUF_NAMESPACE_ID::int32 maplevel_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -628,6 +648,45 @@ inline void LoginData::_internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 va
 inline void LoginData::set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_matchroom(value);
   // @@protoc_insertion_point(field_set:Npc.LoginData.matchRoom)
+}
+
+// repeated .Npc.Obstacle obstacle = 3;
+inline int LoginData::_internal_obstacle_size() const {
+  return obstacle_.size();
+}
+inline int LoginData::obstacle_size() const {
+  return _internal_obstacle_size();
+}
+inline void LoginData::clear_obstacle() {
+  obstacle_.Clear();
+}
+inline ::Npc::Obstacle* LoginData::mutable_obstacle(int index) {
+  // @@protoc_insertion_point(field_mutable:Npc.LoginData.obstacle)
+  return obstacle_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >*
+LoginData::mutable_obstacle() {
+  // @@protoc_insertion_point(field_mutable_list:Npc.LoginData.obstacle)
+  return &obstacle_;
+}
+inline const ::Npc::Obstacle& LoginData::_internal_obstacle(int index) const {
+  return obstacle_.Get(index);
+}
+inline const ::Npc::Obstacle& LoginData::obstacle(int index) const {
+  // @@protoc_insertion_point(field_get:Npc.LoginData.obstacle)
+  return _internal_obstacle(index);
+}
+inline ::Npc::Obstacle* LoginData::_internal_add_obstacle() {
+  return obstacle_.Add();
+}
+inline ::Npc::Obstacle* LoginData::add_obstacle() {
+  // @@protoc_insertion_point(field_add:Npc.LoginData.obstacle)
+  return _internal_add_obstacle();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >&
+LoginData::obstacle() const {
+  // @@protoc_insertion_point(field_list:Npc.LoginData.obstacle)
+  return obstacle_;
 }
 
 // -------------------------------------------------------------------

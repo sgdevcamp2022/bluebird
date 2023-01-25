@@ -25,7 +25,6 @@ void MatchManager::MatchEnter(PlayerRef player, int32 roomNum)
 	if (count == ROOM_COUNT) {
 		MatchPull(roomNum);
 	}
-	
 }
 
 void MatchManager::MatchLeave(PlayerRef player, int32 roomNum)

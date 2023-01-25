@@ -17,9 +17,24 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	ref->_mySelf = _players[id];
 }
 
-void Room::ObstacleEnter(ObtacleRef obtacleRef)
+
+void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 {
-	_obstacles[obtacleRef->GetId()] = obtacleRef;
+	_obstacles = *obtacles;
+
+	//전체 플레이어에게 정보 전달 필요
+	Protocol::Data data;
+	for(auto obta : _obstacles){
+		auto ob = data.add_obtacle();
+		ob->set_id(obta.first);
+		ob->set_shape(obta.second->GetShape());
+		ob->set_x(obta.second->GetPosition().x);
+		ob->set_y(obta.second->GetPosition().y);
+		ob->set_z(obta.second->GetPosition().z);
+	}
+	data.set_matchroom(_matchRoom);
+
+	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_SETTING));
 }
 
 void Room::Leave(PlayerRef ref)
@@ -28,20 +43,40 @@ void Room::Leave(PlayerRef ref)
 	_players.erase(ref->GetId());
 }
 
-void Room::PlayerMove(PlayerRef ref)
+void Room::PlayerMove(Protocol::Data data)
 {
-	_players[ref->GetId()]->MovePosition(ref->GetPosition());
+	//콘텐츠 구현
+	auto point = data.player(0);
+
+	cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+
+	PlayerRef player = _players[data.id()];
+
+	player->MovePosition(Vector3{ point.x(), point.y() , point.z() });
 	
+	cout << "BroadCast" << endl;
+	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::MOVE));
 }
 
-void Room::ObstacleMove(int32 id, ObtacleRef ref)
+void Room::ObstacleMove(int64 id, Vector3 position)
 {
-	_obstacles[id] = ref;
+	_obstacles[id]->MovePosition(std::move(position));
+
+	Protocol::Data data;
+	auto ob = data.add_obtacle();
+
+	ob->set_id(id);
+	ob->set_x(position.x);
+	ob->set_y(position.y);
+	ob->set_z(position.z);
+
+	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 }
 
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players) {
-		_ref.second->GetOwner()->Send(ref);
+		if(_ref.second->GetOwner() != nullptr)
+			_ref.second->GetOwner()->Send(ref);
 	}
 }
