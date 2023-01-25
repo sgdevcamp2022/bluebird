@@ -15,24 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConnectToSQL.cpp">
+    <ClCompile Include="BoostAsio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NpcServer.cpp">
+    <ClCompile Include="ConnectToSQL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PacketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolNpc.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoostAsio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ConnectToSQL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NpcServer.h">
+    <ClInclude Include="PacketManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PacketManager.h">
+    <ClInclude Include="ProtocolNpc.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

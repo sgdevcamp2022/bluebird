@@ -3,7 +3,6 @@
 
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 #include <google/protobuf/text_format.h>
-
 #include "ProtocolNpc.pb.h"
 #include <WinSock2.h>
 #include <string>

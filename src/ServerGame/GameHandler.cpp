@@ -14,7 +14,7 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
         HandlerConnect(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::MOVE:
-        HandlerMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HandlerMove( ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
     default:
         break;
