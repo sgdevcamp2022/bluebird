@@ -8,6 +8,7 @@
 #include <string>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#undef GetMessage
 
 using namespace google;
 using namespace std;
@@ -23,7 +24,7 @@ class PacketManager
 {
 public:
     PacketManager() {}
-    char* MakePacket(int id, float x, float y, float z);
+    char* MakePacket(int header);
     //~PacketManager();
     int GetBufSize();
     int PacketProcess(protobuf::io::CodedInputStream& input_stream);

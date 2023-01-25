@@ -11,6 +11,7 @@ message LoginData
 {
 	int32 mapLevel = 1;
 	int32 matchRoom = 2;
+	repeated Obstacle obstacle = 3;
 }
 
 message GameData
