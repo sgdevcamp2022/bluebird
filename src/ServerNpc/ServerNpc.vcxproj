@@ -20,8 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
-    <ProjectGuid>{AA3E4507-8524-447E-941D-A58673A6B35B}</ProjectGuid>
+    <ProjectGuid>{31ADE17D-4ACA-45D5-96EC-A0CF4EF97E68}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -68,6 +69,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)..\..\binary\server\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)..\Libraries\include;C:\Program Files\MySQL\MySQL Server 8.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -97,15 +103,26 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\pigwo\OneDrive\바탕 화면\boost_1_81_0\boost_1_81_0\stage\lib;$(SolutionDir)..\Libraries\Libs\Protobuf\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobufd.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\pigwo\OneDrive\바탕 화면\boost_1_81_0\boost_1_81_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoostAsio.cpp" />
     <ClCompile Include="ConnectToSQL.cpp" />
-    <ClCompile Include="NpcServer.cpp" />
     <ClCompile Include="PacketManager.cpp" />
+    <ClCompile Include="ProtocolNpc.pb.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoostAsio.h" />
     <ClInclude Include="ConnectToSQL.h" />
-    <ClInclude Include="NpcServer.h" />
     <ClInclude Include="PacketManager.h" />
+    <ClInclude Include="ProtocolNpc.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
