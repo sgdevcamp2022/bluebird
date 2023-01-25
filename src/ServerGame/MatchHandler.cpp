@@ -31,12 +31,12 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
     
     //NPC 서버 테스트용 코드
 
-    /*auto _ref = Ggames->GetNpcRef();
+    auto _ref = Ggames->GetNpcRef();
     Npc::LoginData data;
     data.set_maplevel(pkt.level());
     data.set_matchroom(pkt.room());
 
-    _ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));*/
+    _ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 }
 
 SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
