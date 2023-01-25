@@ -58,16 +58,16 @@ namespace Protocol {
 class Data;
 struct DataDefaultTypeInternal;
 extern DataDefaultTypeInternal _Data_default_instance_;
-class Enemy;
-struct EnemyDefaultTypeInternal;
-extern EnemyDefaultTypeInternal _Enemy_default_instance_;
+class Obtacle;
+struct ObtacleDefaultTypeInternal;
+extern ObtacleDefaultTypeInternal _Obtacle_default_instance_;
 class Player;
 struct PlayerDefaultTypeInternal;
 extern PlayerDefaultTypeInternal _Player_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::Data* Arena::CreateMaybeMessage<::Protocol::Data>(Arena*);
-template<> ::Protocol::Enemy* Arena::CreateMaybeMessage<::Protocol::Enemy>(Arena*);
+template<> ::Protocol::Obtacle* Arena::CreateMaybeMessage<::Protocol::Obtacle>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
@@ -82,7 +82,8 @@ enum INGAME : int {
   FAIL = 6,
   PACKET_FAIL = 7,
   OBSTACLE_MOVE = 8,
-  CONNECT = 9,
+  OBSTACLE_SETTING = 9,
+  CONNECT = 10,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
@@ -216,7 +217,7 @@ class Data final :
 
   enum : int {
     kPlayerFieldNumber = 4,
-    kEnemyFieldNumber = 5,
+    kObtacleFieldNumber = 5,
     kIdFieldNumber = 1,
     kMapLevelFieldNumber = 2,
     kMatchRoomFieldNumber = 3,
@@ -239,23 +240,23 @@ class Data final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >&
       player() const;
 
-  // repeated .Protocol.Enemy enemy = 5;
-  int enemy_size() const;
+  // repeated .Protocol.Obtacle obtacle = 5;
+  int obtacle_size() const;
   private:
-  int _internal_enemy_size() const;
+  int _internal_obtacle_size() const;
   public:
-  void clear_enemy();
-  ::Protocol::Enemy* mutable_enemy(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy >*
-      mutable_enemy();
+  void clear_obtacle();
+  ::Protocol::Obtacle* mutable_obtacle(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
+      mutable_obtacle();
   private:
-  const ::Protocol::Enemy& _internal_enemy(int index) const;
-  ::Protocol::Enemy* _internal_add_enemy();
+  const ::Protocol::Obtacle& _internal_obtacle(int index) const;
+  ::Protocol::Obtacle* _internal_add_obtacle();
   public:
-  const ::Protocol::Enemy& enemy(int index) const;
-  ::Protocol::Enemy* add_enemy();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy >&
-      enemy() const;
+  const ::Protocol::Obtacle& obtacle(int index) const;
+  ::Protocol::Obtacle* add_obtacle();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
+      obtacle() const;
 
   // int64 id = 1;
   void clear_id();
@@ -292,7 +293,7 @@ class Data final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player > player_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy > enemy_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle > obtacle_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 maplevel_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
@@ -301,24 +302,24 @@ class Data final :
 };
 // -------------------------------------------------------------------
 
-class Enemy final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Enemy) */ {
+class Obtacle final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Obtacle) */ {
  public:
-  inline Enemy() : Enemy(nullptr) {}
-  ~Enemy() override;
-  explicit constexpr Enemy(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Obtacle() : Obtacle(nullptr) {}
+  ~Obtacle() override;
+  explicit constexpr Obtacle(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Enemy(const Enemy& from);
-  Enemy(Enemy&& from) noexcept
-    : Enemy() {
+  Obtacle(const Obtacle& from);
+  Obtacle(Obtacle&& from) noexcept
+    : Obtacle() {
     *this = ::std::move(from);
   }
 
-  inline Enemy& operator=(const Enemy& from) {
+  inline Obtacle& operator=(const Obtacle& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Enemy& operator=(Enemy&& from) noexcept {
+  inline Obtacle& operator=(Obtacle&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -337,20 +338,20 @@ class Enemy final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Enemy& default_instance() {
+  static const Obtacle& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Enemy* internal_default_instance() {
-    return reinterpret_cast<const Enemy*>(
-               &_Enemy_default_instance_);
+  static inline const Obtacle* internal_default_instance() {
+    return reinterpret_cast<const Obtacle*>(
+               &_Obtacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(Enemy& a, Enemy& b) {
+  friend void swap(Obtacle& a, Obtacle& b) {
     a.Swap(&b);
   }
-  inline void Swap(Enemy* other) {
+  inline void Swap(Obtacle* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -358,7 +359,7 @@ class Enemy final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Enemy* other) {
+  void UnsafeArenaSwap(Obtacle* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -366,17 +367,17 @@ class Enemy final :
 
   // implements Message ----------------------------------------------
 
-  inline Enemy* New() const final {
-    return new Enemy();
+  inline Obtacle* New() const final {
+    return new Obtacle();
   }
 
-  Enemy* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Enemy>(arena);
+  Obtacle* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Obtacle>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Enemy& from);
-  void MergeFrom(const Enemy& from);
+  void CopyFrom(const Obtacle& from);
+  void MergeFrom(const Obtacle& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -390,13 +391,13 @@ class Enemy final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Enemy* other);
+  void InternalSwap(Obtacle* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.Enemy";
+    return "Protocol.Obtacle";
   }
   protected:
-  explicit Enemy(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit Obtacle(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -410,9 +411,10 @@ class Enemy final :
 
   enum : int {
     kIdFieldNumber = 1,
-    kXFieldNumber = 2,
-    kYFieldNumber = 3,
-    kZFieldNumber = 4,
+    kShapeFieldNumber = 2,
+    kXFieldNumber = 3,
+    kYFieldNumber = 4,
+    kZFieldNumber = 5,
   };
   // int64 id = 1;
   void clear_id();
@@ -423,7 +425,16 @@ class Enemy final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // float x = 2;
+  // int32 shape = 2;
+  void clear_shape();
+  ::PROTOBUF_NAMESPACE_ID::int32 shape() const;
+  void set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shape() const;
+  void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // float x = 3;
   void clear_x();
   float x() const;
   void set_x(float value);
@@ -432,7 +443,7 @@ class Enemy final :
   void _internal_set_x(float value);
   public:
 
-  // float y = 3;
+  // float y = 4;
   void clear_y();
   float y() const;
   void set_y(float value);
@@ -441,7 +452,7 @@ class Enemy final :
   void _internal_set_y(float value);
   public:
 
-  // float z = 4;
+  // float z = 5;
   void clear_z();
   float z() const;
   void set_z(float value);
@@ -450,7 +461,7 @@ class Enemy final :
   void _internal_set_z(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.Enemy)
+  // @@protoc_insertion_point(class_scope:Protocol.Obtacle)
  private:
   class _Internal;
 
@@ -458,6 +469,7 @@ class Enemy final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shape_;
   float x_;
   float y_;
   float z_;
@@ -574,11 +586,11 @@ class Player final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kXFieldNumber = 1,
-    kYFieldNumber = 2,
-    kZFieldNumber = 3,
+    kXFieldNumber = 2,
+    kYFieldNumber = 3,
+    kZFieldNumber = 4,
   };
-  // float x = 1;
+  // float x = 2;
   void clear_x();
   float x() const;
   void set_x(float value);
@@ -587,7 +599,7 @@ class Player final :
   void _internal_set_x(float value);
   public:
 
-  // float y = 2;
+  // float y = 3;
   void clear_y();
   float y() const;
   void set_y(float value);
@@ -596,7 +608,7 @@ class Player final :
   void _internal_set_y(float value);
   public:
 
-  // float z = 3;
+  // float z = 4;
   void clear_z();
   float z() const;
   void set_z(float value);
@@ -728,134 +740,154 @@ Data::player() const {
   return player_;
 }
 
-// repeated .Protocol.Enemy enemy = 5;
-inline int Data::_internal_enemy_size() const {
-  return enemy_.size();
+// repeated .Protocol.Obtacle obtacle = 5;
+inline int Data::_internal_obtacle_size() const {
+  return obtacle_.size();
 }
-inline int Data::enemy_size() const {
-  return _internal_enemy_size();
+inline int Data::obtacle_size() const {
+  return _internal_obtacle_size();
 }
-inline void Data::clear_enemy() {
-  enemy_.Clear();
+inline void Data::clear_obtacle() {
+  obtacle_.Clear();
 }
-inline ::Protocol::Enemy* Data::mutable_enemy(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.Data.enemy)
-  return enemy_.Mutable(index);
+inline ::Protocol::Obtacle* Data::mutable_obtacle(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.Data.obtacle)
+  return obtacle_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy >*
-Data::mutable_enemy() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.Data.enemy)
-  return &enemy_;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
+Data::mutable_obtacle() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.Data.obtacle)
+  return &obtacle_;
 }
-inline const ::Protocol::Enemy& Data::_internal_enemy(int index) const {
-  return enemy_.Get(index);
+inline const ::Protocol::Obtacle& Data::_internal_obtacle(int index) const {
+  return obtacle_.Get(index);
 }
-inline const ::Protocol::Enemy& Data::enemy(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.Data.enemy)
-  return _internal_enemy(index);
+inline const ::Protocol::Obtacle& Data::obtacle(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.Data.obtacle)
+  return _internal_obtacle(index);
 }
-inline ::Protocol::Enemy* Data::_internal_add_enemy() {
-  return enemy_.Add();
+inline ::Protocol::Obtacle* Data::_internal_add_obtacle() {
+  return obtacle_.Add();
 }
-inline ::Protocol::Enemy* Data::add_enemy() {
-  // @@protoc_insertion_point(field_add:Protocol.Data.enemy)
-  return _internal_add_enemy();
+inline ::Protocol::Obtacle* Data::add_obtacle() {
+  // @@protoc_insertion_point(field_add:Protocol.Data.obtacle)
+  return _internal_add_obtacle();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Enemy >&
-Data::enemy() const {
-  // @@protoc_insertion_point(field_list:Protocol.Data.enemy)
-  return enemy_;
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
+Data::obtacle() const {
+  // @@protoc_insertion_point(field_list:Protocol.Data.obtacle)
+  return obtacle_;
 }
 
 // -------------------------------------------------------------------
 
-// Enemy
+// Obtacle
 
 // int64 id = 1;
-inline void Enemy::clear_id() {
+inline void Obtacle::clear_id() {
   id_ = int64_t{0};
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Enemy::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 Obtacle::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Enemy::id() const {
-  // @@protoc_insertion_point(field_get:Protocol.Enemy.id)
+inline ::PROTOBUF_NAMESPACE_ID::int64 Obtacle::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.id)
   return _internal_id();
 }
-inline void Enemy::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void Obtacle::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   id_ = value;
 }
-inline void Enemy::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void Obtacle::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.Enemy.id)
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.id)
 }
 
-// float x = 2;
-inline void Enemy::clear_x() {
+// int32 shape = 2;
+inline void Obtacle::clear_shape() {
+  shape_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obtacle::_internal_shape() const {
+  return shape_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obtacle::shape() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.shape)
+  return _internal_shape();
+}
+inline void Obtacle::_internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shape_ = value;
+}
+inline void Obtacle::set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shape(value);
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.shape)
+}
+
+// float x = 3;
+inline void Obtacle::clear_x() {
   x_ = 0;
 }
-inline float Enemy::_internal_x() const {
+inline float Obtacle::_internal_x() const {
   return x_;
 }
-inline float Enemy::x() const {
-  // @@protoc_insertion_point(field_get:Protocol.Enemy.x)
+inline float Obtacle::x() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.x)
   return _internal_x();
 }
-inline void Enemy::_internal_set_x(float value) {
+inline void Obtacle::_internal_set_x(float value) {
   
   x_ = value;
 }
-inline void Enemy::set_x(float value) {
+inline void Obtacle::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:Protocol.Enemy.x)
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.x)
 }
 
-// float y = 3;
-inline void Enemy::clear_y() {
+// float y = 4;
+inline void Obtacle::clear_y() {
   y_ = 0;
 }
-inline float Enemy::_internal_y() const {
+inline float Obtacle::_internal_y() const {
   return y_;
 }
-inline float Enemy::y() const {
-  // @@protoc_insertion_point(field_get:Protocol.Enemy.y)
+inline float Obtacle::y() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.y)
   return _internal_y();
 }
-inline void Enemy::_internal_set_y(float value) {
+inline void Obtacle::_internal_set_y(float value) {
   
   y_ = value;
 }
-inline void Enemy::set_y(float value) {
+inline void Obtacle::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:Protocol.Enemy.y)
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.y)
 }
 
-// float z = 4;
-inline void Enemy::clear_z() {
+// float z = 5;
+inline void Obtacle::clear_z() {
   z_ = 0;
 }
-inline float Enemy::_internal_z() const {
+inline float Obtacle::_internal_z() const {
   return z_;
 }
-inline float Enemy::z() const {
-  // @@protoc_insertion_point(field_get:Protocol.Enemy.z)
+inline float Obtacle::z() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.z)
   return _internal_z();
 }
-inline void Enemy::_internal_set_z(float value) {
+inline void Obtacle::_internal_set_z(float value) {
   
   z_ = value;
 }
-inline void Enemy::set_z(float value) {
+inline void Obtacle::set_z(float value) {
   _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:Protocol.Enemy.z)
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.z)
 }
 
 // -------------------------------------------------------------------
 
 // Player
 
-// float x = 1;
+// float x = 2;
 inline void Player::clear_x() {
   x_ = 0;
 }
@@ -875,7 +907,7 @@ inline void Player::set_x(float value) {
   // @@protoc_insertion_point(field_set:Protocol.Player.x)
 }
 
-// float y = 2;
+// float y = 3;
 inline void Player::clear_y() {
   y_ = 0;
 }
@@ -895,7 +927,7 @@ inline void Player::set_y(float value) {
   // @@protoc_insertion_point(field_set:Protocol.Player.y)
 }
 
-// float z = 3;
+// float z = 4;
 inline void Player::clear_z() {
   z_ = 0;
 }

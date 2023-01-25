@@ -25,7 +25,7 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
     for (int i = 0; i < pkt.usersize(); i++) {
         auto data = pkt.ids(i);
         players.emplace_back(make_shared<Player>(data, pkt.room()));
-        cout << data << " " << pkt.level() << endl;
+        cout << data << " " << pkt.room() << endl;
     }
     Ggames->DoAsync(&Games::NewGame, &players, pkt.level(), pkt.room());
     

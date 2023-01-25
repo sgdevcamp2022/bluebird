@@ -8,7 +8,7 @@ public:
 	Vector3&		GetPosition() { return _position; }
 	int64			GetId() { return _id; }
 	int32			GetRoom() { return _room; }
-	virtual void	MovePosition(Vector3 position) abstract = 0;
+	virtual void	MovePosition(Vector3&& position) abstract = 0;
 	
 
 protected:
@@ -26,7 +26,7 @@ public:
 
 	GameSessionRef	GetOwner() { return _ownerSession; }
 	void			SetOwner(GameSessionRef session) { _ownerSession = session; }
-	virtual void	MovePosition(Vector3 position);
+	virtual void	MovePosition(Vector3&& position);
 
 private:
 	GameSessionRef	_ownerSession = nullptr;
@@ -37,7 +37,7 @@ public:
 	Obtacle(int64 id, int32 shape, int32 room, Vector3 position = Vector3{ 0,0,0 })
 		: _shape(shape), Creature(id, room, position) {}
 
-	virtual void	MovePosition(Vector3 position);
+	virtual void	MovePosition(Vector3&& position);
 	int32			GetShape() { return _shape; }
 
 private:

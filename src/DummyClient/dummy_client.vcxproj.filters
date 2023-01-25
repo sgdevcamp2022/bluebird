@@ -33,6 +33,15 @@
     <ClCompile Include="PacketSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
+    <ClCompile Include="GameSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolTest.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHandler.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -49,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="PacketSession.h">
       <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolTest.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHandler.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
