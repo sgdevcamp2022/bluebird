@@ -19,7 +19,8 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace Npc {
 constexpr LoginData::LoginData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : maplevel_(0)
+  : obstacle_()
+  , maplevel_(0)
   , matchroom_(0){}
 struct LoginDataDefaultTypeInternal {
   constexpr LoginDataDefaultTypeInternal()
@@ -73,6 +74,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, maplevel_),
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, matchroom_),
+  PROTOBUF_FIELD_OFFSET(::Npc::LoginData, obstacle_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Npc::GameData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -94,8 +96,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Npc::LoginData)},
-  { 7, -1, sizeof(::Npc::GameData)},
-  { 15, -1, sizeof(::Npc::Obstacle)},
+  { 8, -1, sizeof(::Npc::GameData)},
+  { 16, -1, sizeof(::Npc::Obstacle)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -105,17 +107,18 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021ProtocolNpc.proto\022\003Npc\"0\n\tLoginData\022\020\n"
-  "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\"T\n\010Ga"
-  "meData\022\021\n\tmatchRoom\030\001 \001(\005\022\024\n\014obstacleSiz"
-  "e\030\002 \001(\005\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle"
-  "\"F\n\010Obstacle\022\n\n\002id\030\001 \001(\005\022\r\n\005shape\030\002 \001(\005\022"
-  "\t\n\001x\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002*\035\n\006INGA"
-  "ME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
+  "\n\021ProtocolNpc.proto\022\003Npc\"Q\n\tLoginData\022\020\n"
+  "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\022\037\n\010ob"
+  "stacle\030\003 \003(\0132\r.Npc.Obstacle\"T\n\010GameData\022"
+  "\021\n\tmatchRoom\030\001 \001(\005\022\024\n\014obstacleSize\030\002 \001(\005"
+  "\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle\"F\n\010Obs"
+  "tacle\022\n\n\002id\030\001 \001(\005\022\r\n\005shape\030\002 \001(\005\022\t\n\001x\030\003 "
+  "\001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002*\035\n\006INGAME\022\t\n\005L"
+  "OGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 271, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 304, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -149,13 +152,15 @@ class LoginData::_Internal {
 };
 
 LoginData::LoginData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  obstacle_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:Npc.LoginData)
 }
 LoginData::LoginData(const LoginData& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      obstacle_(from.obstacle_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&maplevel_, &from.maplevel_,
     static_cast<size_t>(reinterpret_cast<char*>(&matchroom_) -
@@ -196,6 +201,7 @@ void LoginData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  obstacle_.Clear();
   ::memset(&maplevel_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&matchroom_) -
       reinterpret_cast<char*>(&maplevel_)) + sizeof(matchroom_));
@@ -220,6 +226,18 @@ const char* LoginData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           matchroom_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .Npc.Obstacle obstacle = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_obstacle(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -263,6 +281,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_matchroom(), target);
   }
 
+  // repeated .Npc.Obstacle obstacle = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_obstacle_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_obstacle(i), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -278,6 +304,13 @@ size_t LoginData::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .Npc.Obstacle obstacle = 3;
+  total_size += 1UL * this->_internal_obstacle_size();
+  for (const auto& msg : this->obstacle_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
 
   // int32 mapLevel = 1;
   if (this->maplevel() != 0) {
@@ -324,6 +357,7 @@ void LoginData::MergeFrom(const LoginData& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  obstacle_.MergeFrom(from.obstacle_);
   if (from.maplevel() != 0) {
     _internal_set_maplevel(from._internal_maplevel());
   }
@@ -353,6 +387,7 @@ bool LoginData::IsInitialized() const {
 void LoginData::InternalSwap(LoginData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  obstacle_.InternalSwap(&other->obstacle_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(LoginData, matchroom_)
       + sizeof(LoginData::matchroom_)

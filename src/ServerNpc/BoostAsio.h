@@ -22,7 +22,7 @@ public:
 
     void Connect(boost::asio::ip::tcp::endpoint& endpoint);
 private:
-    void PostWrite();
+    void PostWrite(int header = 1);
 
     void PostReceive();
 

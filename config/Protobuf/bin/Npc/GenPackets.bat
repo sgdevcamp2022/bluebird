@@ -4,6 +4,8 @@ protoc.exe -I=./ --cpp_out=./ ./ProtocolNpc.proto
 
 XCOPY /Y ProtocolNpc.pb.h "../../../../src/ServerGame"
 XCOPY /Y ProtocolNpc.pb.cc "../../../../src/ServerGame"
+XCOPY /Y ProtocolNpc.pb.h "../../../../src/ServerNpc"
+XCOPY /Y ProtocolNpc.pb.cc "../../../../src/ServerNpc"
 
 IF ERRORLEVEL 1 PAUSE
 
