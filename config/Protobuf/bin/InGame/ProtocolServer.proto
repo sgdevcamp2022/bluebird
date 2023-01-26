@@ -14,6 +14,7 @@ enum INGAME
 	OBSTACLE_MOVE = 8;
 	OBSTACLE_SETTING = 9;
 	CONNECT = 10;
+	START = 11;
 }
 
 message Data
@@ -36,6 +37,7 @@ message Obtacle
 
 message Player
 {
+	int64 id = 1;
 	float x = 2;
 	float y = 3;
 	float z = 4;

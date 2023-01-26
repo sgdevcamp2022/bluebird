@@ -10,6 +10,7 @@ public:
 	void GameEnter(GameSessionRef ref, int64 id);
 	void ObstacleEnter(map<int64, ObtacleRef>* obtacles);
 	void Leave(PlayerRef ref);
+	void Start();
 
 	void PlayerMove(Protocol::Data data);
 	void ObstacleMove(vector<Npc::Obstacle> datas);
@@ -22,5 +23,5 @@ private:
 	int32					_mapLevel;
 	map<int64, PlayerRef>	_players;
 	map<int64, ObtacleRef>	_obstacles;
-	
+	Protocol::Data			_startData;
 };
