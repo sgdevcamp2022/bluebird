@@ -24,9 +24,6 @@
     <ClCompile Include="PacketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProtocolNpc.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>

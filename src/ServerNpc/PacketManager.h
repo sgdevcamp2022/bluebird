@@ -20,6 +20,28 @@ struct MessageHeader
     //Protocol::INGAME type;
 };
 
+struct LoginData
+{
+	int mapLevel;
+	int matchRoom;
+	int obstacleID;
+	int obstacleShape;
+	float obstacleX;
+	float obstacleY;
+	float obstacleZ;
+};
+
+struct GameData
+{
+	int matchRoom;
+	int obstacleSize;
+	int obstacleID;
+	int obstacleShape;
+	float obstacleX;
+	float obstacleY;
+	float obstacleZ;
+};
+
 class PacketManager
 {
 public:
@@ -27,10 +49,11 @@ public:
     char* MakePacket(int header);
     //~PacketManager();
     int GetBufSize();
-    int PacketProcess(protobuf::io::CodedInputStream& input_stream);
+    int PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream);
 
 private:
     void PrintMsg(::google::protobuf::Message& msg);
+	void GetField(LoginData* loginData, ::google::protobuf::Message& msg);
     void WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
         protobuf::io::CodedOutputStream& stream);
     const int headerSize = sizeof(MessageHeader);
