@@ -84,12 +84,13 @@ enum INGAME : int {
   OBSTACLE_MOVE = 8,
   OBSTACLE_SETTING = 9,
   CONNECT = 10,
+  START = 11,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = MOVE;
-constexpr INGAME INGAME_MAX = CONNECT;
+constexpr INGAME INGAME_MAX = START;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();
@@ -586,10 +587,20 @@ class Player final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kIdFieldNumber = 1,
     kXFieldNumber = 2,
     kYFieldNumber = 3,
     kZFieldNumber = 4,
   };
+  // int64 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
   // float x = 2;
   void clear_x();
   float x() const;
@@ -624,6 +635,7 @@ class Player final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
   float x_;
   float y_;
   float z_;
@@ -886,6 +898,26 @@ inline void Obtacle::set_z(float value) {
 // -------------------------------------------------------------------
 
 // Player
+
+// int64 id = 1;
+inline void Player::clear_id() {
+  id_ = int64_t{0};
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 Player::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 Player::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.Player.id)
+  return _internal_id();
+}
+inline void Player::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  id_ = value;
+}
+inline void Player::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.Player.id)
+}
 
 // float x = 2;
 inline void Player::clear_x() {
