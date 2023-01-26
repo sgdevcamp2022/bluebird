@@ -82,16 +82,10 @@ public class Networking : MonoBehaviour
                     //read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
                     while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        UnityEngine.Debug.Log("something came");
+                        UnityEngine.Debug.Log("something came , len : " + len);
                         byte[] incommingdata = new byte[len];
-
-                        Pkt_Head head = PacketHandler.HandlerPacket<Pkt_Head>(incommingdata, len);
-                        //int size = 
-                      //  UnityEngine.Debug.Log("%d" , head.size);
-                        //Array.Copy(bytes, 0, incommingdata, 0, len);
-
-                        //string servermessage = Encoding.ASCII.GetString(incommingdata);
-                        //UnityEngine.Debug.Log("server message: " + test);
+                        Array.Copy(bytes, 0, incommingdata, 0, len);
+                        PacketHandler.OnReceievePacket(incommingdata, len);
 
 
 
@@ -158,7 +152,7 @@ public class Networking : MonoBehaviour
 
                 Data dataPkt = new Data()
                 {
-                    Id = 1,
+                    Id = 2,
                     MapLevel = 2,
                     MatchRoom = 0,
                     Player = { new Player { X = 0.0f, Y = 0.0f, Z = 0.0f } }

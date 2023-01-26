@@ -29,7 +29,8 @@ class PacketHandler
         //마샬링에 필요한 만큼의 개체 크기를 반환
         int size = Marshal.SizeOf<Pkt_Head>();
         
-        //패킷 사이즈 = pkt 의 사이즈
+        //Pkt_Head.size = data의 사이즈
+        //패킷 사이즈 = head 사이즈 + data 사이즈
         head.size = (uint)pkt.CalculateSize();
         byte[] send_buffer = new byte[head.size + size];
 
@@ -45,7 +46,7 @@ class PacketHandler
 
         //pkt값을 send_buffer에 복사?
         Array.Copy(pkt.ToByteArray(), 0, send_buffer, size, head.size);
-        
+      
 
         return send_buffer;
     }
@@ -55,26 +56,79 @@ class PacketHandler
     //https://technodori.tistory.com/entry/C-byte-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EA%B5%AC%EC%A1%B0%EC%B2%B4-byte
     //버퍼에서는 한바이트씩 포인터로 이동해서 참조를 한다.
     //receieve데이터를 받으면, 헤더 사이즈를 찾아야함.
-    public static Pkt_Head HandlerPacket<Pkt_Head>(byte[] data, int len) where Pkt_Head : struct
+
+   
+    
+    public static void OnReceievePacket(byte[] packet, int len )
     {
+        int size = Marshal.SizeOf<Pkt_Head>();
 
-
-
+        Pkt_Head head = new Pkt_Head();
         //배열의 크기만큼 비관리 메모리 영역에 메모리 할당
         //배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
         //복사한 데이터를 구조체 객체로 변환
         //비관리 메모리 영역에 할당했던 메모리를 해제
-        int size = Marshal.SizeOf<Pkt_Head>();
+
         IntPtr ptr = Marshal.AllocHGlobal(size);
-        Marshal.Copy(data, 0, ptr, size);
-        Pkt_Head head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
+        Marshal.Copy(packet, 0, ptr, size);
+        head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
         Marshal.FreeHGlobal(ptr);
 
-        return head;
+        //여기까지 헤더의 길이와 타입을 알아낼 수 있다.
+
+        
+        UnityEngine.Debug.Log("Head size: " + head.size + "Head type:" + head.type);
+
+
+        byte[] data;
+        data = packet.Skip(size).Take(packet.Length - size).ToArray();
+
+       
+
+        Data test;
+        test = Data.Parser.ParseFrom(data);
+
+        UnityEngine.Debug.Log("Data test: " + test + "Data test Player" + test.Player);
+
 
     }
 
+
 }
+
+
+
+
+/*
+public static Pkt_Head HandlerPacket<Pkt_Head>(byte[] data, int len) where Pkt_Head : struct
+{
+
+
+
+
+int size = Marshal.SizeOf<Pkt_Head>();
+Pkt_Head head = new Pkt_Head();
+
+//배열의 크기만큼 비관리 메모리 영역에 메모리 할당
+//배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
+//복사한 데이터를 구조체 객체로 변환
+//비관리 메모리 영역에 할당했던 메모리를 해제
+
+IntPtr ptr = Marshal.AllocHGlobal(size);
+Marshal.Copy(data, 0, ptr, size);
+head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
+Marshal.FreeHGlobal(ptr);
+
+
+UnityEngine.Debug.Log("Head size: " + size + "Head type:" + head.type);
+
+return head;
+
+}
+
+}
+
+*/
 struct Pkt_Head
 {
     //헤더를 제외한 사이즈
