@@ -20,8 +20,12 @@ public class Networking : MonoBehaviour
     private Thread clientReceiveThread;
 
     //서버 IP 및 포트번호
-    private string mIp = "127.0.0.1";
-    private int mPort = 5000;
+    static private string mIp = "127.0.0.1";
+    static private IPAddress ipAddress = IPAddress.Parse(mIp);
+    static private int mPort = 5000;
+
+    
+    IPEndPoint endPoint = new IPEndPoint(ipAddress, mPort);
 
 
 
@@ -59,35 +63,44 @@ public class Networking : MonoBehaviour
         {
             //ip 주소와 port를 지정하여 자동으로 TCP 연결 
             socket = new TcpClient(mIp, mPort);
+           
 
             UnityEngine.Debug.Log("Connected...");
             byte[] bytes = new byte[1024];
+            
 
-            while(true)
+            while (true)
             {
-                //using문을 사용하면 리소스의 범위를 벗어나면 자동으로 Dispose하여 관리를 쉽게 도와줌.
-                //GetStream 메서드는 TCP 네트워크 스트림을 리턴, 이 네트워크 스트림을 이용해 네트워크로 데이터 송수신
+                //using문을 사용하면 리소스의 범위를 벗어나면 자동으로 dispose하여 관리를 쉽게 도와줌.
+                //getstream 메서드는 tcp 네트워크 스트림을 리턴, 이 네트워크 스트림을 이용해 네트워크로 데이터 송수신
+
                 using (NetworkStream stream = socket.GetStream())
                 {
                     int len;
 
-                    //Read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
-                    while( (len = stream.Read(bytes,0,bytes.Length) )!=0)
+
+                    //read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
+                    while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        UnityEngine.Debug.Log("Something came");
-                        var incommingData = new byte[len];
-                        Array.Copy(bytes, 0, incommingData, 0, len);
-
-                        string serverMessage = Encoding.ASCII.GetString(incommingData);
-                        UnityEngine.Debug.Log("server message: " + serverMessage.Length + " " + serverMessage);
+                        UnityEngine.Debug.Log("something came");
 
 
-                      
+                        //var incommingdata = new byte[len];
+                        //Array.Copy(bytes, 0, incommingdata, 0, len);
+
+                        //string servermessage = Encoding.ASCII.GetString(incommingdata);
+                        //UnityEngine.Debug.Log("server message: " + test);
+
+
+
                     }
+
+
                 }
             }
+
         }
-        catch(SocketException socketException)
+        catch (SocketException socketException)
         {
             UnityEngine.Debug.Log("Socket Exception " + socketException);
         }
@@ -96,39 +109,43 @@ public class Networking : MonoBehaviour
     public void SendMessage()
     {
         //소켓 연결이 안된 상태
-        if (socket == null)
+        if (!socket.Connected)
             return;
         try
         {
-            NetworkStream stream = socket.GetStream();
-            if(stream.CanWrite)
+            if (socket.Connected)
             {
-                
-                Data pkt = new Data()
-                 {
-                     Id = 1,
-                     MapLevel = 100,
-                     MatchRoom = 10,
-                    
-                 };
+                NetworkStream stream = socket.GetStream();
+                if (stream.CanWrite)
+                {
 
-                byte[] datas = PacketHandler.Make_login_handler(pkt,INGAME.Connect);
+                    Data dataPkt = new Data()
+                    {
+                        Id = 1,
+                        MapLevel = 100,
+                        MatchRoom = 10,
+                        Plyaer = {new Player {X = 0,Y=0,Z=0 } }
 
-                //바이트 배열을 넣어 전송
-                stream.Write(datas);
-                UnityEngine.Debug.Log("Client Sent Map Join Message");
+                    };
+
+                    byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Move);
+
+                    //바이트 배열을 넣어 전송
+                    stream.Write(datas);
+                    UnityEngine.Debug.Log("Client Sent Map Join Message");
+                }
             }
         }
         catch (SocketException socketException)
         {
-            UnityEngine.Debug.Log("Socket exception: " + socketException);
+            UnityEngine.Debug.Log("SendMessage Exception: " + socketException);
         }
     }
 
-    public void SendPlayerMessage(GameObject player)
+    public void SendPlayerMessage(float x,float y, float z )
     {
         //소켓 연결이 안된 상태
-        if (socket == null)
+        if (!socket.Connected)
             return;
         try
         {
@@ -138,18 +155,22 @@ public class Networking : MonoBehaviour
 
               
 
-                Player pkt = new Player()
+             
+
+                Data dataPkt = new Data()
                 {
-                    X = player.transform.position.x,
-                    Y = player.transform.position.y,
-                    Z = player.transform.position.z
+                    Id = 1,
+                    MapLevel = 100,
+                    MatchRoom = 10,
+                   
+
                 };
 
-            
 
 
 
-                byte[] datas = PacketHandler.Make_login_handler(pkt,INGAME.Move);
+
+                byte[] datas = PacketHandler.Make_login_handler(dataPkt,INGAME.Move);
 
                 //바이트 배열을 넣어 전송
                 stream.Write(datas);

@@ -30,10 +30,11 @@ class PacketHandler
         int size = Marshal.SizeOf<Pkt_Head>();
         
         //패킷 사이즈 = pkt 의 사이즈
+        
         head.size = (uint)pkt.CalculateSize();
         byte[] send_buffer = new byte[head.size + size];
 
-        //지정된 바이트 수를 사용하여 프로세스의 관리되지 않느 메모리에서 메로리를 할당 즉, buffsize만큼 Unmanaged 메모리 할당
+        //지정된 바이트 수를 사용하여 프로세스의 관리되지 않는 메모리에서 메로리를 할당 즉, buffsize만큼 Unmanaged 메모리 할당
         IntPtr ptr = Marshal.AllocHGlobal(size);
         //관리되는 개체의 데이터를 관리되지 않는 메모리 블록으로 마샬링합니다.
         Marshal.StructureToPtr(head, ptr, true);
@@ -44,35 +45,48 @@ class PacketHandler
 
         //pkt값을 send_buffer에 복사?
         Array.Copy(pkt.ToByteArray(), 0, send_buffer, size, head.size);
+        
 
         return send_buffer;
     }
 
-    public static byte[] Make_login_handler(Player pkt, INGAME type)
+
+
+    //https://technodori.tistory.com/entry/C-byte-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EA%B5%AC%EC%A1%B0%EC%B2%B4-byte
+    //버퍼에서는 한바이트씩 포인터로 이동해서 참조를 한다.
+    //receieve데이터를 받으면, 헤더 사이즈를 찾아야함.
+    void HandlerPacket(byte[] data, int len)
     {
-        Pkt_Head head = new Pkt_Head();
-        head.type = type;
+        int processLen = 0;
 
-        //마샬링에 필요한 만큼의 개체 크기를 반환
-        int size = Marshal.SizeOf<Pkt_Head>();
-        //패킷 사이즈?
-        head.size = (uint)pkt.CalculateSize();
-        byte[] send_buffer = new byte[head.size + size];
+        while (true)
+        {
+            int dataSize = len - processLen;
 
-        //지정된 바이트 수를 사용하여 프로세스의 관리되지 않느 메모리에서 메로리를 할당 즉, buffsize만큼 Unmanaged 메모리 할당
-        IntPtr ptr = Marshal.AllocHGlobal(size);
-        //관리되는 개체의 데이터를 관리되지 않는 메모리 블록으로 마샬링합니다.
-        Marshal.StructureToPtr(head, ptr, true);
-        //ptr 포인터에 저장되어 있는 주소의 위치를 참조, 이를 size만큼 복사하여 send_buffer에 집어 넣는다.
-        Marshal.Copy(ptr, send_buffer, 0, size);
-        //할당된 IntPtr unmanaged 메모리를 해제한다.
-        Marshal.FreeHGlobal(ptr);
+            //최소한 헤더는 파싱할 수 있는 사이즈가 들어올 때!
+            if (dataSize < Marshal.SizeOf<Pkt_Head>())
+                break;
 
-        //pkt값을 send_buffer에 복사?
-        Array.Copy(pkt.ToByteArray(), 0, send_buffer, size, head.size);
+            Pkt_Head header = data as Pkt_Head;
+            //배열의 크기만큼 비관리 메모리 영역에 메모리 할당
+            //배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
+            //복사한 데이터를 구조체 객체로 변환
+            IntPtr buff = Marshal.AllocHGlobal(data.Length);
+            Marshal.Copy(data, 0, buff, data.Length);
+            object obj = Marshal.PtrToStructure(buff, Pkt_Head);
+        }
 
-        return send_buffer;
     }
+
+
+
+
+
+
+
+
+
+
 }
 struct Pkt_Head
 {

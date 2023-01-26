@@ -26,7 +26,7 @@ public class ClientNetwork : MonoBehaviour
     {
         network = GetComponent<Networking>();
         network.Start();
-        network.SendMessage();
+       
 
 
     }
@@ -42,6 +42,8 @@ public class ClientNetwork : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
             network.SendMessage();
+        if (Input.GetKeyDown(KeyCode.R))
+            network.SendPlayerMessage(this.transform.position.x, this.transform.position.y, this.transform.position.z);
     }
 
     void GetInput()
@@ -58,7 +60,7 @@ public class ClientNetwork : MonoBehaviour
         moveVec = new Vector3(h, 0, v).normalized;
 
         transform.position += moveVec * speed * Time.deltaTime;
-        network.SendPlayerMessage(this.gameObject);
+       
     }
 
     void Turn()
