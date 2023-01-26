@@ -19,13 +19,15 @@ public class ClientNetwork : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        network = GetComponent<Networking>();
+        network.Start();
     }
 
 
     void Start()
     {
-        network = GetComponent<Networking>();
-        network.Start();
+     
+        network.SendMessage();
        
 
 
@@ -43,7 +45,7 @@ public class ClientNetwork : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
             network.SendMessage();
         if (Input.GetKeyDown(KeyCode.R))
-            network.SendPlayerMessage(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            network.SendPlayerMessage();
     }
 
     void GetInput()

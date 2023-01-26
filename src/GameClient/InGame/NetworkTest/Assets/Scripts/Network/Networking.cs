@@ -83,9 +83,9 @@ public class Networking : MonoBehaviour
                     while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         UnityEngine.Debug.Log("something came");
+                        //byte[] incommingdata = new byte[len];
 
-
-                        //var incommingdata = new byte[len];
+                        //PacketHandler.HandlerPacket<Pkt_Head>(incommingdata,len);
                         //Array.Copy(bytes, 0, incommingdata, 0, len);
 
                         //string servermessage = Encoding.ASCII.GetString(incommingdata);
@@ -122,13 +122,14 @@ public class Networking : MonoBehaviour
                     Data dataPkt = new Data()
                     {
                         Id = 1,
-                        MapLevel = 100,
-                        MatchRoom = 10,
-                        Plyaer = {new Player {X = 0,Y=0,Z=0 } }
+                        MapLevel = 2,
+                        MatchRoom = 0,
+                        //Plyaer = {new Player {X = 0,Y=0,Z=0 } }
 
                     };
+                  
 
-                    byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Move);
+                    byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Connect);
 
                     //바이트 배열을 넣어 전송
                     stream.Write(datas);
@@ -142,7 +143,7 @@ public class Networking : MonoBehaviour
         }
     }
 
-    public void SendPlayerMessage(float x,float y, float z )
+    public void SendPlayerMessage()
     {
         //소켓 연결이 안된 상태
         if (!socket.Connected)
@@ -153,24 +154,16 @@ public class Networking : MonoBehaviour
             if (stream.CanWrite)
             {
 
-              
-
-             
-
                 Data dataPkt = new Data()
                 {
                     Id = 1,
-                    MapLevel = 100,
-                    MatchRoom = 10,
-                   
+                    MapLevel = 2,
+                    MatchRoom = 0,
+                    Plyaer = { new Player { X = 0.0f, Y = 0.0f, Z = 0.0f } }
 
                 };
 
-
-
-
-
-                byte[] datas = PacketHandler.Make_login_handler(dataPkt,INGAME.Move);
+                byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Move);
 
                 //바이트 배열을 넣어 전송
                 stream.Write(datas);

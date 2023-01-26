@@ -30,17 +30,17 @@ class PacketHandler
         int size = Marshal.SizeOf<Pkt_Head>();
         
         //패킷 사이즈 = pkt 의 사이즈
-        
         head.size = (uint)pkt.CalculateSize();
         byte[] send_buffer = new byte[head.size + size];
 
         //지정된 바이트 수를 사용하여 프로세스의 관리되지 않는 메모리에서 메로리를 할당 즉, buffsize만큼 Unmanaged 메모리 할당
-        IntPtr ptr = Marshal.AllocHGlobal(size);
         //관리되는 개체의 데이터를 관리되지 않는 메모리 블록으로 마샬링합니다.
-        Marshal.StructureToPtr(head, ptr, true);
         //ptr 포인터에 저장되어 있는 주소의 위치를 참조, 이를 size만큼 복사하여 send_buffer에 집어 넣는다.
-        Marshal.Copy(ptr, send_buffer, 0, size);
         //할당된 IntPtr unmanaged 메모리를 해제한다.
+
+        IntPtr ptr = Marshal.AllocHGlobal(size);
+        Marshal.StructureToPtr(head, ptr, true);
+        Marshal.Copy(ptr, send_buffer, 0, size);
         Marshal.FreeHGlobal(ptr);
 
         //pkt값을 send_buffer에 복사?
@@ -55,37 +55,26 @@ class PacketHandler
     //https://technodori.tistory.com/entry/C-byte-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EA%B5%AC%EC%A1%B0%EC%B2%B4-byte
     //버퍼에서는 한바이트씩 포인터로 이동해서 참조를 한다.
     //receieve데이터를 받으면, 헤더 사이즈를 찾아야함.
-    void HandlerPacket(byte[] data, int len)
+    public static Pkt_Head HandlerPacket<Pkt_Head>(byte[] data, int len) where Pkt_Head : struct
     {
-        int processLen = 0;
 
-        while (true)
-        {
-            int dataSize = len - processLen;
 
-            //최소한 헤더는 파싱할 수 있는 사이즈가 들어올 때!
-            if (dataSize < Marshal.SizeOf<Pkt_Head>())
-                break;
 
-            Pkt_Head header = data as Pkt_Head;
-            //배열의 크기만큼 비관리 메모리 영역에 메모리 할당
-            //배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
-            //복사한 데이터를 구조체 객체로 변환
-            IntPtr buff = Marshal.AllocHGlobal(data.Length);
-            Marshal.Copy(data, 0, buff, data.Length);
-            object obj = Marshal.PtrToStructure(buff, Pkt_Head);
-        }
+        //배열의 크기만큼 비관리 메모리 영역에 메모리 할당
+        //배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
+        //복사한 데이터를 구조체 객체로 변환
+        //비관리 메모리 영역에 할당했던 메모리를 해제
+        int size = Marshal.SizeOf<Pkt_Head>();
+        IntPtr ptr = Marshal.AllocHGlobal(size);
+        Marshal.Copy(data, 0, ptr, size);
+        Pkt_Head head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
+        Marshal.FreeHGlobal(ptr);
+
+        return head;
+
+    
 
     }
-
-
-
-
-
-
-
-
-
 
 }
 struct Pkt_Head

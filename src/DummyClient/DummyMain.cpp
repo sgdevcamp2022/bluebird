@@ -47,6 +47,7 @@ int main() {
 
 	//게임 클라이언트 접속 테스트
 	this_thread::sleep_for(1s);
+	/*
 	ASSERT_CRASH(service2->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
@@ -60,4 +61,6 @@ int main() {
 	}
 
 	GThreadManager->Join();
+	*/
+	
 }
