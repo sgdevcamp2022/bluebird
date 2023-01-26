@@ -19,6 +19,12 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	}
 }
 
+void Games::StartGame(int32 room)
+{
+	_games[room]->Start();
+	//게임 시작
+}
+
 void Games::EndGame()
 {
 	//TODO

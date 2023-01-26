@@ -51,7 +51,8 @@ struct ObtacleDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ObtacleDefaultTypeInternal _Obtacle_default_instance_;
 constexpr Player::Player(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : x_(0)
+  : id_(int64_t{0})
+  , x_(0)
   , y_(0)
   , z_(0){}
 struct PlayerDefaultTypeInternal {
@@ -94,6 +95,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolTest_2eproto::offsets[
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Player, id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Player, x_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Player, y_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Player, z_),
@@ -116,17 +118,18 @@ const char descriptor_table_protodef_ProtocolTest_2eproto[] PROTOBUF_SECTION_VAR
   "m\030\003 \001(\005\022 \n\006player\030\004 \003(\0132\020.Protocol.Playe"
   "r\022\"\n\007obtacle\030\005 \003(\0132\021.Protocol.Obtacle\"E\n"
   "\007Obtacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022\t\n\001x"
-  "\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002\")\n\006Player\022\t"
-  "\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002*\260\001\n\006INGA"
-  "ME\022\010\n\004MOVE\020\000\022\023\n\017CHARATERS_CRASH\020\001\022\022\n\016OBS"
-  "TACLE_CRASH\020\002\022\013\n\007NO_MOVE\020\003\022\010\n\004DROP\020\004\022\013\n\007"
-  "COMPLTE\020\005\022\010\n\004FAIL\020\006\022\017\n\013PACKET_FAIL\020\007\022\021\n\r"
-  "OBSTACLE_MOVE\020\010\022\024\n\020OBSTACLE_SETTING\020\t\022\013\n"
-  "\007CONNECT\020\nb\006proto3"
+  "\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002\"5\n\006Player\022\n"
+  "\n\002id\030\001 \001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 "
+  "\001(\002*\273\001\n\006INGAME\022\010\n\004MOVE\020\000\022\023\n\017CHARATERS_CR"
+  "ASH\020\001\022\022\n\016OBSTACLE_CRASH\020\002\022\013\n\007NO_MOVE\020\003\022\010"
+  "\n\004DROP\020\004\022\013\n\007COMPLTE\020\005\022\010\n\004FAIL\020\006\022\017\n\013PACKE"
+  "T_FAIL\020\007\022\021\n\rOBSTACLE_MOVE\020\010\022\024\n\020OBSTACLE_"
+  "SETTING\020\t\022\013\n\007CONNECT\020\n\022\t\n\005START\020\013b\006proto"
+  "3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolTest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolTest_2eproto = {
-  false, false, 458, descriptor_table_protodef_ProtocolTest_2eproto, "ProtocolTest.proto", 
+  false, false, 481, descriptor_table_protodef_ProtocolTest_2eproto, "ProtocolTest.proto", 
   &descriptor_table_ProtocolTest_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ProtocolTest_2eproto::offsets,
   file_level_metadata_ProtocolTest_2eproto, file_level_enum_descriptors_ProtocolTest_2eproto, file_level_service_descriptors_ProtocolTest_2eproto,
@@ -155,6 +158,7 @@ bool INGAME_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
       return true;
     default:
       return false;
@@ -777,17 +781,17 @@ Player::Player(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 Player::Player(const Player& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&x_, &from.x_,
+  ::memcpy(&id_, &from.id_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
-    reinterpret_cast<char*>(&x_)) + sizeof(z_));
+    reinterpret_cast<char*>(&id_)) + sizeof(z_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Player)
 }
 
 void Player::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&x_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&z_) -
-    reinterpret_cast<char*>(&x_)) + sizeof(z_));
+    reinterpret_cast<char*>(&id_)) + sizeof(z_));
 }
 
 Player::~Player() {
@@ -816,9 +820,9 @@ void Player::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&x_, 0, static_cast<size_t>(
+  ::memset(&id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&z_) -
-      reinterpret_cast<char*>(&x_)) + sizeof(z_));
+      reinterpret_cast<char*>(&id_)) + sizeof(z_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -828,6 +832,13 @@ const char* Player::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
+      // int64 id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       // float x = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
@@ -878,6 +889,12 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int64 id = 1;
+  if (this->id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
+  }
+
   // float x = 2;
   if (!(this->x() <= 0 && this->x() >= 0)) {
     target = stream->EnsureSpace(target);
@@ -911,6 +928,13 @@ size_t Player::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // int64 id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_id());
+  }
 
   // float x = 2;
   if (!(this->x() <= 0 && this->x() >= 0)) {
@@ -958,6 +982,9 @@ void Player::MergeFrom(const Player& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.id() != 0) {
+    _internal_set_id(from._internal_id());
+  }
   if (!(from.x() <= 0 && from.x() >= 0)) {
     _internal_set_x(from._internal_x());
   }
@@ -993,9 +1020,9 @@ void Player::InternalSwap(Player* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Player, z_)
       + sizeof(Player::z_)
-      - PROTOBUF_FIELD_OFFSET(Player, x_)>(
-          reinterpret_cast<char*>(&x_),
-          reinterpret_cast<char*>(&other->x_));
+      - PROTOBUF_FIELD_OFFSET(Player, id_)>(
+          reinterpret_cast<char*>(&id_),
+          reinterpret_cast<char*>(&other->id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Player::GetMetadata() const {

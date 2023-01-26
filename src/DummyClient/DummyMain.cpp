@@ -32,7 +32,7 @@ int main() {
 	ClientServiceRef service2 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
-		MakeShared<GameSession>, 5);
+		MakeShared<GameSession>, 10);
 	ClientServiceRef service3 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
@@ -63,13 +63,8 @@ int main() {
 	}
 
 	//게임 클라이언트 접속 테스트
-<<<<<<< HEAD
 	this_thread::sleep_for(5s);
 
-=======
-	this_thread::sleep_for(1s);
-	/*
->>>>>>> 0ebc348ecc86353c290fbb163af4cde494bb0c89
 	ASSERT_CRASH(service2->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
@@ -83,6 +78,4 @@ int main() {
 	}
 
 	GThreadManager->Join();
-	*/
-	
 }
