@@ -6,12 +6,15 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
+#include <boost/thread/mutex.hpp>
 #include "ConnectToSQL.h"
 #include "PacketManager.h"
 #include <algorithm>
 #include <list>
 
 using namespace std;
+
+class ObstacleThread;
 
 class BoostAsio
 {
@@ -21,8 +24,9 @@ public:
     ~BoostAsio();
 
     void Connect(boost::asio::ip::tcp::endpoint& endpoint);
+    void PostWrite(int header = 1);
 private:
-    void PostWrite();
+    
 
     void PostReceive();
 
@@ -49,4 +53,33 @@ private:
 
     list<pair<int, boost::thread*>> threadGroup;
     list<pair<int, boost::thread*>>::iterator iter;
+
+    boost::mutex mutex;
+};
+
+class ObstacleThread
+{
+public:
+
+    ObstacleThread(LoginData loginData, BoostAsio& npcServer) : loginData(loginData), npcServer(npcServer)
+    {
+    }
+
+    
+    void operator()() const
+    {
+        while (true)
+        {
+            cout << "MapLevel: " << loginData.mapLevel << " / MatchRoom: " << loginData.matchRoom << endl;
+            npcServer.PostWrite();
+            boost::this_thread::sleep(boost::posix_time::seconds(1));
+        }
+    }
+    
+
+private:
+    BoostAsio& npcServer;
+    LoginData loginData;
+    GameData gameData;
+
 };

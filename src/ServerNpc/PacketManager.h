@@ -8,6 +8,7 @@
 #include <string>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#undef GetMessage
 
 using namespace google;
 using namespace std;
@@ -19,17 +20,40 @@ struct MessageHeader
     //Protocol::INGAME type;
 };
 
+struct LoginData
+{
+	int mapLevel;
+	int matchRoom;
+	int obstacleID;
+	int obstacleShape;
+	float obstacleX;
+	float obstacleY;
+	float obstacleZ;
+};
+
+struct GameData
+{
+	int matchRoom;
+	int obstacleSize;
+	int obstacleID;
+	int obstacleShape;
+	float obstacleX;
+	float obstacleY;
+	float obstacleZ;
+};
+
 class PacketManager
 {
 public:
     PacketManager() {}
-    char* MakePacket(int id, float x, float y, float z);
+    char* MakePacket(int header);
     //~PacketManager();
     int GetBufSize();
-    int PacketProcess(protobuf::io::CodedInputStream& input_stream);
+    int PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream);
 
 private:
     void PrintMsg(::google::protobuf::Message& msg);
+	void GetField(LoginData* loginData, ::google::protobuf::Message& msg);
     void WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
         protobuf::io::CodedOutputStream& stream);
     const int headerSize = sizeof(MessageHeader);
