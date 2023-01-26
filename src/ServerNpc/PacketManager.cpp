@@ -7,22 +7,23 @@ char* PacketManager::MakePacket(int header)
     Npc::Obstacle* obsData;
     if (header == 0)
     {
-        loginData.set_maplevel(1);
-        loginData.set_matchroom(1);
+        loginData.set_maplevel(2);
+        loginData.set_matchroom(0);
         obsData = loginData.add_obstacle();
-        obsData->set_id(10);
-        obsData->set_shape(5);
-        obsData->set_x(10);
-        obsData->set_y(20);
-        obsData->set_z(30);
+        obsData->set_id(0);
+        obsData->set_shape(0);
+        obsData->set_x(0);
+        obsData->set_y(0);
+        obsData->set_z(0);
 
         bufSize = headerSize + loginData.ByteSizeLong();
     }
     else
     {
-        gameData.set_matchroom(1);
-        gameData.set_obstaclesize(2);
-        for (int i = 0; i < 2; i++)
+        //cout << "GameData" << endl;
+        gameData.set_matchroom(0);
+        gameData.set_obstaclesize(1);
+        for (int i = 0; i < 1; i++)
         {
             obsData = gameData.add_obstacle();
             obsData->set_id(10);
@@ -54,28 +55,54 @@ char* PacketManager::MakePacket(int header)
 
 void PacketManager::PrintMsg(::google::protobuf::Message& msg)
 {
+    string str;
+    str = msg.DebugString();
+    cout << str << endl;
+}
+
+void PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& msg)
+{
     const google::protobuf::Reflection* refl = msg.GetReflection();
     const google::protobuf::Descriptor* desc = msg.GetDescriptor();
     int fieldCnt = desc->field_count();
-    cout << "Message Name: " << desc->full_name().c_str() << endl;
+    //cout << "Message Name: " << desc->full_name().c_str() << endl;
     for (int i = 0; i < fieldCnt; i++)
     {
         const google::protobuf::FieldDescriptor* field = desc->field(i);
-        cout << "Field Name: " << field->name().c_str() << endl;
-        if (field->type() == google::protobuf::FieldDescriptor::TYPE_INT32)
+        string fieldName = field->name();
+        //cout << "Field Name: " << field->name() << endl;
+        if (field->type() == google::protobuf::FieldDescriptor::TYPE_INT32 && !field->is_repeated())
         {
-            if (!field->is_repeated())
+            if (fieldName == "mapLevel")
             {
-                int value = refl->GetInt32(msg, field);
-                cout << "Value: " << value << endl;
+                loginData->mapLevel = refl->GetInt32(msg, field);
+            }
+            else if (fieldName == "matchRoom")
+            {
+                loginData->matchRoom = refl->GetInt32(msg, field);
+            }
+            else if (fieldName == "id")
+            {
+                loginData->obstacleID = refl->GetInt32(msg, field);
+            }
+            else if (fieldName == "shape")
+            {
+                loginData->obstacleShape = refl->GetInt32(msg, field);
             }
         }
-        if (field->type() == google::protobuf::FieldDescriptor::TYPE_FLOAT)
+        if (field->type() == google::protobuf::FieldDescriptor::TYPE_FLOAT && !field->is_repeated())
         {
-            if (!field->is_repeated())
+            if (fieldName == "x")
             {
-                int value = refl->GetFloat(msg, field);
-                cout << "Value: " << value << endl;
+                loginData->obstacleX = refl->GetFloat(msg, field);
+            }
+            else if (fieldName == "y")
+            {
+                loginData->obstacleY = refl->GetFloat(msg, field);
+            }
+            else if (fieldName == "z")
+            {
+                loginData->obstacleZ = refl->GetFloat(msg, field);
             }
         }
         if (field->type() == google::protobuf::FieldDescriptor::TYPE_MESSAGE)
@@ -85,15 +112,11 @@ void PacketManager::PrintMsg(::google::protobuf::Message& msg)
                 const google::protobuf::Message& mField = refl->GetRepeatedMessage(msg, field, 0);
                 google::protobuf::Message* mCopy = mField.New();
                 mCopy->CopyFrom(mField);
-                PrintMsg(*mCopy);
+                GetField(loginData, *mCopy);
             }
         }
-        
+
     }
-    //string str;
-    //str = msg.DebugString();
-    
-    //cout << str << endl;
 }
 
 void PacketManager::WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
@@ -112,7 +135,7 @@ int PacketManager::GetBufSize()
 }
 
 
-int PacketManager::PacketProcess(protobuf::io::CodedInputStream& input_stream)
+int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream)
 {
     int returnValue = 0;
     MessageHeader msgHeader;
@@ -150,6 +173,7 @@ int PacketManager::PacketProcess(protobuf::io::CodedInputStream& input_stream)
             obsData->set_y(0);
             obsData->set_z(0);
             //
+            GetField(loginData, packet);
             PrintMsg(packet);
             break;
         }
