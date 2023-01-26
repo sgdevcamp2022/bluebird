@@ -28,7 +28,7 @@ int main() {
 	ClientServiceRef service1 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 5);
+		MakeShared<MatchSession>, 10);
 	ClientServiceRef service2 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
@@ -46,7 +46,8 @@ int main() {
 	}
 
 	//게임 클라이언트 접속 테스트
-	this_thread::sleep_for(1s);
+	this_thread::sleep_for(5s);
+
 	ASSERT_CRASH(service2->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {

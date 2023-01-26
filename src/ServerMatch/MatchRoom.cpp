@@ -10,9 +10,9 @@ int32 MatchRoom::Enter(PlayerRef player)
 	return static_cast<int32>(_players.size());
 }
 
-void MatchRoom::Leave(PlayerRef player)
+void MatchRoom::Leave(int64 id)
 {
-	_players.erase(player->playerId);
+	_players.erase(id);
 }
 
 void MatchRoom::Broadcast(Match::Users& users, int32 matchRoom)
@@ -21,11 +21,10 @@ void MatchRoom::Broadcast(Match::Users& users, int32 matchRoom)
 
 	for (auto& p : _players)
 	{
-
 		users.add_ids(p.second->playerId);
 		Match::Success data;
 		data.set_id(p.second->playerId);
-		data.set_matchroom(matchRoom);
+		data.set_room(matchRoom);
 		data.set_gameport(5000);
 
 		auto ref = PacketHandler::MakeSendBuffer(data, Match::S_MATCH);

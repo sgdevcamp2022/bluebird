@@ -208,8 +208,9 @@ class Data final :
 
   enum : int {
     kIdFieldNumber = 1,
-    kMapLevelFieldNumber = 2,
-    kStateFieldNumber = 3,
+    kLevelFieldNumber = 2,
+    kRoomFieldNumber = 3,
+    kStateFieldNumber = 4,
   };
   // int64 id = 1;
   void clear_id();
@@ -220,16 +221,25 @@ class Data final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // int32 mapLevel = 2;
-  void clear_maplevel();
-  ::PROTOBUF_NAMESPACE_ID::int32 maplevel() const;
-  void set_maplevel(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 level = 2;
+  void clear_level();
+  ::PROTOBUF_NAMESPACE_ID::int32 level() const;
+  void set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_maplevel() const;
-  void _internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_level() const;
+  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // bool state = 3;
+  // int32 room = 3;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // bool state = 4;
   void clear_state();
   bool state() const;
   void set_state(bool value);
@@ -246,7 +256,8 @@ class Data final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
-  ::PROTOBUF_NAMESPACE_ID::int32 maplevel_;
+  ::PROTOBUF_NAMESPACE_ID::int32 level_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
   bool state_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
@@ -362,7 +373,7 @@ class Success final :
 
   enum : int {
     kIdFieldNumber = 1,
-    kMatchRoomFieldNumber = 2,
+    kRoomFieldNumber = 2,
     kGamePortFieldNumber = 3,
   };
   // int64 id = 1;
@@ -374,13 +385,13 @@ class Success final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // int32 matchRoom = 2;
-  void clear_matchroom();
-  ::PROTOBUF_NAMESPACE_ID::int32 matchroom() const;
-  void set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value);
+  // int32 room = 2;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_matchroom() const;
-  void _internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // int32 gamePort = 3;
@@ -400,7 +411,7 @@ class Success final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
-  ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
   ::PROTOBUF_NAMESPACE_ID::int32 gameport_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
@@ -436,27 +447,47 @@ inline void Data::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   // @@protoc_insertion_point(field_set:Match.Data.id)
 }
 
-// int32 mapLevel = 2;
-inline void Data::clear_maplevel() {
-  maplevel_ = 0;
+// int32 level = 2;
+inline void Data::clear_level() {
+  level_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Data::_internal_maplevel() const {
-  return maplevel_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Data::_internal_level() const {
+  return level_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Data::maplevel() const {
-  // @@protoc_insertion_point(field_get:Match.Data.mapLevel)
-  return _internal_maplevel();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Data::level() const {
+  // @@protoc_insertion_point(field_get:Match.Data.level)
+  return _internal_level();
 }
-inline void Data::_internal_set_maplevel(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Data::_internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  maplevel_ = value;
+  level_ = value;
 }
-inline void Data::set_maplevel(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_maplevel(value);
-  // @@protoc_insertion_point(field_set:Match.Data.mapLevel)
+inline void Data::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Match.Data.level)
 }
 
-// bool state = 3;
+// int32 room = 3;
+inline void Data::clear_room() {
+  room_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Data::_internal_room() const {
+  return room_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Data::room() const {
+  // @@protoc_insertion_point(field_get:Match.Data.room)
+  return _internal_room();
+}
+inline void Data::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  room_ = value;
+}
+inline void Data::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Match.Data.room)
+}
+
+// bool state = 4;
 inline void Data::clear_state() {
   state_ = false;
 }
@@ -500,24 +531,24 @@ inline void Success::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   // @@protoc_insertion_point(field_set:Match.Success.id)
 }
 
-// int32 matchRoom = 2;
-inline void Success::clear_matchroom() {
-  matchroom_ = 0;
+// int32 room = 2;
+inline void Success::clear_room() {
+  room_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Success::_internal_matchroom() const {
-  return matchroom_;
+inline ::PROTOBUF_NAMESPACE_ID::int32 Success::_internal_room() const {
+  return room_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 Success::matchroom() const {
-  // @@protoc_insertion_point(field_get:Match.Success.matchRoom)
-  return _internal_matchroom();
+inline ::PROTOBUF_NAMESPACE_ID::int32 Success::room() const {
+  // @@protoc_insertion_point(field_get:Match.Success.room)
+  return _internal_room();
 }
-inline void Success::_internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Success::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
-  matchroom_ = value;
+  room_ = value;
 }
-inline void Success::set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_matchroom(value);
-  // @@protoc_insertion_point(field_set:Match.Success.matchRoom)
+inline void Success::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Match.Success.room)
 }
 
 // int32 gamePort = 3;

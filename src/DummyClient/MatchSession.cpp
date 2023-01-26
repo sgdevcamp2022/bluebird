@@ -6,13 +6,10 @@ void MatchSession::OnConnected()
     static atomic<int> th(0);
     Match::Data pkt;
     pkt.set_id(th.fetch_add(1));
-    pkt.set_maplevel(2);
+    pkt.set_level(2);
     pkt.set_state(false);
     auto ref = PacketHandler::MakeSendBuffer(pkt, Match::C_LOGIN);
     Send(ref);
-
-    /*ref = PacketHandler::MakeSendBuffer(pkt, Match::C_CANCLE);
-    Send(ref);*/
 
 }
 

@@ -5,6 +5,11 @@
 
 struct Vector3
 {
+	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+	Vector3(Protocol::Obtacle data) : x(data.x()), y(data.y()), z(data.z()) {}
+	Vector3(Protocol::Player data) : x(data.x()), y(data.y()), z(data.z()) {}
+	Vector3(Npc::Obstacle data) : x(data.x()), y(data.y()), z(data.z()) {}
+	
 	float x;
 	float y;
 	float z;

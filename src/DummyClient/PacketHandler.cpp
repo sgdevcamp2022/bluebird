@@ -21,12 +21,12 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len
 
 void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
 {
-    cout << pkt.id() << " " << pkt.maplevel() << endl;
+    cout << pkt.id() << " " << pkt.level() << endl;
 }
 
 void PacketHandler::HandlerMatch(PacketSessionRef& ref, Match::Success&& pkt)
 {
-    cout << "MatchSuccess " << pkt.id() << " " << pkt.matchroom() << endl;
+    cout << "MatchSuccess " << pkt.id() << " " << pkt.room() << endl;
 }
 
 SendBufferRef PacketHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)

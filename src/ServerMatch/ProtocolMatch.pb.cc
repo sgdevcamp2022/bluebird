@@ -20,7 +20,8 @@ namespace Match {
 constexpr Data::Data(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
-  , maplevel_(0)
+  , level_(0)
+  , room_(0)
   , state_(false){}
 struct DataDefaultTypeInternal {
   constexpr DataDefaultTypeInternal()
@@ -34,7 +35,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataDefaultTypeInternal _Data_d
 constexpr Success::Success(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
-  , matchroom_(0)
+  , room_(0)
   , gameport_(0){}
 struct SuccessDefaultTypeInternal {
   constexpr SuccessDefaultTypeInternal()
@@ -57,7 +58,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Match::Data, id_),
-  PROTOBUF_FIELD_OFFSET(::Match::Data, maplevel_),
+  PROTOBUF_FIELD_OFFSET(::Match::Data, level_),
+  PROTOBUF_FIELD_OFFSET(::Match::Data, room_),
   PROTOBUF_FIELD_OFFSET(::Match::Data, state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Match::Success, _internal_metadata_),
@@ -65,12 +67,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Match::Success, id_),
-  PROTOBUF_FIELD_OFFSET(::Match::Success, matchroom_),
+  PROTOBUF_FIELD_OFFSET(::Match::Success, room_),
   PROTOBUF_FIELD_OFFSET(::Match::Success, gameport_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Match::Data)},
-  { 8, -1, sizeof(::Match::Success)},
+  { 9, -1, sizeof(::Match::Success)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -79,16 +81,17 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\023ProtocolMatch.proto\022\005Match\"3\n\004Data\022\n\n\002"
-  "id\030\001 \001(\003\022\020\n\010mapLevel\030\002 \001(\005\022\r\n\005state\030\003 \001("
-  "\010\":\n\007Success\022\n\n\002id\030\001 \001(\003\022\021\n\tmatchRoom\030\002 "
-  "\001(\005\022\020\n\010gamePort\030\003 \001(\005*T\n\005STATE\022\013\n\007C_LOGI"
-  "N\020\000\022\014\n\010C_CANCLE\020\001\022\010\n\004FAIL\020\002\022\013\n\007S_LOGIN\020\003"
-  "\022\013\n\007S_MATCH\020\004\022\014\n\010S_CANCLE\020\005b\006proto3"
+  "\n\023ProtocolMatch.proto\022\005Match\">\n\004Data\022\n\n\002"
+  "id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014\n\004room\030\003 \001(\005\022\r\n"
+  "\005state\030\004 \001(\010\"5\n\007Success\022\n\n\002id\030\001 \001(\003\022\014\n\004r"
+  "oom\030\002 \001(\005\022\020\n\010gamePort\030\003 \001(\005*T\n\005STATE\022\013\n\007"
+  "C_LOGIN\020\000\022\014\n\010C_CANCLE\020\001\022\010\n\004FAIL\020\002\022\013\n\007S_L"
+  "OGIN\020\003\022\013\n\007S_MATCH\020\004\022\014\n\010S_CANCLE\020\005b\006proto"
+  "3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolMatch_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto = {
-  false, false, 235, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
+  false, false, 241, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
   &descriptor_table_ProtocolMatch_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_ProtocolMatch_2eproto::offsets,
   file_level_metadata_ProtocolMatch_2eproto, file_level_enum_descriptors_ProtocolMatch_2eproto, file_level_service_descriptors_ProtocolMatch_2eproto,
@@ -192,16 +195,23 @@ const char* Data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 mapLevel = 2;
+      // int32 level = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          maplevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool state = 3;
+      // int32 room = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool state = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
           state_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -241,16 +251,22 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // int32 mapLevel = 2;
-  if (this->maplevel() != 0) {
+  // int32 level = 2;
+  if (this->level() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_maplevel(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_level(), target);
   }
 
-  // bool state = 3;
+  // int32 room = 3;
+  if (this->room() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_room(), target);
+  }
+
+  // bool state = 4;
   if (this->state() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_state(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_state(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -276,14 +292,21 @@ size_t Data::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // int32 mapLevel = 2;
-  if (this->maplevel() != 0) {
+  // int32 level = 2;
+  if (this->level() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_maplevel());
+        this->_internal_level());
   }
 
-  // bool state = 3;
+  // int32 room = 3;
+  if (this->room() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_room());
+  }
+
+  // bool state = 4;
   if (this->state() != 0) {
     total_size += 1 + 1;
   }
@@ -322,8 +345,11 @@ void Data::MergeFrom(const Data& from) {
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
   }
-  if (from.maplevel() != 0) {
-    _internal_set_maplevel(from._internal_maplevel());
+  if (from.level() != 0) {
+    _internal_set_level(from._internal_level());
+  }
+  if (from.room() != 0) {
+    _internal_set_room(from._internal_room());
   }
   if (from.state() != 0) {
     _internal_set_state(from._internal_state());
@@ -438,10 +464,10 @@ const char* Success::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 matchRoom = 2;
+      // int32 room = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          matchroom_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -487,10 +513,10 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // int32 matchRoom = 2;
-  if (this->matchroom() != 0) {
+  // int32 room = 2;
+  if (this->room() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_matchroom(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_room(), target);
   }
 
   // int32 gamePort = 3;
@@ -522,11 +548,11 @@ size_t Success::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // int32 matchRoom = 2;
-  if (this->matchroom() != 0) {
+  // int32 room = 2;
+  if (this->room() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_matchroom());
+        this->_internal_room());
   }
 
   // int32 gamePort = 3;
@@ -570,8 +596,8 @@ void Success::MergeFrom(const Success& from) {
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
   }
-  if (from.matchroom() != 0) {
-    _internal_set_matchroom(from._internal_matchroom());
+  if (from.room() != 0) {
+    _internal_set_room(from._internal_room());
   }
   if (from.gameport() != 0) {
     _internal_set_gameport(from._internal_gameport());

@@ -20,6 +20,8 @@ void DoWorkerJob(T& service)
 		//네트워크 입출력 처리 -> 인게임 로직까지 (패킷 핸들러에 의해서)
 		service->GetIocpCore()->Dispatch(10);
 		
+		ThreadManager::DistributeReserveJobs();
+
 		ThreadManager::DoGlobalQueueWork();
 	}
 }

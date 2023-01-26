@@ -5,7 +5,7 @@ class MatchRoom
 {
 public:
 	int32 Enter(PlayerRef player);
-	void Leave(PlayerRef player);
+	void Leave(int64 id);
 	void Broadcast(Match::Users& users, int32 matchRoom);
 
 	void Clear() { _players.clear(); }

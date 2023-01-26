@@ -12,7 +12,7 @@ public:
 	void Leave(PlayerRef ref);
 
 	void PlayerMove(Protocol::Data data);
-	void ObstacleMove(int64 id, Vector3 position);
+	void ObstacleMove(vector<Npc::Obstacle> datas);
 	void Broadcast(SendBufferRef ref);
 public:
 	atomic<bool>			_start = true;
