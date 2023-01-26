@@ -20,6 +20,8 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     case Protocol::OBSTACLE_MOVE:
         HandlerOBMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
+    case Protocol::START:
+        HandlerStart(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
     default:
         break;
     }
@@ -44,6 +46,11 @@ void GameHandler::HandlerOBSet(PacketSessionRef& ref, Protocol::Data&& pkt)
 void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
     cout << "Ob Move" << pkt.obtacle_size() << endl;
+}
+
+void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
+{
+    cout << "½ÃÀÛÇÔ" << pkt.player_size() << endl;
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)

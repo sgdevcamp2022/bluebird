@@ -50,5 +50,5 @@ void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 		datas.push_back(pkt.obstacle(i));
 	}
 	//복사 비용 줄이기
-	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, datas);
+	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, std::move(datas));
 }

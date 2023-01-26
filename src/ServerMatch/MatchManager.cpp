@@ -8,9 +8,9 @@ shared_ptr<MatchManager> GMatch = make_shared<MatchManager>();
 
 MatchManager::MatchManager()
 {
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < TestLevel; i++) {
 		_matchRooms.push_back(vector<MatchRoomRef>());
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < TestRoom; j++) {
 			_matchRooms[i].push_back(make_shared<MatchRoom>());
 		}
 		_matchNums.push_back(0);

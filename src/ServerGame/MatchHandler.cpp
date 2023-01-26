@@ -28,15 +28,17 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
         cout << data << " " << pkt.room() << endl;
     }
     Ggames->DoAsync(&Games::NewGame, &players, pkt.level(), pkt.room());
-    
+    Ggames->DoTimer(5000, &Games::StartGame, pkt.room());
     //NPC 서버 테스트용 코드
 
     auto _ref = Ggames->GetNpcRef();
-    Npc::LoginData data;
-    data.set_maplevel(pkt.level());
-    data.set_matchroom(pkt.room());
+    if (_ref != nullptr) {
+        Npc::LoginData data;
+        data.set_maplevel(pkt.level());
+        data.set_matchroom(pkt.room());
 
-    _ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
+        _ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
+    }
 }
 
 SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
