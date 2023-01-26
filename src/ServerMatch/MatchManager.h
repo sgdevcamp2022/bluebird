@@ -7,16 +7,18 @@ public:
 	MatchManager();
 	~MatchManager();
 
-	void MatchEnter(PlayerRef player, int32 roomNum);
-	void MatchLeave(PlayerRef player, int32 roomNum);
-	void MatchPull(int32 roomNum);
+	void MatchEnter(MatchSessionRef session, Match::Data data, PlayerRef player, int32 level);
+	void MatchLeave(int64 id, int32 level, int32 room);
+	void MatchPull(int32 level, int32 match, int32 room);
 	void SetService(ClientServiceRef ref);
 
 private:
-	vector<MatchRoomRef> _matchRooms;
-	ClientServiceRef	_ref = nullptr;
-	atomic<int32>		_matchNum = 0;
-	Match::Users		_users;
+	vector<vector<MatchRoomRef>> _matchRooms;
+	vector<int32>				_matchNums;
+	atomic<int32>				_roomId = 0;
+
+	ClientServiceRef			_ref = nullptr;
+	Match::Users				_users;
 };
 
 extern shared_ptr<MatchManager> GMatch;

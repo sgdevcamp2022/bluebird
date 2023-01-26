@@ -38,12 +38,12 @@ void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HandlerOBSet(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    cout << "Ob set" << endl;
+    cout << "Ob set" << pkt.obtacle_size() << endl;
 }
 
 void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    cout << "Ob Move" << endl;
+    cout << "Ob Move" << pkt.obtacle_size() << endl;
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)

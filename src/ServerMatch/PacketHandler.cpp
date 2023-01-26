@@ -29,25 +29,16 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
     PlayerRef player = make_shared<Player>();
     player->ownerSession = _ref;
     player->playerId = pkt.id();
-    player->mapLevel = pkt.maplevel();
-    int32 index = pkt.maplevel();
+    player->mapLevel = pkt.level();
 
-    GMatch->DoAsync(&MatchManager::MatchEnter, player, index);
-
-    pkt.set_state(true);
-    _ref->Send(MakeSendBuffer(pkt, Match::S_LOGIN));
+    GMatch->DoAsync(&MatchManager::MatchEnter, _ref, std::move(pkt), player, pkt.level());
 }
 
 void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::Data&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
-    PlayerRef player = make_shared<Player>();
-    player->ownerSession = _ref;
-    player->playerId = pkt.id();
-    player->mapLevel = pkt.maplevel();
-    int32 index = pkt.maplevel();
-    GMatch->DoAsync(&MatchManager::MatchLeave, player, index);
+    GMatch->DoAsync(&MatchManager::MatchLeave, pkt.id(), pkt.level(), pkt.room());
 }
 
 SendBufferRef PacketHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)

@@ -52,24 +52,26 @@ void Room::PlayerMove(Protocol::Data data)
 
 	PlayerRef player = _players[data.id()];
 
-	player->MovePosition(Vector3{ point.x(), point.y() , point.z() });
+	player->MovePosition(Vector3(point));
 	
 	cout << "BroadCast" << endl;
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::MOVE));
 }
 
-void Room::ObstacleMove(int64 id, Vector3 position)
+void Room::ObstacleMove(vector<Npc::Obstacle> datas)
 {
-	_obstacles[id]->MovePosition(std::move(position));
-
 	Protocol::Data data;
-	auto ob = data.add_obtacle();
+	for (int i = 0; i < datas.size(); i++) {
+		Vector3 position(datas[i]);
+		_obstacles[datas[i].id()]->MovePosition(std::move(position));
 
-	ob->set_id(id);
-	ob->set_x(position.x);
-	ob->set_y(position.y);
-	ob->set_z(position.z);
+		auto ob = data.add_obtacle();
 
+		ob->set_id(datas[i].id());
+		ob->set_x(position.x);
+		ob->set_y(position.y);
+		ob->set_z(position.z);
+	}
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 }
 

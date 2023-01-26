@@ -28,6 +28,8 @@ void GameHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt)
     cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom() << endl;
 
     Ggames->DoAsync(&Games::EnterGame, gameSession, pkt.id(), pkt.matchroom());
+
+    //접속 시 전체 유저 정보 전달 -> 고민 이슈
 }
 
 void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)

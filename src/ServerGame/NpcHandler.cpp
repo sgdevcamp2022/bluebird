@@ -36,7 +36,7 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 	if (pkt.obstacle_size() != 0) {
 		for (int i = 0; i < pkt.obstacle_size(); i++) {
 			auto data = pkt.obstacle(i);
-			datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3{ data.x(), data.y(), data.z() });
+			datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data));
 		}
 
 		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
@@ -45,11 +45,10 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 
 void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 {
-	//에코 서버
 	vector<Npc::Obstacle> datas;
 	for (int i = 0; i < pkt.obstaclesize(); i++) {
 		datas.push_back(pkt.obstacle(i));
 	}
-	//Ggames->GetRoomRef(pkt.matchroom())->DoAsync()
-	ref->Send(MakeSendBuffer(pkt, Npc::GAME));
+	//복사 비용 줄이기
+	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, datas);
 }

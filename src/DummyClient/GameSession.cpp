@@ -14,6 +14,7 @@ void GameSession::OnConnected()
         auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::CONNECT);
         Send(ref);
     }
+    
     {
         Protocol::Data pkt;
         pkt.set_id(id);
