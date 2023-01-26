@@ -72,13 +72,12 @@ class PacketHandler
 
         return head;
 
-    
-
     }
 
 }
 struct Pkt_Head
 {
+    //헤더를 제외한 사이즈
     public uint size;
     public INGAME type;
 };

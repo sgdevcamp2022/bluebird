@@ -83,9 +83,11 @@ public class Networking : MonoBehaviour
                     while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         UnityEngine.Debug.Log("something came");
-                        //byte[] incommingdata = new byte[len];
+                        byte[] incommingdata = new byte[len];
 
-                        //PacketHandler.HandlerPacket<Pkt_Head>(incommingdata,len);
+                        Pkt_Head head = PacketHandler.HandlerPacket<Pkt_Head>(incommingdata, len);
+                        //int size = 
+                      //  UnityEngine.Debug.Log("%d" , head.size);
                         //Array.Copy(bytes, 0, incommingdata, 0, len);
 
                         //string servermessage = Encoding.ASCII.GetString(incommingdata);
@@ -124,7 +126,7 @@ public class Networking : MonoBehaviour
                         Id = 1,
                         MapLevel = 2,
                         MatchRoom = 0,
-                        //Plyaer = {new Player {X = 0,Y=0,Z=0 } }
+                        //Player = {new Player {X = 0,Y=0,Z=0 } }
 
                     };
                   
@@ -159,7 +161,7 @@ public class Networking : MonoBehaviour
                     Id = 1,
                     MapLevel = 2,
                     MatchRoom = 0,
-                    Plyaer = { new Player { X = 0.0f, Y = 0.0f, Z = 0.0f } }
+                    Player = { new Player { X = 0.0f, Y = 0.0f, Z = 0.0f } }
 
                 };
 
