@@ -33,6 +33,10 @@ int main() {
 		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
 		MakeShared<GameSession>, 5);
+	ClientServiceRef service3 = MakeShared<ClientService>(
+		NetAddress(L"127.0.0.1", 6000),
+		MakeShared<IocpCore>(),
+		MakeShared<MatchSession>, 10);
 	ASSERT_CRASH(service1->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
@@ -41,6 +45,19 @@ int main() {
 				while (true)
 				{
 					DoWorkerJob(service1);
+				}
+			});
+	}
+	this_thread::sleep_for(1s);
+
+	ASSERT_CRASH(service3->Start());
+
+	for (int i = 0; i < THREAD_SIZE; i++) {
+		GThreadManager->Launch([&service3]()
+			{
+				while (true)
+				{
+					DoWorkerJob(service3);
 				}
 			});
 	}

@@ -12,6 +12,7 @@ int32 MatchRoom::Enter(PlayerRef player)
 
 void MatchRoom::Leave(int64 id)
 {
+	//체크 필요
 	_players.erase(id);
 }
 

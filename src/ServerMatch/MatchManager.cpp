@@ -10,6 +10,9 @@ MatchManager::MatchManager()
 {
 	for (int i = 0; i < 5; i++) {
 		_matchRooms.push_back(vector<MatchRoomRef>());
+		for (int j = 0; j < 10; j++) {
+			_matchRooms[i].push_back(make_shared<MatchRoom>());
+		}
 		_matchNums.push_back(0);
 	}
 }
@@ -22,13 +25,7 @@ MatchManager::~MatchManager()
 void MatchManager::MatchEnter(MatchSessionRef session, Match::Data data, PlayerRef player, int32 level)
 {
 	//에러 체크 필요함
-	int32 match = _matchNums[level];
-	int32 room = _matchRooms[level].size()-1;
-
-	if (room == -1) {
-		_matchRooms[level].push_back(make_shared<MatchRoom>());
-		room += 1;
-	}
+	int32 room = _matchNums[level];
 	int32 count = _matchRooms[level][room]->Enter(player);
 
 	data.set_state(true);
@@ -37,26 +34,26 @@ void MatchManager::MatchEnter(MatchSessionRef session, Match::Data data, PlayerR
 	session->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
 
 	if (count == ROOM_COUNT) {
-		DoTimer(3000, &MatchManager::MatchPull, level, match);
+		DoTimer(3000, &MatchManager::MatchPull, level, _roomId.fetch_add(1), room);
 	}
 	else if (count == MAX_ROOM_COUNT) {
 		_matchRooms[level].push_back(make_shared<MatchRoom>());
-		_matchNums[level]++;
+		_matchNums[level] = (_matchNums[level] + 1) % 10;
 	}
 }
 
 void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 {
 	//확인작업 필요
-	if (level >= 5 && level < 0 && _matchRooms[level].size() < room)
+	if (level >= 5 && level < 0 )
 		return;
 	_matchRooms[level][room]->Leave(id);
 }
 
-void MatchManager::MatchPull(int32 level, int32 match)
+void MatchManager::MatchPull(int32 level, int32 match, int32 room)
 {
 	//브로드 캐스트 이후에 확인 작업 필요 한가..?
-	_matchRooms[level][match]->Broadcast(_users, match);
+	_matchRooms[level][room]->Broadcast(_users, match);
 	_users.set_room(match);
 	_users.set_level(level);
 
@@ -64,10 +61,11 @@ void MatchManager::MatchPull(int32 level, int32 match)
 
 	_users.Clear();
 
-	//완료된 방 삭제
-	_matchRooms[level].erase(_matchRooms[level].begin());
-	if (match == _matchNums[level])
-		_matchNums[level]++;
+	//완료된 방 클리어
+	_matchRooms[level][room]->Clear();
+
+	if (room == _matchNums[level])
+		_matchNums[level] = (_matchNums[level] + 1) % 10;
 }
 
 void MatchManager::SetService(ClientServiceRef ref)

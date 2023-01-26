@@ -9,14 +9,15 @@ public:
 
 	void MatchEnter(MatchSessionRef session, Match::Data data, PlayerRef player, int32 level);
 	void MatchLeave(int64 id, int32 level, int32 room);
-	void MatchPull(int32 level, int32 room);
+	void MatchPull(int32 level, int32 match, int32 room);
 	void SetService(ClientServiceRef ref);
 
 private:
 	vector<vector<MatchRoomRef>> _matchRooms;
+	vector<int32>				_matchNums;
+	atomic<int32>				_roomId = 0;
 
 	ClientServiceRef			_ref = nullptr;
-	vector<int32>				_matchNums;
 	Match::Users				_users;
 };
 
