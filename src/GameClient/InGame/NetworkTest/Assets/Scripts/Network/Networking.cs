@@ -24,10 +24,7 @@ public class Networking : MonoBehaviour
     static private IPAddress ipAddress = IPAddress.Parse(mIp);
     static private int mPort = 5000;
 
-    
     IPEndPoint endPoint = new IPEndPoint(ipAddress, mPort);
-
-
 
     //종단점 (서버종단점 연결용)
     private IPEndPoint mIpEndPoint;
@@ -38,7 +35,18 @@ public class Networking : MonoBehaviour
         ConnectToTcpServer();
     }
 
-
+    public void Update()
+    {
+        List<PacketMessage> list = PacketQueue.Instance.PopAll();
+        foreach (PacketMessage packet in list)
+        {
+            Action<IMessage> action = PacketManager.Instance.GetHandler(packet.Id);
+            if (action != null)
+            {
+                action.Invoke(packet.Message);
+            }
+        }
+    }
 
     private void ConnectToTcpServer()
     {
@@ -77,21 +85,15 @@ public class Networking : MonoBehaviour
                 using (NetworkStream stream = socket.GetStream())
                 {
                     int len;
-
-
+                   
                     //read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
                     while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         UnityEngine.Debug.Log("something came , len : " + len);
                         byte[] incommingdata = new byte[len];
                         Array.Copy(bytes, 0, incommingdata, 0, len);
-                        PacketHandler.OnReceievePacket(incommingdata, len);
-
-
-
+                        PacketManager.Instance.OnReceievePacket(incommingdata, len);
                     }
-
-
                 }
             }
 
@@ -121,11 +123,9 @@ public class Networking : MonoBehaviour
                         MapLevel = 2,
                         MatchRoom = 0,
                         //Player = {new Player {X = 0,Y=0,Z=0 } }
-
                     };
                   
-
-                    byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Connect);
+                    byte[] datas = PacketManager.Instance.Make_login_handler(dataPkt, INGAME.Connect);
 
                     //바이트 배열을 넣어 전송
                     stream.Write(datas);
@@ -152,18 +152,18 @@ public class Networking : MonoBehaviour
 
                 Data dataPkt = new Data()
                 {
-                    Id = 2,
+                    Id = 1,
                     MapLevel = 2,
                     MatchRoom = 0,
                     Player = { new Player { X = 0.0f, Y = 0.0f, Z = 0.0f } }
 
                 };
 
-                byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Move);
+                byte[] datas = PacketManager.Instance.Make_login_handler(dataPkt, INGAME.Move);
 
                 //바이트 배열을 넣어 전송
                 stream.Write(datas);
-                UnityEngine.Debug.Log("Client Sent Player Message");
+                UnityEngine.Debug.Log("Client Send Player Message");
             }
         }
         catch (SocketException socketException)
@@ -171,146 +171,4 @@ public class Networking : MonoBehaviour
             UnityEngine.Debug.Log("Socket exception: " + socketException);
         }
     }
-    /*
-    public void SendMessage(float x,float y,float z)
-    {
-        //소켓 연결이 안된 상태
-        if (socket == null)
-            return;
-        try
-        {
-            NetworkStream stream = socket.GetStream();
-            if (stream.CanWrite)
-            {
-
-                Player pkt = new Data()
-                {
-                    
-                };
-
-                byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-                //바이트 배열을 넣어 전송
-                stream.Write(datas);
-                UnityEngine.Debug.Log("Client Sent Map Join Message");
-            }
-        }
-        catch (SocketException socketException)
-        {
-            UnityEngine.Debug.Log("Socket exception: " + socketException);
-        }
-    }
-
-
-
-
-    public bool CheckConnection()
-    {
-        if (isConnected)
-            return true;
-        else
-            return false;
-    }
-
-
-   
-    public void SendPlayerMessage(float x,float y,float z)
-    {
-        if (!isConnected)
-        {
-            return;
-        }
-        try
-        {
-            if (isConnected)
-            {
-                int len = 0;
-                Player pkt = new Player()
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                
-                };
-
-                byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-                //바이트 배열을 넣어 전송
-                len = socket.Send(datas);
-                Debug.Log(len + " : Success Send");
-
-                //S_TEST pkt2 = new S_TEST();
-                //pkt2.MergeFrom(datas);
-
-                //data = reader.ReadLine();
-                //Debug.Log(data);
-            }
-        }
-        catch (SocketException socketException)
-        {
-            Debug.Log("Socket exception: " + socketException);
-        }
-    }
-    
-public void ReceiveMessage()
-{
-    if (isConnected)
-    {
-        try
-        {
-            byte[] data;
-            data = new Byte[256];
-            String receivedData = String.Empty;
-
-            int bytes = socket.Receive(data);
-            receivedData = Encoding.ASCII.GetString(data, 0, bytes);
-
-            Debug.Log("Received Message from Server"  + receivedData + "길이" + bytes);
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Receive Message Error " + e);
-        }
-    }
-}
-
-
-/// Send message to server using socket connection. 	
-public void SendMessage()
-{
-    if (!isConnected)
-    {
-        return;
-    }
-    try
-    {
-        if (isConnected)
-        {
-            int len = 0;
-            Data pkt = new Data()
-            {
-                Id = 1,
-                MapLevel = 100,
-                MatchRoom = 10
-            };
-
-            byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-            //바이트 배열을 넣어 전송
-            len = socket.Send(datas);
-            Debug.Log(len + " : Success Send");
-
-            //S_TEST pkt2 = new S_TEST();
-            //pkt2.MergeFrom(datas);
-
-            //data = reader.ReadLine();
-            //Debug.Log(data);
-        }
-    }
-    catch (SocketException socketException)
-    {
-        Debug.Log("Socket exception: " + socketException);
-    }
-}
-*/
 }

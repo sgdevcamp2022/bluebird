@@ -11,7 +11,7 @@ XCOPY /Y ProtocolTest.pb.h "../../../../src/DummyClient"
 XCOPY /Y ProtocolTest.pb.cc "../../../../src/DummyClient"
 
 
-XCOPY /Y ProtocolClient.cs "../../../../src/GameClient\InGame\NetworkTest\Assets\Scripts\Network"
+XCOPY /Y ProtocolClient.cs "../../../../src/GameClient/InGame/NetworkTest/Assets/Scripts/Network"
 
 DEL /Q /F *.pb.h
 DEL /Q /F *.pb.cc
