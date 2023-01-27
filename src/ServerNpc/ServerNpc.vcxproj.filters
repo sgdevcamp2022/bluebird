@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoostAsio.cpp">
+    <ClCompile Include="ServerNpc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConnectToSQL.cpp">
@@ -27,9 +27,15 @@
     <ClCompile Include="ProtocolNpc.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObstacleThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoostAsio.h">
+    <ClInclude Include="ServerNpc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConnectToSQL.h">

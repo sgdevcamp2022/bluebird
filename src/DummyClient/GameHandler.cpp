@@ -22,6 +22,7 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
         break;
     case Protocol::START:
         HandlerStart(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        break;
     default:
         break;
     }
@@ -51,6 +52,19 @@ void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
     cout << "½ÃÀÛÇÔ" << pkt.player_size() << endl;
+    GameSessionRef session = static_pointer_cast<GameSession>(ref);
+    {
+        Protocol::Data pkt;
+        pkt.set_id(session->id);
+        pkt.set_maplevel(2);
+        pkt.set_matchroom(0);
+        auto player = pkt.add_player();
+        player->set_x(0.0f);
+        player->set_y(0.0f);
+        player->set_z(0.0f);
+        auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::MOVE);
+        session->Send(ref);
+    }
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
