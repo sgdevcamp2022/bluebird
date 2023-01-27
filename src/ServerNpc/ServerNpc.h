@@ -1,6 +1,4 @@
 #pragma once
-// EchoClient.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
 
 #include <iostream>
 #include <boost/asio.hpp>
@@ -16,15 +14,16 @@ using namespace std;
 
 class ObstacleThread;
 
-class BoostAsio
+class ServerNpc
 {
 public:
-    BoostAsio(boost::asio::io_context& io_service) :
+    ServerNpc(boost::asio::io_context& io_service) :
         m_io_service(io_service), m_Socket(io_service), m_nSeqNumber(0) {}
-    ~BoostAsio();
+    ~ServerNpc();
 
     void Connect(boost::asio::ip::tcp::endpoint& endpoint);
-    void PostWrite(int header = 1);
+    void PostWrite(LoginData loginData);
+    void PostWrite(GameData gameData);
 private:
     
 
@@ -33,8 +32,6 @@ private:
     void handle_connect(const boost::system::error_code& error);
     void handle_write(const boost::system::error_code& error, size_t bytes_transferred);
     void handle_receive(const boost::system::error_code& error, size_t bytes_transferred);
-
-    void Map01Thread();
 
     boost::asio::io_context& m_io_service;
     boost::asio::ip::tcp::socket m_Socket;
@@ -61,24 +58,11 @@ class ObstacleThread
 {
 public:
 
-    ObstacleThread(LoginData loginData, BoostAsio& npcServer) : loginData(loginData), npcServer(npcServer)
-    {
-    }
-
+    ObstacleThread(LoginData loginData, ServerNpc& npcServer);
+    void operator()() const;
     
-    void operator()() const
-    {
-        while (true)
-        {
-            cout << "MapLevel: " << loginData.mapLevel << " / MatchRoom: " << loginData.matchRoom << endl;
-            npcServer.PostWrite();
-            boost::this_thread::sleep(boost::posix_time::seconds(1));
-        }
-    }
-    
-
 private:
-    BoostAsio& npcServer;
+    ServerNpc& npcServer;
     LoginData loginData;
     GameData gameData;
 
