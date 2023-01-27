@@ -5,10 +5,10 @@
 
 shared_ptr<Games> Ggames = make_shared<Games>();
 
-void Games::NewGame(vector<PlayerRef>* players, int32 level, int32 room)
+void Games::NewGame(vector<PlayerRef> players, int32 level, int32 room)
 {
 	_games[room] = make_shared<Room>(level, room);
-	_games[room]->MatchEnter(players);
+	_games[room]->MatchEnter(std::move(players));
 }
 
 void Games::EnterGame(GameSessionRef session, int64 id, int32 room)

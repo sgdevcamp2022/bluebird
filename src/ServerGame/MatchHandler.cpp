@@ -27,7 +27,7 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
         players.emplace_back(make_shared<Player>(data, pkt.room()));
         cout << data << " " << pkt.room() << endl;
     }
-    Ggames->DoAsync(&Games::NewGame, &players, pkt.level(), pkt.room());
+    Ggames->DoAsync(&Games::NewGame, std::move(players), pkt.level(), pkt.room());
     Ggames->DoTimer(5000, &Games::StartGame, pkt.room());
     //NPC 서버 테스트용 코드
 
