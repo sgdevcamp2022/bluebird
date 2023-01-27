@@ -86,18 +86,12 @@ public class Networking : MonoBehaviour
                         byte[] incommingdata = new byte[len];
 
                         Pkt_Head head = PacketHandler.HandlerPacket<Pkt_Head>(incommingdata, len);
-                        //int size = 
-                      //  UnityEngine.Debug.Log("%d" , head.size);
-                        //Array.Copy(bytes, 0, incommingdata, 0, len);
 
-                        //string servermessage = Encoding.ASCII.GetString(incommingdata);
-                        //UnityEngine.Debug.Log("server message: " + test);
-
+                        UnityEngine.Debug.Log("%d", head.size);
+                        Array.Copy(bytes, 0, incommingdata, 0, len);
 
 
                     }
-
-
                 }
             }
 
@@ -177,146 +171,4 @@ public class Networking : MonoBehaviour
             UnityEngine.Debug.Log("Socket exception: " + socketException);
         }
     }
-    /*
-    public void SendMessage(float x,float y,float z)
-    {
-        //소켓 연결이 안된 상태
-        if (socket == null)
-            return;
-        try
-        {
-            NetworkStream stream = socket.GetStream();
-            if (stream.CanWrite)
-            {
-
-                Player pkt = new Data()
-                {
-                    
-                };
-
-                byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-                //바이트 배열을 넣어 전송
-                stream.Write(datas);
-                UnityEngine.Debug.Log("Client Sent Map Join Message");
-            }
-        }
-        catch (SocketException socketException)
-        {
-            UnityEngine.Debug.Log("Socket exception: " + socketException);
-        }
-    }
-
-
-
-
-    public bool CheckConnection()
-    {
-        if (isConnected)
-            return true;
-        else
-            return false;
-    }
-
-
-   
-    public void SendPlayerMessage(float x,float y,float z)
-    {
-        if (!isConnected)
-        {
-            return;
-        }
-        try
-        {
-            if (isConnected)
-            {
-                int len = 0;
-                Player pkt = new Player()
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                
-                };
-
-                byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-                //바이트 배열을 넣어 전송
-                len = socket.Send(datas);
-                Debug.Log(len + " : Success Send");
-
-                //S_TEST pkt2 = new S_TEST();
-                //pkt2.MergeFrom(datas);
-
-                //data = reader.ReadLine();
-                //Debug.Log(data);
-            }
-        }
-        catch (SocketException socketException)
-        {
-            Debug.Log("Socket exception: " + socketException);
-        }
-    }
-    
-public void ReceiveMessage()
-{
-    if (isConnected)
-    {
-        try
-        {
-            byte[] data;
-            data = new Byte[256];
-            String receivedData = String.Empty;
-
-            int bytes = socket.Receive(data);
-            receivedData = Encoding.ASCII.GetString(data, 0, bytes);
-
-            Debug.Log("Received Message from Server"  + receivedData + "길이" + bytes);
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Receive Message Error " + e);
-        }
-    }
-}
-
-
-/// Send message to server using socket connection. 	
-public void SendMessage()
-{
-    if (!isConnected)
-    {
-        return;
-    }
-    try
-    {
-        if (isConnected)
-        {
-            int len = 0;
-            Data pkt = new Data()
-            {
-                Id = 1,
-                MapLevel = 100,
-                MatchRoom = 10
-            };
-
-            byte[] datas = PacketHandler.Make_login_handler(pkt);
-
-            //바이트 배열을 넣어 전송
-            len = socket.Send(datas);
-            Debug.Log(len + " : Success Send");
-
-            //S_TEST pkt2 = new S_TEST();
-            //pkt2.MergeFrom(datas);
-
-            //data = reader.ReadLine();
-            //Debug.Log(data);
-        }
-    }
-    catch (SocketException socketException)
-    {
-        Debug.Log("Socket exception: " + socketException);
-    }
-}
-*/
 }

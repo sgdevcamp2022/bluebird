@@ -59,14 +59,14 @@
     <ClInclude Include="PacketSession.h">
       <Filter>Session</Filter>
     </ClInclude>
-    <ClInclude Include="GameSession.h">
-      <Filter>Session</Filter>
-    </ClInclude>
     <ClInclude Include="ProtocolTest.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
     <ClInclude Include="GameHandler.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSession.h">
+      <Filter>Session</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

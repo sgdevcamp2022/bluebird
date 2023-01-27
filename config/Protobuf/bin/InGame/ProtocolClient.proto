@@ -27,8 +27,6 @@ message Data
 	repeated Obtacle obtacle = 5;
 }
 
-repeated Player player;
-
 message Obtacle
 {
 	int64 id = 1;

@@ -4,9 +4,9 @@
 #include "GameSession.h"
 #include "PacketSession.h"
 
-void Room::MatchEnter(vector<PlayerRef>* ref)
+void Room::MatchEnter(vector<PlayerRef> ref)
 {
-	for(auto _ref : *ref)
+	for(auto _ref : ref)
 		_players[_ref->GetId()] = _ref;
 }
 

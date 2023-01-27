@@ -46,20 +46,14 @@ class PacketHandler
         //pkt값을 send_buffer에 복사?
         Array.Copy(pkt.ToByteArray(), 0, send_buffer, size, head.size);
         
-
         return send_buffer;
     }
-
-
 
     //https://technodori.tistory.com/entry/C-byte-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EA%B5%AC%EC%A1%B0%EC%B2%B4-byte
     //버퍼에서는 한바이트씩 포인터로 이동해서 참조를 한다.
     //receieve데이터를 받으면, 헤더 사이즈를 찾아야함.
     public static Pkt_Head HandlerPacket<Pkt_Head>(byte[] data, int len) where Pkt_Head : struct
     {
-
-
-
         //배열의 크기만큼 비관리 메모리 영역에 메모리 할당
         //배열에 저장된 데이터를 위에서 할당한 메모리 영역에 복사한다.
         //복사한 데이터를 구조체 객체로 변환
@@ -71,9 +65,7 @@ class PacketHandler
         Marshal.FreeHGlobal(ptr);
 
         return head;
-
     }
-
 }
 struct Pkt_Head
 {
