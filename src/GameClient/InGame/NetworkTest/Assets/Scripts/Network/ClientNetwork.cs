@@ -26,11 +26,7 @@ public class ClientNetwork : MonoBehaviour
 
     void Start()
     {
-     
         network.SendMessage();
-       
-
-
     }
 
 

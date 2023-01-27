@@ -6,6 +6,7 @@
 #include "ProtocolNpc.pb.h"
 #include <WinSock2.h>
 #include <string>
+#include <vector>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #undef GetMessage
@@ -20,40 +21,42 @@ struct MessageHeader
     //Protocol::INGAME type;
 };
 
-struct LoginData
+struct Obstacle
 {
-	int mapLevel;
-	int matchRoom;
 	int obstacleID;
 	int obstacleShape;
 	float obstacleX;
 	float obstacleY;
 	float obstacleZ;
+};
+
+struct LoginData
+{
+	int mapLevel;
+	int matchRoom;
+	vector<Obstacle> obstacle;
 };
 
 struct GameData
 {
 	int matchRoom;
 	int obstacleSize;
-	int obstacleID;
-	int obstacleShape;
-	float obstacleX;
-	float obstacleY;
-	float obstacleZ;
+	vector<Obstacle> obstacle;
 };
 
 class PacketManager
 {
 public:
     PacketManager() {}
-    char* MakePacket(int header);
+    char* MakeLoginPacket(LoginData loginData);
+	char* MakeGamePacket(GameData gameData);
     //~PacketManager();
     int GetBufSize();
     int PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream);
 
 private:
     void PrintMsg(::google::protobuf::Message& msg);
-	void GetField(LoginData* loginData, ::google::protobuf::Message& msg);
+	void GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index = 0);
     void WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
         protobuf::io::CodedOutputStream& stream);
     const int headerSize = sizeof(MessageHeader);

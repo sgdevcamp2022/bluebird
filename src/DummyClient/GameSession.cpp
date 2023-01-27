@@ -5,7 +5,7 @@
 void GameSession::OnConnected()
 {
     static atomic<int> th(0);
-    int id = th.fetch_add(1);
+    id = th.fetch_add(1);
     if (id == 1)
         id = th.fetch_add(1);
     {
@@ -14,18 +14,6 @@ void GameSession::OnConnected()
         pkt.set_maplevel(2);
         pkt.set_matchroom(0);
         auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::CONNECT);
-        Send(ref);
-    }
-    {
-        Protocol::Data pkt;
-        pkt.set_id(id);
-        pkt.set_maplevel(2);
-        pkt.set_matchroom(0);
-        auto player = pkt.add_player();
-        player->set_x(0.0f);
-        player->set_y(0.0f);
-        player->set_z(0.0f);
-        auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::MOVE);
         Send(ref);
     }
 }

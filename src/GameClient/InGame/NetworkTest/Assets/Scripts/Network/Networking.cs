@@ -24,10 +24,7 @@ public class Networking : MonoBehaviour
     static private IPAddress ipAddress = IPAddress.Parse(mIp);
     static private int mPort = 5000;
 
-    
     IPEndPoint endPoint = new IPEndPoint(ipAddress, mPort);
-
-
 
     //종단점 (서버종단점 연결용)
     private IPEndPoint mIpEndPoint;
@@ -38,7 +35,18 @@ public class Networking : MonoBehaviour
         ConnectToTcpServer();
     }
 
-
+    public void Update()
+    {
+        List<PacketMessage> list = PacketQueue.Instance.PopAll();
+        foreach (PacketMessage packet in list)
+        {
+            Action<IMessage> action = PacketManager.Instance.GetHandler(packet.Id);
+            if (action != null)
+            {
+                action.Invoke(packet.Message);
+            }
+        }
+    }
 
     private void ConnectToTcpServer()
     {
@@ -77,20 +85,14 @@ public class Networking : MonoBehaviour
                 using (NetworkStream stream = socket.GetStream())
                 {
                     int len;
-
-
+                   
                     //read 메소드를 통해 서버에서 바이트 데이터를 읽어온다.
                     while ((len = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        UnityEngine.Debug.Log("something came");
+                        UnityEngine.Debug.Log("something came , len : " + len);
                         byte[] incommingdata = new byte[len];
-
-                        Pkt_Head head = PacketHandler.HandlerPacket<Pkt_Head>(incommingdata, len);
-
-                        UnityEngine.Debug.Log("%d", head.size);
                         Array.Copy(bytes, 0, incommingdata, 0, len);
-
-
+                        PacketManager.Instance.OnReceievePacket(incommingdata, len);
                     }
                 }
             }
@@ -121,11 +123,9 @@ public class Networking : MonoBehaviour
                         MapLevel = 2,
                         MatchRoom = 0,
                         //Player = {new Player {X = 0,Y=0,Z=0 } }
-
                     };
                   
-
-                    byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Connect);
+                    byte[] datas = PacketManager.Instance.Make_login_handler(dataPkt, INGAME.Connect);
 
                     //바이트 배열을 넣어 전송
                     stream.Write(datas);
@@ -159,11 +159,11 @@ public class Networking : MonoBehaviour
 
                 };
 
-                byte[] datas = PacketHandler.Make_login_handler(dataPkt, INGAME.Move);
+                byte[] datas = PacketManager.Instance.Make_login_handler(dataPkt, INGAME.Move);
 
                 //바이트 배열을 넣어 전송
                 stream.Write(datas);
-                UnityEngine.Debug.Log("Client Sent Player Message");
+                UnityEngine.Debug.Log("Client Send Player Message");
             }
         }
         catch (SocketException socketException)
