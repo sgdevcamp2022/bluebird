@@ -4,7 +4,7 @@
 class Room : public JobQueue
 {
 public:
-	Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room) { }
+	Room(int32 level, int32 room);
 	~Room() { cout << "게임 종료 " << _matchRoom << endl; }
 	void MatchEnter(vector<PlayerRef> ref);
 	void GameEnter(GameSessionRef ref, int64 id);
@@ -23,5 +23,6 @@ private:
 	int32					_mapLevel;
 	map<int64, PlayerRef>	_players;
 	map<int64, ObtacleRef>	_obstacles;
+	vector<Vector3>			_spawnPosition;
 	Protocol::Data			_startData;
 };

@@ -4,12 +4,25 @@
 #include "GameSession.h"
 #include "PacketSession.h"
 
-void Room::MatchEnter(vector<PlayerRef> ref)
+Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
-	for(auto _ref : ref)
-		_players[_ref->GetId()] = _ref;
+	for (int i = 0; i < 15; i++)
+	{
+		_spawnPosition.push_back(Vector3{ i, i, i });
+	}
 }
 
+// 방 생성
+void Room::MatchEnter(vector<PlayerRef> ref)
+{
+	for (auto _ref : ref) {
+		int64 id = _ref->GetId();
+		_players[id] = _ref;
+		_players[id]->SetPosition(_spawnPosition[id]);
+	}
+}
+
+// 생성 후 유저 입장
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
@@ -23,6 +36,18 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 
 	_players[id]->SetOwner(ref);
 	ref->_mySelf = _players[id];
+
+	{
+		Protocol::Data data;
+		data.set_id(id);
+		auto player = data.add_player();
+		player->set_id(id);
+		player->set_x(_players[id]->GetPosition().x);
+		player->set_x(_players[id]->GetPosition().y);
+		player->set_x(_players[id]->GetPosition().z);
+
+		ref->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT));
+	}
 }
 
 

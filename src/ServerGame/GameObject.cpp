@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Creature.h"
+#include "GameObject.h"
 
 void Player::MovePosition(Vector3&& position)
 {

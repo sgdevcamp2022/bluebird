@@ -1,11 +1,12 @@
 #pragma once
-class Creature
+class GameObject
 {
 public:
-	Creature(int64 id, int32 room, Vector3 position = Vector3{ 0,0,0 })
+	GameObject(int64 id, int32 room, Vector3 position = Vector3{ 0,0,0 })
 		:_id(id), _room(room), _position(position) {}
 
 	Vector3&		GetPosition() { return _position; }
+	void			SetPosition(Vector3 position) { _position = position; }
 	int64			GetId() { return _id; }
 	int32			GetRoom() { return _room; }
 	virtual void	MovePosition(Vector3&& position) abstract = 0;
@@ -18,11 +19,11 @@ protected:
 	
 };
 
-class Player : public Creature
+class Player : public GameObject
 {
 public:
 	Player(int64 id, int32 room, Vector3 position = Vector3{ 0,0,0 })
-		: Creature(id, room, position) {}
+		: GameObject(id, room, position) {}
 
 	GameSessionRef	GetOwner() { return _ownerSession; }
 	void			SetOwner(GameSessionRef session) { _ownerSession = session; }
@@ -32,10 +33,10 @@ private:
 	GameSessionRef	_ownerSession = nullptr;
 };
 
-class Obtacle : public Creature {
+class Obtacle : public GameObject {
 public:
 	Obtacle(int64 id, int32 shape, int32 room, Vector3 position = Vector3{ 0,0,0 })
-		: _shape(shape), Creature(id, room, position) {}
+		: _shape(shape), GameObject(id, room, position) {}
 
 	virtual void	MovePosition(Vector3&& position);
 	int32			GetShape() { return _shape; }
