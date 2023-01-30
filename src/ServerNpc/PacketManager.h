@@ -1,5 +1,6 @@
 #pragma once
 #pragma comment(lib, "ws2_32")
+#pragma comment(lib, "libmySQL.lib")
 
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 #include <google/protobuf/text_format.h>
@@ -7,6 +8,9 @@
 #include <WinSock2.h>
 #include <string>
 #include <vector>
+#include <mysql.h>
+#include <iostream>
+
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #undef GetMessage
@@ -18,7 +22,6 @@ struct MessageHeader
 {
     protobuf::uint32 size;
     Npc::INGAME type;
-    //Protocol::INGAME type;
 };
 
 struct Obstacle
@@ -44,11 +47,30 @@ struct GameData
 	vector<Obstacle> obstacle;
 };
 
+class ConnectToSQL
+{
+public:
+	ConnectToSQL();
+	~ConnectToSQL();
+
+	int SQLInit();
+
+	int SQLQuery(const char* query, LoginData* loginData);
+
+
+private:
+	MYSQL Conn;
+	MYSQL* ConnPtr;
+	MYSQL_RES* Result;
+	MYSQL_ROW Row;
+	int Stat;
+};
+
 class PacketManager
 {
 public:
-    PacketManager() {}
-    char* MakeLoginPacket(LoginData loginData);
+	PacketManager();
+	char* MakeLoginPacket(LoginData loginData);
 	char* MakeGamePacket(GameData gameData);
     //~PacketManager();
     int GetBufSize();
@@ -56,9 +78,10 @@ public:
 
 private:
     void PrintMsg(::google::protobuf::Message& msg);
-	void GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index = 0);
+	int GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index = 0);
     void WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
         protobuf::io::CodedOutputStream& stream);
     const int headerSize = sizeof(MessageHeader);
     int bufSize = 0;
+	ConnectToSQL* mysql;
 };

@@ -2,7 +2,7 @@
 
 ServerNpc::~ServerNpc()
 {
-    delete mysql;
+    m_Socket.close();
     delete packetManager; //내부 malloc free시킬 다른 방법 찾을 수 있으면 좋을 듯
 }
 
@@ -20,21 +20,10 @@ void ServerNpc::PostWrite(LoginData loginData)
         return;
     }
 
-    /*
-    if (m_nSeqNumber > 7)
-    {
-        m_Socket.close();
-        return;
-    }
-    */
-    
-
     m_nSeqNumber += 1;
+    //outputBuf = const_cast<char*>((packetManager->MakeLoginPacket(loginData)).c_str());
     outputBuf = packetManager->MakeLoginPacket(loginData);
-    
-    
     bufSize = packetManager->GetBufSize();
-    m_WriteMessage = outputBuf;
 
     boost::asio::async_write(m_Socket, boost::asio::buffer(outputBuf, bufSize),
         boost::bind(&ServerNpc::handle_write, this,
@@ -53,21 +42,11 @@ void ServerNpc::PostWrite(GameData gameData)
         return;
     }
 
-    /*
-    if (m_nSeqNumber > 7)
-    {
-        m_Socket.close();
-        return;
-    }
-    */
-
-
     m_nSeqNumber += 1;
-
+    //outputBuf = const_cast<char*>((packetManager->MakeGamePacket(gameData)).c_str());
     outputBuf = packetManager->MakeGamePacket(gameData);
 
     bufSize = packetManager->GetBufSize();
-    m_WriteMessage = outputBuf;
 
     boost::asio::async_write(m_Socket, boost::asio::buffer(outputBuf, bufSize),
         boost::bind(&ServerNpc::handle_write, this,
@@ -97,12 +76,7 @@ void ServerNpc::handle_connect(const boost::system::error_code& error)
     else
     {
         cout << "connected" << endl;
-
-        mysql = new ConnectToSQL();
-        //res = mysql->SQLQuery("select * from objectinfo");
-        //cout << res[0] << " / " << res[1] << " / " << res[2] << " / " << res[3] << endl;
         packetManager = new PacketManager;
-
         PostReceive();
     }
 }
@@ -149,18 +123,28 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
         int matchRoom = packetManager->PacketProcess(&loginData, input_coded_stream);
         if (matchRoom != 0)
         {
-            //cout << "LoginData: " << loginData.mapLevel << " / " << loginData.matchRoom << endl;
-            PostWrite(loginData);
-            //ObstacleThread* obsThread;
-            //obsThread->loginData = loginData;
-            //obsThread->npcServer = this;
             boost::thread* tempThread = new boost::thread(ObstacleThread(loginData, *this));
-            //boost::thread* tempThread = new boost::thread(obsThread);
             threadGroup.push_back(make_pair(matchRoom, tempThread));
+            PostWrite(loginData);
         }
         else
         {
             PostReceive();
+        }
+    }
+}
+
+void ServerNpc::ThreadInterrupt()
+{
+    for (iter = threadGroup.begin(); iter != threadGroup.end(); iter++)
+    {
+        //해당 matchRoom 끝났을 때
+        if (iter->first == 1)
+        {
+            iter->second->interrupt();
+            delete iter->second;
+            threadGroup.erase(iter);
+            break;
         }
     }
 }
