@@ -7,10 +7,9 @@ public:
 
 	Vector3&		GetPosition() { return _position; }
 	void			SetPosition(Vector3 position) { _position = position; }
+	virtual void	MovePosition(Vector3&& position) abstract = 0;
 	int64			GetId() { return _id; }
 	int32			GetRoom() { return _room; }
-	virtual void	MovePosition(Vector3&& position) abstract = 0;
-	
 
 protected:
 	int64			_id = 0;

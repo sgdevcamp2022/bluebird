@@ -35,7 +35,7 @@ using RoomRef			= shared_ptr<class Room>;
 #include "GameHandler.h"
 #include "MatchHandler.h"
 #include "NpcHandler.h"
-#include "Creature.h"
+#include "GameObject.h"
 #include "Room.h"
 #include "Games.h"
 

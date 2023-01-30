@@ -6,26 +6,6 @@ using UnityEngine.EventSystems;
 
 public abstract class BaseScene : MonoBehaviour
 {
-    /*
-    
-    https://docs.unity3d.com/kr/2020.3/Manual/EventSystem.html
-    https://ansohxxn.github.io/unitydocs/unityengine-eventsystems/
-
-    이벤트 시스템: 키보드, 터치, 커스텀 입력 등 입력 기반 애플리케이션의 오브젝트에 이벤트를 전송하는 방법
-    Scene에는 하나의 EventSystem만 가질 수 있다.
-    어떤 게임 오브젝트를 선택할지 관리 
-    어떤 입력 모듈을 사용할지 관리
-    레이캐스팅 관리
-    필요에 따라 모든 입력 모듈 업데이트
-
-    c++에서 클래스 멤버 변수의 은폐를 위해 Get(), Set()을 사용했다.
-    c#에서는 property 제공으로 편의성이 증가됐다.
-    
-    ex) public int itemCode {get;} 은 읽기 전용
-
-    Player들도 Scene에 동적으로 생성되는 존재다. 따라서 게임 내내 살아있을 Scene이 Manager의 업무 전가
-
-    */
 
     //수정은 내부에서만 하고 외부에서 값을 얻어오는 형태는 밑의 코드
     public Define.Scene SceneType { get; protected set; } = Define.Scene.Unknown;

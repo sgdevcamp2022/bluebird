@@ -13,6 +13,7 @@ void Games::NewGame(vector<PlayerRef> players, int32 level, int32 room)
 
 void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 {
+	//TODO 학인 절차
 	if (IsRoom(room)) {
 		session->_room = _games[room];
 		_games[room]->GameEnter(session, id);

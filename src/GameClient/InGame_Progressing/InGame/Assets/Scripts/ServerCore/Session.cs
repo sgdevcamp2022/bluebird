@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using UnityEngine;
@@ -10,20 +12,13 @@ namespace ServerCore
 {
 	public abstract class PacketSession : Session
 	{
-		public static readonly int HeaderSize = 2;
-
-		// [size(2)][packetId(2)][ ... ][size(2)][packetId(2)][ ... ]
-
-
-        //sealed 한정자를 붙인 메소드는 다른 클래스에서 상속받아 이 기능을 재정의하지 못하게 막는다.
-        //ArraySegment를 사용하면 원하는 길이만큼의 버퍼를 가져올 수 있다.
+		public static readonly int HeaderSize = Marshal.SizeOf<Pkt_Head>();
 		public sealed override int OnRecv(ArraySegment<byte> buffer)
 		{
 			int processLen = 0;
-
-
 			while (true)
 			{
+				
 				// 최소한 헤더는 파싱할 수 있는지 확인
 				if (buffer.Count < HeaderSize)
 					break;
@@ -33,24 +28,28 @@ namespace ServerCore
                 //offset: ArraySegment로 구분된 범위의 첫 번째 요소 위치를 가져옴
                 //Array: ArraySegment가 구분하는 범위의 요소가 포함된 원본 배열을 가져옵니다.
                 //Count : 요소 수를 가져옴 
-                ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-				if (buffer.Count < dataSize)
+                Pkt_Head head = new Pkt_Head();
+
+                IntPtr ptr = Marshal.AllocHGlobal(HeaderSize);
+                Marshal.Copy(buffer.Array, 0, ptr, HeaderSize);
+                head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
+                Marshal.FreeHGlobal(ptr);
+
+                if (buffer.Count < head.size)
 					break;
 
+				int total = (int)head.size + HeaderSize;
 				// 여기까지 왔으면 패킷 조립 가능
-				OnRecvPacket(new ArraySegment<byte>(buffer.Array, buffer.Offset, dataSize));
-	
+				OnRecvPacket(new ArraySegment<byte>(buffer.Array, buffer.Offset + HeaderSize, (int)head.size), head);
 
-				processLen += dataSize;
-				buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
+				processLen += total;
+				buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + total, buffer.Count - total);
 			}
 
-		
-
-			return processLen;
+			return (int)processLen;
 		}
 
-		public abstract void OnRecvPacket(ArraySegment<byte> buffer);
+		public abstract void OnRecvPacket(ArraySegment<byte> buffer, Pkt_Head head);
 	}
 
 	public abstract class Session

@@ -12,9 +12,10 @@ XCOPY /Y ProtocolTest.pb.cc "../../../../src/DummyClient"
 
 
 XCOPY /Y ProtocolClient.cs "../../../../src/GameClient/InGame/NetworkTest/Assets/Scripts/Network"
+XCOPY /Y ProtocolClient.cs "../../../../src/GameClient/InGame_Progressing/InGame/Assets/Scripts/Packet"
 
 DEL /Q /F *.pb.h
 DEL /Q /F *.pb.cc
 DEL /Q /F *.cs
 
-IF ERRORLEVEL 1 PAUSE
+ PAUSE

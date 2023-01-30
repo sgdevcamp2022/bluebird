@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Room.h"
-#include "Creature.h"
+#include "GameObject.h"
 #include "GameSession.h"
 #include "PacketSession.h"
 
@@ -8,7 +8,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
 	for (int i = 0; i < 15; i++)
 	{
-		_spawnPosition.push_back(Vector3{ i, i, i });
+		_spawnPosition.push_back(Vector3{ (float)i, (float)i, (float)i });
 	}
 }
 
@@ -18,7 +18,7 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 	for (auto _ref : ref) {
 		int64 id = _ref->GetId();
 		_players[id] = _ref;
-		_players[id]->SetPosition(_spawnPosition[id]);
+		_players[id]->SetPosition(_spawnPosition[id%15]);
 	}
 }
 
@@ -40,11 +40,8 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	{
 		Protocol::Data data;
 		data.set_id(id);
-		auto player = data.add_player();
-		player->set_id(id);
-		player->set_x(_players[id]->GetPosition().x);
-		player->set_x(_players[id]->GetPosition().y);
-		player->set_x(_players[id]->GetPosition().z);
+		auto p = data.add_player();
+		p = player;
 
 		ref->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT));
 	}
@@ -92,7 +89,6 @@ void Room::Start()
 	{
 		_players.erase(key);
 	}
-
 	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::START));
 	_start.store(true);
 }
