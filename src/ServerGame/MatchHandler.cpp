@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "MatchHandler.h"
 #include "Games.h"
-#include "Creature.h"
+#include "GameObject.h"
 
 void MatchHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {

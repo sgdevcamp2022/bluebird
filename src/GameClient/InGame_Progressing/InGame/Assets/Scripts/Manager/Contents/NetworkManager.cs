@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using Google.Protobuf;
+using Google.Protobuf.Protocol;
 
 public class NetworkManager
 {
@@ -34,9 +35,9 @@ public class NetworkManager
 		List<PacketMessage> list = PacketQueue.Instance.PopAll();
 		foreach (PacketMessage packet in list)
 		{
-			Action<PacketSession, IMessage> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
+			Action<IMessage> handler = PacketManager.Instance.GetHandler(packet.Id);
 			if (handler != null)
-				handler.Invoke(_session, packet.Message);
+				handler.Invoke(packet.Message);
 		}	
 	}
 

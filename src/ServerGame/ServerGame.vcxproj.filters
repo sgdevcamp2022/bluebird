@@ -45,9 +45,6 @@
     <ClCompile Include="NpcSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="PacketSession.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="ProtocolConnect.pb.cc">
       <Filter>Protocol</Filter>
     </ClCompile>
@@ -66,8 +63,11 @@
     <ClCompile Include="Games.cpp">
       <Filter>Room</Filter>
     </ClCompile>
-    <ClCompile Include="Creature.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Room</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketSession.cpp">
+      <Filter>Session</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +95,6 @@
     <ClInclude Include="NpcSession.h">
       <Filter>Session</Filter>
     </ClInclude>
-    <ClInclude Include="PacketSession.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="ProtocolConnect.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
@@ -116,8 +113,11 @@
     <ClInclude Include="Games.h">
       <Filter>Room</Filter>
     </ClInclude>
-    <ClInclude Include="Creature.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Room</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketSession.h">
+      <Filter>Session</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "GameSession.h"
 #include "MatchSession.h"
 #include "Games.h"
-#include "Creature.h"
+#include "GameObject.h"
 
 void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {

@@ -1,69 +1,68 @@
-using Google.Protobuf;
-using Google.Protobuf.Protocol;
-using ServerCore;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Google.Protobuf;
+using Google.Protobuf.Protocol;
+
+
+//마샬링이란 한 객체의 메모리에서의 표현방식을 저장 또는 전송에 적합한 다른 데이터 형식으로 변환하는 과정이다.
+//직렬화와 유사하다. 복잡한 통신을 단순화하여 쉽게 데이터를 주고 받게 하기 위함.
+
+//C#으로 작성되는 코드는 ManagedCode, 전통적인 C/C++ 컴파일러에 의해 컴파일되는 코드는 UnManagedCode
+//Managed Code는 GC(Garbage Collector)에 의해 정리가 되는 메모리 반대는 프로그램 코드나 운영체제에 의해 정리가 된다.
 
 class PacketManager
 {
-    //region을 접어도 설명이 나타난다.
-	#region Singleton
-	static PacketManager _instance = new PacketManager();
-	public static PacketManager Instance { get { return _instance; } }
-	#endregion
+    static PacketManager _instance = new PacketManager();
+    public static PacketManager Instance { get { return _instance; } }
 
-	PacketManager()
-	{
-		Register();
-	}
+    Dictionary<ushort, Action<byte[], uint, ushort>> recv = new Dictionary<ushort, Action<byte[], uint, ushort>>();
+    Dictionary<ushort, Action<IMessage>> handler = new Dictionary<ushort, Action<IMessage>>();
 
-    //Dictionary는 Key와 Value 세트의 연관배열, Key를 사용해 Value 값을 얻을 수 있다.
-    //ushort 부호가 없는 short
-    //Delegate(델리게이트,대리자) : 함수를 변수에 담고 싶을때 사용하는것이 대리자이다. +=, -= 을 통해 메소드를 추가 또는 뺄 수 있다. 델리게이트를 하나 실행하면 여러개의 메소드가 실행
-    //될 수 있다.
-    //Action 대리자는 리턴 값이 없을때만 사용이 가능하다. <> 안에 매개변수를 넣는다.
-    Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
-		
-	public void Register()
-	{		
-        //Add를 통해 Dictionary에 요소 추가
-		_onRecv.Add((ushort)INGAME.Connect, MakePacket<Data>);
-		_handler.Add((ushort)INGAME.Connect, PacketHandler.S_ChatHandler);		
-	
-	}
+    Action<ushort, IMessage> customHandler = (ushort id, IMessage message) => { PacketQueue.Instance.Push(id, message); };
 
-	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
-	{
-		ushort count = 0;
+    PacketManager()
+    {
+        recv.Add((ushort)INGAME.Start, MakePacket<Data>);
+        handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
+        recv.Add((ushort)INGAME.Move, MakePacket<Data>);
+        handler.Add((ushort)INGAME.Move, PacketHandler.PlayerMove);
+        recv.Add((ushort)INGAME.Connect, MakePacket<Data>);
+        handler.Add((ushort)INGAME.Connect, PacketHandler.GameConnect);
+        recv.Add((ushort)INGAME.ObstacleMove, MakePacket<Data>);
+        handler.Add((ushort)INGAME.ObstacleMove, PacketHandler.ObtacleMove);
+    }
 
-		ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-		count += 2;
-		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
-		count += 2;
+    public void OnReceievePacket(byte[] buffer, Pkt_Head head)
+    {
+        UnityEngine.Debug.Log("Head size: " + head.size + "Head type:" + head.type);
 
-		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
-			action.Invoke(session, buffer, id);
-	}
+        Action<byte[], uint, ushort> action = null;
+        if (recv.TryGetValue((ushort)head.type, out action))
+            action.Invoke(buffer, head.size, (ushort)head.type);
+    }
 
-	void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IMessage, new()
-	{
-		T pkt = new T();
-		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
-		Action<PacketSession, IMessage> action = null;
+    void MakePacket<T>(byte[] data, uint len, ushort id) where T : IMessage, new()
+    {
+        int size = Marshal.SizeOf<Pkt_Head>();
 
-        //지정한 키와 연결된 값을 가져온다.
-        //메인 스레드에서 지정된 대리자를 실행한다.
-        if (_handler.TryGetValue(id, out action))
-			action.Invoke(session, pkt);
-	}
+        T pkt = new T();
+        pkt.MergeFrom(data, size, (int)len);
 
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
-	}
+        customHandler.Invoke(id, pkt);
+    }
+
+    public Action<IMessage> GetHandler(ushort id)
+    {
+        Action<IMessage> action = null;
+        if (handler.TryGetValue(id, out action))
+            return action;
+        return null;
+    }
 }
+public struct Pkt_Head
+{
+    //헤더를 제외한 사이즈
+    public uint size;
+    public INGAME type;
+};
