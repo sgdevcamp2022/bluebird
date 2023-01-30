@@ -5,7 +5,6 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
-#include "ConnectToSQL.h"
 #include "PacketManager.h"
 #include <algorithm>
 #include <list>
@@ -33,6 +32,8 @@ private:
     void handle_write(const boost::system::error_code& error, size_t bytes_transferred);
     void handle_receive(const boost::system::error_code& error, size_t bytes_transferred);
 
+    void ThreadInterrupt();
+
     boost::asio::io_context& m_io_service;
     boost::asio::ip::tcp::socket m_Socket;
     int m_nSeqNumber;
@@ -40,11 +41,6 @@ private:
     char* inputBuf;
     int bufSize;
     array<char, 128> m_ReceiveBuffer;
-    array<float, 4> temp;
-    string m_WriteMessage;
-
-    ConnectToSQL* mysql;
-    MYSQL_ROW res;
 
     PacketManager* packetManager;
 
