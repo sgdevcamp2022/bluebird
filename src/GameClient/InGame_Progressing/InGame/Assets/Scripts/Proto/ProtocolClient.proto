@@ -1,0 +1,46 @@
+syntax = "proto3";
+package Protocol;
+
+option csharp_namespace = "Google.Protobuf.Protocol";
+
+enum INGAME
+{
+	CONNECT = 0;
+	START = 1;
+	LEAVE = 2;
+	PLAYER_MOVE = 3;
+	OBSTACLE_MOVE = 4;
+	NO_MOVE = 5;
+	GAME_COMPLTE = 6;
+	GAME_FAIL = 7;
+	GAME_DROP = 8;
+	PLAYER_CRASH = 9;
+	OBSTACLE_CRASH = 10;
+	PACKET_FAIL = 11;
+}
+
+message Data
+{
+	int64 id = 1;
+	int32 mapLevel = 2;
+	int32 matchRoom = 3;
+	repeated Player player = 4;
+	repeated Obtacle obtacle = 5;
+}
+
+message Obtacle
+{
+	int64 id = 1;
+	int32 shape = 2;
+	float x = 3;
+	float y = 4;
+	float z = 5;
+}
+
+message Player
+{
+	int64 id = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+}

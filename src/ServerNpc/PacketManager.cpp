@@ -1,5 +1,12 @@
 #include "PacketManager.h"
 
+using namespace std;
+
+PacketManager::PacketManager()
+{
+    mysql = new ConnectToSQL();
+}
+
 char* PacketManager::MakeLoginPacket(LoginData loginData)
 {
     Npc::LoginData npcLoginData;
@@ -26,6 +33,10 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
 
     WriteMessageToStream(Npc::LOGIN, npcLoginData, output_coded_stream);
     
+    string resBuf = tempBuf;
+    //strcpy(resBuf, tempBuf);
+    //free(tempBuf);
+
     return tempBuf;
 }
 
@@ -47,13 +58,16 @@ char* PacketManager::MakeGamePacket(GameData gameData)
 
     bufSize = headerSize + npcGameData.ByteSizeLong();
 
-    //protobuf::uint8* outputBuf = new protobuf::uint8[bufSize];
     char* tempBuf = (char*)malloc(bufSize * sizeof(char));
     protobuf::io::ArrayOutputStream output_array_stream(tempBuf, bufSize);
 
     protobuf::io::CodedOutputStream output_coded_stream(&output_array_stream);
 
     WriteMessageToStream(Npc::GAME, npcGameData, output_coded_stream);
+
+    string resBuf = tempBuf;
+    //strcpy(resBuf, tempBuf);
+    //free(tempBuf);
 
     return tempBuf;
 }
@@ -65,18 +79,16 @@ void PacketManager::PrintMsg(::google::protobuf::Message& msg)
     cout << str << endl;
 }
 
-void PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index)
+int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index)
 {
     const google::protobuf::Reflection* refl = msg.GetReflection();
     const google::protobuf::Descriptor* desc = msg.GetDescriptor();
     int fieldCnt = desc->field_count();
-    //cout << "Message Name: " << desc->full_name().c_str() << endl;
     for (int i = 0; i < fieldCnt; i++)
     {
         
         const google::protobuf::FieldDescriptor* field = desc->field(i);
         string fieldName = field->name();
-        //cout << "Field Name: " << field->name() << endl;
         if (field->type() == google::protobuf::FieldDescriptor::TYPE_INT32 && !field->is_repeated())
         {
             if (fieldName == "mapLevel")
@@ -104,17 +116,9 @@ void PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& 
         }
     }
 
-    //SQL 연동해서 id, x, y, z, shape 값 가져오기
-    for (int i = 0; i < 2; i++)
-    {
-        Obstacle tempObs;
-        tempObs.obstacleID = i+1;
-        tempObs.obstacleShape = 1;
-        tempObs.obstacleX = 10;
-        tempObs.obstacleY = 20;
-        tempObs.obstacleZ = 10;
-        loginData->obstacle.push_back(tempObs);
-    }
+    string sql = "SELECT * FROM map" + (loginData->mapLevel > 9 ? to_string(loginData->mapLevel) : "0" + to_string(loginData->mapLevel));
+    return mysql->SQLQuery(sql.c_str(), loginData);
+    
 }
 
 void PacketManager::WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
@@ -154,7 +158,6 @@ int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputS
         {
             Npc::GameData packet;
             if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
-            PrintMsg(packet);
             break;
         }
 
@@ -162,19 +165,7 @@ int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputS
         {
             Npc::LoginData packet;
             if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
-            returnValue = 1;
-            //repeated 테스트용 패킷
-            /*
-            Npc::Obstacle* obsData = packet.add_obstacle();
-            obsData->set_id(0);
-            obsData->set_shape(0);
-            obsData->set_x(0);
-            obsData->set_y(0);
-            obsData->set_z(0);
-            */
-            //
-            GetField(loginData, packet);
-            PrintMsg(packet);
+            returnValue = GetField(loginData, packet);
             break;
         }
 
@@ -184,4 +175,55 @@ int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputS
         }
     }
     return returnValue;
+}
+
+
+
+ConnectToSQL::ConnectToSQL()
+{
+    ConnPtr = nullptr;
+    SQLInit();
+}
+
+ConnectToSQL::~ConnectToSQL()
+{
+    mysql_close(ConnPtr);
+}
+
+int ConnectToSQL::SQLInit()
+{
+    mysql_init(&Conn);
+    ConnPtr = mysql_real_connect(&Conn, "127.0.0.1", "root", "Z797944z!", "map", 3306, (char*)NULL, 0);
+
+    if (ConnPtr == NULL)
+    {
+        cout << "Error : " << mysql_error(&Conn) << endl;
+        return 0;
+    }
+    cout << "Success MySQL Init" << endl;
+    return 1;
+}
+
+int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
+{
+    Stat = mysql_query(ConnPtr, query);
+    if (Stat != 0)
+    {
+        cout << "Error : " << mysql_error(&Conn) << endl;
+        return 0;
+    }
+
+    Result = mysql_store_result(ConnPtr);
+    while ((Row = mysql_fetch_row(Result)) != NULL)
+    {
+        Obstacle tempObs;
+        tempObs.obstacleID = atoi(Row[0]);
+        tempObs.obstacleShape = atoi(Row[1]);
+        tempObs.obstacleX = atof(Row[2]);
+        tempObs.obstacleY = atof(Row[3]);
+        tempObs.obstacleZ = atof(Row[4]);
+        loginData->obstacle.push_back(tempObs);
+    }
+    mysql_free_result(Result);
+    return 1;
 }

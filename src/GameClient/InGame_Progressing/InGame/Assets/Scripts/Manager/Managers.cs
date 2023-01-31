@@ -13,6 +13,8 @@ Scene에 Empty Object를 만들어, 매니저 스크립트를 붙이고 사용�
 단 하나만 존재하는 이 게임 매니저 컴포넌트를 리턴 받을 수 있는 static 함수를 만든다.
 -> 다른 곳에서 사용할 수 있도록 public
 
+static이 붙은 것은 Unity 게임을 실행하면 바로 만들어진다.
+get은 가져올 때 실행되는거니까 가져올 때 만들어진다.
 
 <게임 전반을 관리하는 Manager>
  */
@@ -20,6 +22,7 @@ Scene에 Empty Object를 만들어, 매니저 스크립트를 붙이고 사용�
 public class Managers : MonoBehaviour
 {
     static Managers sInstance; // 유일성이 보장된다
+
     public static Managers Instance // 유일한 매니저를 갖고온다
     {
         get
@@ -30,11 +33,11 @@ public class Managers : MonoBehaviour
     } 
     #region Contents
     //MapManager _map = new MapManager();
-    //ObjectManager _obj = new ObjectManager();
+    ObjectManager _obj = new ObjectManager();
     NetworkManager _network = new NetworkManager();
 
     //public static MapManager Map { get { return Instance._map; } }
-    //public static ObjectManager Object { get { return Instance._obj; } }
+    public static ObjectManager Object { get { return Instance._obj; } }
     public static NetworkManager Network
     { get
         {

@@ -115,14 +115,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerNpc.cpp" />
-    <ClCompile Include="ConnectToSQL.cpp" />
     <ClCompile Include="ObstacleThread.cpp" />
     <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="ProtocolNpc.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ServerNpc.h" />
-    <ClInclude Include="ConnectToSQL.h" />
     <ClInclude Include="PacketManager.h" />
     <ClInclude Include="ProtocolNpc.pb.h" />
   </ItemGroup>

@@ -18,9 +18,6 @@
     <ClCompile Include="ServerNpc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConnectToSQL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PacketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ServerNpc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConnectToSQL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PacketManager.h">
