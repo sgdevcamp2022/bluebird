@@ -8,8 +8,7 @@ public class Define
 	{
         Idle,
         Moving,
-        Skill,
-        Dead,
+      
 	}
 
     public enum MoveDir
