@@ -1,10 +1,15 @@
 # camp2022_bluebird
-½º¸¶ÀÏ°ÔÀÌÆ® °³¹ß Ä·ÇÁ 2022 - À©ÅÍ °³¹ß Ä·ÇÁ 2±â - Blue Bird
+ìŠ¤ë§ˆì¼ê²Œì´íŠ¸ ê°œë°œ ìº í”„ 2022 - ìœˆí„° ê°œë°œ ìº í”„ 2ê¸° - Blue Bird
 
 The project has been initialized.
 
 # PortNumber
 - 5000 : Server - Client
 - 6000 : Loby - Match
+- 6379 : Redis Server
 - 7000 : Server - Match
 - 8000 : Server - Npc
+
+# Redis Server Address
+- 34.84.148.50
+- ì„ì‹œ passward : a12b34
