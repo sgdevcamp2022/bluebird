@@ -43,26 +43,19 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 		_playerSize += 1;
 	}
 
-	Vector3 position(_players[id]->GetPosition());
-
 	player->set_id(id);
-	player->set_x(position.x);
-	player->set_y(position.y);
-	player->set_z(position.z);
+	GameUtils::SetVector3(player->mutable_position(), _players[id]->GetPosition());
+	GameUtils::SetVector3(player->mutable_rotation(), _players[id]->GetRotation());
 
 	{
-		Protocol::Data data;
+		Protocol::Player data;
 		data.set_id(id);
-		auto p = data.add_player();
-		p->set_id(id);
-		p->set_x(position.x);
-		p->set_y(position.y);
-		p->set_z(position.z);
+		GameUtils::SetVector3(data.mutable_position(), _players[id]->GetPosition());
+		GameUtils::SetVector3(data.mutable_rotation(), _players[id]->GetRotation());
 
 		ref->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT));
 	}
 }
-
 
 void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 {
@@ -73,9 +66,8 @@ void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 		auto ob = _startData.add_obtacle();
 		ob->set_id(obta.first);
 		ob->set_shape(obta.second->GetShape());
-		ob->set_x(obta.second->GetPosition().x);
-		ob->set_y(obta.second->GetPosition().y);
-		ob->set_z(obta.second->GetPosition().z);
+		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
+		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 	}
 	_startData.set_matchroom(_matchRoom);
 }
@@ -118,16 +110,17 @@ void Room::Start()
 	_start.store(true);
 }
 
-void Room::PlayerMove(Protocol::Data data)
+void Room::PlayerMove(Protocol::Move data)
 {
 	//ÄÜÅÙÃ÷ ±¸Çö
-	auto point = data.player(0);
+	auto point = data.position();
 
 	cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 
 	PlayerRef player = _players[data.id()];
 
-	player->MovePosition(Vector3(point));
+	player->Move(data.position(), data.rotation());
+	
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
 }
 
@@ -135,15 +128,13 @@ void Room::ObstacleMove(vector<Npc::Obstacle> datas)
 {
 	Protocol::Data data;
 	for (int i = 0; i < datas.size(); i++) {
-		Vector3 position(datas[i]);
 		if (_obstacles.find(datas[i].id()) != _obstacles.end()) {
-			_obstacles[datas[i].id()]->MovePosition(std::move(position));
+			_obstacles[datas[i].id()]->Move(datas[i].position(), datas[i].rotation());
 			auto ob = data.add_obtacle();
 
 			ob->set_id(datas[i].id());
-			ob->set_x(position.x);
-			ob->set_y(position.y);
-			ob->set_z(position.z);
+			GameUtils::SetVector3(ob->mutable_position(), _obstacles[datas[i].id()]->GetPosition());
+			GameUtils::SetVector3(ob->mutable_rotation(), _obstacles[datas[i].id()]->GetRotation());
 		}
 	}
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));

@@ -33,23 +33,16 @@ public class PacketHandler
     }
     public static void PlayerMove(IMessage packet)
     {
-        Data data = packet as Data;
-        Player user = data.Player[data.Player.Count - 1];
-
+        Move data = packet as Move;
         Player player = ObjectManager.Instance.GetPlayer(data.Id);
         // 이동 로직 구현 매차 구챠
         //player.X = user.X; player.Y = user.Y;  player.Z = user.Z;
-        UnityEngine.Debug.Log(user.Id + " " + user.X + " " + user.Y + " " + user.Z);
+        Vector3 user = data.Position;
+        UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
     }
 
     public static void ObtacleMove(IMessage packet)
     {
-        Data data = packet as Data;
-        Obtacle user = data.Obtacle[data.Obtacle.Count - 1];
-
-        Player player = ObjectManager.Instance.GetPlayer(data.Id);
-        // 이동 로직 구현 매차 구챠
-        //player.X = user.X; player.Y = user.Y;  player.Z = user.Z;
-        UnityEngine.Debug.Log(user.Id + " " + user.X + " " + user.Y + " " + user.Z);
+        
     }
 }

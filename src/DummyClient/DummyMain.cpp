@@ -22,7 +22,7 @@ void DoWorkerJob(ClientServiceRef& service)
 
 		ThreadManager::DoGlobalQueueWork();
 	}
-
+	
 }
 int main() {
 	/*ClientServiceRef service1 = MakeShared<ClientService>(

@@ -7,7 +7,7 @@ XCOPY /Y ProtocolNpc.pb.cc "../../../../src/ServerGame"
 XCOPY /Y ProtocolNpc.pb.h "../../../../src/ServerNpc"
 XCOPY /Y ProtocolNpc.pb.cc "../../../../src/ServerNpc"
 
-IF ERRORLEVEL 1 PAUSE
-
 DEL /Q /F *.pb.h
 DEL /Q /F *.pb.cc
+
+PAUSE

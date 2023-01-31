@@ -12,7 +12,7 @@ public:
 	void Leave(PlayerRef ref);
 	void Start();
 
-	void PlayerMove(Protocol::Data data);
+	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(vector<Npc::Obstacle> datas);
 	void ComplteGame(Protocol::Player);
 	void Broadcast(SendBufferRef ref);

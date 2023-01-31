@@ -23,9 +23,15 @@ message GameData
 
 message Obstacle
 {
-	int32 id = 1;
+	int64 id = 1;
 	int32 shape = 2;
-	float x = 3;
-	float y = 4;
-	float z = 5;
+	optional Vector3 position = 3;
+	optional Vector3 rotation = 4;
+}
+
+message Vector3
+{
+	float x = 1;
+	float y = 2;
+	float z = 3;
 }

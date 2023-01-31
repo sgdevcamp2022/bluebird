@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ServerGame\ProtocolServer.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="DummyMain.cpp" />
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameSession.cpp" />
@@ -151,11 +154,9 @@
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ProtocolTest.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ServerGame\ProtocolServer.pb.h" />
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameSession.h" />
     <ClInclude Include="MatchSession.h" />
@@ -163,7 +164,6 @@
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
-    <ClInclude Include="ProtocolTest.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

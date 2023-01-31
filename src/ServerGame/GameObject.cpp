@@ -1,16 +1,18 @@
 #include "pch.h"
 #include "GameObject.h"
 
-void Player::MovePosition(Vector3&& position)
+bool Player::Move(Vector3&& position, Vector3&& rotation)
 {
-	_position.x = position.x;
-	_position.y = position.y;
-	_position.z = position.z;
+	_position = position;
+	_rotation = rotation;
+
+	return true;
 }
 
-void Obtacle::MovePosition(Vector3&& position)
+bool Obtacle::Move(Vector3&& position, Vector3&& rotation)
 {
-	_position.x = position.x;
-	_position.y = position.y;
-	_position.z = position.z;
+	_position = position;
+	_rotation = rotation;
+
+	return true;
 }

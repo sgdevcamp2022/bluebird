@@ -14,7 +14,7 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
         HConnect(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::PLAYER_MOVE:
-        HPlayerMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::NO_MOVE:
         HNoMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
@@ -47,11 +47,9 @@ void GameHandler::HConnect(GameSessionRef& ref, Protocol::Data&& pkt)
     //접속 시 전체 유저 정보 전달 -> 고민 이슈
 }
 
-void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
     if (ref->_mySelf != nullptr) {
-        Protocol::Player point = pkt.player(0);
-
         if (auto room = ref->_room.lock()) {
             if (room->_start)
                 room->DoAsync(&Room::PlayerMove, pkt);
@@ -102,4 +100,13 @@ void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
+}
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::Move, GameHeader, Protocol::INGAME>(pkt, type);
+}
+
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::Player, GameHeader, Protocol::INGAME>(pkt, type);
 }
