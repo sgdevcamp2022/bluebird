@@ -10,12 +10,18 @@ using System.Threading.Tasks;
 
 public class PacketHandler
 {
+
+    public static long[] playerid;
+    public static bool same = false;
+    
+
     public static void GameStart(IMessage packet)
     {
         Data data = packet as Data;
         foreach (Player player in data.Player)
         {
-            ObjectManager.Instance.AddPlayer(player.Id, player);
+            //Player Spawn
+            Managers.Object.AddPlayer(player.Id, player,false); 
             UnityEngine.Debug.Log(player.Id + " Inside");
         }
         foreach (Obtacle obtacle in data.Obtacle)
@@ -27,9 +33,22 @@ public class PacketHandler
     public static void GameConnect(IMessage packet)
     {
         Data data = packet as Data;
-        Player player = data.Player[0];
+        Player player;
+        if (same)
+        {
+            player = data.Player[1];
+        }
+        else
+        {
+            player = data.Player[0];
+        }
+ 
 
-        UnityEngine.Debug.Log(player.X + " " + player.Y + " " + player.Z);
+        Managers.Object.AddPlayer(player.Id, player,true);
+
+        same = true;
+
+        UnityEngine.Debug.Log("Player connected..." + player.X + " " + player.Y + " " + player.Z);
     }
     public static void PlayerMove(IMessage packet)
     {
