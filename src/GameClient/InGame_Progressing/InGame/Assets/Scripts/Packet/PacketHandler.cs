@@ -26,6 +26,14 @@ public class PacketHandler
             ObjectManager.Instance.AddObtacle(obtacle.Id, obtacle);
             UnityEngine.Debug.Log(obtacle.Id + " Inside");
         }
+
+        Move move = new Move()
+        {
+            Id = Managers.Object.MyPlayer.id,
+            Position = new Vector { X = 1, Y = 1, Z = 1 },
+            Rotation = new Vector { X = 0, Y = 0, Z = 0 }
+        };
+        Managers.Network.Send(move, INGAME.PlayerMove);
     }
     public static void GameConnect(IMessage packet)
     {
