@@ -30,12 +30,12 @@ namespace Google.Protobuf.Protocol {
             "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIkUKB09idGFjbGUSCgoCaWQYASAB",
             "KAMSDQoFc2hhcGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCEgkKAXoY",
             "BSABKAIiNQoGUGxheWVyEgoKAmlkGAEgASgDEgkKAXgYAiABKAISCQoBeRgD",
-            "IAEoAhIJCgF6GAQgASgCKrsBCgZJTkdBTUUSCAoETU9WRRAAEhMKD0NIQVJB",
-            "VEVSU19DUkFTSBABEhIKDk9CU1RBQ0xFX0NSQVNIEAISCwoHTk9fTU9WRRAD",
-            "EggKBERST1AQBBILCgdDT01QTFRFEAUSCAoERkFJTBAGEg8KC1BBQ0tFVF9G",
-            "QUlMEAcSEQoNT0JTVEFDTEVfTU9WRRAIEhQKEE9CU1RBQ0xFX1NFVFRJTkcQ",
-            "CRILCgdDT05ORUNUEAoSCQoFU1RBUlQQC0IbqgIYR29vZ2xlLlByb3RvYnVm",
-            "LlByb3RvY29sYgZwcm90bzM="));
+            "IAEoAhIJCgF6GAQgASgCKsMBCgZJTkdBTUUSCwoHQ09OTkVDVBAAEgkKBVNU",
+            "QVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEKDU9CU1RBQ0xF",
+            "X01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRFEAYSDQoJR0FN",
+            "RV9GQUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVSX0NSQVNIEAkSEgoO",
+            "T0JTVEFDTEVfQ1JBU0gQChIPCgtQQUNLRVRfRkFJTBALQhuqAhhHb29nbGUu",
+            "UHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -49,18 +49,18 @@ namespace Google.Protobuf.Protocol {
   }
   #region Enums
   public enum INGAME {
-    [pbr::OriginalName("MOVE")] Move = 0,
-    [pbr::OriginalName("CHARATERS_CRASH")] CharatersCrash = 1,
-    [pbr::OriginalName("OBSTACLE_CRASH")] ObstacleCrash = 2,
-    [pbr::OriginalName("NO_MOVE")] NoMove = 3,
-    [pbr::OriginalName("DROP")] Drop = 4,
-    [pbr::OriginalName("COMPLTE")] Complte = 5,
-    [pbr::OriginalName("FAIL")] Fail = 6,
-    [pbr::OriginalName("PACKET_FAIL")] PacketFail = 7,
-    [pbr::OriginalName("OBSTACLE_MOVE")] ObstacleMove = 8,
-    [pbr::OriginalName("OBSTACLE_SETTING")] ObstacleSetting = 9,
-    [pbr::OriginalName("CONNECT")] Connect = 10,
-    [pbr::OriginalName("START")] Start = 11,
+    [pbr::OriginalName("CONNECT")] Connect = 0,
+    [pbr::OriginalName("START")] Start = 1,
+    [pbr::OriginalName("LEAVE")] Leave = 2,
+    [pbr::OriginalName("PLAYER_MOVE")] PlayerMove = 3,
+    [pbr::OriginalName("OBSTACLE_MOVE")] ObstacleMove = 4,
+    [pbr::OriginalName("NO_MOVE")] NoMove = 5,
+    [pbr::OriginalName("GAME_COMPLTE")] GameComplte = 6,
+    [pbr::OriginalName("GAME_FAIL")] GameFail = 7,
+    [pbr::OriginalName("GAME_DROP")] GameDrop = 8,
+    [pbr::OriginalName("PLAYER_CRASH")] PlayerCrash = 9,
+    [pbr::OriginalName("OBSTACLE_CRASH")] ObstacleCrash = 10,
+    [pbr::OriginalName("PACKET_FAIL")] PacketFail = 11,
   }
 
   #endregion

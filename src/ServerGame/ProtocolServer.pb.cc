@@ -120,16 +120,16 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "E\n\007Obtacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022\t\n"
   "\001x\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\t\n\001z\030\005 \001(\002\"5\n\006Player"
   "\022\n\n\002id\030\001 \001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030"
-  "\004 \001(\002*\273\001\n\006INGAME\022\010\n\004MOVE\020\000\022\023\n\017CHARATERS_"
-  "CRASH\020\001\022\022\n\016OBSTACLE_CRASH\020\002\022\013\n\007NO_MOVE\020\003"
-  "\022\010\n\004DROP\020\004\022\013\n\007COMPLTE\020\005\022\010\n\004FAIL\020\006\022\017\n\013PAC"
-  "KET_FAIL\020\007\022\021\n\rOBSTACLE_MOVE\020\010\022\024\n\020OBSTACL"
-  "E_SETTING\020\t\022\013\n\007CONNECT\020\n\022\t\n\005START\020\013b\006pro"
-  "to3"
+  "\004 \001(\002*\303\001\n\006INGAME\022\013\n\007CONNECT\020\000\022\t\n\005START\020\001"
+  "\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_MOVE\020\003\022\021\n\rOBSTACLE"
+  "_MOVE\020\004\022\013\n\007NO_MOVE\020\005\022\020\n\014GAME_COMPLTE\020\006\022\r"
+  "\n\tGAME_FAIL\020\007\022\r\n\tGAME_DROP\020\010\022\020\n\014PLAYER_C"
+  "RASH\020\t\022\022\n\016OBSTACLE_CRASH\020\n\022\017\n\013PACKET_FAI"
+  "L\020\013b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 483, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 491, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,

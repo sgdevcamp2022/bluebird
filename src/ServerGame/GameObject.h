@@ -2,7 +2,7 @@
 class GameObject
 {
 public:
-	GameObject(int64 id, int32 room, Vector3 position = Vector3{ 0,0,0 })
+	GameObject(int64 id, int32 room, Vector3 position)
 		:_id(id), _room(room), _position(position) {}
 
 	Vector3&		GetPosition() { return _position; }

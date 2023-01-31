@@ -25,19 +25,19 @@ void DoWorkerJob(ClientServiceRef& service)
 
 }
 int main() {
-	ClientServiceRef service1 = MakeShared<ClientService>(
+	/*ClientServiceRef service1 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 10);
+		MakeShared<MatchSession>, 10);*/
 	ClientServiceRef service2 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
-		MakeShared<GameSession>, 10);
-	ClientServiceRef service3 = MakeShared<ClientService>(
+		MakeShared<GameSession>, 2);
+	/*ClientServiceRef service3 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 10);
-	ASSERT_CRASH(service1->Start());
+		MakeShared<MatchSession>, 10);*/
+	/*ASSERT_CRASH(service1->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
 		GThreadManager->Launch([&service1]()
@@ -60,10 +60,10 @@ int main() {
 					DoWorkerJob(service3);
 				}
 			});
-	}
+	}*/
 
 	//게임 클라이언트 접속 테스트
-	this_thread::sleep_for(5s);
+	//this_thread::sleep_for(5s);
 
 	ASSERT_CRASH(service2->Start());
 
