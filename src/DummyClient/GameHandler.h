@@ -8,7 +8,7 @@ public:
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
 
 private:
-	static void HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt);
+	static void HandlerConnect(PacketSessionRef& ref, Protocol::Player&& pkt);
 	static void HandlerMove(PacketSessionRef& ref, Protocol::Move&& pkt);
 	static void HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt);
 	static void HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt);

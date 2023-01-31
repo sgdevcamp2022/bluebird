@@ -10,7 +10,7 @@
 struct Vector3
 {
 	Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
-	Vector3(const Protocol::Vector3& data) : x(data.x()), y(data.y()), z(data.z()) {}
+	Vector3(const Protocol::Vector& data) : x(data.x()), y(data.y()), z(data.z()) {}
 	Vector3(const Npc::Vector3& data) : x(data.x()), y(data.y()), z(data.z()) {}
 
 	float x;

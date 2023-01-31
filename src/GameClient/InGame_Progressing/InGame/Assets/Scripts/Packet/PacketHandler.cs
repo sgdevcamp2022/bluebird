@@ -9,19 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 public class PacketHandler
-{
-
-    public static long[] playerid;
-    public static bool same = false;
-    
-
+{ 
     public static void GameStart(IMessage packet)
     {
         Data data = packet as Data;
         foreach (Player player in data.Player)
         {
             //Player Spawn
-            Managers.Object.AddPlayer(player.Id, player,false); 
+            if (Managers.Object.MyPlayer.id == player.Id)
+                continue;
+            Managers.Object.AddPlayer(player.Id, player);
             UnityEngine.Debug.Log(player.Id + " Inside");
         }
         foreach (Obtacle obtacle in data.Obtacle)
@@ -32,32 +29,22 @@ public class PacketHandler
     }
     public static void GameConnect(IMessage packet)
     {
-        Data data = packet as Data;
-        Player player;
-        if (same)
-        {
-            player = data.Player[1];
-        }
-        else
-        {
-            player = data.Player[0];
-        }
- 
+        Player data = packet as Player;
+        Managers.Object.AddMyPlayer(data.Id, data);
 
-        Managers.Object.AddPlayer(player.Id, player,true);
-
-        same = true;
-
-        UnityEngine.Debug.Log("Player connected..." + player.X + " " + player.Y + " " + player.Z);
+        UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
     public static void PlayerMove(IMessage packet)
     {
         Move data = packet as Move;
-        Player player = ObjectManager.Instance.GetPlayer(data.Id);
+        Player player = Managers.Object.GetPlayer(data.Id);
         // 이동 로직 구현 매차 구챠
         //player.X = user.X; player.Y = user.Y;  player.Z = user.Z;
-        Vector3 user = data.Position;
-        UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
+        if(player != null)
+        {
+            Vector user = data.Position;
+            UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
+        }
     }
 
     public static void ObtacleMove(IMessage packet)

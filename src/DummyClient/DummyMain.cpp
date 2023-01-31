@@ -32,7 +32,7 @@ int main() {
 	ClientServiceRef service2 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
-		MakeShared<GameSession>, 2);
+		MakeShared<GameSession>, 1);
 	/*ClientServiceRef service3 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),

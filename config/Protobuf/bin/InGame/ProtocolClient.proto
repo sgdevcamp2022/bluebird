@@ -29,7 +29,7 @@ message Data
 	repeated Obtacle obtacle = 5;
 }
 
-message Time
+message Times
 {
 	int64 time = 1;
 }
@@ -38,8 +38,8 @@ message Move
 {
 	int64 id = 1;
 	int64 time = 2;
-	Vector3 position = 3;
-	Vector3 rotation = 4;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
 }
 
 message MoveData
@@ -52,18 +52,18 @@ message Obtacle
 {
 	int64 id = 1;
 	int32 shape = 2;
-	Vector3 position = 3;
-	Vector3 rotation = 4;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
 }
 
 message Player
 {
 	int64 id = 1;
-	Vector3 position = 2;
-	Vector3 rotation = 3;
+	optional Vector position = 2;
+	optional Vector rotation = 3;
 }
 
-message Vector3
+message Vector
 {
 	float x = 1;
 	float y = 2;

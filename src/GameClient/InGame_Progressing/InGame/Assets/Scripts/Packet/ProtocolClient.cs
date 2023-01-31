@@ -27,32 +27,35 @@ namespace Google.Protobuf.Protocol {
             "ChRQcm90b2NvbENsaWVudC5wcm90bxIIUHJvdG9jb2wifQoERGF0YRIKCgJp",
             "ZBgBIAEoAxIQCghtYXBMZXZlbBgCIAEoBRIRCgltYXRjaFJvb20YAyABKAUS",
             "IAoGcGxheWVyGAQgAygLMhAuUHJvdG9jb2wuUGxheWVyEiIKB29idGFjbGUY",
-            "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIhQKBFRpbWUSDAoEdGltZRgBIAEo",
-            "AyJqCgRNb3ZlEgoKAmlkGAEgASgDEgwKBHRpbWUYAiABKAMSIwoIcG9zaXRp",
-            "b24YAyABKAsyES5Qcm90b2NvbC5WZWN0b3IzEiMKCHJvdGF0aW9uGAQgASgL",
-            "MhEuUHJvdG9jb2wuVmVjdG9yMyI2CghNb3ZlRGF0YRIMCgR0aW1lGAEgASgD",
-            "EhwKBG1vdmUYAiADKAsyDi5Qcm90b2NvbC5Nb3ZlIm4KB09idGFjbGUSCgoC",
-            "aWQYASABKAMSDQoFc2hhcGUYAiABKAUSIwoIcG9zaXRpb24YAyABKAsyES5Q",
-            "cm90b2NvbC5WZWN0b3IzEiMKCHJvdGF0aW9uGAQgASgLMhEuUHJvdG9jb2wu",
-            "VmVjdG9yMyJeCgZQbGF5ZXISCgoCaWQYASABKAMSIwoIcG9zaXRpb24YAiAB",
-            "KAsyES5Qcm90b2NvbC5WZWN0b3IzEiMKCHJvdGF0aW9uGAMgASgLMhEuUHJv",
-            "dG9jb2wuVmVjdG9yMyIqCgdWZWN0b3IzEgkKAXgYASABKAISCQoBeRgCIAEo",
-            "AhIJCgF6GAMgASgCKs4BCgZJTkdBTUUSCwoHQ09OTkVDVBAAEgkKBVNUQVJU",
-            "EAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEKDU9CU1RBQ0xFX01P",
-            "VkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRFEAYSDQoJR0FNRV9G",
-            "QUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVSX0NSQVNIEAkSEgoOT0JT",
-            "VEFDTEVfQ1JBU0gQChIPCgtQQUNLRVRfRkFJTBALEgkKBUNPVU5UEAxCG6oC",
-            "GEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIhUKBVRpbWVzEgwKBHRpbWUYASAB",
+            "KAMijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
+            "dGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9u",
+            "GAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFCCwoJX3Bvc2l0aW9uQgsK",
+            "CV9yb3RhdGlvbiI2CghNb3ZlRGF0YRIMCgR0aW1lGAEgASgDEhwKBG1vdmUY",
+            "AiADKAsyDi5Qcm90b2NvbC5Nb3ZlIpABCgdPYnRhY2xlEgoKAmlkGAEgASgD",
+            "Eg0KBXNoYXBlGAIgASgFEicKCHBvc2l0aW9uGAMgASgLMhAuUHJvdG9jb2wu",
+            "VmVjdG9ySACIAQESJwoIcm90YXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0",
+            "b3JIAYgBAUILCglfcG9zaXRpb25CCwoJX3JvdGF0aW9uIoABCgZQbGF5ZXIS",
+            "CgoCaWQYASABKAMSJwoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0",
+            "b3JIAIgBARInCghyb3RhdGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgB",
+            "iAEBQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24iKQoGVmVjdG9yEgkKAXgY",
+            "ASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKs4BCgZJTkdBTUUSCwoHQ09O",
+            "TkVDVBAAEgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRAD",
+            "EhEKDU9CU1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01Q",
+            "TFRFEAYSDQoJR0FNRV9GQUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVS",
+            "X0NSQVNIEAkSEgoOT0JTVEFDTEVfQ1JBU0gQChIPCgtQQUNLRVRfRkFJTBAL",
+            "EgkKBUNPVU5UEAxCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Data), global::Google.Protobuf.Protocol.Data.Parser, new[]{ "Id", "MapLevel", "MatchRoom", "Player", "Obtacle" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Time), global::Google.Protobuf.Protocol.Time.Parser, new[]{ "Time_" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Position", "Rotation" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Times), global::Google.Protobuf.Protocol.Times.Parser, new[]{ "Time" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.MoveData), global::Google.Protobuf.Protocol.MoveData.Parser, new[]{ "Time", "Move" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Player), global::Google.Protobuf.Protocol.Player.Parser, new[]{ "Id", "Position", "Rotation" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Vector3), global::Google.Protobuf.Protocol.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Player), global::Google.Protobuf.Protocol.Player.Parser, new[]{ "Id", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Vector), global::Google.Protobuf.Protocol.Vector.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
           }));
     }
     #endregion
@@ -372,15 +375,15 @@ namespace Google.Protobuf.Protocol {
 
   }
 
-  public sealed partial class Time : pb::IMessage<Time>
+  public sealed partial class Times : pb::IMessage<Times>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<Time> _parser = new pb::MessageParser<Time>(() => new Time());
+    private static readonly pb::MessageParser<Times> _parser = new pb::MessageParser<Times>(() => new Times());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Time> Parser { get { return _parser; } }
+    public static pb::MessageParser<Times> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -393,28 +396,28 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Time() {
+    public Times() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Time(Time other) : this() {
+    public Times(Times other) : this() {
       time_ = other.time_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Time Clone() {
-      return new Time(this);
+    public Times Clone() {
+      return new Times(this);
     }
 
     /// <summary>Field number for the "time" field.</summary>
-    public const int Time_FieldNumber = 1;
+    public const int TimeFieldNumber = 1;
     private long time_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long Time_ {
+    public long Time {
       get { return time_; }
       set {
         time_ = value;
@@ -423,25 +426,25 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Time);
+      return Equals(other as Times);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Time other) {
+    public bool Equals(Times other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Time_ != other.Time_) return false;
+      if (Time != other.Time) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Time_ != 0L) hash ^= Time_.GetHashCode();
+      if (Time != 0L) hash ^= Time.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -458,9 +461,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Time_ != 0L) {
+      if (Time != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt64(Time_);
+        output.WriteInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -471,9 +474,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Time_ != 0L) {
+      if (Time != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt64(Time_);
+        output.WriteInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -484,8 +487,8 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Time_ != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time_);
+      if (Time != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -494,12 +497,12 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Time other) {
+    public void MergeFrom(Times other) {
       if (other == null) {
         return;
       }
-      if (other.Time_ != 0L) {
-        Time_ = other.Time_;
+      if (other.Time != 0L) {
+        Time = other.Time;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -516,7 +519,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Time_ = input.ReadInt64();
+            Time = input.ReadInt64();
             break;
           }
         }
@@ -534,7 +537,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Time_ = input.ReadInt64();
+            Time = input.ReadInt64();
             break;
           }
         }
@@ -609,9 +612,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 3;
-    private global::Google.Protobuf.Protocol.Vector3 position_;
+    private global::Google.Protobuf.Protocol.Vector position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Position {
+    public global::Google.Protobuf.Protocol.Vector Position {
       get { return position_; }
       set {
         position_ = value;
@@ -620,9 +623,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "rotation" field.</summary>
     public const int RotationFieldNumber = 4;
-    private global::Google.Protobuf.Protocol.Vector3 rotation_;
+    private global::Google.Protobuf.Protocol.Vector rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Rotation {
+    public global::Google.Protobuf.Protocol.Vector Rotation {
       get { return rotation_; }
       set {
         rotation_ = value;
@@ -753,13 +756,13 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::Google.Protobuf.Protocol.Vector3();
+          Position = new global::Google.Protobuf.Protocol.Vector();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.rotation_ != null) {
         if (rotation_ == null) {
-          Rotation = new global::Google.Protobuf.Protocol.Vector3();
+          Rotation = new global::Google.Protobuf.Protocol.Vector();
         }
         Rotation.MergeFrom(other.Rotation);
       }
@@ -787,14 +790,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 26: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 34: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -823,14 +826,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 26: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 34: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -1104,9 +1107,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 3;
-    private global::Google.Protobuf.Protocol.Vector3 position_;
+    private global::Google.Protobuf.Protocol.Vector position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Position {
+    public global::Google.Protobuf.Protocol.Vector Position {
       get { return position_; }
       set {
         position_ = value;
@@ -1115,9 +1118,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "rotation" field.</summary>
     public const int RotationFieldNumber = 4;
-    private global::Google.Protobuf.Protocol.Vector3 rotation_;
+    private global::Google.Protobuf.Protocol.Vector rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Rotation {
+    public global::Google.Protobuf.Protocol.Vector Rotation {
       get { return rotation_; }
       set {
         rotation_ = value;
@@ -1248,13 +1251,13 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::Google.Protobuf.Protocol.Vector3();
+          Position = new global::Google.Protobuf.Protocol.Vector();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.rotation_ != null) {
         if (rotation_ == null) {
-          Rotation = new global::Google.Protobuf.Protocol.Vector3();
+          Rotation = new global::Google.Protobuf.Protocol.Vector();
         }
         Rotation.MergeFrom(other.Rotation);
       }
@@ -1282,14 +1285,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 26: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 34: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -1318,14 +1321,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 26: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 34: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -1390,9 +1393,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 2;
-    private global::Google.Protobuf.Protocol.Vector3 position_;
+    private global::Google.Protobuf.Protocol.Vector position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Position {
+    public global::Google.Protobuf.Protocol.Vector Position {
       get { return position_; }
       set {
         position_ = value;
@@ -1401,9 +1404,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "rotation" field.</summary>
     public const int RotationFieldNumber = 3;
-    private global::Google.Protobuf.Protocol.Vector3 rotation_;
+    private global::Google.Protobuf.Protocol.Vector rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Vector3 Rotation {
+    public global::Google.Protobuf.Protocol.Vector Rotation {
       get { return rotation_; }
       set {
         rotation_ = value;
@@ -1518,13 +1521,13 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::Google.Protobuf.Protocol.Vector3();
+          Position = new global::Google.Protobuf.Protocol.Vector();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.rotation_ != null) {
         if (rotation_ == null) {
-          Rotation = new global::Google.Protobuf.Protocol.Vector3();
+          Rotation = new global::Google.Protobuf.Protocol.Vector();
         }
         Rotation.MergeFrom(other.Rotation);
       }
@@ -1548,14 +1551,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 18: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 26: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -1580,14 +1583,14 @@ namespace Google.Protobuf.Protocol {
           }
           case 18: {
             if (position_ == null) {
-              Position = new global::Google.Protobuf.Protocol.Vector3();
+              Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
           case 26: {
             if (rotation_ == null) {
-              Rotation = new global::Google.Protobuf.Protocol.Vector3();
+              Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
             break;
@@ -1599,15 +1602,15 @@ namespace Google.Protobuf.Protocol {
 
   }
 
-  public sealed partial class Vector3 : pb::IMessage<Vector3>
+  public sealed partial class Vector : pb::IMessage<Vector>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<Vector3> _parser = new pb::MessageParser<Vector3>(() => new Vector3());
+    private static readonly pb::MessageParser<Vector> _parser = new pb::MessageParser<Vector>(() => new Vector());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Vector3> Parser { get { return _parser; } }
+    public static pb::MessageParser<Vector> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -1620,14 +1623,14 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Vector3() {
+    public Vector() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Vector3(Vector3 other) : this() {
+    public Vector(Vector other) : this() {
       x_ = other.x_;
       y_ = other.y_;
       z_ = other.z_;
@@ -1635,8 +1638,8 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Vector3 Clone() {
-      return new Vector3(this);
+    public Vector Clone() {
+      return new Vector(this);
     }
 
     /// <summary>Field number for the "x" field.</summary>
@@ -1674,11 +1677,11 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Vector3);
+      return Equals(other as Vector);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Vector3 other) {
+    public bool Equals(Vector other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1771,7 +1774,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Vector3 other) {
+    public void MergeFrom(Vector other) {
       if (other == null) {
         return;
       }
