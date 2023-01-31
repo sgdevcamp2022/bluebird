@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     protected void UpdateMove()
     {
-        Debug.Log("UpdateMove");
+        //Debug.Log("UpdateMove");
         transform.position += moveVec * speed * Time.deltaTime;
         transform.LookAt(transform.position + moveVec);
 

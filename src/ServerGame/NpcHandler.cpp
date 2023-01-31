@@ -36,9 +36,10 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 	if (pkt.obstacle_size() != 0) {
 		for (int i = 0; i < pkt.obstacle_size(); i++) {
 			auto data = pkt.obstacle(i);
-			datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data));
+			if (data.has_position() && data.has_rotation()) {
+				datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data.position()), Vector3(data.rotation()));
+			}
 		}
-
 		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
 	}
 }

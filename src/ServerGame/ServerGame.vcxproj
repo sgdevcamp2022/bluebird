@@ -143,6 +143,7 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="GameUtils.h" />
     <ClInclude Include="MatchHandler.h" />
     <ClInclude Include="MatchSession.h" />
     <ClInclude Include="NpcHandler.h" />
@@ -160,6 +161,7 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSession.cpp" />
+    <ClCompile Include="GameUtils.cpp" />
     <ClCompile Include="MatchHandler.cpp" />
     <ClCompile Include="MatchSession.cpp" />
     <ClCompile Include="NpcHandler.cpp" />

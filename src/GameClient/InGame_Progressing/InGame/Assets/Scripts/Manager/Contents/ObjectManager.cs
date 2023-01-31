@@ -20,29 +20,26 @@ public class ObjectManager
     Dictionary<Int64, Obtacle> obtacles = new Dictionary<Int64, Obtacle>();
 
     //추가
-    public void AddPlayer(Int64 id, Player player,bool myPlayer)
+    public void AddPlayer(Int64 id, Player player)
     {
-        if (myPlayer)
-        {
-            GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
-            go.name = "MyPlayer" + player.Id;
-            players.Add(player.Id, player);
+        GameObject go = Managers.Resource.Instantiate("Creature/Player");
+        go.name = "Player" + id;
+        players.Add(id, player);
 
-            MyPlayer = go.GetComponent<MyPlayerController>();
-            MyPlayer.id = player.Id;
+        Debug.Log(players.Count);
 
-        }
+        PlayerController pc = go.GetComponent<PlayerController>();
+        pc.id = id;
+    }
+    public void AddMyPlayer(Int64 id, Player player)
+    {
+        GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
+        go.name = "MyPlayer" + player.Id;
 
-        else
-        {
-            GameObject go = Managers.Resource.Instantiate("Creature/Player");
-            go.name = "Player" + player.Id;
-            players.Add(player.Id, player);
+        players.Add(player.Id, player);
 
-            PlayerController pc = go.GetComponent<PlayerController>();
-            pc.id = player.Id;
-        }
-        //players[id] = player;
+        MyPlayer = go.GetComponent<MyPlayerController>();
+        MyPlayer.id = player.Id;
     }
     public void RemovePlayer(Int64 id)
     {
@@ -62,7 +59,10 @@ public class ObjectManager
     // 저장된 정보 리턴
     public Player GetPlayer(Int64 id)
     {
-        return players[id];
+        Player player;
+        if (players.TryGetValue(id, out player))
+            return player;
+        return null;
     }
     public Obtacle GetObtacle(Int64 id)
     {

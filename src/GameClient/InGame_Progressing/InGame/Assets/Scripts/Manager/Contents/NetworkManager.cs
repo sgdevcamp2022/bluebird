@@ -11,9 +11,9 @@ public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
 
-	public void Send(ArraySegment<byte> sendBuff)
+	public void Send(IMessage message, INGAME nGAME)
 	{
-		_session.Send(sendBuff);
+		_session.Send(message, nGAME);
 	}
 
 	public void Init()

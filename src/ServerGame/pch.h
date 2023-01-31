@@ -39,3 +39,5 @@ using RoomRef			= shared_ptr<class Room>;
 #include "Room.h"
 #include "Games.h"
 
+#include "GameUtils.h"
+
