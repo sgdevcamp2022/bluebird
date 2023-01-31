@@ -25,8 +25,8 @@ class PacketManager
     {
         recv.Add((ushort)INGAME.Start, MakePacket<Data>);
         handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
-        recv.Add((ushort)INGAME.Move, MakePacket<Data>);
-        handler.Add((ushort)INGAME.Move, PacketHandler.PlayerMove);
+        recv.Add((ushort)INGAME.PlayerMove, MakePacket<Data>);
+        handler.Add((ushort)INGAME.PlayerMove, PacketHandler.PlayerMove);
         recv.Add((ushort)INGAME.Connect, MakePacket<Data>);
         handler.Add((ushort)INGAME.Connect, PacketHandler.GameConnect);
         recv.Add((ushort)INGAME.ObstacleMove, MakePacket<Data>);

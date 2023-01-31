@@ -2,6 +2,10 @@
 
 #define THREAD_SIZE 10
 #define ROOM_COUNT 20
+#define START_COUNT 2
+#define WINNER1(count)	count/3
+#define WINNER2(count)	WINNER1(count)/5
+#define WINNER3	1
 
 struct Vector3
 {

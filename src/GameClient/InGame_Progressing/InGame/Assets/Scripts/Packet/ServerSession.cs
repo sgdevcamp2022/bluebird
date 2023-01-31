@@ -37,10 +37,11 @@ public class ServerSession : PacketSession
 	public override void OnConnected(EndPoint endPoint)
 	{
 		Debug.Log($"OnConnected : {endPoint}");
-
+        System.Random rand = new System.Random();
+        int random = rand.Next(100);
         Data dataPkt = new Data()
         {
-            Id = 1,
+            Id = random,
             MapLevel = 2,
             MatchRoom = 0,
             //Player = {new Player {X = 0,Y=0,Z=0 } }

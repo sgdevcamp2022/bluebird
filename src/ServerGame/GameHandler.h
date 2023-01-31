@@ -5,11 +5,17 @@ class GameHandler
 public:
 	static SendBufferRef MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type);
 
-	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
+	static void HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len);
 
 private:
-	static void HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt);
-	static void HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt);
+	static void HConnect(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HPlayerMove(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HNoMove(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HGameComplete(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HGameFail(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HGameDrop(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt);
 };
 
 struct GameHeader {

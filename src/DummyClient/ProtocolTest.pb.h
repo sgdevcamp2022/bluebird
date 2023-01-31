@@ -73,24 +73,24 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum INGAME : int {
-  MOVE = 0,
-  CHARATERS_CRASH = 1,
-  OBSTACLE_CRASH = 2,
-  NO_MOVE = 3,
-  DROP = 4,
-  COMPLTE = 5,
-  FAIL = 6,
-  PACKET_FAIL = 7,
-  OBSTACLE_MOVE = 8,
-  OBSTACLE_SETTING = 9,
-  CONNECT = 10,
-  START = 11,
+  CONNECT = 0,
+  START = 1,
+  LEAVE = 2,
+  PLAYER_MOVE = 3,
+  OBSTACLE_MOVE = 4,
+  NO_MOVE = 5,
+  GAME_COMPLTE = 6,
+  GAME_FAIL = 7,
+  GAME_DROP = 8,
+  PLAYER_CRASH = 9,
+  OBSTACLE_CRASH = 10,
+  PACKET_FAIL = 11,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
-constexpr INGAME INGAME_MIN = MOVE;
-constexpr INGAME INGAME_MAX = START;
+constexpr INGAME INGAME_MIN = CONNECT;
+constexpr INGAME INGAME_MAX = PACKET_FAIL;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();

@@ -27,7 +27,7 @@ namespace ServerCore
 
                 //offset: ArraySegment로 구분된 범위의 첫 번째 요소 위치를 가져옴
                 //Array: ArraySegment가 구분하는 범위의 요소가 포함된 원본 배열을 가져옵니다.
-                //Count : 요소 수를 가져옴 
+                //Count : 요소 수를 가져옴
                 Pkt_Head head = new Pkt_Head();
 
                 IntPtr ptr = Marshal.AllocHGlobal(HeaderSize);
@@ -35,7 +35,7 @@ namespace ServerCore
                 head = (Pkt_Head)Marshal.PtrToStructure(ptr, typeof(Pkt_Head));
                 Marshal.FreeHGlobal(ptr);
 
-                if (buffer.Count < head.size)
+				if ((buffer.Count - HeaderSize) < head.size)
 					break;
 
 				int total = (int)head.size + HeaderSize;

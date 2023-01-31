@@ -28,6 +28,7 @@ public class PacketHandler
     {
         Data data = packet as Data;
         Player player = data.Player[0];
+
         UnityEngine.Debug.Log(player.X + " " + player.Y + " " + player.Z);
     }
     public static void PlayerMove(IMessage packet)

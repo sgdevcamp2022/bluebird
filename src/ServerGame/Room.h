@@ -14,6 +14,7 @@ public:
 
 	void PlayerMove(Protocol::Data data);
 	void ObstacleMove(vector<Npc::Obstacle> datas);
+	void ComplteGame(Protocol::Player);
 	void Broadcast(SendBufferRef ref);
 public:
 	atomic<bool>			_start = true;
@@ -24,5 +25,10 @@ private:
 	map<int64, PlayerRef>	_players;
 	map<int64, ObtacleRef>	_obstacles;
 	vector<Vector3>			_spawnPosition;
+	vector<int64>			_winnerId;
 	Protocol::Data			_startData;
+
+private:
+	atomic<int32>			_playerSize = 0;
+	atomic<int32>			_winner = 0;
 };

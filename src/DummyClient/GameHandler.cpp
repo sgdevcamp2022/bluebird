@@ -11,11 +11,8 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     case Protocol::CONNECT:
         HandlerConnect(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
-    case Protocol::MOVE:
+    case Protocol::PLAYER_MOVE:
         HandlerMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
-        break;
-    case Protocol::OBSTACLE_SETTING:
-        HandlerOBSet(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::OBSTACLE_MOVE:
         HandlerOBMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
@@ -30,7 +27,8 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 
 void GameHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    
+    auto point = pkt.player(0);
+    cout << "Connect(" << pkt.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 }
 
 void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
@@ -39,10 +37,6 @@ void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Data&& pkt)
     cout << "whitch(" << pkt.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 }
 
-void GameHandler::HandlerOBSet(PacketSessionRef& ref, Protocol::Data&& pkt)
-{
-    cout << "Ob set" << pkt.obtacle_size() << endl;
-}
 
 void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
@@ -53,6 +47,7 @@ void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
     cout << "½ÃÀÛÇÔ" << pkt.player_size() << endl;
     GameSessionRef session = static_pointer_cast<GameSession>(ref);
+    this_thread::sleep_for(1s);
     {
         Protocol::Data pkt;
         pkt.set_id(session->id);
@@ -62,7 +57,7 @@ void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
         player->set_x(0.0f);
         player->set_y(0.0f);
         player->set_z(0.0f);
-        auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::MOVE);
+        auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::PLAYER_MOVE);
         session->Send(ref);
     }
 }

@@ -18,6 +18,13 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 		session->_room = _games[room];
 		_games[room]->GameEnter(session, id);
 	}
+	//테스트 코드
+	else {
+		_games[room] = make_shared<Room>(2, room);
+		session->_room = _games[room];
+		_games[room]->GameEnter(session, id);
+		_games[room]->DoTimer(5000, &Room::Start);
+	}
 }
 
 void Games::StartGame(int32 room)
