@@ -17,7 +17,7 @@ public class ObjectManager
 
     //플레이어 정보 저장
     Dictionary<Int64, Player> players = new Dictionary<Int64, Player>();
-    Dictionary<Int64, Obtacle> obtacles = new Dictionary<Int64, Obtacle>();
+    Dictionary<Int64, GameObject> obtacles = new Dictionary<Int64, GameObject>();
 
     //추가
     public void AddPlayer(Int64 id, Player player)
@@ -49,7 +49,15 @@ public class ObjectManager
     //삭제
     public void AddObtacle(Int64 id, Obtacle obtacle)
     {
-        obtacles[id] = obtacle;
+        GameObject go = Managers.Resource.Instantiate("Trap/Sphere");
+        go.name = "Obstacle" + id;
+        obtacles.Add(id, go);
+
+        TrapController tc = go.GetComponent<TrapController>();
+        tc.id = id;
+        tc.PosInfo = obtacle.Position;
+
+        UnityEngine.Debug.Log(obtacles.Count);
     }
     public void RemoveObtacle(Int64 id)
     {
@@ -64,8 +72,11 @@ public class ObjectManager
             return player;
         return null;
     }
-    public Obtacle GetObtacle(Int64 id)
+    public GameObject GetObtacle(Int64 id)
     {
-        return obtacles[id];
+        GameObject obtacle;
+        if (obtacles.TryGetValue(id, out obtacle))
+            return obtacle;
+        return null;
     }
 }

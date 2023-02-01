@@ -10,6 +10,8 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 	{
 		_spawnPosition.push_back(Vector3{ (float)i, (float)i, 0 });
 	}
+	_startData.set_matchroom(room);
+	_startData.set_maplevel(level);
 }
 
 // 방 생성
@@ -69,7 +71,6 @@ void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 	}
-	_startData.set_matchroom(_matchRoom);
 }
 
 void Room::Leave(PlayerRef ref)
@@ -107,7 +108,17 @@ void Room::Start()
 		_players.erase(key);
 	}
 	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::START));
+
 	_start.store(true);
+
+	{
+		vector<Npc::Obstacle> datas;
+		Npc::Obstacle ob;
+		ob.set_id(0);
+		GameUtils::SetVector3(ob.mutable_position(), Vector3{ 1, 5, 1 });
+		datas.push_back(ob);
+		DoTimer(500, &Room::ObstacleMove, datas);
+	}
 }
 
 void Room::PlayerMove(Protocol::Move data)
@@ -131,7 +142,7 @@ void Room::ObstacleMove(vector<Npc::Obstacle> datas)
 		if (_obstacles.find(datas[i].id()) != _obstacles.end()) {
 			_obstacles[datas[i].id()]->Move(datas[i].position(), datas[i].rotation());
 			auto ob = data.add_obtacle();
-
+			cout << "Object 이동" << endl;
 			ob->set_id(datas[i].id());
 			GameUtils::SetVector3(ob->mutable_position(), _obstacles[datas[i].id()]->GetPosition());
 			GameUtils::SetVector3(ob->mutable_rotation(), _obstacles[datas[i].id()]->GetRotation());

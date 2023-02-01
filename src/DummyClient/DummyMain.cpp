@@ -38,7 +38,7 @@ int main() {
 	// 테스트 작동 
 	// true = NPC
 	// false = game client
-	bool _test = true;
+	bool _test = false;
 
 	if (_test) {
 		service2 = MakeShared<ClientService>(

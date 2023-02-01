@@ -101,13 +101,13 @@ enum INGAME : int {
   PLAYER_CRASH = 9,
   OBSTACLE_CRASH = 10,
   PACKET_FAIL = 11,
-  COUNT = 12,
+  TIME = 12,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = CONNECT;
-constexpr INGAME INGAME_MAX = COUNT;
+constexpr INGAME INGAME_MAX = TIME;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();
@@ -430,13 +430,13 @@ class Times final :
   enum : int {
     kTimeFieldNumber = 1,
   };
-  // int64 time = 1;
+  // uint64 time = 1;
   void clear_time();
-  ::PROTOBUF_NAMESPACE_ID::int64 time() const;
-  void set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::uint64 time() const;
+  void set_time(::PROTOBUF_NAMESPACE_ID::uint64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_time() const;
-  void _internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_time() const;
+  void _internal_set_time(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.Times)
@@ -446,7 +446,7 @@ class Times final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::int64 time_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -1450,22 +1450,22 @@ Data::obtacle() const {
 
 // Times
 
-// int64 time = 1;
+// uint64 time = 1;
 inline void Times::clear_time() {
-  time_ = int64_t{0};
+  time_ = uint64_t{0u};
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Times::_internal_time() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Times::_internal_time() const {
   return time_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Times::time() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Times::time() const {
   // @@protoc_insertion_point(field_get:Protocol.Times.time)
   return _internal_time();
 }
-inline void Times::_internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void Times::_internal_set_time(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   
   time_ = value;
 }
-inline void Times::set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void Times::set_time(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_time(value);
   // @@protoc_insertion_point(field_set:Protocol.Times.time)
 }

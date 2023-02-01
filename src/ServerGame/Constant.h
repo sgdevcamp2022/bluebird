@@ -37,7 +37,6 @@ inline SendBufferRef _MakeSendBuffer(T& pkt, S type)
 	Header* header = reinterpret_cast<Header*>(sendBuffer->Buffer());
 	header->size = dataSize;
 	header->type = type;
-	cout << dataSize << " " << packetSize << endl;
 	ASSERT_CRASH(pkt.SerializeToArray(&header[1], dataSize));
 	sendBuffer->Close(packetSize);
 

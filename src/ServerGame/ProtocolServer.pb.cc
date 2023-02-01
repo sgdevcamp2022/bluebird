@@ -35,7 +35,7 @@ struct DataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataDefaultTypeInternal _Data_default_instance_;
 constexpr Times::Times(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : time_(int64_t{0}){}
+  : time_(uint64_t{0u}){}
 struct TimesDefaultTypeInternal {
   constexpr TimesDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -216,7 +216,7 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "\022\n\n\002id\030\001 \001(\003\022\020\n\010mapLevel\030\002 \001(\005\022\021\n\tmatchR"
   "oom\030\003 \001(\005\022 \n\006player\030\004 \003(\0132\020.Protocol.Pla"
   "yer\022\"\n\007obtacle\030\005 \003(\0132\021.Protocol.Obtacle\""
-  "\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\214\001\n\004Move\022\n\n\002id\030\001 "
+  "\025\n\005Times\022\014\n\004time\030\001 \001(\004\"\214\001\n\004Move\022\n\n\002id\030\001 "
   "\001(\003\022\014\n\004time\030\002 \001(\003\022\'\n\010position\030\003 \001(\0132\020.Pr"
   "otocol.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.P"
   "rotocol.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_rot"
@@ -229,16 +229,16 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "ion\030\002 \001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010rota"
   "tion\030\003 \001(\0132\020.Protocol.VectorH\001\210\001\001B\013\n\t_po"
   "sitionB\013\n\t_rotation\")\n\006Vector\022\t\n\001x\030\001 \001(\002"
-  "\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\316\001\n\006INGAME\022\013\n\007CON"
+  "\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\315\001\n\006INGAME\022\013\n\007CON"
   "NECT\020\000\022\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_M"
   "OVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004\022\013\n\007NO_MOVE\020\005\022\020\n"
   "\014GAME_COMPLTE\020\006\022\r\n\tGAME_FAIL\020\007\022\r\n\tGAME_D"
   "ROP\020\010\022\020\n\014PLAYER_CRASH\020\t\022\022\n\016OBSTACLE_CRAS"
-  "H\020\n\022\017\n\013PACKET_FAIL\020\013\022\t\n\005COUNT\020\014b\006proto3"
+  "H\020\n\022\017\n\013PACKET_FAIL\020\013\022\010\n\004TIME\020\014b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 919, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 918, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
@@ -608,7 +608,7 @@ Times::Times(const Times& from)
 }
 
 void Times::SharedCtor() {
-time_ = int64_t{0};
+time_ = uint64_t{0u};
 }
 
 Times::~Times() {
@@ -637,7 +637,7 @@ void Times::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  time_ = int64_t{0};
+  time_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -647,7 +647,7 @@ const char* Times::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int64 time = 1;
+      // uint64 time = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -683,10 +683,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int64 time = 1;
+  // uint64 time = 1;
   if (this->time() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_time(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -705,10 +705,10 @@ size_t Times::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // int64 time = 1;
+  // uint64 time = 1;
   if (this->time() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
         this->_internal_time());
   }
 

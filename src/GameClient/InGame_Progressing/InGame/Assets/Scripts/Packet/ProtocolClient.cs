@@ -28,7 +28,7 @@ namespace Google.Protobuf.Protocol {
             "ZBgBIAEoAxIQCghtYXBMZXZlbBgCIAEoBRIRCgltYXRjaFJvb20YAyABKAUS",
             "IAoGcGxheWVyGAQgAygLMhAuUHJvdG9jb2wuUGxheWVyEiIKB29idGFjbGUY",
             "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIhUKBVRpbWVzEgwKBHRpbWUYASAB",
-            "KAMijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
+            "KAQijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
             "dGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9u",
             "GAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFCCwoJX3Bvc2l0aW9uQgsK",
             "CV9yb3RhdGlvbiI2CghNb3ZlRGF0YRIMCgR0aW1lGAEgASgDEhwKBG1vdmUY",
@@ -39,13 +39,13 @@ namespace Google.Protobuf.Protocol {
             "CgoCaWQYASABKAMSJwoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0",
             "b3JIAIgBARInCghyb3RhdGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgB",
             "iAEBQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24iKQoGVmVjdG9yEgkKAXgY",
-            "ASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKs4BCgZJTkdBTUUSCwoHQ09O",
+            "ASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKs0BCgZJTkdBTUUSCwoHQ09O",
             "TkVDVBAAEgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRAD",
             "EhEKDU9CU1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01Q",
             "TFRFEAYSDQoJR0FNRV9GQUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVS",
             "X0NSQVNIEAkSEgoOT0JTVEFDTEVfQ1JBU0gQChIPCgtQQUNLRVRfRkFJTBAL",
-            "EgkKBUNPVU5UEAxCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJv",
-            "dG8z"));
+            "EggKBFRJTUUQDEIbqgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -75,7 +75,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("PLAYER_CRASH")] PlayerCrash = 9,
     [pbr::OriginalName("OBSTACLE_CRASH")] ObstacleCrash = 10,
     [pbr::OriginalName("PACKET_FAIL")] PacketFail = 11,
-    [pbr::OriginalName("COUNT")] Count = 12,
+    [pbr::OriginalName("TIME")] Time = 12,
   }
 
   #endregion
@@ -415,9 +415,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "time" field.</summary>
     public const int TimeFieldNumber = 1;
-    private long time_;
+    private ulong time_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long Time {
+    public ulong Time {
       get { return time_; }
       set {
         time_ = value;
@@ -444,7 +444,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Time != 0L) hash ^= Time.GetHashCode();
+      if (Time != 0UL) hash ^= Time.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -461,9 +461,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Time != 0L) {
+      if (Time != 0UL) {
         output.WriteRawTag(8);
-        output.WriteInt64(Time);
+        output.WriteUInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -474,9 +474,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Time != 0L) {
+      if (Time != 0UL) {
         output.WriteRawTag(8);
-        output.WriteInt64(Time);
+        output.WriteUInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -487,8 +487,8 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Time != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
+      if (Time != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Time);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -501,7 +501,7 @@ namespace Google.Protobuf.Protocol {
       if (other == null) {
         return;
       }
-      if (other.Time != 0L) {
+      if (other.Time != 0UL) {
         Time = other.Time;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -519,7 +519,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Time = input.ReadInt64();
+            Time = input.ReadUInt64();
             break;
           }
         }
@@ -537,7 +537,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Time = input.ReadInt64();
+            Time = input.ReadUInt64();
             break;
           }
         }

@@ -7,9 +7,17 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PacketHandler
-{ 
+{
+    public static void GetTickCount(IMessage packet)
+    {
+        //TODO RTT구하기
+        Times times = packet as Times;
+        Managers.Network.TickCount2 = times.Time;
+    }
+
     public static void GameStart(IMessage packet)
     {
         Data data = packet as Data;
@@ -23,8 +31,8 @@ public class PacketHandler
         }
         foreach (Obtacle obtacle in data.Obtacle)
         {
-            ObjectManager.Instance.AddObtacle(obtacle.Id, obtacle);
-            UnityEngine.Debug.Log(obtacle.Id + " Inside");
+            Managers.Object.AddObtacle(obtacle.Id, obtacle);
+            UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
         }
 
         Move move = new Move()
@@ -57,6 +65,16 @@ public class PacketHandler
 
     public static void ObtacleMove(IMessage packet)
     {
-        
+        Data data = packet as Data;
+        foreach(Obtacle obtacle in data.Obtacle)
+        {
+            GameObject go = Managers.Object.GetObtacle(obtacle.Id);
+            if (go == null)
+                continue;
+            TrapController tc = go.GetComponent<TrapController>();
+            if (tc == null)
+                continue;
+            tc.PosInfo = obtacle.Position;
+        }
     }
 }
