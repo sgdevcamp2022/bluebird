@@ -26,6 +26,7 @@ public class TrapController : MonoBehaviour
     {
         rigidbody = new Rigidbody();
         transform.position = new Vector3(position.X, position.Y, position.Z);
+        
     }
 
     // Update is called once per frame

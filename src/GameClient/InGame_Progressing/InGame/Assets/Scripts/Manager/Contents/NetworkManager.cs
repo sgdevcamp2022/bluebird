@@ -10,8 +10,12 @@ using Google.Protobuf.Protocol;
 public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
-	public UInt64 TickCount1 = 0;
-	public UInt64 TickCount2 = 0;
+	Int64 _rtt = 0;
+	public Int64 RTT
+	{
+		get { return _rtt; } 
+		set { _rtt = value; }
+	}
 	public void Send(IMessage message, INGAME nGAME)
 	{
 		_session.Send(message, nGAME);
@@ -29,12 +33,13 @@ public class NetworkManager
 			() => { return _session; },
 			1);
 		
+		
 	}
 
 	public void Update()
 	{
         //큐에 있는 패킷을 리스트로 옮긴다.
-		List<PacketMessage> list = PacketQueue.Instance.PopAll();
+        List<PacketMessage> list = PacketQueue.Instance.PopAll();
 		foreach (PacketMessage packet in list)
 		{
 			Action<IMessage> handler = PacketManager.Instance.GetHandler(packet.Id);
@@ -43,4 +48,25 @@ public class NetworkManager
 		}	
 	}
 
+	public Int64 GetTimeNow()
+	{
+        var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
+
+        return (Int64)timeSpan.TotalMilliseconds;
+    }
+
+    public IEnumerator CountRtt()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(1);
+
+			Times times = new Times()
+			{
+				Time = GetTimeNow()
+			};
+
+			Send(times, INGAME.Time);
+		}
+	}
 }

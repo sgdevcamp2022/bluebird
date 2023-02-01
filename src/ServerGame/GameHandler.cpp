@@ -101,7 +101,6 @@ void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HTime(GameSessionRef& ref, Protocol::Times&& pkt)
 {
-    pkt.set_time(GetTickCount64());
     ref->Send(GameHandler::MakeSendBuffer(pkt, Protocol::TIME));
 }
 
