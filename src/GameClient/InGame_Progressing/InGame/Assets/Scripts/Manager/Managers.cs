@@ -66,6 +66,8 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
+
+        StartCoroutine(_network.CountRtt());
 	}
 
     void Update()
