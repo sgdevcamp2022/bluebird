@@ -1,20 +1,23 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TrapController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float maxX = 5.0f;
-    public float minX = -5.0f;
-    float moveX = 0.0f;
-
-    bool trapCon = false;
-
     public float speed = 3.0f;
-    Rigidbody rigidbody;
+    Vector position = new Vector();
+    public Vector PosInfo
+    {
+        get { return position; }
+        set { position = value; }
+    }
 
+    Rigidbody rigidbody;
 
     void Start()
     {
@@ -24,16 +27,22 @@ public class TrapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moveX >= maxX)
-            trapCon = true;
-        else if (moveX <= minX)
-            trapCon = false;
+        UpdateController();
+    }
 
-        if (trapCon)
-            moveX -= 0.1f;
+    void UpdateController()
+    {
+        Vector3 pos = new Vector3(PosInfo.X, PosInfo.Y, PosInfo.Z);
+        Vector3 moveDir = pos - transform.position;
+
+        float dist = moveDir.magnitude;
+        if(dist < speed * Time.deltaTime)
+        {
+           transform.position = pos;
+        }
         else
-            moveX += 0.1f;
-        
-        transform.position += new Vector3(moveX,0,0) * speed * Time.deltaTime;     
+        {
+            transform.position += moveDir.normalized * speed * Time.deltaTime;
+        }
     }
 }

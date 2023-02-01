@@ -2,7 +2,7 @@
 #include "Redis.h"
 #include <iostream>
 
-using namespace std;
+shared_ptr<Redis> GRedis = make_shared<Redis>();
 
 Redis::Redis()
 {
