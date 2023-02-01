@@ -15,6 +15,18 @@ public class MultiplayersBuildAndRun
         PerformWin64Build(2);
     }
 
+    [MenuItem("Tools/Run Multiplayer/3 Players")]
+    static void PerformWin64Build3()
+    {
+        PerformWin64Build(3);
+    }
+
+    [MenuItem("Tools/Run Multiplayer/4 Players")]
+    static void PerformWin64Build4()
+    {
+        PerformWin64Build(4);
+    }
+
 
 
     static void PerformWin64Build(int playerCount)
