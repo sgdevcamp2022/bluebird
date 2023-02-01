@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     protected Animator _animator;
     protected Rigidbody _rigidbody;
 
-    bool playerInfoUpdated = false;
 
     [SerializeField]
     protected PlayerState _state = PlayerState.Idle;
@@ -119,34 +118,9 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-        transform.position += moveVec * speed * Time.deltaTime;
+        transform.position = moveVec;
 
         Debug.Log("Player:UpdateMoving : moveVec    " + moveVec + "State :" + State );
-
-
-
-        /*
-        if (playerInfoUpdated)
-        {
-          
-            serverVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-            transform.position = serverVec;
-           //playerInfoUpdated = false;
-           // State = PlayerState.Idle;
-        }
-        else
-        {
-            //Debug.Log("PlayerInfoUpdate");
-            if (h == 0 && v == 0)
-            {
-                State = PlayerState.Idle;
-                return;
-            }
-            Vector3 moveVec = new Vector3(h, 0, v);
-            transform.position += moveVec * speed * Time.deltaTime;
-        }
-
-    */
 
     }
 
@@ -157,11 +131,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    public void playerInfoUpdate ()
-    {
-        //State = PlayerState.Moving;
-        playerInfoUpdated = true;
-    }
+  
 
 
 
