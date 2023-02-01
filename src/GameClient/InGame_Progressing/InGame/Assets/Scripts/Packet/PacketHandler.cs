@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class PacketHandler
@@ -15,7 +16,7 @@ public class PacketHandler
     {
         //TODO RTT구하기
         Times times = packet as Times;
-        Managers.Network.TickCount2 = times.Time;
+        Managers.Network.RTT = (Managers.Network.GetTimeNow() - times.Time) / 2;
     }
 
     public static void GameStart(IMessage packet)

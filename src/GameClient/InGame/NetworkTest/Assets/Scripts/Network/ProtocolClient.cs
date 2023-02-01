@@ -28,7 +28,7 @@ namespace Google.Protobuf.Protocol {
             "ZBgBIAEoAxIQCghtYXBMZXZlbBgCIAEoBRIRCgltYXRjaFJvb20YAyABKAUS",
             "IAoGcGxheWVyGAQgAygLMhAuUHJvdG9jb2wuUGxheWVyEiIKB29idGFjbGUY",
             "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIhUKBVRpbWVzEgwKBHRpbWUYASAB",
-            "KAQijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
+            "KAMijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
             "dGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9u",
             "GAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFCCwoJX3Bvc2l0aW9uQgsK",
             "CV9yb3RhdGlvbiI2CghNb3ZlRGF0YRIMCgR0aW1lGAEgASgDEhwKBG1vdmUY",
@@ -415,9 +415,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "time" field.</summary>
     public const int TimeFieldNumber = 1;
-    private ulong time_;
+    private long time_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong Time {
+    public long Time {
       get { return time_; }
       set {
         time_ = value;
@@ -444,7 +444,7 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Time != 0UL) hash ^= Time.GetHashCode();
+      if (Time != 0L) hash ^= Time.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -461,9 +461,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Time != 0UL) {
+      if (Time != 0L) {
         output.WriteRawTag(8);
-        output.WriteUInt64(Time);
+        output.WriteInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -474,9 +474,9 @@ namespace Google.Protobuf.Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Time != 0UL) {
+      if (Time != 0L) {
         output.WriteRawTag(8);
-        output.WriteUInt64(Time);
+        output.WriteInt64(Time);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -487,8 +487,8 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Time != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Time);
+      if (Time != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -501,7 +501,7 @@ namespace Google.Protobuf.Protocol {
       if (other == null) {
         return;
       }
-      if (other.Time != 0UL) {
+      if (other.Time != 0L) {
         Time = other.Time;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -519,7 +519,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Time = input.ReadUInt64();
+            Time = input.ReadInt64();
             break;
           }
         }
@@ -537,7 +537,7 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Time = input.ReadUInt64();
+            Time = input.ReadInt64();
             break;
           }
         }
