@@ -41,7 +41,7 @@ class PacketManager
 
     public void OnReceievePacket(byte[] buffer, Pkt_Head head)
     {
-        UnityEngine.Debug.Log("Head size: " + head.size + "Head type:" + head.type);
+        //UnityEngine.Debug.Log("Head size: " + head.size + "Head type:" + head.type);
 
         Action<byte[], uint, ushort> action = null;
         if (recv.TryGetValue((ushort)head.type, out action))

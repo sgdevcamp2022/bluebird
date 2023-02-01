@@ -38,7 +38,7 @@ public class PacketHandler
         Move move = new Move()
         {
             Id = Managers.Object.MyPlayer.id,
-            Position = new Vector { X = 1, Y = 1, Z = 1 },
+            Position = new Vector { X = 0, Y = 0, Z = 0 },
             Rotation = new Vector { X = 0, Y = 0, Z = 0 }
         };
         Managers.Network.Send(move, INGAME.PlayerMove);
@@ -50,17 +50,41 @@ public class PacketHandler
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
+
+
     public static void PlayerMove(IMessage packet)
     {
         Move data = packet as Move;
         Player player = Managers.Object.GetPlayer(data.Id);
+
+        GameObject go = Managers.Object.FindById(data.Id);
+
+        if (go == null)
+            return;
+
+       
+
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+
+        if (pc == null)
+            return;
+
+        //pc.playerInfo.Id = data.Id;
+        pc.playerInfo.Position = data.Position;
+        pc.playerInfo.Rotation = data.Rotation;
+        //pc.playerInfoUpdate();
+
+        
+
+        //UnityEngine.Debug.Log("MoveData: " + data.Id + "         " +  data.Position );
         // 이동 로직 구현 매차 구챠
         //player.X = user.X; player.Y = user.Y;  player.Z = user.Z;
-        if(player != null)
-        {
-            Vector user = data.Position;
-            UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
-        }
+       // if(player != null)
+       // {
+       //     Vector user = data.Position;
+       //     UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
+       // }
     }
 
     public static void ObtacleMove(IMessage packet)

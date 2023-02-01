@@ -10,13 +10,16 @@ public class PlayerController : MonoBehaviour
     public Int64 id { get; set; }
     [SerializeField]
     public float speed = 10.0f;
-    protected float h= 1, v;
+    protected float h, v;
 
     protected Vector3 prevVec;
     protected Vector3 moveVec;
+    protected Vector3 serverVec;
+
     protected Animator _animator;
     protected Rigidbody _rigidbody;
-    
+
+    bool playerInfoUpdated = false;
 
     [SerializeField]
     protected PlayerState _state = PlayerState.Idle;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
             if (_state == value)
                 return;
 
+          
             _state = value;
             //UpdateAnimation();
         }
@@ -44,8 +48,13 @@ public class PlayerController : MonoBehaviour
             if (_playerInfo.Equals(value))
                 return;
 
+            
             _playerInfo = value;
-            //UpdateMove();
+            //serverVec = new Vector3(value.Position.X,value.Position.Y,value.Position.Z);
+            //State = PlayerState.Moving;
+            
+
+            Debug.Log("PlayerInfo " +  this.id + "     ServerVec:     " + this.serverVec + " State : " + State );
         }
     }
 
@@ -70,13 +79,14 @@ public class PlayerController : MonoBehaviour
         prevVec = transform.position;
     }
 
-    
+   
 
    
 
     protected virtual void UpdateController()
     {
-        switch(State)
+       
+        switch (State)
         {
             case PlayerState.Idle:
                 UpdateIdle();
@@ -90,8 +100,9 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateIdle()
     {
-        if (h != 0 || v != 0)
+        if (playerInfo.Position.X != 0 || playerInfo.Position.Z != 0)
         {
+            
             State = PlayerState.Moving;
             return;
         }
@@ -100,24 +111,58 @@ public class PlayerController : MonoBehaviour
     
     protected virtual void UpdateMoving()
     {
- 
-        if(h == 0 && v == 0)
+
+        if (playerInfo.Position.X == 0 && playerInfo.Position.Z == 0)
         {
             State = PlayerState.Idle;
             return;
         }
-        Vector3 moveVec = new Vector3(h, 0, v);
-        transform.position += moveVec * speed * Time.deltaTime;
-   
-    }
-    
 
-  
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        transform.position += moveVec * speed * Time.deltaTime;
+
+        Debug.Log("Player:UpdateMoving : moveVec    " + moveVec + "State :" + State );
+
+
+
+        /*
+        if (playerInfoUpdated)
+        {
+          
+            serverVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+            transform.position = serverVec;
+           //playerInfoUpdated = false;
+           // State = PlayerState.Idle;
+        }
+        else
+        {
+            //Debug.Log("PlayerInfoUpdate");
+            if (h == 0 && v == 0)
+            {
+                State = PlayerState.Idle;
+                return;
+            }
+            Vector3 moveVec = new Vector3(h, 0, v);
+            transform.position += moveVec * speed * Time.deltaTime;
+        }
+
+    */
+
+    }
+
+
+
     protected virtual void MoveToNextPos()
     {
        
     }
-  
+
+    public void playerInfoUpdate ()
+    {
+        //State = PlayerState.Moving;
+        playerInfoUpdated = true;
+    }
+
 
 
 

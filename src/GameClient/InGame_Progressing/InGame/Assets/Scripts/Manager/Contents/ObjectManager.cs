@@ -18,18 +18,22 @@ public class ObjectManager
     //플레이어 정보 저장
     Dictionary<Int64, Player> players = new Dictionary<Int64, Player>();
     Dictionary<Int64, GameObject> obtacles = new Dictionary<Int64, GameObject>();
+    Dictionary<Int64, GameObject> objects = new Dictionary<Int64, GameObject>();
 
     //추가
     public void AddPlayer(Int64 id, Player player)
     {
         GameObject go = Managers.Resource.Instantiate("Creature/Player");
         go.name = "Player" + id;
-        players.Add(id, player);
 
-        Debug.Log(players.Count);
+        players.Add(id, player);
+        objects.Add(player.Id, go);
+
+       // Debug.Log(players.Count);
 
         PlayerController pc = go.GetComponent<PlayerController>();
         pc.id = id;
+        pc.playerInfo = player;
     }
     public void AddMyPlayer(Int64 id, Player player)
     {
@@ -37,9 +41,11 @@ public class ObjectManager
         go.name = "MyPlayer" + player.Id;
 
         players.Add(player.Id, player);
+        objects.Add(player.Id, go);
 
         MyPlayer = go.GetComponent<MyPlayerController>();
         MyPlayer.id = player.Id;
+        MyPlayer.playerInfo = player;
     }
     public void RemovePlayer(Int64 id)
     {
@@ -57,7 +63,7 @@ public class ObjectManager
         tc.id = id;
         tc.PosInfo = obtacle.Position;
 
-        UnityEngine.Debug.Log(obtacles.Count);
+      //  UnityEngine.Debug.Log(obtacles.Count);
     }
     public void RemoveObtacle(Int64 id)
     {
@@ -78,5 +84,12 @@ public class ObjectManager
         if (obtacles.TryGetValue(id, out obtacle))
             return obtacle;
         return null;
+    }
+
+    public GameObject FindById(Int64 id)
+    {
+        GameObject go = null;
+        objects.TryGetValue(id, out go);
+        return go;
     }
 }
