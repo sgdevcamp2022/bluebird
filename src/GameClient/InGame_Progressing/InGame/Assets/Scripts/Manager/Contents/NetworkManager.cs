@@ -10,7 +10,8 @@ using Google.Protobuf.Protocol;
 public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
-
+	public UInt64 TickCount1 = 0;
+	public UInt64 TickCount2 = 0;
 	public void Send(IMessage message, INGAME nGAME)
 	{
 		_session.Send(message, nGAME);
@@ -27,6 +28,7 @@ public class NetworkManager
 		connector.Connect(endPoint,
 			() => { return _session; },
 			1);
+		
 	}
 
 	public void Update()

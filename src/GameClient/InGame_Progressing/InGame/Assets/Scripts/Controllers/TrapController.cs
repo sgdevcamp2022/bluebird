@@ -1,4 +1,5 @@
 using Google.Protobuf.Protocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,8 +10,10 @@ public class TrapController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float speed = 3.0f;
+    public float speed = 10.0f;
     Vector position = new Vector();
+
+    public Int64 id { get; set; }
     public Vector PosInfo
     {
         get { return position; }
@@ -22,6 +25,7 @@ public class TrapController : MonoBehaviour
     void Start()
     {
         rigidbody = new Rigidbody();
+        transform.position = new Vector3(position.X, position.Y, position.Z);
     }
 
     // Update is called once per frame

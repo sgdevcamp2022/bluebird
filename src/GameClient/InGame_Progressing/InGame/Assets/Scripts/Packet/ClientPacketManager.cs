@@ -21,12 +21,14 @@ class PacketManager
     Dictionary<ushort, Action<byte[], uint, ushort>> recv = new Dictionary<ushort, Action<byte[], uint, ushort>>();
     Dictionary<ushort, Action<IMessage>> handler = new Dictionary<ushort, Action<IMessage>>();
 
+    int time = (ushort)INGAME.Time;
 
     //Action<ushort, IMessage> customHandler = (ushort id, IMessage message) => { PacketQueue.Instance.Push(id, message); };
     public Action<ushort, IMessage> customHandler { get; set; }
 
     PacketManager()
     {
+        recv.Add((ushort)INGAME.Time, MakePacket<Times>);
         recv.Add((ushort)INGAME.Start, MakePacket<Data>);
         handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
         recv.Add((ushort)INGAME.PlayerMove, MakePacket<Move>);
@@ -52,18 +54,16 @@ class PacketManager
 
         T pkt = new T();
         pkt.MergeFrom(data, size, (int)len);
-
-        if(customHandler != null)
+        if(id == time)
+        {
+            PacketHandler.GetTickCount(pkt);
+        }
+        else if(customHandler != null)
         {
             customHandler.Invoke(id, pkt);
         }
-        else
-        {
-            Action<IMessage> action = null;
-            if (handler.TryGetValue(id, out action))
-                action.Invoke(pkt);
-        }
-        customHandler.Invoke(id, pkt);
+
+        //customHandler.Invoke(id, pkt);
     }
 
     public Action<IMessage> GetHandler(ushort id)

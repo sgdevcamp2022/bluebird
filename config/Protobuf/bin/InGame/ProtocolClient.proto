@@ -17,7 +17,7 @@ enum INGAME
 	PLAYER_CRASH = 9;
 	OBSTACLE_CRASH = 10;
 	PACKET_FAIL = 11;
-	COUNT = 12;
+	TIME = 12;
 }
 
 message Data
@@ -31,7 +31,7 @@ message Data
 
 message Times
 {
-	int64 time = 1;
+	uint64 time = 1;
 }
 
 message Move

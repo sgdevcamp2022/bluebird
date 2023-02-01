@@ -34,6 +34,8 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     case Protocol::OBSTACLE_CRASH:
         HObstacleCrash(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
+    case Protocol::TIME:
+        HTime(ref, ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
     default:
         break;
     }
@@ -97,6 +99,12 @@ void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)
     }
 }
 
+void GameHandler::HTime(GameSessionRef& ref, Protocol::Times&& pkt)
+{
+    pkt.set_time(GetTickCount64());
+    ref->Send(GameHandler::MakeSendBuffer(pkt, Protocol::TIME));
+}
+
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
@@ -109,4 +117,9 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME t
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Player, GameHeader, Protocol::INGAME>(pkt, type);
+}
+
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::Times, GameHeader, Protocol::INGAME>(pkt, type);
 }

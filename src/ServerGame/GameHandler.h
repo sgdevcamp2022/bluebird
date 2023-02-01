@@ -12,6 +12,7 @@ private:
 	static void HGameDrop(GameSessionRef& ref, Protocol::Data&& pkt);
 	static void HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt);
 	static void HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HTime(GameSessionRef& ref, Protocol::Times&& pkt);
 
 public:
 	static void HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len);
@@ -19,6 +20,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type);
+	static SendBufferRef MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type);
 };
 
 struct GameHeader {
