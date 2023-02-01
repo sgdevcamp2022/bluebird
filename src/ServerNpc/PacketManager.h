@@ -28,9 +28,12 @@ struct Obstacle
 {
 	int obstacleID;
 	int obstacleShape;
-	float obstacleX;
-	float obstacleY;
-	float obstacleZ;
+	float positionX;
+	float positionY;
+	float positionZ;
+	float rotationX;
+	float rotationY;
+	float rotationZ;
 };
 
 struct LoginData
