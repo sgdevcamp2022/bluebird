@@ -7,33 +7,31 @@ public class MyPlayerController : PlayerController
 {
 
 
-    void Start()
+    protected override void Init()
     {
         base.Init();
-
     }
 
-    void Update()
+    protected override void UpdateController()
     {
-        GetInput();
-        UpdateVec();
-        UpdateMove();
+        switch(State)
+        {
+            case PlayerState.Idle:
+                GetInput();
+                break;
+            case PlayerState.Moving:
+                GetInput();
+                break;
+        }
+        base.UpdateController();
     }
 
-    protected override void GetInput()
+
+    void GetInput()
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        //Debug.Log("h" + h + "v" + v);
-        if (h == 0.0 && v == 0.0)
-        {
-            _state = PlayerState.Idle;
-            moveVec = new Vector3(0, 0, 0);
-        }
-
-        else
-            _state = PlayerState.Moving;
     }
 
 

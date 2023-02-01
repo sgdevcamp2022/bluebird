@@ -21,8 +21,9 @@ class PacketManager
     Dictionary<ushort, Action<byte[], uint, ushort>> recv = new Dictionary<ushort, Action<byte[], uint, ushort>>();
     Dictionary<ushort, Action<IMessage>> handler = new Dictionary<ushort, Action<IMessage>>();
 
-    
-    Action<ushort, IMessage> customHandler = (ushort id, IMessage message) => { PacketQueue.Instance.Push(id, message); };
+
+    //Action<ushort, IMessage> customHandler = (ushort id, IMessage message) => { PacketQueue.Instance.Push(id, message); };
+    public Action<ushort, IMessage> customHandler { get; set; }
 
     PacketManager()
     {
@@ -52,6 +53,16 @@ class PacketManager
         T pkt = new T();
         pkt.MergeFrom(data, size, (int)len);
 
+        if(customHandler != null)
+        {
+            customHandler.Invoke(id, pkt);
+        }
+        else
+        {
+            Action<IMessage> action = null;
+            if (handler.TryGetValue(id, out action))
+                action.Invoke(pkt);
+        }
         customHandler.Invoke(id, pkt);
     }
 

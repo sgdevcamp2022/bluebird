@@ -37,6 +37,12 @@ public class ServerSession : PacketSession
 	public override void OnConnected(EndPoint endPoint)
 	{
 		Debug.Log($"OnConnected : {endPoint}");
+
+        PacketManager.Instance.customHandler = (i, m) =>
+        {
+            PacketQueue.Instance.Push(i, m);
+        };
+
         System.Random rand = new System.Random();
         int random = rand.Next(100);
         Data dataPkt = new Data()

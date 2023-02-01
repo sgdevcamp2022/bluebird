@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public Int64 id { get; set; }
     [SerializeField]
     public float speed = 10.0f;
-    protected float h, v;
+    protected float h= 1, v;
 
     protected Vector3 prevVec;
     protected Vector3 moveVec;
@@ -58,8 +58,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        UpdateVec();
-        UpdateMove();
+        UpdateController();
 
     }
 
@@ -73,43 +72,52 @@ public class PlayerController : MonoBehaviour
 
     
 
-    // 키보드 입력
-    protected virtual void GetInput()
+   
+
+    protected virtual void UpdateController()
     {
-
-      
-    }
-
-    protected Vector3 UpdateVec()
-    {
-
-        if (_state == PlayerState.Moving)
+        switch(State)
         {
-            //벡터 값을 1로 보정해줌 
-            //moveVec = new Vector3(h, 0, v).normalized;
-
-            moveVec = new Vector3(h, 0, v);
-            moveVec = transform.position * speed * Time.deltaTime; 
-
-            Debug.Log("UpdateVec : moveVec : " + moveVec);
-
-            //transform.position += moveVec * speed * Time.deltaTime;
-            //transform.LookAt(transform.position + moveVec);
-
-            return moveVec;
+            case PlayerState.Idle:
+                UpdateIdle();
+                break;
+            case PlayerState.Moving:
+                UpdateMoving();
+                break;
         }
-        else
-            return prevVec;       
+
     }
 
-    protected void UpdateMove()
+    protected virtual void UpdateIdle()
     {
-        //Debug.Log("UpdateMove");
-        transform.position += moveVec * speed * Time.deltaTime;
-        transform.LookAt(transform.position + moveVec);
+        if (h != 0 || v != 0)
+        {
+            State = PlayerState.Moving;
+            return;
+        }
 
-        prevVec = transform.position;
     }
+    
+    protected virtual void UpdateMoving()
+    {
+ 
+        if(h == 0 && v == 0)
+        {
+            State = PlayerState.Idle;
+            return;
+        }
+        Vector3 moveVec = new Vector3(h, 0, v);
+        transform.position += moveVec * speed * Time.deltaTime;
+   
+    }
+    
+
+  
+    protected virtual void MoveToNextPos()
+    {
+       
+    }
+  
 
 
 
