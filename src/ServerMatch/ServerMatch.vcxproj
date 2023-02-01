@@ -155,6 +155,7 @@
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Redis.cpp" />
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ProtocolConnect.pb.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
+    <ClInclude Include="Redis.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
