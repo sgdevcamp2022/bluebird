@@ -30,7 +30,7 @@ void ServerNpc::PostWrite(LoginData loginData)
             boost::asio::placeholders::error,
             boost::asio::placeholders::bytes_transferred)
     );
-
+    
     PostReceive();
 }
 
@@ -97,6 +97,7 @@ void ServerNpc::handle_write(const boost::system::error_code& error, size_t byte
     else
     {
         cout << m_nSeqNumber << " 전송 완료" << endl;
+        //free(outputBuf);
         //PostReceive();
     }
 }
@@ -116,6 +117,7 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
     }
     else
     {
+        //cout << "게임 서버로부터 패킷을 수신받음" << endl;
         inputBuf = &m_ReceiveBuffer[0];
         LoginData loginData;
         protobuf::io::ArrayInputStream input_array_stream(inputBuf, bytes_transferred);

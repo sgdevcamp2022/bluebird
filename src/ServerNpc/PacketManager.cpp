@@ -18,9 +18,12 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
         Npc::Obstacle* obsData = npcLoginData.add_obstacle();
         obsData->set_id(loginData.obstacle[i].obstacleID);
         obsData->set_shape(loginData.obstacle[i].obstacleShape);
-        obsData->set_x(loginData.obstacle[i].obstacleX);
-        obsData->set_y(loginData.obstacle[i].obstacleY);
-        obsData->set_z(loginData.obstacle[i].obstacleZ);
+        obsData->mutable_position()->set_x(loginData.obstacle[i].positionX);
+        obsData->mutable_position()->set_y(loginData.obstacle[i].positionY);
+        obsData->mutable_position()->set_z(loginData.obstacle[i].positionZ);
+        obsData->mutable_rotation()->set_x(loginData.obstacle[i].rotationX);
+        obsData->mutable_rotation()->set_y(loginData.obstacle[i].rotationY);
+        obsData->mutable_rotation()->set_z(loginData.obstacle[i].rotationZ);
     }
 
     bufSize = headerSize + npcLoginData.ByteSizeLong();
@@ -32,10 +35,6 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
     protobuf::io::CodedOutputStream output_coded_stream(&output_array_stream);
 
     WriteMessageToStream(Npc::LOGIN, npcLoginData, output_coded_stream);
-    
-    string resBuf = tempBuf;
-    //strcpy(resBuf, tempBuf);
-    //free(tempBuf);
 
     return tempBuf;
 }
@@ -51,9 +50,12 @@ char* PacketManager::MakeGamePacket(GameData gameData)
         Npc::Obstacle* obsData = npcGameData.add_obstacle();
         obsData->set_id(gameData.obstacle[i].obstacleID);
         obsData->set_shape(gameData.obstacle[i].obstacleShape);
-        obsData->set_x(gameData.obstacle[i].obstacleX);
-        obsData->set_y(gameData.obstacle[i].obstacleY);
-        obsData->set_z(gameData.obstacle[i].obstacleZ);
+        obsData->mutable_position()->set_x(gameData.obstacle[i].positionX);
+        obsData->mutable_position()->set_y(gameData.obstacle[i].positionY);
+        obsData->mutable_position()->set_z(gameData.obstacle[i].positionZ);
+        obsData->mutable_rotation()->set_x(gameData.obstacle[i].rotationX);
+        obsData->mutable_rotation()->set_y(gameData.obstacle[i].rotationY);
+        obsData->mutable_rotation()->set_z(gameData.obstacle[i].rotationZ);
     }
 
     bufSize = headerSize + npcGameData.ByteSizeLong();
@@ -64,10 +66,6 @@ char* PacketManager::MakeGamePacket(GameData gameData)
     protobuf::io::CodedOutputStream output_coded_stream(&output_array_stream);
 
     WriteMessageToStream(Npc::GAME, npcGameData, output_coded_stream);
-
-    string resBuf = tempBuf;
-    //strcpy(resBuf, tempBuf);
-    //free(tempBuf);
 
     return tempBuf;
 }
@@ -219,9 +217,12 @@ int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
         Obstacle tempObs;
         tempObs.obstacleID = atoi(Row[0]);
         tempObs.obstacleShape = atoi(Row[1]);
-        tempObs.obstacleX = atof(Row[2]);
-        tempObs.obstacleY = atof(Row[3]);
-        tempObs.obstacleZ = atof(Row[4]);
+        tempObs.positionX = atof(Row[2]);
+        tempObs.positionY = atof(Row[3]);
+        tempObs.positionZ = atof(Row[4]);
+        tempObs.rotationX = atof(Row[5]);
+        tempObs.rotationY = atof(Row[6]);
+        tempObs.rotationZ = atof(Row[7]);
         loginData->obstacle.push_back(tempObs);
     }
     mysql_free_result(Result);

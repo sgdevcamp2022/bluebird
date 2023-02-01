@@ -15,7 +15,8 @@ void ObstacleThread::operator()() const
         for (int i = 0; i < gameData.obstacleSize; i++)
         {
             cout << "Object ID: " << gameData.obstacle[i].obstacleID << endl;
-            cout << "X: " << gameData.obstacle[i].obstacleX << " | Y: " << gameData.obstacle[i].obstacleY << " | Z: " << gameData.obstacle[i].obstacleZ << endl;
+            cout << "posX: " << gameData.obstacle[i].positionX << " | posY: " << gameData.obstacle[i].positionY << " | posZ: " << gameData.obstacle[i].positionZ << endl;
+            cout << "posX: " << gameData.obstacle[i].rotationX << " | posY: " << gameData.obstacle[i].rotationY << " | posZ: " << gameData.obstacle[i].rotationZ << endl;
         }
 
         npcServer.PostWrite(gameData);
