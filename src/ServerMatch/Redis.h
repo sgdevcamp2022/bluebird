@@ -22,3 +22,5 @@ private:
 	const char* password = "a12b34";
 	int port = 6379;
 };
+
+extern shared_ptr<Redis> GRedis;

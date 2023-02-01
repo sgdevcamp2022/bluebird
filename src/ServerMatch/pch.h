@@ -26,3 +26,4 @@ using PlayerRef				= shared_ptr<class Player>;
 using MatchRoomRef			= shared_ptr<class MatchRoom>;
 
 #include "PacketHandler.h"
+#include "Redis.h"
