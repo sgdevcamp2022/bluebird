@@ -51,6 +51,7 @@ public class MyPlayerController : PlayerController
         }
     }
 
+    //여기서 MyPlayer 이동이 이루어진다.
     protected override void UpdateMoving()
     {
 
@@ -58,7 +59,7 @@ public class MyPlayerController : PlayerController
         if (serverCommunication)
         {
             PlayerState prevState = State;
-            Vector3 prevVec = transform.position;
+            prevVec = transform.position;
 
 
             Vector3 moveVec = new Vector3(h, 0, v);
@@ -102,7 +103,7 @@ public class MyPlayerController : PlayerController
         else
         {
             PlayerState prevState = State;
-            Vector3 prevVec = transform.position;
+           prevVec = transform.position;
 
             if (h == 0 && v == 0)
             {

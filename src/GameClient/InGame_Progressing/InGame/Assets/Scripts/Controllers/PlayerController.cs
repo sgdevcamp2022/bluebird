@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
     protected float h, v;
 
     protected Vector3 prevVec;
-    protected Vector3 moveVec;
-    protected Vector3 serverVec;
 
     protected Animator _animator;
     protected Rigidbody _rigidbody;
@@ -53,7 +51,7 @@ public class PlayerController : MonoBehaviour
             //State = PlayerState.Moving;
             
 
-            Debug.Log("PlayerInfo " +  this.id + "     ServerVec:     " + this.serverVec + " State : " + State );
+
         }
     }
 
@@ -110,8 +108,9 @@ public class PlayerController : MonoBehaviour
     
     protected virtual void UpdateMoving()
     {
+        prevVec = transform.position;
 
-        if (playerInfo.Position.X == 0 && playerInfo.Position.Z == 0)
+        if (playerInfo.Position.X == prevVec.x && playerInfo.Position.Z == prevVec.z)
         {
             State = PlayerState.Idle;
             return;
