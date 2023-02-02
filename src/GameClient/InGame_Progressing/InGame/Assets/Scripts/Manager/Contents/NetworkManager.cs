@@ -17,7 +17,7 @@ public class NetworkManager
     public Int64 TICK
 	{
 		get { return _tick.Ticks; }
-		set { _tick = new DateTime(value + RTT); }
+		set { _tick = new DateTime(value); }
 	}
 	public Int64 RTT
 	{
