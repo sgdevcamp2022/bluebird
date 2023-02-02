@@ -13,11 +13,6 @@ public class MyPlayerController : PlayerController
     {
         base.Init();
     }
-    
-
-
-    
-
 
     protected override void UpdateController()
     {
