@@ -24,6 +24,7 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
         obsData->mutable_rotation()->set_x(loginData.obstacle[i].rotationX);
         obsData->mutable_rotation()->set_y(loginData.obstacle[i].rotationY);
         obsData->mutable_rotation()->set_z(loginData.obstacle[i].rotationZ);
+        obsData->set_speed(loginData.obstacle[i].speed);
     }
 
     bufSize = headerSize + npcLoginData.ByteSizeLong();
@@ -223,6 +224,7 @@ int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
         tempObs.rotationX = atof(Row[5]);
         tempObs.rotationY = atof(Row[6]);
         tempObs.rotationZ = atof(Row[7]);
+        tempObs.speed = atof(Row[8]);
         loginData->obstacle.push_back(tempObs);
     }
     mysql_free_result(Result);
