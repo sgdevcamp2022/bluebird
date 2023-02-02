@@ -8,8 +8,13 @@
 #include "PacketManager.h"
 #include <algorithm>
 #include <list>
+#include <chrono>
+#include <cstdint>
 
 using namespace std;
+using namespace chrono;
+using frame = duration<int32_t, ratio<1, 60>>;
+using sec = duration<float>;
 
 class ObstacleThread;
 
@@ -58,8 +63,10 @@ public:
     void operator()() const;
     
 private:
+    void MovingObstacle();
+    void RotationObstacle();
+
     ServerNpc& npcServer;
     LoginData loginData;
     GameData gameData;
-
 };
