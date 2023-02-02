@@ -100,14 +100,15 @@ enum INGAME : int {
   GAME_DROP = 8,
   PLAYER_CRASH = 9,
   OBSTACLE_CRASH = 10,
-  PACKET_FAIL = 11,
+  CONNECT_FAIL = 11,
   TIME = 12,
+  GET_TICK = 13,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = CONNECT;
-constexpr INGAME INGAME_MAX = TIME;
+constexpr INGAME INGAME_MAX = GET_TICK;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();

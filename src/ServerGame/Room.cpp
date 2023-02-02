@@ -31,18 +31,18 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	//확인 작업 필요
 	auto player = _startData.add_player();
 	
-	if (_players.find(id) != _players.end()) {
-		_players[id]->SetOwner(ref);
-		ref->_mySelf = _players[id];
-	}
-	//테스트 코드
-	else {
-		PlayerRef player = make_shared<Player>(id, _matchRoom, _spawnPosition[id%15]);
+	if (TEST) {
+		PlayerRef player = make_shared<Player>(id, _matchRoom, _spawnPosition[id % 15]);
 		player->SetOwner(ref);
 
 		_players[id] = player;
 		ref->_mySelf = player;
 		_playerSize += 1;
+		cout << _playerSize << endl;
+	}
+	else if (_players.find(id) != _players.end()) {
+		_players[id]->SetOwner(ref);
+		ref->_mySelf = _players[id];
 	}
 
 	player->set_id(id);
@@ -89,7 +89,7 @@ void Room::Leave(PlayerRef ref)
 void Room::Start()
 {
 	//테스트 코드
-	if (!_start)
+	if (_start)
 		return;
 	if (_playerSize < START_COUNT) {
 		DoTimer(3000, &Room::Start);
@@ -110,6 +110,7 @@ void Room::Start()
 	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::START));
 
 	_start.store(true);
+	TimeSync();
 
 	{
 		vector<Npc::Obstacle> datas;
@@ -124,6 +125,7 @@ void Room::Start()
 void Room::PlayerMove(Protocol::Move data)
 {
 	//콘텐츠 구현
+	//시뮬레이션 구현해야됨.
 	auto point = data.position();
 
 	cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
@@ -162,10 +164,30 @@ void Room::ComplteGame(Protocol::Player player)
 	}
 }
 
+void Room::TimeSync()
+{
+	Protocol::Times time;
+	time.set_time(GetTickCount64());
+	cout << time.time() << endl;
+
+	Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
+
+	DoTimer(60000, &Room::TimeSync);
+}
+
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players) {
 		if(_ref.second->GetOwner() != nullptr)
 			_ref.second->GetOwner()->Send(ref);
 	}
+}
+
+bool Room::IsPlayer(int64 id)
+{
+	if (_players.find(id) != _players.end()) {
+		if (_players[id]->GetOwner() == nullptr)
+			true;
+	}
+	return false;
 }

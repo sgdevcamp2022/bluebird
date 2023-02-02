@@ -10,11 +10,19 @@ using Google.Protobuf.Protocol;
 public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
-	Int64 _rtt = 0;
+
+	DateTime _tick;
+    Int64 _rtt = 0;
+
+    public Int64 TICK
+	{
+		get { return _tick.Ticks; }
+		set { _tick = new DateTime(value); }
+	}
 	public Int64 RTT
 	{
 		get { return _rtt; } 
-		set { _rtt = value; }
+		set { _rtt = TICK - value; }
 	}
 	public void Send(IMessage message, INGAME nGAME)
 	{
@@ -32,8 +40,6 @@ public class NetworkManager
 		connector.Connect(endPoint,
 			() => { return _session; },
 			1);
-		
-		
 	}
 
 	public void Update()
@@ -48,13 +54,6 @@ public class NetworkManager
 		}	
 	}
 
-	public Int64 GetTimeNow()
-	{
-        var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0));
-
-        return (Int64)timeSpan.TotalMilliseconds;
-    }
-
     public IEnumerator CountRtt()
 	{
 		while (true)
@@ -63,10 +62,11 @@ public class NetworkManager
 
 			Times times = new Times()
 			{
-				Time = GetTimeNow()
+				Time = TICK
 			};
 
 			Send(times, INGAME.Time);
 		}
 	}
+	
 }

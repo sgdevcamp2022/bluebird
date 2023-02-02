@@ -20,6 +20,8 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     case Protocol::START:
         HandlerStart(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
+    case Protocol::GET_TICK:
+        HandlerTick(ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
     default:
         break;
     }
@@ -57,6 +59,10 @@ void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
         player->set_z(3.0f);
         session->Send(GameHandler::MakeSendBuffer(pkt, Protocol::PLAYER_MOVE));
     }
+}
+
+void GameHandler::HandlerTick(Protocol::Times&& time)
+{
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
