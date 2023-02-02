@@ -39,13 +39,13 @@ namespace Google.Protobuf.Protocol {
             "CgoCaWQYASABKAMSJwoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0",
             "b3JIAIgBARInCghyb3RhdGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgB",
             "iAEBQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24iKQoGVmVjdG9yEgkKAXgY",
-            "ASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKs0BCgZJTkdBTUUSCwoHQ09O",
+            "ASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKtwBCgZJTkdBTUUSCwoHQ09O",
             "TkVDVBAAEgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRAD",
             "EhEKDU9CU1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01Q",
             "TFRFEAYSDQoJR0FNRV9GQUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVS",
-            "X0NSQVNIEAkSEgoOT0JTVEFDTEVfQ1JBU0gQChIPCgtQQUNLRVRfRkFJTBAL",
-            "EggKBFRJTUUQDEIbqgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90",
-            "bzM="));
+            "X0NSQVNIEAkSEgoOT0JTVEFDTEVfQ1JBU0gQChIQCgxDT05ORUNUX0ZBSUwQ",
+            "CxIICgRUSU1FEAwSDAoIR0VUX1RJQ0sQDUIbqgIYR29vZ2xlLlByb3RvYnVm",
+            "LlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -74,8 +74,9 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("GAME_DROP")] GameDrop = 8,
     [pbr::OriginalName("PLAYER_CRASH")] PlayerCrash = 9,
     [pbr::OriginalName("OBSTACLE_CRASH")] ObstacleCrash = 10,
-    [pbr::OriginalName("PACKET_FAIL")] PacketFail = 11,
+    [pbr::OriginalName("CONNECT_FAIL")] ConnectFail = 11,
     [pbr::OriginalName("TIME")] Time = 12,
+    [pbr::OriginalName("GET_TICK")] GetTick = 13,
   }
 
   #endregion

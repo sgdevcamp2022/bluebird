@@ -12,6 +12,7 @@ private:
 	static void HandlerMove(PacketSessionRef& ref, Protocol::Move&& pkt);
 	static void HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt);
 	static void HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt);
+	static void HandlerTick(Protocol::Times&& time);
 };
 
 struct GameHeader {

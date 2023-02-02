@@ -15,9 +15,12 @@ public:
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(vector<Npc::Obstacle> datas);
 	void ComplteGame(Protocol::Player);
+	void TimeSync();
 	void Broadcast(SendBufferRef ref);
+
+	bool IsPlayer(int64 id);
 public:
-	atomic<bool>			_start = true;
+	atomic<bool>			_start = false;
 
 private:
 	int32					_matchRoom;

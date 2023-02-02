@@ -16,7 +16,14 @@ public class PacketHandler
     {
         //TODO RTT구하기
         Times times = packet as Times;
-        Managers.Network.RTT = (Managers.Network.GetTimeNow() - times.Time) / 2;
+        Managers.Network.RTT = times.Time;
+    }
+
+    public static void TimeSync(IMessage packet)
+    {
+        Times times = packet as Times;
+        Managers.Network.TICK = times.Time;
+        UnityEngine.Debug.Log("GetTime(" + times.Time + ") : " + Managers.Network.TICK + " : " + Managers.Network.RTT);
     }
 
     public static void GameStart(IMessage packet)
@@ -51,8 +58,6 @@ public class PacketHandler
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
-
-
     public static void PlayerMove(IMessage packet)
     {
         Move data = packet as Move;
@@ -73,7 +78,6 @@ public class PacketHandler
         pc.playerInfo.Rotation = data.Rotation;
         //pc.playerInfoUpdate();
     }
-
     public static void ObtacleMove(IMessage packet)
     {
         Data data = packet as Data;
@@ -87,5 +91,13 @@ public class PacketHandler
                 continue;
             tc.PosInfo = obtacle.Position;
         }
+    }
+    public static void CnnectFail(IMessage packet)
+    {
+        Data data = packet as Data;
+        if (data.Id == -1)
+            UnityEngine.Debug.Log("Id Error");
+        else if(data.MatchRoom == -1)
+            UnityEngine.Debug.Log("Room Error");
     }
 }

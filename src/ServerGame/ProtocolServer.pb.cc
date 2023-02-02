@@ -229,16 +229,17 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "ion\030\002 \001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010rota"
   "tion\030\003 \001(\0132\020.Protocol.VectorH\001\210\001\001B\013\n\t_po"
   "sitionB\013\n\t_rotation\")\n\006Vector\022\t\n\001x\030\001 \001(\002"
-  "\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\315\001\n\006INGAME\022\013\n\007CON"
+  "\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\334\001\n\006INGAME\022\013\n\007CON"
   "NECT\020\000\022\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_M"
   "OVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004\022\013\n\007NO_MOVE\020\005\022\020\n"
   "\014GAME_COMPLTE\020\006\022\r\n\tGAME_FAIL\020\007\022\r\n\tGAME_D"
   "ROP\020\010\022\020\n\014PLAYER_CRASH\020\t\022\022\n\016OBSTACLE_CRAS"
-  "H\020\n\022\017\n\013PACKET_FAIL\020\013\022\010\n\004TIME\020\014b\006proto3"
+  "H\020\n\022\020\n\014CONNECT_FAIL\020\013\022\010\n\004TIME\020\014\022\014\n\010GET_T"
+  "ICK\020\rb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 918, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 933, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 7,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
@@ -269,6 +270,7 @@ bool INGAME_IsValid(int value) {
     case 10:
     case 11:
     case 12:
+    case 13:
       return true;
     default:
       return false;

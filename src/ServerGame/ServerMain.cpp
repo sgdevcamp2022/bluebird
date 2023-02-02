@@ -37,7 +37,7 @@ int main() {
 		NetAddress(L"127.0.0.1", 8000),
 		MakeShared<IocpCore>(),
 		MakeShared<NpcSession>, 10);
-
+	
 	ASSERT_CRASH(matchService->Start());
 	ASSERT_CRASH(gameService->Start());
 	ASSERT_CRASH(npcService->Start());

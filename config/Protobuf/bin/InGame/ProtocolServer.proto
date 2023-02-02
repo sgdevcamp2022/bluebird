@@ -14,8 +14,9 @@ enum INGAME
 	GAME_DROP = 8;
 	PLAYER_CRASH = 9;
 	OBSTACLE_CRASH = 10;
-	PACKET_FAIL = 11;
+	CONNECT_FAIL = 11;
 	TIME = 12;
+	GET_TICK = 13;
 }
 
 message Data
