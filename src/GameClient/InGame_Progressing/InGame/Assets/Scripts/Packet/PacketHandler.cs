@@ -63,9 +63,6 @@ public class PacketHandler
         if (go == null)
             return;
 
-       
-
-
         PlayerController pc = go.GetComponent<PlayerController>();
 
         if (pc == null)
@@ -75,17 +72,6 @@ public class PacketHandler
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
         //pc.playerInfoUpdate();
-
-        
-
-        //UnityEngine.Debug.Log("MoveData: " + data.Id + "         " +  data.Position );
-        // 이동 로직 구현 매차 구챠
-        //player.X = user.X; player.Y = user.Y;  player.Z = user.Z;
-       // if(player != null)
-       // {
-       //     Vector user = data.Position;
-       //     UnityEngine.Debug.Log(data.Id + " " + user.X + " " + user.Y + " " + user.Z);
-       // }
     }
 
     public static void ObtacleMove(IMessage packet)
