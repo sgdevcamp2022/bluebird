@@ -23,3 +23,42 @@ void ObstacleThread::operator()() const
         boost::this_thread::sleep(boost::posix_time::seconds(1));
     }
 }
+
+void ObstacleThread::MovingObstacle()
+{
+    time_point<steady_clock> fpsTimer(steady_clock::now());
+    frame FPS{};
+
+    float maxX = 5.0f;
+    float minX = 0.0f;
+
+    bool goPositive = true;
+
+    while (true)
+    {
+        FPS = duration_cast<frame>(steady_clock::now() - fpsTimer);
+        if (FPS.count() >= 1)
+        {
+            fpsTimer = steady_clock::now();
+
+            if (goPositive)
+            {
+                gameData.obstacle[0].positionX += gameData.obstacle[0].speed * duration_cast<sec>(FPS).count();
+            }
+            else
+            {
+                gameData.obstacle[0].positionX -= gameData.obstacle[0].speed * duration_cast<sec>(FPS).count();
+            }
+            
+            if (gameData.obstacle[0].positionX > maxX || gameData.obstacle[0].positionX < minX)
+            {
+                goPositive = !goPositive;
+                npcServer.PostWrite(gameData);
+            }
+        }
+    }
+}
+
+void ObstacleThread::RotationObstacle()
+{
+}
