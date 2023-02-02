@@ -541,6 +541,7 @@ class Obstacle final :
     kRotationFieldNumber = 4,
     kIdFieldNumber = 1,
     kShapeFieldNumber = 2,
+    kSpeedFieldNumber = 5,
   };
   // optional .Npc.Vector3 position = 3;
   bool has_position() const;
@@ -596,6 +597,19 @@ class Obstacle final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
+  // optional float speed = 5;
+  bool has_speed() const;
+  private:
+  bool _internal_has_speed() const;
+  public:
+  void clear_speed();
+  float speed() const;
+  void set_speed(float value);
+  private:
+  float _internal_speed() const;
+  void _internal_set_speed(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Npc.Obstacle)
  private:
   class _Internal;
@@ -609,6 +623,7 @@ class Obstacle final :
   ::Npc::Vector3* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
+  float speed_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1146,6 +1161,34 @@ inline void Obstacle::set_allocated_rotation(::Npc::Vector3* rotation) {
   }
   rotation_ = rotation;
   // @@protoc_insertion_point(field_set_allocated:Npc.Obstacle.rotation)
+}
+
+// optional float speed = 5;
+inline bool Obstacle::_internal_has_speed() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Obstacle::has_speed() const {
+  return _internal_has_speed();
+}
+inline void Obstacle::clear_speed() {
+  speed_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline float Obstacle::_internal_speed() const {
+  return speed_;
+}
+inline float Obstacle::speed() const {
+  // @@protoc_insertion_point(field_get:Npc.Obstacle.speed)
+  return _internal_speed();
+}
+inline void Obstacle::_internal_set_speed(float value) {
+  _has_bits_[0] |= 0x00000004u;
+  speed_ = value;
+}
+inline void Obstacle::set_speed(float value) {
+  _internal_set_speed(value);
+  // @@protoc_insertion_point(field_set:Npc.Obstacle.speed)
 }
 
 // -------------------------------------------------------------------

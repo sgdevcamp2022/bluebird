@@ -27,6 +27,7 @@ message Obstacle
 	int32 shape = 2;
 	optional Vector3 position = 3;
 	optional Vector3 rotation = 4;
+	optional float speed = 5;
 }
 
 message Vector3

@@ -14,7 +14,7 @@ void ObstacleThread::operator()() const
         cout << "MatchRoom: " << gameData.matchRoom << endl;
         for (int i = 0; i < gameData.obstacleSize; i++)
         {
-            cout << "Object ID: " << gameData.obstacle[i].obstacleID << endl;
+            cout << "Object ID: " << gameData.obstacle[i].obstacleID << " | Object Speed: " << gameData.obstacle[i].speed << endl;
             cout << "posX: " << gameData.obstacle[i].positionX << " | posY: " << gameData.obstacle[i].positionY << " | posZ: " << gameData.obstacle[i].positionZ << endl;
             cout << "posX: " << gameData.obstacle[i].rotationX << " | posY: " << gameData.obstacle[i].rotationY << " | posZ: " << gameData.obstacle[i].rotationZ << endl;
         }

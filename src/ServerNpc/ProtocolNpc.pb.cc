@@ -50,7 +50,8 @@ constexpr Obstacle::Obstacle(
   : position_(nullptr)
   , rotation_(nullptr)
   , id_(int64_t{0})
-  , shape_(0){}
+  , shape_(0)
+  , speed_(0){}
 struct ObstacleDefaultTypeInternal {
   constexpr ObstacleDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -105,10 +106,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, shape_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, position_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, rotation_),
+  PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, speed_),
   ~0u,
   ~0u,
   0,
   1,
+  2,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Npc::Vector3, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -121,8 +124,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Npc::LoginData)},
   { 8, -1, sizeof(::Npc::GameData)},
-  { 16, 25, sizeof(::Npc::Obstacle)},
-  { 29, -1, sizeof(::Npc::Vector3)},
+  { 16, 26, sizeof(::Npc::Obstacle)},
+  { 31, -1, sizeof(::Npc::Vector3)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -137,17 +140,18 @@ const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARI
   "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\022\037\n\010ob"
   "stacle\030\003 \003(\0132\r.Npc.Obstacle\"T\n\010GameData\022"
   "\021\n\tmatchRoom\030\001 \001(\005\022\024\n\014obstacleSize\030\002 \001(\005"
-  "\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle\"\211\001\n\010Ob"
+  "\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle\"\247\001\n\010Ob"
   "stacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022#\n\010pos"
   "ition\030\003 \001(\0132\014.Npc.Vector3H\000\210\001\001\022#\n\010rotati"
-  "on\030\004 \001(\0132\014.Npc.Vector3H\001\210\001\001B\013\n\t_position"
-  "B\013\n\t_rotation\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y"
-  "\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\035\n\006INGAME\022\t\n\005LOGIN\020\000\022\010"
-  "\n\004GAME\020\001b\006proto3"
+  "on\030\004 \001(\0132\014.Npc.Vector3H\001\210\001\001\022\022\n\005speed\030\005 \001"
+  "(\002H\002\210\001\001B\013\n\t_positionB\013\n\t_rotationB\010\n\006_sp"
+  "eed\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001"
+  "z\030\003 \001(\002*\035\n\006INGAME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006"
+  "proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 416, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 446, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -701,6 +705,9 @@ class Obstacle::_Internal {
   static void set_has_rotation(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_speed(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 const ::Npc::Vector3&
@@ -732,16 +739,16 @@ Obstacle::Obstacle(const Obstacle& from)
     rotation_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&shape_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(shape_));
+    static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(speed_));
   // @@protoc_insertion_point(copy_constructor:Npc.Obstacle)
 }
 
 void Obstacle::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&shape_) -
-    reinterpret_cast<char*>(&position_)) + sizeof(shape_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
+    reinterpret_cast<char*>(&position_)) + sizeof(speed_));
 }
 
 Obstacle::~Obstacle() {
@@ -786,6 +793,7 @@ void Obstacle::Clear() {
   ::memset(&id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&shape_) -
       reinterpret_cast<char*>(&id_)) + sizeof(shape_));
+  speed_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -823,6 +831,14 @@ const char* Obstacle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional float speed = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+          _Internal::set_has_speed(&has_bits);
+          speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
       default: {
@@ -883,6 +899,12 @@ failure:
         4, _Internal::rotation(this), target, stream);
   }
 
+  // optional float speed = 5;
+  if (_internal_has_speed()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_speed(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -928,6 +950,11 @@ size_t Obstacle::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_shape());
+  }
+
+  // optional float speed = 5;
+  if (cached_has_bits & 0x00000004u) {
+    total_size += 1 + 4;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -976,6 +1003,9 @@ void Obstacle::MergeFrom(const Obstacle& from) {
   if (from.shape() != 0) {
     _internal_set_shape(from._internal_shape());
   }
+  if (cached_has_bits & 0x00000004u) {
+    _internal_set_speed(from._internal_speed());
+  }
 }
 
 void Obstacle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1001,8 +1031,8 @@ void Obstacle::InternalSwap(Obstacle* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Obstacle, shape_)
-      + sizeof(Obstacle::shape_)
+      PROTOBUF_FIELD_OFFSET(Obstacle, speed_)
+      + sizeof(Obstacle::speed_)
       - PROTOBUF_FIELD_OFFSET(Obstacle, position_)>(
           reinterpret_cast<char*>(&position_),
           reinterpret_cast<char*>(&other->position_));
