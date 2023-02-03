@@ -901,6 +901,7 @@ class Obtacle final :
     kRotationFieldNumber = 4,
     kIdFieldNumber = 1,
     kShapeFieldNumber = 2,
+    kSpeedFieldNumber = 5,
   };
   // optional .Protocol.Vector position = 3;
   bool has_position() const;
@@ -956,6 +957,19 @@ class Obtacle final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
+  // optional float speed = 5;
+  bool has_speed() const;
+  private:
+  bool _internal_has_speed() const;
+  public:
+  void clear_speed();
+  float speed() const;
+  void set_speed(float value);
+  private:
+  float _internal_speed() const;
+  void _internal_set_speed(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.Obtacle)
  private:
   class _Internal;
@@ -969,6 +983,7 @@ class Obtacle final :
   ::Protocol::Vector* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
+  float speed_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1952,6 +1967,34 @@ inline void Obtacle::set_allocated_rotation(::Protocol::Vector* rotation) {
   }
   rotation_ = rotation;
   // @@protoc_insertion_point(field_set_allocated:Protocol.Obtacle.rotation)
+}
+
+// optional float speed = 5;
+inline bool Obtacle::_internal_has_speed() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Obtacle::has_speed() const {
+  return _internal_has_speed();
+}
+inline void Obtacle::clear_speed() {
+  speed_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline float Obtacle::_internal_speed() const {
+  return speed_;
+}
+inline float Obtacle::speed() const {
+  // @@protoc_insertion_point(field_get:Protocol.Obtacle.speed)
+  return _internal_speed();
+}
+inline void Obtacle::_internal_set_speed(float value) {
+  _has_bits_[0] |= 0x00000004u;
+  speed_ = value;
+}
+inline void Obtacle::set_speed(float value) {
+  _internal_set_speed(value);
+  // @@protoc_insertion_point(field_set:Protocol.Obtacle.speed)
 }
 
 // -------------------------------------------------------------------

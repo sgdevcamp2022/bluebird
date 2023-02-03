@@ -55,6 +55,7 @@ message Obtacle
 	int32 shape = 2;
 	optional Vector position = 3;
 	optional Vector rotation = 4;
+	optional float speed = 5;
 }
 
 message Player

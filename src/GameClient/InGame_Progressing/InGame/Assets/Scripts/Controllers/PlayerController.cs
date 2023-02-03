@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
             if (_state == value)
                 return;
 
-          
             _state = value;
             //UpdateAnimation();
         }
@@ -44,13 +43,9 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerInfo.Equals(value))
                 return;
-
-            
             _playerInfo = value;
             //serverVec = new Vector3(value.Position.X,value.Position.Y,value.Position.Z);
             //State = PlayerState.Moving;
-            
-
 
         }
     }
@@ -75,10 +70,6 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         prevVec = transform.position;
     }
-
-   
-
-   
 
     protected virtual void UpdateController()
     {
