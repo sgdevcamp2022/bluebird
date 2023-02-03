@@ -10,13 +10,13 @@ public class MyPlayerController : PlayerController
 
     public  bool serverCommunication = false;
 
-    CinemachineVirtualCamera virtualCamera;
+
 
     protected override void Init()
     {
         base.Init();
 
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+  
 
     }
 
