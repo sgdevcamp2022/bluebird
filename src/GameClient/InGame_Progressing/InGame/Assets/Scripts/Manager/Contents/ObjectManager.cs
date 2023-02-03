@@ -81,7 +81,7 @@ public class ObjectManager
                 tc.id = id;
                 tc.PosInfo = obtacle.Position;
                 tc.speed = obtacle.Speed;
-                shapes[id] = tc;
+                shapes.Add(id, tc);
                 break;
             case 1:
                 go = Managers.Resource.Instantiate("Trap/Cube");
@@ -93,7 +93,7 @@ public class ObjectManager
                 pc.id = id;
                 pc.PosInfo = obtacle.Position;
                 pc.speed = obtacle.Speed;
-                shapes[id] = pc;
+                shapes.Add(id, pc);
                 break;
             default:
                 break;
