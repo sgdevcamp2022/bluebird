@@ -1,27 +1,24 @@
 #include "ServerNpc.h"
 
-ObstacleThread::ObstacleThread(LoginData loginData, ServerNpc& npcServer) : loginData(loginData), npcServer(npcServer)
+ObstacleThread::ObstacleThread(LoginData loginData,int index, ServerNpc& npcServer) : loginData(loginData), npcServer(npcServer)
 {
     gameData.matchRoom = loginData.matchRoom;
-    gameData.obstacleSize = loginData.obstacle.size();
-    gameData.obstacle = loginData.obstacle;
+    gameData.obstacle = loginData.obstacle[index];
 }
 
-void ObstacleThread::operator()() const
+void ObstacleThread::operator()()
 {
-    while (true)
-    {
-        cout << "MatchRoom: " << gameData.matchRoom << endl;
-        for (int i = 0; i < gameData.obstacleSize; i++)
-        {
-            cout << "Object ID: " << gameData.obstacle[i].obstacleID << " | Object Speed: " << gameData.obstacle[i].speed << endl;
-            cout << "posX: " << gameData.obstacle[i].positionX << " | posY: " << gameData.obstacle[i].positionY << " | posZ: " << gameData.obstacle[i].positionZ << endl;
-            cout << "posX: " << gameData.obstacle[i].rotationX << " | posY: " << gameData.obstacle[i].rotationY << " | posZ: " << gameData.obstacle[i].rotationZ << endl;
-        }
-
-        npcServer.PostWrite(gameData);
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
-    }
+    //while (true)
+    //{
+    //    cout << "MatchRoom: " << gameData.matchRoom << endl;
+    //    cout << "Object ID: " << gameData.obstacle.obstacleID << " | Object Speed: " << gameData.obstacle.speed << endl;
+    //    cout << "posX: " << gameData.obstacle.positionX << " | posY: " << gameData.obstacle.positionY << " | posZ: " << gameData.obstacle.positionZ << endl;
+    //    cout << "posX: " << gameData.obstacle.rotationX << " | posY: " << gameData.obstacle.rotationY << " | posZ: " << gameData.obstacle.rotationZ << endl;
+    //
+    //    npcServer.PostWrite(gameData);
+    //    boost::this_thread::sleep(boost::posix_time::seconds(1));
+    //}
+    MovingObstacle();
 }
 
 void ObstacleThread::MovingObstacle()
@@ -37,22 +34,24 @@ void ObstacleThread::MovingObstacle()
     while (true)
     {
         FPS = duration_cast<frame>(steady_clock::now() - fpsTimer);
-        if (FPS.count() >= 1)
+        if (FPS.count() >= 1) // 1/60√ 
         {
             fpsTimer = steady_clock::now();
 
             if (goPositive)
             {
-                gameData.obstacle[0].positionX += gameData.obstacle[0].speed * duration_cast<sec>(FPS).count();
+                gameData.obstacle.positionX += gameData.obstacle.speed * duration_cast<sec>(FPS).count();
             }
             else
             {
-                gameData.obstacle[0].positionX -= gameData.obstacle[0].speed * duration_cast<sec>(FPS).count();
+                gameData.obstacle.positionX -= gameData.obstacle.speed * duration_cast<sec>(FPS).count();
             }
             
-            if (gameData.obstacle[0].positionX > maxX || gameData.obstacle[0].positionX < minX)
+            if (gameData.obstacle.positionX > maxX || gameData.obstacle.positionX < minX)
             {
+                gameData.obstacle.positionX > maxX ? gameData.obstacle.positionX = maxX : gameData.obstacle.positionX = minX;
                 goPositive = !goPositive;
+                cout << "MatchRoom: " << gameData.matchRoom << " | posX: " << gameData.obstacle.positionX << endl;
                 npcServer.PostWrite(gameData);
             }
         }
@@ -61,4 +60,23 @@ void ObstacleThread::MovingObstacle()
 
 void ObstacleThread::RotationObstacle()
 {
+    time_point<steady_clock> fpsTimer(steady_clock::now());
+    frame FPS{};
+
+    while (true)
+    {
+        FPS = duration_cast<frame>(steady_clock::now() - fpsTimer);
+        if (FPS.count() >= 1)
+        {
+            fpsTimer = steady_clock::now();
+
+            gameData.obstacle.rotationZ += gameData.obstacle.speed * duration_cast<sec>(FPS).count() / 0.01f;
+            if (gameData.obstacle.rotationZ > 180)
+            {
+                gameData.obstacle.rotationZ = -180;
+                cout << "MatchRoom: " << gameData.matchRoom << " | rotZ: " << gameData.obstacle.positionX << endl;
+                npcServer.PostWrite(gameData);
+            }
+        }
+    }
 }

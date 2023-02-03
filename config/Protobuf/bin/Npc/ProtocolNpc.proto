@@ -17,8 +17,7 @@ message LoginData
 message GameData
 {
 	int32 matchRoom = 1;
-	int32 obstacleSize = 2;
-	repeated Obstacle obstacle = 3;
+	Obstacle obstacle = 2;
 }
 
 message Obstacle
