@@ -59,8 +59,8 @@ class ObstacleThread
 {
 public:
 
-    ObstacleThread(LoginData loginData, ServerNpc& npcServer);
-    void operator()() const;
+    ObstacleThread(LoginData loginData, int index, ServerNpc& npcServer);
+    void operator()();
     
 private:
     void MovingObstacle();

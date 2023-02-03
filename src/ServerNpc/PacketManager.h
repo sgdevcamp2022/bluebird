@@ -47,8 +47,7 @@ struct LoginData
 struct GameData
 {
 	int matchRoom;
-	int obstacleSize;
-	vector<Obstacle> obstacle;
+	Obstacle obstacle;
 };
 
 class ConnectToSQL
