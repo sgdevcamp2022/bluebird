@@ -57,7 +57,7 @@ public class PacketHandler
     {
         Player data = packet as Player;
         Managers.Object.AddMyPlayer(data.Id, data);
-        Managers.Object.AddMyCamera(data.Id, data);
+        //Managers.Object.AddMyCamera(data.Id, data);
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
