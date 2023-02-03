@@ -33,8 +33,12 @@ struct LoginDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LoginDataDefaultTypeInternal _LoginData_default_instance_;
 constexpr GameData::GameData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : obstacle_(nullptr)
-  , matchroom_(0){}
+  : position_(nullptr)
+  , rotation_(nullptr)
+  , id_(int64_t{0})
+  , matchroom_(0)
+  , shape_(0)
+  , speed_(0){}
 struct GameDataDefaultTypeInternal {
   constexpr GameDataDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -88,13 +92,23 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, maplevel_),
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, matchroom_),
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, obstacle_),
-  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Npc::GameData, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Npc::GameData, matchroom_),
-  PROTOBUF_FIELD_OFFSET(::Npc::GameData, obstacle_),
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, id_),
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, shape_),
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, position_),
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, rotation_),
+  PROTOBUF_FIELD_OFFSET(::Npc::GameData, speed_),
+  ~0u,
+  ~0u,
+  ~0u,
+  0,
+  1,
+  2,
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -121,9 +135,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Npc::LoginData)},
-  { 8, -1, sizeof(::Npc::GameData)},
-  { 15, 25, sizeof(::Npc::Obstacle)},
-  { 30, -1, sizeof(::Npc::Vector3)},
+  { 8, 19, sizeof(::Npc::GameData)},
+  { 25, 35, sizeof(::Npc::Obstacle)},
+  { 40, -1, sizeof(::Npc::Vector3)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -136,19 +150,22 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021ProtocolNpc.proto\022\003Npc\"Q\n\tLoginData\022\020\n"
   "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\022\037\n\010ob"
-  "stacle\030\003 \003(\0132\r.Npc.Obstacle\">\n\010GameData\022"
-  "\021\n\tmatchRoom\030\001 \001(\005\022\037\n\010obstacle\030\002 \001(\0132\r.N"
-  "pc.Obstacle\"\247\001\n\010Obstacle\022\n\n\002id\030\001 \001(\003\022\r\n\005"
-  "shape\030\002 \001(\005\022#\n\010position\030\003 \001(\0132\014.Npc.Vect"
-  "or3H\000\210\001\001\022#\n\010rotation\030\004 \001(\0132\014.Npc.Vector3"
-  "H\001\210\001\001\022\022\n\005speed\030\005 \001(\002H\002\210\001\001B\013\n\t_positionB\013"
-  "\n\t_rotationB\010\n\006_speed\"*\n\007Vector3\022\t\n\001x\030\001 "
-  "\001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\035\n\006INGAME\022\t\n\005L"
-  "OGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
+  "stacle\030\003 \003(\0132\r.Npc.Obstacle\"\272\001\n\010GameData"
+  "\022\021\n\tmatchRoom\030\001 \001(\005\022\n\n\002id\030\002 \001(\003\022\r\n\005shape"
+  "\030\003 \001(\005\022#\n\010position\030\004 \001(\0132\014.Npc.Vector3H\000"
+  "\210\001\001\022#\n\010rotation\030\005 \001(\0132\014.Npc.Vector3H\001\210\001\001"
+  "\022\022\n\005speed\030\006 \001(\002H\002\210\001\001B\013\n\t_positionB\013\n\t_ro"
+  "tationB\010\n\006_speed\"\247\001\n\010Obstacle\022\n\n\002id\030\001 \001("
+  "\003\022\r\n\005shape\030\002 \001(\005\022#\n\010position\030\003 \001(\0132\014.Npc"
+  ".Vector3H\000\210\001\001\022#\n\010rotation\030\004 \001(\0132\014.Npc.Ve"
+  "ctor3H\001\210\001\001\022\022\n\005speed\030\005 \001(\002H\002\210\001\001B\013\n\t_posit"
+  "ionB\013\n\t_rotationB\010\n\006_speed\"*\n\007Vector3\022\t\n"
+  "\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\035\n\006INGAME"
+  "\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 424, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 549, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -436,12 +453,27 @@ void LoginData::InternalSwap(LoginData* other) {
 
 class GameData::_Internal {
  public:
-  static const ::Npc::Obstacle& obstacle(const GameData* msg);
+  using HasBits = decltype(std::declval<GameData>()._has_bits_);
+  static const ::Npc::Vector3& position(const GameData* msg);
+  static void set_has_position(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::Npc::Vector3& rotation(const GameData* msg);
+  static void set_has_rotation(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_speed(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
-const ::Npc::Obstacle&
-GameData::_Internal::obstacle(const GameData* msg) {
-  return *msg->obstacle_;
+const ::Npc::Vector3&
+GameData::_Internal::position(const GameData* msg) {
+  return *msg->position_;
+}
+const ::Npc::Vector3&
+GameData::_Internal::rotation(const GameData* msg) {
+  return *msg->rotation_;
 }
 GameData::GameData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -450,22 +482,30 @@ GameData::GameData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   // @@protoc_insertion_point(arena_constructor:Npc.GameData)
 }
 GameData::GameData(const GameData& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_obstacle()) {
-    obstacle_ = new ::Npc::Obstacle(*from.obstacle_);
+  if (from._internal_has_position()) {
+    position_ = new ::Npc::Vector3(*from.position_);
   } else {
-    obstacle_ = nullptr;
+    position_ = nullptr;
   }
-  matchroom_ = from.matchroom_;
+  if (from._internal_has_rotation()) {
+    rotation_ = new ::Npc::Vector3(*from.rotation_);
+  } else {
+    rotation_ = nullptr;
+  }
+  ::memcpy(&id_, &from.id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(speed_));
   // @@protoc_insertion_point(copy_constructor:Npc.GameData)
 }
 
 void GameData::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&obstacle_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&matchroom_) -
-    reinterpret_cast<char*>(&obstacle_)) + sizeof(matchroom_));
+    reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
+    reinterpret_cast<char*>(&position_)) + sizeof(speed_));
 }
 
 GameData::~GameData() {
@@ -476,7 +516,8 @@ GameData::~GameData() {
 
 void GameData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete obstacle_;
+  if (this != internal_default_instance()) delete position_;
+  if (this != internal_default_instance()) delete rotation_;
 }
 
 void GameData::ArenaDtor(void* object) {
@@ -495,16 +536,28 @@ void GameData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && obstacle_ != nullptr) {
-    delete obstacle_;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(position_ != nullptr);
+      position_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(rotation_ != nullptr);
+      rotation_->Clear();
+    }
   }
-  obstacle_ = nullptr;
-  matchroom_ = 0;
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&shape_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(shape_));
+  speed_ = 0;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* GameData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -516,11 +569,40 @@ const char* GameData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .Npc.Obstacle obstacle = 2;
+      // int64 id = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_obstacle(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 shape = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          shape_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional .Npc.Vector3 position = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional .Npc.Vector3 rotation = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional float speed = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+          _Internal::set_has_speed(&has_bits);
+          speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
       default: {
@@ -539,6 +621,7 @@ const char* GameData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     }  // switch
   }  // while
 success:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -558,12 +641,38 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_matchroom(), target);
   }
 
-  // .Npc.Obstacle obstacle = 2;
-  if (this->has_obstacle()) {
+  // int64 id = 2;
+  if (this->id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_id(), target);
+  }
+
+  // int32 shape = 3;
+  if (this->shape() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_shape(), target);
+  }
+
+  // optional .Npc.Vector3 position = 4;
+  if (_internal_has_position()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::obstacle(this), target, stream);
+        4, _Internal::position(this), target, stream);
+  }
+
+  // optional .Npc.Vector3 rotation = 5;
+  if (_internal_has_rotation()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::rotation(this), target, stream);
+  }
+
+  // optional float speed = 6;
+  if (_internal_has_speed()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_speed(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -582,11 +691,28 @@ size_t GameData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Npc.Obstacle obstacle = 2;
-  if (this->has_obstacle()) {
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional .Npc.Vector3 position = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *position_);
+    }
+
+    // optional .Npc.Vector3 rotation = 5;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *rotation_);
+    }
+
+  }
+  // int64 id = 2;
+  if (this->id() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *obstacle_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        this->_internal_id());
   }
 
   // int32 matchRoom = 1;
@@ -594,6 +720,18 @@ size_t GameData::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_matchroom());
+  }
+
+  // int32 shape = 3;
+  if (this->shape() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_shape());
+  }
+
+  // optional float speed = 6;
+  if (cached_has_bits & 0x00000004u) {
+    total_size += 1 + 4;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -627,11 +765,26 @@ void GameData::MergeFrom(const GameData& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_obstacle()) {
-    _internal_mutable_obstacle()->::Npc::Obstacle::MergeFrom(from._internal_obstacle());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_position()->::Npc::Vector3::MergeFrom(from._internal_position());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_rotation()->::Npc::Vector3::MergeFrom(from._internal_rotation());
+    }
+  }
+  if (from.id() != 0) {
+    _internal_set_id(from._internal_id());
   }
   if (from.matchroom() != 0) {
     _internal_set_matchroom(from._internal_matchroom());
+  }
+  if (from.shape() != 0) {
+    _internal_set_shape(from._internal_shape());
+  }
+  if (cached_has_bits & 0x00000004u) {
+    _internal_set_speed(from._internal_speed());
   }
 }
 
@@ -656,12 +809,13 @@ bool GameData::IsInitialized() const {
 void GameData::InternalSwap(GameData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GameData, matchroom_)
-      + sizeof(GameData::matchroom_)
-      - PROTOBUF_FIELD_OFFSET(GameData, obstacle_)>(
-          reinterpret_cast<char*>(&obstacle_),
-          reinterpret_cast<char*>(&other->obstacle_));
+      PROTOBUF_FIELD_OFFSET(GameData, speed_)
+      + sizeof(GameData::speed_)
+      - PROTOBUF_FIELD_OFFSET(GameData, position_)>(
+          reinterpret_cast<char*>(&position_),
+          reinterpret_cast<char*>(&other->position_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GameData::GetMetadata() const {

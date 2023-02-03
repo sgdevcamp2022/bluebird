@@ -374,26 +374,57 @@ class GameData final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kObstacleFieldNumber = 2,
+    kPositionFieldNumber = 4,
+    kRotationFieldNumber = 5,
+    kIdFieldNumber = 2,
     kMatchRoomFieldNumber = 1,
+    kShapeFieldNumber = 3,
+    kSpeedFieldNumber = 6,
   };
-  // .Npc.Obstacle obstacle = 2;
-  bool has_obstacle() const;
+  // optional .Npc.Vector3 position = 4;
+  bool has_position() const;
   private:
-  bool _internal_has_obstacle() const;
+  bool _internal_has_position() const;
   public:
-  void clear_obstacle();
-  const ::Npc::Obstacle& obstacle() const;
-  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Obstacle* release_obstacle();
-  ::Npc::Obstacle* mutable_obstacle();
-  void set_allocated_obstacle(::Npc::Obstacle* obstacle);
+  void clear_position();
+  const ::Npc::Vector3& position() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_position();
+  ::Npc::Vector3* mutable_position();
+  void set_allocated_position(::Npc::Vector3* position);
   private:
-  const ::Npc::Obstacle& _internal_obstacle() const;
-  ::Npc::Obstacle* _internal_mutable_obstacle();
+  const ::Npc::Vector3& _internal_position() const;
+  ::Npc::Vector3* _internal_mutable_position();
   public:
-  void unsafe_arena_set_allocated_obstacle(
-      ::Npc::Obstacle* obstacle);
-  ::Npc::Obstacle* unsafe_arena_release_obstacle();
+  void unsafe_arena_set_allocated_position(
+      ::Npc::Vector3* position);
+  ::Npc::Vector3* unsafe_arena_release_position();
+
+  // optional .Npc.Vector3 rotation = 5;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::Npc::Vector3& rotation() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_rotation();
+  ::Npc::Vector3* mutable_rotation();
+  void set_allocated_rotation(::Npc::Vector3* rotation);
+  private:
+  const ::Npc::Vector3& _internal_rotation() const;
+  ::Npc::Vector3* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::Npc::Vector3* rotation);
+  ::Npc::Vector3* unsafe_arena_release_rotation();
+
+  // int64 id = 2;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
 
   // int32 matchRoom = 1;
   void clear_matchroom();
@@ -404,6 +435,28 @@ class GameData final :
   void _internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
+  // int32 shape = 3;
+  void clear_shape();
+  ::PROTOBUF_NAMESPACE_ID::int32 shape() const;
+  void set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_shape() const;
+  void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // optional float speed = 6;
+  bool has_speed() const;
+  private:
+  bool _internal_has_speed() const;
+  public:
+  void clear_speed();
+  float speed() const;
+  void set_speed(float value);
+  private:
+  float _internal_speed() const;
+  void _internal_set_speed(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Npc.GameData)
  private:
   class _Internal;
@@ -411,9 +464,14 @@ class GameData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::Npc::Obstacle* obstacle_;
-  ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::Npc::Vector3* position_;
+  ::Npc::Vector3* rotation_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
+  ::PROTOBUF_NAMESPACE_ID::int32 shape_;
+  float speed_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -883,87 +941,238 @@ inline void GameData::set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Npc.GameData.matchRoom)
 }
 
-// .Npc.Obstacle obstacle = 2;
-inline bool GameData::_internal_has_obstacle() const {
-  return this != internal_default_instance() && obstacle_ != nullptr;
+// int64 id = 2;
+inline void GameData::clear_id() {
+  id_ = int64_t{0};
 }
-inline bool GameData::has_obstacle() const {
-  return _internal_has_obstacle();
+inline ::PROTOBUF_NAMESPACE_ID::int64 GameData::_internal_id() const {
+  return id_;
 }
-inline void GameData::clear_obstacle() {
-  if (GetArenaForAllocation() == nullptr && obstacle_ != nullptr) {
-    delete obstacle_;
-  }
-  obstacle_ = nullptr;
+inline ::PROTOBUF_NAMESPACE_ID::int64 GameData::id() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.id)
+  return _internal_id();
 }
-inline const ::Npc::Obstacle& GameData::_internal_obstacle() const {
-  const ::Npc::Obstacle* p = obstacle_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Obstacle&>(
-      ::Npc::_Obstacle_default_instance_);
-}
-inline const ::Npc::Obstacle& GameData::obstacle() const {
-  // @@protoc_insertion_point(field_get:Npc.GameData.obstacle)
-  return _internal_obstacle();
-}
-inline void GameData::unsafe_arena_set_allocated_obstacle(
-    ::Npc::Obstacle* obstacle) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(obstacle_);
-  }
-  obstacle_ = obstacle;
-  if (obstacle) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.GameData.obstacle)
-}
-inline ::Npc::Obstacle* GameData::release_obstacle() {
+inline void GameData::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
-  ::Npc::Obstacle* temp = obstacle_;
-  obstacle_ = nullptr;
+  id_ = value;
+}
+inline void GameData::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:Npc.GameData.id)
+}
+
+// int32 shape = 3;
+inline void GameData::clear_shape() {
+  shape_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::_internal_shape() const {
+  return shape_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::shape() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.shape)
+  return _internal_shape();
+}
+inline void GameData::_internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  shape_ = value;
+}
+inline void GameData::set_shape(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_shape(value);
+  // @@protoc_insertion_point(field_set:Npc.GameData.shape)
+}
+
+// optional .Npc.Vector3 position = 4;
+inline bool GameData::_internal_has_position() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || position_ != nullptr);
+  return value;
+}
+inline bool GameData::has_position() const {
+  return _internal_has_position();
+}
+inline void GameData::clear_position() {
+  if (position_ != nullptr) position_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::Npc::Vector3& GameData::_internal_position() const {
+  const ::Npc::Vector3* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
+      ::Npc::_Vector3_default_instance_);
+}
+inline const ::Npc::Vector3& GameData::position() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.position)
+  return _internal_position();
+}
+inline void GameData::unsafe_arena_set_allocated_position(
+    ::Npc::Vector3* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  position_ = position;
+  if (position) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.GameData.position)
+}
+inline ::Npc::Vector3* GameData::release_position() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::Npc::Vector3* temp = position_;
+  position_ = nullptr;
   if (GetArenaForAllocation() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::Npc::Obstacle* GameData::unsafe_arena_release_obstacle() {
-  // @@protoc_insertion_point(field_release:Npc.GameData.obstacle)
-  
-  ::Npc::Obstacle* temp = obstacle_;
-  obstacle_ = nullptr;
+inline ::Npc::Vector3* GameData::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Npc.GameData.position)
+  _has_bits_[0] &= ~0x00000001u;
+  ::Npc::Vector3* temp = position_;
+  position_ = nullptr;
   return temp;
 }
-inline ::Npc::Obstacle* GameData::_internal_mutable_obstacle() {
-  
-  if (obstacle_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Npc::Obstacle>(GetArenaForAllocation());
-    obstacle_ = p;
+inline ::Npc::Vector3* GameData::_internal_mutable_position() {
+  _has_bits_[0] |= 0x00000001u;
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
+    position_ = p;
   }
-  return obstacle_;
+  return position_;
 }
-inline ::Npc::Obstacle* GameData::mutable_obstacle() {
-  // @@protoc_insertion_point(field_mutable:Npc.GameData.obstacle)
-  return _internal_mutable_obstacle();
+inline ::Npc::Vector3* GameData::mutable_position() {
+  // @@protoc_insertion_point(field_mutable:Npc.GameData.position)
+  return _internal_mutable_position();
 }
-inline void GameData::set_allocated_obstacle(::Npc::Obstacle* obstacle) {
+inline void GameData::set_allocated_position(::Npc::Vector3* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete obstacle_;
+    delete position_;
   }
-  if (obstacle) {
+  if (position) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Obstacle>::GetOwningArena(obstacle);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(position);
     if (message_arena != submessage_arena) {
-      obstacle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, obstacle, submessage_arena);
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
     }
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
-  obstacle_ = obstacle;
-  // @@protoc_insertion_point(field_set_allocated:Npc.GameData.obstacle)
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:Npc.GameData.position)
+}
+
+// optional .Npc.Vector3 rotation = 5;
+inline bool GameData::_internal_has_rotation() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || rotation_ != nullptr);
+  return value;
+}
+inline bool GameData::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void GameData::clear_rotation() {
+  if (rotation_ != nullptr) rotation_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::Npc::Vector3& GameData::_internal_rotation() const {
+  const ::Npc::Vector3* p = rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
+      ::Npc::_Vector3_default_instance_);
+}
+inline const ::Npc::Vector3& GameData::rotation() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.rotation)
+  return _internal_rotation();
+}
+inline void GameData::unsafe_arena_set_allocated_rotation(
+    ::Npc::Vector3* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation_);
+  }
+  rotation_ = rotation;
+  if (rotation) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.GameData.rotation)
+}
+inline ::Npc::Vector3* GameData::release_rotation() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::Npc::Vector3* temp = rotation_;
+  rotation_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Npc::Vector3* GameData::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Npc.GameData.rotation)
+  _has_bits_[0] &= ~0x00000002u;
+  ::Npc::Vector3* temp = rotation_;
+  rotation_ = nullptr;
+  return temp;
+}
+inline ::Npc::Vector3* GameData::_internal_mutable_rotation() {
+  _has_bits_[0] |= 0x00000002u;
+  if (rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
+    rotation_ = p;
+  }
+  return rotation_;
+}
+inline ::Npc::Vector3* GameData::mutable_rotation() {
+  // @@protoc_insertion_point(field_mutable:Npc.GameData.rotation)
+  return _internal_mutable_rotation();
+}
+inline void GameData::set_allocated_rotation(::Npc::Vector3* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:Npc.GameData.rotation)
+}
+
+// optional float speed = 6;
+inline bool GameData::_internal_has_speed() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool GameData::has_speed() const {
+  return _internal_has_speed();
+}
+inline void GameData::clear_speed() {
+  speed_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline float GameData::_internal_speed() const {
+  return speed_;
+}
+inline float GameData::speed() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.speed)
+  return _internal_speed();
+}
+inline void GameData::_internal_set_speed(float value) {
+  _has_bits_[0] |= 0x00000004u;
+  speed_ = value;
+}
+inline void GameData::set_speed(float value) {
+  _internal_set_speed(value);
+  // @@protoc_insertion_point(field_set:Npc.GameData.speed)
 }
 
 // -------------------------------------------------------------------

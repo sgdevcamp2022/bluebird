@@ -8,7 +8,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
 	for (int i = 0; i < 15; i++)
 	{
-		_spawnPosition.push_back(Vector3{ (float)i, (float)i, 0 });
+		_spawnPosition.push_back(Vector3{ (float)i, 0, (float)i });
 	}
 	_startData.set_matchroom(room);
 	_startData.set_maplevel(level);
@@ -67,7 +67,9 @@ void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 	for(auto obta : _obstacles){
 		auto ob = _startData.add_obtacle();
 		ob->set_id(obta.first);
+		ob->set_speed(obta.second->GetSpeed());
 		ob->set_shape(obta.second->GetShape());
+		cout << "Shape" << ob->shape() << endl;
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 	}
@@ -83,6 +85,7 @@ void Room::Leave(PlayerRef ref)
 	data.set_matchroom(_matchRoom);
 	data.set_maplevel(_mapLevel);
 
+	_playerSize.fetch_sub(1);
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
 }
 
@@ -91,7 +94,7 @@ void Room::Start()
 	//테스트 코드
 	if (_start)
 		return;
-	if (_playerSize < START_COUNT) {
+	if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
 		DoTimer(3000, &Room::Start);
 		return;
 	}
@@ -111,15 +114,6 @@ void Room::Start()
 
 	_start.store(true);
 	TimeSync();
-
-	{
-		vector<Npc::Obstacle> datas;
-		Npc::Obstacle ob;
-		ob.set_id(0);
-		GameUtils::SetVector3(ob.mutable_position(), Vector3{ 1, 5, 1 });
-		datas.push_back(ob);
-		DoTimer(500, &Room::ObstacleMove, datas);
-	}
 }
 
 void Room::PlayerMove(Protocol::Move data)
@@ -137,19 +131,15 @@ void Room::PlayerMove(Protocol::Move data)
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
 }
 
-void Room::ObstacleMove(vector<Npc::Obstacle> datas)
+void Room::ObstacleMove(int64 id, Protocol::Move data)
 {
-	Protocol::Data data;
-	for (int i = 0; i < datas.size(); i++) {
-		if (_obstacles.find(datas[i].id()) != _obstacles.end()) {
-			_obstacles[datas[i].id()]->Move(datas[i].position(), datas[i].rotation());
-			auto ob = data.add_obtacle();
-			cout << "Object 이동" << endl;
-			ob->set_id(datas[i].id());
-			GameUtils::SetVector3(ob->mutable_position(), _obstacles[datas[i].id()]->GetPosition());
-			GameUtils::SetVector3(ob->mutable_rotation(), _obstacles[datas[i].id()]->GetRotation());
-		}
+	if (_obstacles.find(id) != _obstacles.end()) {
+		_obstacles[id]->Move(data.position(), data.rotation());
+		cout << "Object 이동" << endl;
+		GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
+		GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
 	}
+
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 }
 

@@ -39,7 +39,7 @@ public class PacketHandler
         }
         foreach (Obtacle obtacle in data.Obtacle)
         {
-            Managers.Object.AddObtacle(obtacle.Id, obtacle);
+            Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
         }
 
@@ -61,9 +61,7 @@ public class PacketHandler
     public static void PlayerMove(IMessage packet)
     {
         Move data = packet as Move;
-        Player player = Managers.Object.GetPlayer(data.Id);
-
-        GameObject go = Managers.Object.FindById(data.Id);
+        GameObject go = Managers.Object.GetPlayer(data.Id);
 
         if (go == null)
             return;
