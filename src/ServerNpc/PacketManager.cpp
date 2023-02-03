@@ -45,15 +45,15 @@ char* PacketManager::MakeGamePacket(GameData gameData)
 
     Npc::GameData npcGameData;
     npcGameData.set_matchroom(gameData.matchRoom);
-    npcGameData.mutable_obstacle()->set_id(gameData.obstacle.obstacleID);
-    npcGameData.mutable_obstacle()->set_shape(gameData.obstacle.obstacleShape);
-    npcGameData.mutable_obstacle()->set_speed(gameData.obstacle.speed);
-    npcGameData.mutable_obstacle()->mutable_position()->set_x(gameData.obstacle.positionX);
-    npcGameData.mutable_obstacle()->mutable_position()->set_y(gameData.obstacle.positionY);
-    npcGameData.mutable_obstacle()->mutable_position()->set_z(gameData.obstacle.positionZ);
-    npcGameData.mutable_obstacle()->mutable_rotation()->set_x(gameData.obstacle.rotationX);
-    npcGameData.mutable_obstacle()->mutable_rotation()->set_y(gameData.obstacle.rotationY);
-    npcGameData.mutable_obstacle()->mutable_rotation()->set_z(gameData.obstacle.rotationZ);
+    npcGameData.set_id(gameData.obstacle.obstacleID);
+    npcGameData.set_shape(gameData.obstacle.obstacleShape);
+    npcGameData.mutable_position()->set_x(gameData.obstacle.positionX);
+    npcGameData.mutable_position()->set_y(gameData.obstacle.positionY);
+    npcGameData.mutable_position()->set_z(gameData.obstacle.positionZ);
+    npcGameData.mutable_rotation()->set_x(gameData.obstacle.rotationX);
+    npcGameData.mutable_rotation()->set_y(gameData.obstacle.rotationY);
+    npcGameData.mutable_rotation()->set_z(gameData.obstacle.rotationZ);
+    npcGameData.set_speed(gameData.obstacle.speed);
 
     bufSize = headerSize + npcGameData.ByteSizeLong();
 
