@@ -9,17 +9,6 @@ using UnityEngine.UIElements;
 public class TrapController : ObstacleController
 {
     // Start is called before the first frame update
-
-    public float speed;
-    Vector position = new Vector();
-
-    public Int64 id { get; set; }
-    public Vector PosInfo
-    {
-        get { return position; }
-        set { position = value; }
-    }
-
     // Update is called once per frame
 
     protected override void UpdateController()

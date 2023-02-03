@@ -21,6 +21,7 @@ public class ObjectManager
     Dictionary<Int64, GameObject>               players = new Dictionary<Int64, GameObject>();
     Dictionary<Int64, ObstacleController>       shapes = new Dictionary<Int64, ObstacleController>();
 
+
     //추가
     public void AddPlayer(Int64 id, Player player)
     {
@@ -40,6 +41,7 @@ public class ObjectManager
     {
         GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
         go.name = "MyPlayer" + player.Id;
+     
 
         players.Add(player.Id, go);
 
@@ -48,6 +50,16 @@ public class ObjectManager
         MyPlayer.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
     }
+
+    public void AddMyCamera(Int64 id, Player player)
+    {
+        GameObject go = Managers.Resource.Instantiate("Camera/MyCamera");
+        go.name = "MyCamera" + player.Id;
+
+        Debug.Log("My virtual Camera Created");
+    }
+
+
     public void RemovePlayer(Int64 id)
     {
         players.Remove(id);

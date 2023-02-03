@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Init()
     {
+      
         _rigidbody = GetComponent<Rigidbody>();
         prevVec = transform.position;
     }
