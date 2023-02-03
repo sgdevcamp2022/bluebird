@@ -6,9 +6,9 @@
 
 Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
-	for (int i = 0; i < 15; i++)
+	for (int i = 1; i <= 15; i++)
 	{
-		_spawnPosition.push_back(Vector3{ (float)i, 0, (float)i });
+		_spawnPosition.push_back(Vector3{ (float)i, 1, (float)i });
 	}
 	_startData.set_matchroom(room);
 	_startData.set_maplevel(level);

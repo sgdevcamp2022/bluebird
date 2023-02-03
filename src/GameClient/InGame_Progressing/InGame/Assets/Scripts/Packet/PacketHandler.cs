@@ -78,17 +78,10 @@ public class PacketHandler
     }
     public static void ObtacleMove(IMessage packet)
     {
-        Data data = packet as Data;
-        foreach(Obtacle obtacle in data.Obtacle)
-        {
-            GameObject go = Managers.Object.GetObtacle(obtacle.Id);
-            if (go == null)
-                continue;
-            TrapController tc = go.GetComponent<TrapController>();
-            if (tc == null)
-                continue;
-            tc.PosInfo = obtacle.Position;
-        }
+        Move data = packet as Move;
+        ObstacleController go = Managers.Object.GetObtacleController(data.Id);
+
+        go.PosInfo = data.Position;
     }
     public static void CnnectFail(IMessage packet)
     {
