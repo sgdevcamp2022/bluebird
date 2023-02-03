@@ -33,9 +33,8 @@ struct LoginDataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LoginDataDefaultTypeInternal _LoginData_default_instance_;
 constexpr GameData::GameData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : obstacle_()
-  , matchroom_(0)
-  , obstaclesize_(0){}
+  : obstacle_(nullptr)
+  , matchroom_(0){}
 struct GameDataDefaultTypeInternal {
   constexpr GameDataDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -95,7 +94,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Npc::GameData, matchroom_),
-  PROTOBUF_FIELD_OFFSET(::Npc::GameData, obstaclesize_),
   PROTOBUF_FIELD_OFFSET(::Npc::GameData, obstacle_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Npc::Obstacle, _internal_metadata_),
@@ -124,8 +122,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Npc::LoginData)},
   { 8, -1, sizeof(::Npc::GameData)},
-  { 16, 26, sizeof(::Npc::Obstacle)},
-  { 31, -1, sizeof(::Npc::Vector3)},
+  { 15, 25, sizeof(::Npc::Obstacle)},
+  { 30, -1, sizeof(::Npc::Vector3)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -138,20 +136,19 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021ProtocolNpc.proto\022\003Npc\"Q\n\tLoginData\022\020\n"
   "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\022\037\n\010ob"
-  "stacle\030\003 \003(\0132\r.Npc.Obstacle\"T\n\010GameData\022"
-  "\021\n\tmatchRoom\030\001 \001(\005\022\024\n\014obstacleSize\030\002 \001(\005"
-  "\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstacle\"\247\001\n\010Ob"
-  "stacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022#\n\010pos"
-  "ition\030\003 \001(\0132\014.Npc.Vector3H\000\210\001\001\022#\n\010rotati"
-  "on\030\004 \001(\0132\014.Npc.Vector3H\001\210\001\001\022\022\n\005speed\030\005 \001"
-  "(\002H\002\210\001\001B\013\n\t_positionB\013\n\t_rotationB\010\n\006_sp"
-  "eed\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001"
-  "z\030\003 \001(\002*\035\n\006INGAME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006"
-  "proto3"
+  "stacle\030\003 \003(\0132\r.Npc.Obstacle\">\n\010GameData\022"
+  "\021\n\tmatchRoom\030\001 \001(\005\022\037\n\010obstacle\030\002 \001(\0132\r.N"
+  "pc.Obstacle\"\247\001\n\010Obstacle\022\n\n\002id\030\001 \001(\003\022\r\n\005"
+  "shape\030\002 \001(\005\022#\n\010position\030\003 \001(\0132\014.Npc.Vect"
+  "or3H\000\210\001\001\022#\n\010rotation\030\004 \001(\0132\014.Npc.Vector3"
+  "H\001\210\001\001\022\022\n\005speed\030\005 \001(\002H\002\210\001\001B\013\n\t_positionB\013"
+  "\n\t_rotationB\010\n\006_speed\"*\n\007Vector3\022\t\n\001x\030\001 "
+  "\001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\035\n\006INGAME\022\t\n\005L"
+  "OGIN\020\000\022\010\n\004GAME\020\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 446, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 424, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -439,30 +436,36 @@ void LoginData::InternalSwap(LoginData* other) {
 
 class GameData::_Internal {
  public:
+  static const ::Npc::Obstacle& obstacle(const GameData* msg);
 };
 
+const ::Npc::Obstacle&
+GameData::_Internal::obstacle(const GameData* msg) {
+  return *msg->obstacle_;
+}
 GameData::GameData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  obstacle_(arena) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:Npc.GameData)
 }
 GameData::GameData(const GameData& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      obstacle_(from.obstacle_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&matchroom_, &from.matchroom_,
-    static_cast<size_t>(reinterpret_cast<char*>(&obstaclesize_) -
-    reinterpret_cast<char*>(&matchroom_)) + sizeof(obstaclesize_));
+  if (from._internal_has_obstacle()) {
+    obstacle_ = new ::Npc::Obstacle(*from.obstacle_);
+  } else {
+    obstacle_ = nullptr;
+  }
+  matchroom_ = from.matchroom_;
   // @@protoc_insertion_point(copy_constructor:Npc.GameData)
 }
 
 void GameData::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&matchroom_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&obstaclesize_) -
-    reinterpret_cast<char*>(&matchroom_)) + sizeof(obstaclesize_));
+    reinterpret_cast<char*>(&obstacle_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&matchroom_) -
+    reinterpret_cast<char*>(&obstacle_)) + sizeof(matchroom_));
 }
 
 GameData::~GameData() {
@@ -473,6 +476,7 @@ GameData::~GameData() {
 
 void GameData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete obstacle_;
 }
 
 void GameData::ArenaDtor(void* object) {
@@ -491,10 +495,11 @@ void GameData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  obstacle_.Clear();
-  ::memset(&matchroom_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&obstaclesize_) -
-      reinterpret_cast<char*>(&matchroom_)) + sizeof(obstaclesize_));
+  if (GetArenaForAllocation() == nullptr && obstacle_ != nullptr) {
+    delete obstacle_;
+  }
+  obstacle_ = nullptr;
+  matchroom_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -511,23 +516,11 @@ const char* GameData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 obstacleSize = 2;
+      // .Npc.Obstacle obstacle = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          obstaclesize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_obstacle(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated .Npc.Obstacle obstacle = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_obstacle(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -565,18 +558,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_matchroom(), target);
   }
 
-  // int32 obstacleSize = 2;
-  if (this->obstaclesize() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_obstaclesize(), target);
-  }
-
-  // repeated .Npc.Obstacle obstacle = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_obstacle_size()); i < n; i++) {
+  // .Npc.Obstacle obstacle = 2;
+  if (this->has_obstacle()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_obstacle(i), target, stream);
+      InternalWriteMessage(
+        2, _Internal::obstacle(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -595,11 +582,11 @@ size_t GameData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Npc.Obstacle obstacle = 3;
-  total_size += 1UL * this->_internal_obstacle_size();
-  for (const auto& msg : this->obstacle_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // .Npc.Obstacle obstacle = 2;
+  if (this->has_obstacle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *obstacle_);
   }
 
   // int32 matchRoom = 1;
@@ -607,13 +594,6 @@ size_t GameData::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_matchroom());
-  }
-
-  // int32 obstacleSize = 2;
-  if (this->obstaclesize() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_obstaclesize());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -647,12 +627,11 @@ void GameData::MergeFrom(const GameData& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  obstacle_.MergeFrom(from.obstacle_);
+  if (from.has_obstacle()) {
+    _internal_mutable_obstacle()->::Npc::Obstacle::MergeFrom(from._internal_obstacle());
+  }
   if (from.matchroom() != 0) {
     _internal_set_matchroom(from._internal_matchroom());
-  }
-  if (from.obstaclesize() != 0) {
-    _internal_set_obstaclesize(from._internal_obstaclesize());
   }
 }
 
@@ -677,13 +656,12 @@ bool GameData::IsInitialized() const {
 void GameData::InternalSwap(GameData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  obstacle_.InternalSwap(&other->obstacle_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GameData, obstaclesize_)
-      + sizeof(GameData::obstaclesize_)
-      - PROTOBUF_FIELD_OFFSET(GameData, matchroom_)>(
-          reinterpret_cast<char*>(&matchroom_),
-          reinterpret_cast<char*>(&other->matchroom_));
+      PROTOBUF_FIELD_OFFSET(GameData, matchroom_)
+      + sizeof(GameData::matchroom_)
+      - PROTOBUF_FIELD_OFFSET(GameData, obstacle_)>(
+          reinterpret_cast<char*>(&obstacle_),
+          reinterpret_cast<char*>(&other->obstacle_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GameData::GetMetadata() const {

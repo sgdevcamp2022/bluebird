@@ -374,27 +374,26 @@ class GameData final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kObstacleFieldNumber = 3,
+    kObstacleFieldNumber = 2,
     kMatchRoomFieldNumber = 1,
-    kObstacleSizeFieldNumber = 2,
   };
-  // repeated .Npc.Obstacle obstacle = 3;
-  int obstacle_size() const;
+  // .Npc.Obstacle obstacle = 2;
+  bool has_obstacle() const;
   private:
-  int _internal_obstacle_size() const;
+  bool _internal_has_obstacle() const;
   public:
   void clear_obstacle();
-  ::Npc::Obstacle* mutable_obstacle(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >*
-      mutable_obstacle();
+  const ::Npc::Obstacle& obstacle() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Obstacle* release_obstacle();
+  ::Npc::Obstacle* mutable_obstacle();
+  void set_allocated_obstacle(::Npc::Obstacle* obstacle);
   private:
-  const ::Npc::Obstacle& _internal_obstacle(int index) const;
-  ::Npc::Obstacle* _internal_add_obstacle();
+  const ::Npc::Obstacle& _internal_obstacle() const;
+  ::Npc::Obstacle* _internal_mutable_obstacle();
   public:
-  const ::Npc::Obstacle& obstacle(int index) const;
-  ::Npc::Obstacle* add_obstacle();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >&
-      obstacle() const;
+  void unsafe_arena_set_allocated_obstacle(
+      ::Npc::Obstacle* obstacle);
+  ::Npc::Obstacle* unsafe_arena_release_obstacle();
 
   // int32 matchRoom = 1;
   void clear_matchroom();
@@ -405,15 +404,6 @@ class GameData final :
   void _internal_set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 obstacleSize = 2;
-  void clear_obstaclesize();
-  ::PROTOBUF_NAMESPACE_ID::int32 obstaclesize() const;
-  void set_obstaclesize(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_obstaclesize() const;
-  void _internal_set_obstaclesize(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:Npc.GameData)
  private:
   class _Internal;
@@ -421,9 +411,8 @@ class GameData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle > obstacle_;
+  ::Npc::Obstacle* obstacle_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
-  ::PROTOBUF_NAMESPACE_ID::int32 obstaclesize_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
@@ -894,63 +883,87 @@ inline void GameData::set_matchroom(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Npc.GameData.matchRoom)
 }
 
-// int32 obstacleSize = 2;
-inline void GameData::clear_obstaclesize() {
-  obstaclesize_ = 0;
+// .Npc.Obstacle obstacle = 2;
+inline bool GameData::_internal_has_obstacle() const {
+  return this != internal_default_instance() && obstacle_ != nullptr;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::_internal_obstaclesize() const {
-  return obstaclesize_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::obstaclesize() const {
-  // @@protoc_insertion_point(field_get:Npc.GameData.obstacleSize)
-  return _internal_obstaclesize();
-}
-inline void GameData::_internal_set_obstaclesize(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  obstaclesize_ = value;
-}
-inline void GameData::set_obstaclesize(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_obstaclesize(value);
-  // @@protoc_insertion_point(field_set:Npc.GameData.obstacleSize)
-}
-
-// repeated .Npc.Obstacle obstacle = 3;
-inline int GameData::_internal_obstacle_size() const {
-  return obstacle_.size();
-}
-inline int GameData::obstacle_size() const {
-  return _internal_obstacle_size();
+inline bool GameData::has_obstacle() const {
+  return _internal_has_obstacle();
 }
 inline void GameData::clear_obstacle() {
-  obstacle_.Clear();
+  if (GetArenaForAllocation() == nullptr && obstacle_ != nullptr) {
+    delete obstacle_;
+  }
+  obstacle_ = nullptr;
 }
-inline ::Npc::Obstacle* GameData::mutable_obstacle(int index) {
-  // @@protoc_insertion_point(field_mutable:Npc.GameData.obstacle)
-  return obstacle_.Mutable(index);
+inline const ::Npc::Obstacle& GameData::_internal_obstacle() const {
+  const ::Npc::Obstacle* p = obstacle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Obstacle&>(
+      ::Npc::_Obstacle_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >*
-GameData::mutable_obstacle() {
-  // @@protoc_insertion_point(field_mutable_list:Npc.GameData.obstacle)
-  return &obstacle_;
-}
-inline const ::Npc::Obstacle& GameData::_internal_obstacle(int index) const {
-  return obstacle_.Get(index);
-}
-inline const ::Npc::Obstacle& GameData::obstacle(int index) const {
+inline const ::Npc::Obstacle& GameData::obstacle() const {
   // @@protoc_insertion_point(field_get:Npc.GameData.obstacle)
-  return _internal_obstacle(index);
+  return _internal_obstacle();
 }
-inline ::Npc::Obstacle* GameData::_internal_add_obstacle() {
-  return obstacle_.Add();
+inline void GameData::unsafe_arena_set_allocated_obstacle(
+    ::Npc::Obstacle* obstacle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(obstacle_);
+  }
+  obstacle_ = obstacle;
+  if (obstacle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.GameData.obstacle)
 }
-inline ::Npc::Obstacle* GameData::add_obstacle() {
-  // @@protoc_insertion_point(field_add:Npc.GameData.obstacle)
-  return _internal_add_obstacle();
+inline ::Npc::Obstacle* GameData::release_obstacle() {
+  
+  ::Npc::Obstacle* temp = obstacle_;
+  obstacle_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Npc::Obstacle >&
-GameData::obstacle() const {
-  // @@protoc_insertion_point(field_list:Npc.GameData.obstacle)
+inline ::Npc::Obstacle* GameData::unsafe_arena_release_obstacle() {
+  // @@protoc_insertion_point(field_release:Npc.GameData.obstacle)
+  
+  ::Npc::Obstacle* temp = obstacle_;
+  obstacle_ = nullptr;
+  return temp;
+}
+inline ::Npc::Obstacle* GameData::_internal_mutable_obstacle() {
+  
+  if (obstacle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Npc::Obstacle>(GetArenaForAllocation());
+    obstacle_ = p;
+  }
   return obstacle_;
+}
+inline ::Npc::Obstacle* GameData::mutable_obstacle() {
+  // @@protoc_insertion_point(field_mutable:Npc.GameData.obstacle)
+  return _internal_mutable_obstacle();
+}
+inline void GameData::set_allocated_obstacle(::Npc::Obstacle* obstacle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete obstacle_;
+  }
+  if (obstacle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Obstacle>::GetOwningArena(obstacle);
+    if (message_arena != submessage_arena) {
+      obstacle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, obstacle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  obstacle_ = obstacle;
+  // @@protoc_insertion_point(field_set_allocated:Npc.GameData.obstacle)
 }
 
 // -------------------------------------------------------------------

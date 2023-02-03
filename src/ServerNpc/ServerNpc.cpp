@@ -125,8 +125,12 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
         int matchRoom = packetManager->PacketProcess(&loginData, input_coded_stream);
         if (matchRoom != 0)
         {
-            boost::thread* tempThread = new boost::thread(ObstacleThread(loginData, *this));
-            threadGroup.push_back(make_pair(matchRoom, tempThread));
+            for (int i = 0; i < loginData.obstacle.size(); i++)
+            {
+                boost::thread* tempThread = new boost::thread(ObstacleThread(loginData, i, *this));
+                threadGroup.push_back(make_pair(matchRoom, tempThread));
+            }
+            
             PostWrite(loginData);
         }
         else
@@ -146,7 +150,7 @@ void ServerNpc::ThreadInterrupt()
             iter->second->interrupt();
             delete iter->second;
             threadGroup.erase(iter);
-            break;
+            //break;
         }
     }
 }
