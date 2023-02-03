@@ -46,15 +46,18 @@ public class PacketHandler
         Move move = new Move()
         {
             Id = Managers.Object.MyPlayer.id,
-            Position = new Vector { X = 0, Y = 0, Z = 0 },
+            Position = new Vector { X = 0, Y = 1, Z = 0 },
             Rotation = new Vector { X = 0, Y = 0, Z = 0 }
         };
         Managers.Network.Send(move, INGAME.PlayerMove);
     }
+
+    //카메라가 follow하는 프리펩 대상을 특정시켜주기
     public static void GameConnect(IMessage packet)
     {
         Player data = packet as Player;
         Managers.Object.AddMyPlayer(data.Id, data);
+        Managers.Object.AddMyCamera(data.Id, data);
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }

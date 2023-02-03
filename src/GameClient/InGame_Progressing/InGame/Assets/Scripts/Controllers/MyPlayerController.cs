@@ -15,9 +15,7 @@ public class MyPlayerController : PlayerController
     protected override void Init()
     {
         base.Init();
-
-  
-
+        
     }
 
     protected override void UpdateController()
