@@ -17,7 +17,11 @@ message LoginData
 message GameData
 {
 	int32 matchRoom = 1;
-	Obstacle obstacle = 2;
+	int64 id = 2;
+	int32 shape = 3;
+	optional Vector3 position = 4;
+	optional Vector3 rotation = 5;
+	optional float speed = 6;
 }
 
 message Obstacle

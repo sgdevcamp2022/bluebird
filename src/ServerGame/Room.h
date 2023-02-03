@@ -13,7 +13,7 @@ public:
 	void Start();
 
 	void PlayerMove(Protocol::Move data);
-	void ObstacleMove(vector<Npc::Obstacle> datas);
+	void ObstacleMove(int64 id, Protocol::Move datas);
 	void ComplteGame(Protocol::Player);
 	void TimeSync();
 	void Broadcast(SendBufferRef ref);

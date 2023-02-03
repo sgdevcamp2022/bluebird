@@ -37,7 +37,7 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 		for (int i = 0; i < pkt.obstacle_size(); i++) {
 			auto data = pkt.obstacle(i);
 			if (data.has_position() && data.has_rotation()) {
-				datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data.position()), Vector3(data.rotation()));
+				datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data.position()), Vector3(data.rotation()), data.speed());
 			}
 		}
 		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
@@ -46,10 +46,9 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 
 void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 {
-	vector<Npc::Obstacle> datas;
-	for (int i = 0; i < pkt.obstaclesize(); i++) {
-		datas.push_back(pkt.obstacle(i));
-	}
+	Protocol::Move data;
+	data.set_id(pkt.id());
+	data.set_time(GetTickCount64());
 	//복사 비용 줄이기
-	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, std::move(datas));
+	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, pkt.id(), data);
 }

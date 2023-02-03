@@ -10,7 +10,7 @@ public class TrapController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float speed = 10.0f;
+    public float speed;
     Vector position = new Vector();
 
     public Int64 id { get; set; }

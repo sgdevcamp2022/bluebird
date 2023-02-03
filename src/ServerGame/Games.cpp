@@ -19,15 +19,25 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	if (TEST)
 	{
 		if (!IsRoom(room)) {
-			map<int64, ObtacleRef> input;
-			input[0] = make_shared<Obtacle>(0, 1, 0, Vector3{ 5, 1, 1 });
-			input[1] = make_shared<Obtacle>(1, 1, 0, Vector3{ 1, 1, 1 });
-
 			_games[room] = make_shared<Room>(2, room);
 			session->_room = _games[room];
 			_games[room]->GameEnter(session, id);
-			_games[room]->ObstacleEnter(&input);
 			_games[room]->DoTimer(5000, &Room::Start);
+
+			auto _ref = GetNpcRef();
+			if (_ref != nullptr) {
+				Npc::LoginData data;
+				data.set_maplevel(2);
+				data.set_matchroom(0);
+
+				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
+			}
+			else {
+				map<int64, ObtacleRef> input;
+				input[0] = make_shared<Obtacle>(0, 0, 0, Vector3{ 5, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
+				input[1] = make_shared<Obtacle>(1, 1, 0, Vector3{ 1, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
+				_games[room]->ObstacleEnter(&input);
+			}
 		}
 		else {
 			session->_room = _games[room];
