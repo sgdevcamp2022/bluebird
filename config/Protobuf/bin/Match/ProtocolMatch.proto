@@ -11,6 +11,12 @@ enum STATE
 	S_CANCLE = 5;
 }
 
+message Header
+{
+	uint32 size = 1; 
+	STATE state = 2;
+}
+
 message Data
 {
 	int64 id = 1;

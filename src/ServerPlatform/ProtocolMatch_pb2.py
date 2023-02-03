@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\">\n\x04\x44\x61ta\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\x12\r\n\x05state\x18\x04 \x01(\x08\"5\n\x07Success\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\x10\n\x08gamePort\x18\x03 \x01(\x05*T\n\x05STATE\x12\x0b\n\x07\x43_LOGIN\x10\x00\x12\x0c\n\x08\x43_CANCLE\x10\x01\x12\x08\n\x04\x46\x41IL\x10\x02\x12\x0b\n\x07S_LOGIN\x10\x03\x12\x0b\n\x07S_MATCH\x10\x04\x12\x0c\n\x08S_CANCLE\x10\x05\x62\x06proto3'
+  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\">\n\x04\x44\x61ta\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\x12\r\n\x05state\x18\x04 \x01(\x08\"5\n\x07Success\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\x10\n\x08gamePort\x18\x03 \x01(\x05*T\n\x05STATE\x12\x0b\n\x07\x43_LOGIN\x10\x00\x12\x0c\n\x08\x43_CANCLE\x10\x01\x12\x08\n\x04\x46\x41IL\x10\x02\x12\x0b\n\x07S_LOGIN\x10\x03\x12\x0b\n\x07S_MATCH\x10\x04\x12\x0c\n\x08S_CANCLE\x10\x05\x62\x06proto3'
 )
 
 _STATE = _descriptor.EnumDescriptor(
@@ -63,8 +63,8 @@ _STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=149,
-  serialized_end=233,
+  serialized_start=202,
+  serialized_end=286,
 )
 _sym_db.RegisterEnumDescriptor(_STATE)
 
@@ -76,6 +76,45 @@ S_LOGIN = 3
 S_MATCH = 4
 S_CANCLE = 5
 
+
+
+_HEADER = _descriptor.Descriptor(
+  name='Header',
+  full_name='Match.Header',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='size', full_name='Match.Header.size', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='Match.Header.state', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=30,
+  serialized_end=81,
+)
 
 
 _DATA = _descriptor.Descriptor(
@@ -126,8 +165,8 @@ _DATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=30,
-  serialized_end=92,
+  serialized_start=83,
+  serialized_end=145,
 )
 
 
@@ -172,14 +211,23 @@ _SUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=147,
+  serialized_start=147,
+  serialized_end=200,
 )
 
+_HEADER.fields_by_name['state'].enum_type = _STATE
+DESCRIPTOR.message_types_by_name['Header'] = _HEADER
 DESCRIPTOR.message_types_by_name['Data'] = _DATA
 DESCRIPTOR.message_types_by_name['Success'] = _SUCCESS
 DESCRIPTOR.enum_types_by_name['STATE'] = _STATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Header = _reflection.GeneratedProtocolMessageType('Header', (_message.Message,), {
+  'DESCRIPTOR' : _HEADER,
+  '__module__' : 'ProtocolMatch_pb2'
+  # @@protoc_insertion_point(class_scope:Match.Header)
+  })
+_sym_db.RegisterMessage(Header)
 
 Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
   'DESCRIPTOR' : _DATA,

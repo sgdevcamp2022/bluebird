@@ -41,7 +41,6 @@ public class NetworkManager
 			() => { return _session; },
 			1);
 	}
-
 	public void Update()
 	{
         //큐에 있는 패킷을 리스트로 옮긴다.

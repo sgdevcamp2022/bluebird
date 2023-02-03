@@ -42,14 +42,6 @@ public class PacketHandler
             Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
         }
-
-        Move move = new Move()
-        {
-            Id = Managers.Object.MyPlayer.id,
-            Position = new Vector { X = 0, Y = 1, Z = 0 },
-            Rotation = new Vector { X = 0, Y = 0, Z = 0 }
-        };
-        Managers.Network.Send(move, INGAME.PlayerMove);
     }
 
     //카메라가 follow하는 프리펩 대상을 특정시켜주기
@@ -81,17 +73,10 @@ public class PacketHandler
     }
     public static void ObtacleMove(IMessage packet)
     {
-        Data data = packet as Data;
-        foreach(Obtacle obtacle in data.Obtacle)
-        {
-            GameObject go = Managers.Object.GetObtacle(obtacle.Id);
-            if (go == null)
-                continue;
-            TrapController tc = go.GetComponent<TrapController>();
-            if (tc == null)
-                continue;
-            tc.PosInfo = obtacle.Position;
-        }
+        Move data = packet as Move;
+        ObstacleController go = Managers.Object.GetObtacleController(data.Id);
+
+        go.PosInfo = data.Position;
     }
     public static void CnnectFail(IMessage packet)
     {

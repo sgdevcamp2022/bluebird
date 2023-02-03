@@ -17,9 +17,9 @@ public class ObjectManager
     public static ObjectManager Instance { get { return _instance; } }
 
     //플레이어 정보 저장
-    Dictionary<Int64, GameObject> obtacles = new Dictionary<Int64, GameObject>();
-    Dictionary<Int64, GameObject> players = new Dictionary<Int64, GameObject>();
-    Dictionary<Int64, GameObject> cameras = new Dictionary<Int64, GameObject>();
+    Dictionary<Int64, GameObject>               obtacles = new Dictionary<Int64, GameObject>();
+    Dictionary<Int64, GameObject>               players = new Dictionary<Int64, GameObject>();
+    Dictionary<Int64, ObstacleController>       shapes = new Dictionary<Int64, ObstacleController>();
 
 
     //추가
@@ -74,21 +74,30 @@ public class ObjectManager
             case 0:
                 go = Managers.Resource.Instantiate("Trap/Sphere");
                 UnityEngine.Debug.Log(0 + " Obtacle");
+                go.name = "Obstacle" + id;
+                obtacles.Add(id, go);
+
+                TrapController tc = go.GetComponent<TrapController>();
+                tc.id = id;
+                tc.PosInfo = obtacle.Position;
+                tc.speed = obtacle.Speed;
+                shapes[id] = tc;
                 break;
             case 1:
                 go = Managers.Resource.Instantiate("Trap/Cube");
                 UnityEngine.Debug.Log(1 + " Obtacle");
+                go.name = "Obstacle" + id;
+                obtacles.Add(id, go);
+
+                PlatformController pc = go.GetComponent<PlatformController>();
+                pc.id = id;
+                pc.PosInfo = obtacle.Position;
+                pc.speed = obtacle.Speed;
+                shapes[id] = pc;
                 break;
             default:
                 break;
         }
-        go.name = "Obstacle" + id;
-        obtacles.Add(id, go);
-
-        TrapController tc = go.GetComponent<TrapController>();
-        tc.id = id;
-        tc.PosInfo = obtacle.Position;
-        tc.speed = obtacle.Speed;
     }
     public void RemoveObtacle(Int64 id)
     {
@@ -107,6 +116,13 @@ public class ObjectManager
     {
         GameObject obtacle;
         if (obtacles.TryGetValue(id, out obtacle))
+            return obtacle;
+        return null;
+    }
+    public ObstacleController GetObtacleController(Int64 id)
+    {
+        ObstacleController obtacle;
+        if (shapes.TryGetValue(id, out obtacle))
             return obtacle;
         return null;
     }
