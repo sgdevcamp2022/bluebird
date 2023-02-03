@@ -111,7 +111,7 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME t
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Move, GameHeader, Protocol::INGAME>(pkt, type);
-}
+} 
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type)
 {

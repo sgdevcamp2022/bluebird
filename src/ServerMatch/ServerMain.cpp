@@ -55,6 +55,4 @@ int main()
 	DoWorkerJob(Cservice);
 
 	GThreadManager->Join();
-
-	
 }

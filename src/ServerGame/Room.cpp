@@ -131,10 +131,10 @@ void Room::PlayerMove(Protocol::Move data)
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
 }
 
-void Room::ObstacleMove(int64 id, Protocol::Move data)
+void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data)
 {
 	if (_obstacles.find(id) != _obstacles.end()) {
-		_obstacles[id]->Move(data.position(), data.rotation());
+		_obstacles[id]->Move(position, rotation);
 		cout << "Object ÀÌµ¿" << endl;
 		GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
 		GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
