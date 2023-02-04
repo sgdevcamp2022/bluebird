@@ -51,7 +51,7 @@ void ObstacleThread::MovingObstacle()
             {
                 gameData.obstacle.positionX > maxX ? gameData.obstacle.positionX = maxX : gameData.obstacle.positionX = minX;
                 goPositive = !goPositive;
-                cout << "MatchRoom: " << gameData.matchRoom << " | posX: " << gameData.obstacle.positionX << endl;
+                cout << "MatchRoom: " << gameData.matchRoom << " | ObsID: " << gameData.obstacle.obstacleID << " | posX: " << gameData.obstacle.positionX << endl;
                 npcServer.PostWrite(gameData);
             }
         }

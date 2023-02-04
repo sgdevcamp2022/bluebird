@@ -13,11 +13,17 @@ public class ObstacleController : MonoBehaviour
 
     public float speed;
     Vector position = new Vector();
+    bool isRecv = false;
     public Int64 id { get; set; }
     public Vector PosInfo
     {
         get { return position; }
         set { position = value; }
+    }
+    public bool PacketRecv
+    {
+        get { return isRecv; }
+        set { isRecv = value; }
     }
     void Start()
     {
