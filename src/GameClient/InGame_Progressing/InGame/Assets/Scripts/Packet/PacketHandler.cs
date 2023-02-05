@@ -42,6 +42,7 @@ public class PacketHandler
         {
             Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
+
         }
     }
 

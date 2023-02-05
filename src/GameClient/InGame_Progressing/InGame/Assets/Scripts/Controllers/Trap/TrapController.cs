@@ -25,11 +25,11 @@ public class TrapController : ObstacleController
         {
             if (goPositive)
             {
-                transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;
+                transform.position += direction * speed * Time.deltaTime;
             }
             else
             {
-                transform.position -= new Vector3(1, 0, 0) * speed * Time.deltaTime;
+                transform.position -= direction * speed * Time.deltaTime;
             }
         }
     }
