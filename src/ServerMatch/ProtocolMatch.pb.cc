@@ -109,13 +109,13 @@ const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VA
   "E\">\n\004Data\022\n\n\002id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014\n\004"
   "room\030\003 \001(\005\022\r\n\005state\030\004 \001(\010\"5\n\007Success\022\n\n\002"
   "id\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\020\n\010gamePort\030\003 \001(\005"
-  "*T\n\005STATE\022\013\n\007C_LOGIN\020\000\022\014\n\010C_CANCLE\020\001\022\010\n\004"
-  "FAIL\020\002\022\013\n\007S_LOGIN\020\003\022\013\n\007S_MATCH\020\004\022\014\n\010S_CA"
-  "NCLE\020\005b\006proto3"
+  "*^\n\005STATE\022\010\n\004NULL\020\000\022\013\n\007C_LOGIN\020\001\022\014\n\010C_CA"
+  "NCLE\020\002\022\010\n\004FAIL\020\003\022\013\n\007S_LOGIN\020\004\022\013\n\007S_MATCH"
+  "\020\005\022\014\n\010S_CANCLE\020\006b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolMatch_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto = {
-  false, false, 294, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
+  false, false, 304, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
   &descriptor_table_ProtocolMatch_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_ProtocolMatch_2eproto::offsets,
   file_level_metadata_ProtocolMatch_2eproto, file_level_enum_descriptors_ProtocolMatch_2eproto, file_level_service_descriptors_ProtocolMatch_2eproto,
@@ -139,6 +139,7 @@ bool STATE_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;

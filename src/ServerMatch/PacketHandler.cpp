@@ -6,14 +6,14 @@
 
 void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {
-    PacketHeader* head = reinterpret_cast<PacketHeader*>(buffer);
-    switch (head->type)
+    Match::Header* head = reinterpret_cast<Match::Header*>(buffer);
+    switch (head->state())
     {
     case Match::C_LOGIN:
-        HandlerLogin(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size));
+        HandlerLogin(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size()));
         break;
     case Match::C_CANCLE:
-        HandlerCancle(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size));
+        HandlerCancle(ref, ParsingPacket<Match::Data>(buffer, (int32)head->size()));
         break;
     default:
         break;
