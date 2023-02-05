@@ -12,6 +12,8 @@ public class PlatformController : ObstacleController
     protected override void UpdateController()
     {
         Vector3 pos = new Vector3(PosInfo.X, PosInfo.Y, PosInfo.Z);
+        //Vector3 moveTo = direction;
+        
 
         if (PacketRecv)
         {
@@ -23,11 +25,11 @@ public class PlatformController : ObstacleController
         {
             if (goPositive)
             {
-                transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;
+                transform.position += direction * speed * Time.deltaTime;
             }
             else
             {
-                transform.position -= new Vector3(1, 0, 0) * speed * Time.deltaTime;
+                transform.position -= direction * speed * Time.deltaTime;
             }
         }
         //Todo

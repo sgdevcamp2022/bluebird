@@ -35,6 +35,8 @@ struct Obstacle
 	float rotationY;
 	float rotationZ;
 	float speed;
+	float distance;
+	int direction;
 };
 
 struct LoginData
