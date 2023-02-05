@@ -71,7 +71,7 @@ void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 		ob->set_shape(obta.second->GetShape());
 		cout << "Shape" << ob->shape() << endl;
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
-		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
+		GameUtils::SetVector3(ob->mutable_rotation(), obta.second->GetRotation());
 	}
 }
 
