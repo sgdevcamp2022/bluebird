@@ -35,7 +35,7 @@ class Token(BaseModel):
 
 class UserToken(BaseModel):
     id: int
-    pw: str = None
+    password: str = None
     email: str = None
     name: str = None
     phone_number: str = None

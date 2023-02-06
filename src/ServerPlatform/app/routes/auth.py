@@ -14,6 +14,8 @@ from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
 from app.database.schema import Users
 from app.models import Token, UserToken
+from app.middlewares.token_validator import AccessControl
+from app.errors import exceptions as ex
 
 """
 1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)
@@ -105,19 +107,14 @@ async def login(request : Request, logEmail : str = Form(...), logPass : str = F
     response.set_cookie(key="Authorization", value = token["Authorization"])
     return response
 
-    # if sns_type == SnsType.email:
-    #     is_exist = await is_email_exist(user_info.email)
-    #     if not user_info.email or not user_info.pw:
-    #         return JSONResponse(status_code=400, content=dict(msg="Email and PW must be provided'"))
-    #     if not is_exist:
-    #         return JSONResponse(status_code=400, content=dict(msg="NO_MATCH_USER"))
-    #     user = Users.get(email=user_info.email)
-    #     is_verified = bcrypt.checkpw(user_info.pw.encode("utf-8"), user.pw.encode("utf-8"))
-    #     if not is_verified:
-    #         return JSONResponse(status_code=400, content=dict(msg="NO_MATCH_USER"))
-    #     token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(user).dict(exclude={'pw', 'marketing_agree'}),)}")
-    #     return token
-    # return JSONResponse(status_code=400, content=dict(msg="NOT_SUPPORTED"))
+@router.post("/logout")
+async def logout(request: Request):
+    # 템플릿 렌더링인 경우 쿠키에서 토큰 검사
+    if "Authorization" not in request.cookies.keys():
+        raise ex.NotAuthorized()
+    access_token=request.cookies.get("Authorization")
+    token_info = await self.token_decode(access_token=request.cookies.get("Authorization"))
+    request.state.user = UserToken(**token_info)
 
 
 async def is_email_exist(email: str):
