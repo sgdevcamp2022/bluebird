@@ -49,6 +49,8 @@ void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 	Protocol::Move data;
 	data.set_id(pkt.id());
 	data.set_time(GetTickCount64());
+	data.set_direction(pkt.direction());
+
 	//복사 비용 줄이기
 	cout << pkt.rotation().x() << pkt.rotation().y() << pkt.rotation().z() << endl;
 	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, pkt.id(), pkt.position(), pkt.rotation(), std::move(data));

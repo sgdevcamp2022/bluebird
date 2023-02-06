@@ -3,7 +3,7 @@
 class PacketHandler
 {
 public:
-	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
+	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::Header&& head);
 
 	static SendBufferRef MakeSendBuffer(Match::Data pkt, Match::STATE type);
 	static SendBufferRef MakeSendBuffer(Match::Users pkt, Match::STATE type);
@@ -18,15 +18,18 @@ template<typename T>
 inline SendBufferRef _MakeSendBuffer(T& pkt, Match::STATE type)
 {
 	const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
-	const uint16 packetSize = dataSize + sizeof(Match::Header);
+	const uint16 packetSize = dataSize + 4;
 
 	SendBufferRef sendBuffer = GSendBufferManager->Open(packetSize);
-	Match::Header* header = reinterpret_cast<Match::Header*>(sendBuffer->Buffer());
-	header->set_size(dataSize);
-	header->set_state(type);
+	char* data = reinterpret_cast<char*>(sendBuffer->Buffer());
 
-	cout << header->size() << endl;
-	ASSERT_CRASH(pkt.SerializeToArray(&header[1], dataSize));
+	Match::Header header;
+	header.set_size(dataSize);
+	header.set_state(type);
+	string s = header.SerializeAsString();
+	s += pkt.SerializeAsString();
+
+	memcpy(data, s.data(), packetSize);
 	sendBuffer->Close(packetSize);
 
 	return sendBuffer;
@@ -36,7 +39,10 @@ template<typename Packet_Type>
 inline Packet_Type ParsingPacket(BYTE* buffer, int32 len)
 {
 	Packet_Type pkt;
-	pkt.ParseFromArray(buffer + sizeof(Match::Header), len);
+	string s;
+	s.resize(len);
+	memcpy(s.data(), buffer + 4, len);
 
+	pkt.ParseFromString(s);
 	return pkt;
 }

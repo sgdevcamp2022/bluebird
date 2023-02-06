@@ -33,10 +33,11 @@ void MatchManager::MatchEnter(MatchSessionRef session, Match::Data data, PlayerR
 	
 	session->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
 
-	if (count == ROOM_COUNT) {
+	if (count == PLATER_COUNT) {
+		cout << "Start" << endl;
 		DoTimer(3000, &MatchManager::MatchPull, level, _roomId.fetch_add(1), room);
 	}
-	else if (count == MAX_ROOM_COUNT) {
+	else if (count == MAX_PLAYER_COUNT) {
 		_matchRooms[level].push_back(make_shared<MatchRoom>());
 		_matchNums[level] = (_matchNums[level] + 1) % 10;
 	}

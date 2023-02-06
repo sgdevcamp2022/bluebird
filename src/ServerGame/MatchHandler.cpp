@@ -5,11 +5,11 @@
 
 void MatchHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {
-    Match::Header* head = reinterpret_cast<Match::Header*>(buffer);
-    switch (head->state())
+    MatchHeader* head = reinterpret_cast<MatchHeader*>(buffer);
+    switch (head->type)
     {
     case Match::S_MATCH:
-        HandlerMatch(ref, _MatchParsing<Match::Users>(buffer, (int32)head->size()));
+        HandlerMatch(ref, ParsingPacket<Match::Users, MatchHeader>(buffer, (int32)head->size));
         break;
     default:
         break;
@@ -43,5 +43,5 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
 
 SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
 {
-    return _MatchMaker(pkt, type);
+    return _MakeSendBuffer<Match::Data, MatchHeader, Match::STATE>(pkt, type);
 }

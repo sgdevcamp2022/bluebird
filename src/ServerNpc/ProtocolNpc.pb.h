@@ -379,7 +379,7 @@ class GameData final :
     kIdFieldNumber = 2,
     kMatchRoomFieldNumber = 1,
     kShapeFieldNumber = 3,
-    kSpeedFieldNumber = 6,
+    kDirectionFieldNumber = 6,
   };
   // optional .Npc.Vector3 position = 4;
   bool has_position() const;
@@ -444,17 +444,13 @@ class GameData final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // optional float speed = 6;
-  bool has_speed() const;
+  // int32 direction = 6;
+  void clear_direction();
+  ::PROTOBUF_NAMESPACE_ID::int32 direction() const;
+  void set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  bool _internal_has_speed() const;
-  public:
-  void clear_speed();
-  float speed() const;
-  void set_speed(float value);
-  private:
-  float _internal_speed() const;
-  void _internal_set_speed(float value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_direction() const;
+  void _internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:Npc.GameData)
@@ -471,7 +467,7 @@ class GameData final :
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
-  float speed_;
+  ::PROTOBUF_NAMESPACE_ID::int32 direction_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -589,6 +585,7 @@ class Obstacle final :
     kIdFieldNumber = 1,
     kShapeFieldNumber = 2,
     kSpeedFieldNumber = 5,
+    kDirectionFieldNumber = 6,
   };
   // optional .Npc.Vector3 position = 3;
   bool has_position() const;
@@ -644,17 +641,22 @@ class Obstacle final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // optional float speed = 5;
-  bool has_speed() const;
-  private:
-  bool _internal_has_speed() const;
-  public:
+  // float speed = 5;
   void clear_speed();
   float speed() const;
   void set_speed(float value);
   private:
   float _internal_speed() const;
   void _internal_set_speed(float value);
+  public:
+
+  // int32 direction = 6;
+  void clear_direction();
+  ::PROTOBUF_NAMESPACE_ID::int32 direction() const;
+  void set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_direction() const;
+  void _internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:Npc.Obstacle)
@@ -671,6 +673,7 @@ class Obstacle final :
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
   float speed_;
+  ::PROTOBUF_NAMESPACE_ID::int32 direction_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1147,32 +1150,24 @@ inline void GameData::set_allocated_rotation(::Npc::Vector3* rotation) {
   // @@protoc_insertion_point(field_set_allocated:Npc.GameData.rotation)
 }
 
-// optional float speed = 6;
-inline bool GameData::_internal_has_speed() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
+// int32 direction = 6;
+inline void GameData::clear_direction() {
+  direction_ = 0;
 }
-inline bool GameData::has_speed() const {
-  return _internal_has_speed();
+inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::_internal_direction() const {
+  return direction_;
 }
-inline void GameData::clear_speed() {
-  speed_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::direction() const {
+  // @@protoc_insertion_point(field_get:Npc.GameData.direction)
+  return _internal_direction();
 }
-inline float GameData::_internal_speed() const {
-  return speed_;
+inline void GameData::_internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  direction_ = value;
 }
-inline float GameData::speed() const {
-  // @@protoc_insertion_point(field_get:Npc.GameData.speed)
-  return _internal_speed();
-}
-inline void GameData::_internal_set_speed(float value) {
-  _has_bits_[0] |= 0x00000004u;
-  speed_ = value;
-}
-inline void GameData::set_speed(float value) {
-  _internal_set_speed(value);
-  // @@protoc_insertion_point(field_set:Npc.GameData.speed)
+inline void GameData::set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_direction(value);
+  // @@protoc_insertion_point(field_set:Npc.GameData.direction)
 }
 
 // -------------------------------------------------------------------
@@ -1385,17 +1380,9 @@ inline void Obstacle::set_allocated_rotation(::Npc::Vector3* rotation) {
   // @@protoc_insertion_point(field_set_allocated:Npc.Obstacle.rotation)
 }
 
-// optional float speed = 5;
-inline bool Obstacle::_internal_has_speed() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool Obstacle::has_speed() const {
-  return _internal_has_speed();
-}
+// float speed = 5;
 inline void Obstacle::clear_speed() {
   speed_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
 }
 inline float Obstacle::_internal_speed() const {
   return speed_;
@@ -1405,12 +1392,32 @@ inline float Obstacle::speed() const {
   return _internal_speed();
 }
 inline void Obstacle::_internal_set_speed(float value) {
-  _has_bits_[0] |= 0x00000004u;
+  
   speed_ = value;
 }
 inline void Obstacle::set_speed(float value) {
   _internal_set_speed(value);
   // @@protoc_insertion_point(field_set:Npc.Obstacle.speed)
+}
+
+// int32 direction = 6;
+inline void Obstacle::clear_direction() {
+  direction_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obstacle::_internal_direction() const {
+  return direction_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Obstacle::direction() const {
+  // @@protoc_insertion_point(field_get:Npc.Obstacle.direction)
+  return _internal_direction();
+}
+inline void Obstacle::_internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  direction_ = value;
+}
+inline void Obstacle::set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_direction(value);
+  // @@protoc_insertion_point(field_set:Npc.Obstacle.direction)
 }
 
 // -------------------------------------------------------------------
