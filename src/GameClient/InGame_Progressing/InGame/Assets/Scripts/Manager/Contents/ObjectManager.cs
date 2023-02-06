@@ -80,6 +80,7 @@ public class ObjectManager
                 TrapController tc = go.GetComponent<TrapController>();
                 tc.id = id;
                 tc.PosInfo = obtacle.Position;
+                tc.RotInfo = obtacle.Rotation;
                 tc.speed = obtacle.Speed;
                 shapes.Add(id, tc);
                 break;
@@ -92,6 +93,7 @@ public class ObjectManager
                 PlatformController pc = go.GetComponent<PlatformController>();
                 pc.id = id;
                 pc.PosInfo = obtacle.Position;
+                pc.RotInfo = obtacle.Rotation;
                 pc.speed = obtacle.Speed;
                 shapes.Add(id, pc);
                 break;

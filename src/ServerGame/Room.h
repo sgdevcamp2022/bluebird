@@ -14,6 +14,8 @@ public:
 
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);
+	void PlayerCrash(Protocol::PlayerCrash data);
+
 	void ComplteGame(Protocol::Player);
 	void TimeSync();
 	void Broadcast(SendBufferRef ref);

@@ -13,11 +13,17 @@ public class ObstacleController : MonoBehaviour
 
     public float speed;
     Vector position = new Vector();
+    Vector rotation = new Vector();
     public Int64 id { get; set; }
     public Vector PosInfo
     {
         get { return position; }
         set { position = value; }
+    }
+    public Vector RotInfo 
+    { 
+        get {  return rotation; }
+        set { rotation = value; }
     }
     void Start()
     {
