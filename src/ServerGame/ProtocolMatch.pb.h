@@ -73,17 +73,18 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Match {
 
 enum STATE : int {
-  C_LOGIN = 0,
-  C_CANCLE = 1,
-  FAIL = 2,
-  S_LOGIN = 3,
-  S_MATCH = 4,
-  S_CANCLE = 5,
+  NULL_ = 0,
+  C_LOGIN = 1,
+  C_CANCLE = 2,
+  FAIL = 3,
+  S_LOGIN = 4,
+  S_MATCH = 5,
+  S_CANCLE = 6,
   STATE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   STATE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool STATE_IsValid(int value);
-constexpr STATE STATE_MIN = C_LOGIN;
+constexpr STATE STATE_MIN = NULL_;
 constexpr STATE STATE_MAX = S_CANCLE;
 constexpr int STATE_ARRAYSIZE = STATE_MAX + 1;
 

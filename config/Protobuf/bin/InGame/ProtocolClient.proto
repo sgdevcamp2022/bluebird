@@ -65,6 +65,14 @@ message Player
 	optional Vector rotation = 3;
 }
 
+message PlayerCrash
+{
+	int64 id = 1;
+	Vector position = 2;
+	Vector rotation = 3;
+	Player enemy = 4;
+}
+
 message Vector
 {
 	float x = 1;

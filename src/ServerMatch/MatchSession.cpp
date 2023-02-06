@@ -3,7 +3,7 @@
 
 void MatchSession::OnConnected()
 {
-    
+    cout << "Session Connected" << endl;
 }
 
 void MatchSession::OnDisconnected()
@@ -13,6 +13,7 @@ void MatchSession::OnDisconnected()
 
 void MatchSession::OnRecvPacket(BYTE* buffer, int32 len)
 {
+    cout << "Recv Inside" << endl;
     PacketSessionRef match_ref = static_pointer_cast<PacketSession>(shared_from_this());
     PacketHandler::HandlerPacket(match_ref, buffer, len);
 }

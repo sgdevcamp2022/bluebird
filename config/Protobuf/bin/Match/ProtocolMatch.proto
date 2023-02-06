@@ -3,12 +3,13 @@ package Match;
 
 enum STATE
 {
-	C_LOGIN = 0;
-	C_CANCLE = 1;
-	FAIL = 2;
-	S_LOGIN = 3;
-	S_MATCH = 4;
-	S_CANCLE = 5;
+	NULL = 0;
+	C_LOGIN = 1;
+	C_CANCLE = 2;
+	FAIL = 3;
+	S_LOGIN = 4;
+	S_MATCH = 5;
+	S_CANCLE = 6;
 }
 
 message Header

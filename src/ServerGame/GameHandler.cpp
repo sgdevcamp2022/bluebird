@@ -88,7 +88,7 @@ void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt)
 {
-    
+
 }
 
 void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 //using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
@@ -41,6 +42,7 @@ public class PacketHandler
         {
             Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
+            UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
     }
 
@@ -76,8 +78,9 @@ public class PacketHandler
     {
         Move data = packet as Move;
         ObstacleController go = Managers.Object.GetObtacleController(data.Id);
-
+        go.PacketRecv = true;
         go.PosInfo = data.Position;
+        go.RotInfo = data.Rotation;
     }
     public static void CnnectFail(IMessage packet)
     {

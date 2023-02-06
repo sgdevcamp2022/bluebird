@@ -7,7 +7,7 @@ public:
 
 	Vector3&		GetPosition() { return _position; }
 	void			SetPosition(Vector3 position) { _position = position; }
-	Vector3&		GetRotation() { return _position; }
+	Vector3&		GetRotation() { return _rotation; }
 	void			SetRotation(Vector3 rotation) { _rotation = rotation; }
 	virtual bool	Move(Vector3&& position, Vector3&& rotation) abstract = 0;
 	float			GetSpeed() { return _speed; }

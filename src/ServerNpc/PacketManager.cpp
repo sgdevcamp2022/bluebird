@@ -221,6 +221,8 @@ int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
         tempObs.rotationY = atof(Row[6]);
         tempObs.rotationZ = atof(Row[7]);
         tempObs.speed = atof(Row[8]);
+        tempObs.distance = atof(Row[9]);
+        tempObs.direction = atoi(Row[10]);
         loginData->obstacle.push_back(tempObs);
     }
     mysql_free_result(Result);

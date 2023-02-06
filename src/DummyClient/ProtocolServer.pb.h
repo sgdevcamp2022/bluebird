@@ -47,7 +47,7 @@ struct TableStruct_ProtocolServer_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -70,6 +70,9 @@ extern ObtacleDefaultTypeInternal _Obtacle_default_instance_;
 class Player;
 struct PlayerDefaultTypeInternal;
 extern PlayerDefaultTypeInternal _Player_default_instance_;
+class PlayerCrash;
+struct PlayerCrashDefaultTypeInternal;
+extern PlayerCrashDefaultTypeInternal _PlayerCrash_default_instance_;
 class Times;
 struct TimesDefaultTypeInternal;
 extern TimesDefaultTypeInternal _Times_default_instance_;
@@ -83,6 +86,7 @@ template<> ::Protocol::Move* Arena::CreateMaybeMessage<::Protocol::Move>(Arena*)
 template<> ::Protocol::MoveData* Arena::CreateMaybeMessage<::Protocol::MoveData>(Arena*);
 template<> ::Protocol::Obtacle* Arena::CreateMaybeMessage<::Protocol::Obtacle>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
+template<> ::Protocol::PlayerCrash* Arena::CreateMaybeMessage<::Protocol::PlayerCrash>(Arena*);
 template<> ::Protocol::Times* Arena::CreateMaybeMessage<::Protocol::Times>(Arena*);
 template<> ::Protocol::Vector* Arena::CreateMaybeMessage<::Protocol::Vector>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1161,6 +1165,198 @@ class Player final :
 };
 // -------------------------------------------------------------------
 
+class PlayerCrash final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.PlayerCrash) */ {
+ public:
+  inline PlayerCrash() : PlayerCrash(nullptr) {}
+  ~PlayerCrash() override;
+  explicit constexpr PlayerCrash(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayerCrash(const PlayerCrash& from);
+  PlayerCrash(PlayerCrash&& from) noexcept
+    : PlayerCrash() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerCrash& operator=(const PlayerCrash& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayerCrash& operator=(PlayerCrash&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PlayerCrash& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayerCrash* internal_default_instance() {
+    return reinterpret_cast<const PlayerCrash*>(
+               &_PlayerCrash_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(PlayerCrash& a, PlayerCrash& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayerCrash* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayerCrash* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayerCrash* New() const final {
+    return new PlayerCrash();
+  }
+
+  PlayerCrash* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PlayerCrash>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PlayerCrash& from);
+  void MergeFrom(const PlayerCrash& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerCrash* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.PlayerCrash";
+  }
+  protected:
+  explicit PlayerCrash(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 2,
+    kRotationFieldNumber = 3,
+    kEnemyFieldNumber = 4,
+    kIdFieldNumber = 1,
+  };
+  // .Protocol.Vector position = 2;
+  bool has_position() const;
+  private:
+  bool _internal_has_position() const;
+  public:
+  void clear_position();
+  const ::Protocol::Vector& position() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::Vector* release_position();
+  ::Protocol::Vector* mutable_position();
+  void set_allocated_position(::Protocol::Vector* position);
+  private:
+  const ::Protocol::Vector& _internal_position() const;
+  ::Protocol::Vector* _internal_mutable_position();
+  public:
+  void unsafe_arena_set_allocated_position(
+      ::Protocol::Vector* position);
+  ::Protocol::Vector* unsafe_arena_release_position();
+
+  // .Protocol.Vector rotation = 3;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::Protocol::Vector& rotation() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::Vector* release_rotation();
+  ::Protocol::Vector* mutable_rotation();
+  void set_allocated_rotation(::Protocol::Vector* rotation);
+  private:
+  const ::Protocol::Vector& _internal_rotation() const;
+  ::Protocol::Vector* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::Protocol::Vector* rotation);
+  ::Protocol::Vector* unsafe_arena_release_rotation();
+
+  // .Protocol.Player enemy = 4;
+  bool has_enemy() const;
+  private:
+  bool _internal_has_enemy() const;
+  public:
+  void clear_enemy();
+  const ::Protocol::Player& enemy() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::Player* release_enemy();
+  ::Protocol::Player* mutable_enemy();
+  void set_allocated_enemy(::Protocol::Player* enemy);
+  private:
+  const ::Protocol::Player& _internal_enemy() const;
+  ::Protocol::Player* _internal_mutable_enemy();
+  public:
+  void unsafe_arena_set_allocated_enemy(
+      ::Protocol::Player* enemy);
+  ::Protocol::Player* unsafe_arena_release_enemy();
+
+  // int64 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.PlayerCrash)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::Protocol::Vector* position_;
+  ::Protocol::Vector* rotation_;
+  ::Protocol::Player* enemy_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolServer_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Vector final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Vector) */ {
  public:
@@ -1205,7 +1401,7 @@ class Vector final :
                &_Vector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(Vector& a, Vector& b) {
     a.Swap(&b);
@@ -2189,6 +2385,279 @@ inline void Player::set_allocated_rotation(::Protocol::Vector* rotation) {
 
 // -------------------------------------------------------------------
 
+// PlayerCrash
+
+// int64 id = 1;
+inline void PlayerCrash::clear_id() {
+  id_ = int64_t{0};
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 PlayerCrash::_internal_id() const {
+  return id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 PlayerCrash::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerCrash.id)
+  return _internal_id();
+}
+inline void PlayerCrash::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  id_ = value;
+}
+inline void PlayerCrash::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.PlayerCrash.id)
+}
+
+// .Protocol.Vector position = 2;
+inline bool PlayerCrash::_internal_has_position() const {
+  return this != internal_default_instance() && position_ != nullptr;
+}
+inline bool PlayerCrash::has_position() const {
+  return _internal_has_position();
+}
+inline void PlayerCrash::clear_position() {
+  if (GetArenaForAllocation() == nullptr && position_ != nullptr) {
+    delete position_;
+  }
+  position_ = nullptr;
+}
+inline const ::Protocol::Vector& PlayerCrash::_internal_position() const {
+  const ::Protocol::Vector* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector&>(
+      ::Protocol::_Vector_default_instance_);
+}
+inline const ::Protocol::Vector& PlayerCrash::position() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerCrash.position)
+  return _internal_position();
+}
+inline void PlayerCrash::unsafe_arena_set_allocated_position(
+    ::Protocol::Vector* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  position_ = position;
+  if (position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.PlayerCrash.position)
+}
+inline ::Protocol::Vector* PlayerCrash::release_position() {
+  
+  ::Protocol::Vector* temp = position_;
+  position_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Protocol::Vector* PlayerCrash::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Protocol.PlayerCrash.position)
+  
+  ::Protocol::Vector* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Vector* PlayerCrash::_internal_mutable_position() {
+  
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Vector>(GetArenaForAllocation());
+    position_ = p;
+  }
+  return position_;
+}
+inline ::Protocol::Vector* PlayerCrash::mutable_position() {
+  // @@protoc_insertion_point(field_mutable:Protocol.PlayerCrash.position)
+  return _internal_mutable_position();
+}
+inline void PlayerCrash::set_allocated_position(::Protocol::Vector* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete position_;
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Protocol::Vector>::GetOwningArena(position);
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.PlayerCrash.position)
+}
+
+// .Protocol.Vector rotation = 3;
+inline bool PlayerCrash::_internal_has_rotation() const {
+  return this != internal_default_instance() && rotation_ != nullptr;
+}
+inline bool PlayerCrash::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void PlayerCrash::clear_rotation() {
+  if (GetArenaForAllocation() == nullptr && rotation_ != nullptr) {
+    delete rotation_;
+  }
+  rotation_ = nullptr;
+}
+inline const ::Protocol::Vector& PlayerCrash::_internal_rotation() const {
+  const ::Protocol::Vector* p = rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector&>(
+      ::Protocol::_Vector_default_instance_);
+}
+inline const ::Protocol::Vector& PlayerCrash::rotation() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerCrash.rotation)
+  return _internal_rotation();
+}
+inline void PlayerCrash::unsafe_arena_set_allocated_rotation(
+    ::Protocol::Vector* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation_);
+  }
+  rotation_ = rotation;
+  if (rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.PlayerCrash.rotation)
+}
+inline ::Protocol::Vector* PlayerCrash::release_rotation() {
+  
+  ::Protocol::Vector* temp = rotation_;
+  rotation_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Protocol::Vector* PlayerCrash::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Protocol.PlayerCrash.rotation)
+  
+  ::Protocol::Vector* temp = rotation_;
+  rotation_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Vector* PlayerCrash::_internal_mutable_rotation() {
+  
+  if (rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Vector>(GetArenaForAllocation());
+    rotation_ = p;
+  }
+  return rotation_;
+}
+inline ::Protocol::Vector* PlayerCrash::mutable_rotation() {
+  // @@protoc_insertion_point(field_mutable:Protocol.PlayerCrash.rotation)
+  return _internal_mutable_rotation();
+}
+inline void PlayerCrash::set_allocated_rotation(::Protocol::Vector* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Protocol::Vector>::GetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.PlayerCrash.rotation)
+}
+
+// .Protocol.Player enemy = 4;
+inline bool PlayerCrash::_internal_has_enemy() const {
+  return this != internal_default_instance() && enemy_ != nullptr;
+}
+inline bool PlayerCrash::has_enemy() const {
+  return _internal_has_enemy();
+}
+inline void PlayerCrash::clear_enemy() {
+  if (GetArenaForAllocation() == nullptr && enemy_ != nullptr) {
+    delete enemy_;
+  }
+  enemy_ = nullptr;
+}
+inline const ::Protocol::Player& PlayerCrash::_internal_enemy() const {
+  const ::Protocol::Player* p = enemy_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Player&>(
+      ::Protocol::_Player_default_instance_);
+}
+inline const ::Protocol::Player& PlayerCrash::enemy() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerCrash.enemy)
+  return _internal_enemy();
+}
+inline void PlayerCrash::unsafe_arena_set_allocated_enemy(
+    ::Protocol::Player* enemy) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(enemy_);
+  }
+  enemy_ = enemy;
+  if (enemy) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.PlayerCrash.enemy)
+}
+inline ::Protocol::Player* PlayerCrash::release_enemy() {
+  
+  ::Protocol::Player* temp = enemy_;
+  enemy_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Protocol::Player* PlayerCrash::unsafe_arena_release_enemy() {
+  // @@protoc_insertion_point(field_release:Protocol.PlayerCrash.enemy)
+  
+  ::Protocol::Player* temp = enemy_;
+  enemy_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Player* PlayerCrash::_internal_mutable_enemy() {
+  
+  if (enemy_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Player>(GetArenaForAllocation());
+    enemy_ = p;
+  }
+  return enemy_;
+}
+inline ::Protocol::Player* PlayerCrash::mutable_enemy() {
+  // @@protoc_insertion_point(field_mutable:Protocol.PlayerCrash.enemy)
+  return _internal_mutable_enemy();
+}
+inline void PlayerCrash::set_allocated_enemy(::Protocol::Player* enemy) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete enemy_;
+  }
+  if (enemy) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Protocol::Player>::GetOwningArena(enemy);
+    if (message_arena != submessage_arena) {
+      enemy = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, enemy, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  enemy_ = enemy;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.PlayerCrash.enemy)
+}
+
+// -------------------------------------------------------------------
+
 // Vector
 
 // float x = 1;
@@ -2254,6 +2723,8 @@ inline void Vector::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

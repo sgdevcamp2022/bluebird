@@ -69,15 +69,19 @@
 <body>
     <div id="wrapper">
         <section class="layout bubbles">
-            <div><label>1</label></div>
-            <div style="text-align: center;"><a {% if id %} style="color: #3498db; pointer-events: none; cursor: default; "{% endif %} href="/user-login/">로그인</a></div>
+            <div id="1"></div>
+            {% if id %} 
+            <div style="text-align: center;"><a href="/user-logout/">로그아웃</a></div>
+            {% else %}
+            <div style="text-align: center;"><a href="/user-login/">로그인</a></div>
+            {% endif %}
             <div style="text-align: right; font-size: 15px;">{% if id %} 로그인 완료 <br> login ID : {{id}} {% endif %}</div>
             <div style="padding: 15vh 0;"><a href="/user-sign-up/">회원가입</a></div>
             <div style="text-align: center;"><h1>Poor<br>Guys</h1></div>
             <div style="padding: 15vh 0; text-align: right;"><a href="/game-launch/">게임 실행</a></div>
-            <div style="padding-top: 28vh;">7</div>
+            <div id="7" style="padding-top: 28vh;"></div>
             <div style="padding-top: 28vh; text-align: center;"><a href="/game-download/">게임 설치</a></div>
-            <div style="padding-top: 28vh; text-align: right;">9</div>
+            <div id="9" style="padding-top: 28vh; text-align: right;"></div>
       </section>
     </div>
 </body>
