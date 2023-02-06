@@ -41,6 +41,7 @@ message Move
 	int64 time = 2;
 	optional Vector position = 3;
 	optional Vector rotation = 4;
+	int32 direction = 5;
 }
 
 message MoveData
@@ -55,7 +56,7 @@ message Obtacle
 	int32 shape = 2;
 	optional Vector position = 3;
 	optional Vector rotation = 4;
-	optional float speed = 5;
+	float speed = 5;
 }
 
 message Player

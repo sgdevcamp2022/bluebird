@@ -1,5 +1,5 @@
 #pragma once
-class ConnectSession : public PacketSession
+class ConnectSession : public Sessions
 {
 public:
 	ConnectSession() {}

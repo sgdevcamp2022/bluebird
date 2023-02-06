@@ -569,6 +569,7 @@ class Move final :
     kRotationFieldNumber = 4,
     kIdFieldNumber = 1,
     kTimeFieldNumber = 2,
+    kDirectionFieldNumber = 5,
   };
   // optional .Protocol.Vector position = 3;
   bool has_position() const;
@@ -624,6 +625,15 @@ class Move final :
   void _internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
+  // int32 direction = 5;
+  void clear_direction();
+  ::PROTOBUF_NAMESPACE_ID::int32 direction() const;
+  void set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_direction() const;
+  void _internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.Move)
  private:
   class _Internal;
@@ -637,6 +647,7 @@ class Move final :
   ::Protocol::Vector* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int64 time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 direction_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
 // -------------------------------------------------------------------
@@ -961,11 +972,7 @@ class Obtacle final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // optional float speed = 5;
-  bool has_speed() const;
-  private:
-  bool _internal_has_speed() const;
-  public:
+  // float speed = 5;
   void clear_speed();
   float speed() const;
   void set_speed(float value);
@@ -1892,6 +1899,26 @@ inline void Move::set_allocated_rotation(::Protocol::Vector* rotation) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Move.rotation)
 }
 
+// int32 direction = 5;
+inline void Move::clear_direction() {
+  direction_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Move::_internal_direction() const {
+  return direction_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Move::direction() const {
+  // @@protoc_insertion_point(field_get:Protocol.Move.direction)
+  return _internal_direction();
+}
+inline void Move::_internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  direction_ = value;
+}
+inline void Move::set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_direction(value);
+  // @@protoc_insertion_point(field_set:Protocol.Move.direction)
+}
+
 // -------------------------------------------------------------------
 
 // MoveData
@@ -2165,17 +2192,9 @@ inline void Obtacle::set_allocated_rotation(::Protocol::Vector* rotation) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Obtacle.rotation)
 }
 
-// optional float speed = 5;
-inline bool Obtacle::_internal_has_speed() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool Obtacle::has_speed() const {
-  return _internal_has_speed();
-}
+// float speed = 5;
 inline void Obtacle::clear_speed() {
   speed_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
 }
 inline float Obtacle::_internal_speed() const {
   return speed_;
@@ -2185,7 +2204,7 @@ inline float Obtacle::speed() const {
   return _internal_speed();
 }
 inline void Obtacle::_internal_set_speed(float value) {
-  _has_bits_[0] |= 0x00000004u;
+  
   speed_ = value;
 }
 inline void Obtacle::set_speed(float value) {

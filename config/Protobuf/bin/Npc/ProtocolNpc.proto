@@ -21,7 +21,7 @@ message GameData
 	int32 shape = 3;
 	optional Vector3 position = 4;
 	optional Vector3 rotation = 5;
-	optional float speed = 6;
+	int32 direction = 6;
 }
 
 message Obstacle
@@ -30,7 +30,8 @@ message Obstacle
 	int32 shape = 2;
 	optional Vector3 position = 3;
 	optional Vector3 rotation = 4;
-	optional float speed = 5;
+	float speed = 5;
+	int32 direction = 6;
 }
 
 message Vector3
