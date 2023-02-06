@@ -18,7 +18,24 @@ void ObstacleThread::operator()()
     //    npcServer.PostWrite(gameData);
     //    boost::this_thread::sleep(boost::posix_time::seconds(1));
     //}
-    MovingObstacle();
+
+    switch (gameData.obstacle.obstacleShape)
+    {
+    case 0:
+        MovingObstacle();
+        break;
+
+    case 1:
+        MovingObstacle();
+        break;
+
+    case 2:
+        RotationObstacle();
+        break;
+
+    default:
+        break;
+    }
 }
 
 void ObstacleThread::MovingObstacle()
@@ -54,7 +71,7 @@ void ObstacleThread::MovingObstacle()
 
                 if (distanceSum > gameData.obstacle.distance)
                 {
-                    gameData.obstacle.positionX > startPosX ? gameData.obstacle.positionX = startPosX : gameData.obstacle.positionX = (startPosX + gameData.obstacle.distance);
+                    gameData.obstacle.positionX < startPosX ? gameData.obstacle.positionX = startPosX : gameData.obstacle.positionX = (startPosX + gameData.obstacle.distance);
                     distanceSum = 0;
                     goPositive = !goPositive;
                     cout << "MatchRoom: " << gameData.matchRoom << " | ObsID: " << gameData.obstacle.obstacleID << " | posX: " << gameData.obstacle.positionX << " | posY: " << gameData.obstacle.positionY << " | posZ: " << gameData.obstacle.positionZ << endl;
@@ -76,7 +93,7 @@ void ObstacleThread::MovingObstacle()
 
                 if (distanceSum > gameData.obstacle.distance)
                 {
-                    gameData.obstacle.positionY > startPosY ? gameData.obstacle.positionY = startPosY : gameData.obstacle.positionY = (startPosY + gameData.obstacle.distance);
+                    gameData.obstacle.positionY < startPosY ? gameData.obstacle.positionY = startPosY : gameData.obstacle.positionY = (startPosY + gameData.obstacle.distance);
                     distanceSum = 0;
                     goPositive = !goPositive;
                     cout << "MatchRoom: " << gameData.matchRoom << " | ObsID: " << gameData.obstacle.obstacleID << " | posX: " << gameData.obstacle.positionX << " | posY: " << gameData.obstacle.positionY << " | posZ: " << gameData.obstacle.positionZ << endl;
@@ -98,7 +115,7 @@ void ObstacleThread::MovingObstacle()
 
                 if (distanceSum > gameData.obstacle.distance)
                 {
-                    gameData.obstacle.positionZ > startPosZ ? gameData.obstacle.positionZ = startPosZ : gameData.obstacle.positionZ = (startPosZ + gameData.obstacle.distance);
+                    gameData.obstacle.positionZ < startPosZ ? gameData.obstacle.positionZ = startPosZ : gameData.obstacle.positionZ = (startPosZ + gameData.obstacle.distance);
                     distanceSum = 0;
                     goPositive = !goPositive;
                     cout << "MatchRoom: " << gameData.matchRoom << " | ObsID: " << gameData.obstacle.obstacleID << " | posX: " << gameData.obstacle.positionX << " | posY: " << gameData.obstacle.positionY << " | posZ: " << gameData.obstacle.positionZ << endl;
@@ -127,11 +144,11 @@ void ObstacleThread::RotationObstacle()
         {
             fpsTimer = steady_clock::now();
 
-            gameData.obstacle.rotationZ += gameData.obstacle.speed * duration_cast<sec>(FPS).count() / 0.01f;
+            gameData.obstacle.rotationZ += gameData.obstacle.speed * duration_cast<sec>(FPS).count() / 0.05f;
             if (gameData.obstacle.rotationZ > 180)
             {
                 gameData.obstacle.rotationZ = -180;
-                cout << "MatchRoom: " << gameData.matchRoom << " | rotZ: " << gameData.obstacle.positionX << endl;
+                cout << "MatchRoom: " << gameData.matchRoom << " | RotZ: " << gameData.obstacle.rotationZ << endl;
                 npcServer.PostWrite(gameData);
             }
         }

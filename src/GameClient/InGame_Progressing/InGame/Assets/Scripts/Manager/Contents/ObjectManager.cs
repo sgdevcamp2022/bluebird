@@ -97,6 +97,19 @@ public class ObjectManager
                 pc.speed = obtacle.Speed;
                 shapes.Add(id, pc);
                 break;
+            case 2:
+                go = Managers.Resource.Instantiate("Trap/Cylinder");
+                UnityEngine.Debug.Log(2 + " Obtacle");
+                go.name = "Obstacle" + id;
+                obtacles.Add(id, go);
+
+                RotatingTrapController rc = go.GetComponent<RotatingTrapController>();
+                rc.id = id;
+                rc.PosInfo = obtacle.Position;
+                rc.RotInfo = obtacle.Rotation;
+                rc.speed = obtacle.Speed;
+                shapes.Add(id, rc);
+                break;
             default:
                 break;
         }

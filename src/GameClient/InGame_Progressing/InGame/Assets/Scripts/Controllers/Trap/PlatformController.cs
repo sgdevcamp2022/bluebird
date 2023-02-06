@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class PlatformController : ObstacleController
 {
     bool goPositive = true;
+    Vector3 prevPos;
     protected override void UpdateController()
     {
         Vector3 pos = new Vector3(PosInfo.X, PosInfo.Y, PosInfo.Z);
@@ -17,8 +18,14 @@ public class PlatformController : ObstacleController
 
         if (PacketRecv)
         {
-            transform.position = pos;
-            goPositive = !goPositive;
+            if(prevPos.x < pos.x || prevPos.y < pos.y || prevPos.z < pos.z)
+            {
+                goPositive = false;
+            }
+            else
+            {
+                goPositive = true;
+            }
             PacketRecv = false;
         }
         else
@@ -32,6 +39,8 @@ public class PlatformController : ObstacleController
                 transform.position -= direction * speed * Time.deltaTime;
             }
         }
+
+        prevPos = pos;
         //Todo
         //Vector3 moveDir = pos - transform.position;
         //

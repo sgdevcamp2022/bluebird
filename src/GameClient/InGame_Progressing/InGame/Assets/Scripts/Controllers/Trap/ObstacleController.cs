@@ -37,9 +37,10 @@ public class ObstacleController : MonoBehaviour
     {
         rigidbody = new Rigidbody();
         transform.position = new Vector3(position.X, position.Y, position.Z);
-        
+        transform.rotation = Quaternion.Euler(rotation.X, rotation.Y, rotation.Z);
+
         //x,y,z 축마다 이동 테스트를 위한 임시 코드
-        switch(id)
+        switch (id)
         {
             case 0:
                 direction = new Vector3(1, 0, 0);
