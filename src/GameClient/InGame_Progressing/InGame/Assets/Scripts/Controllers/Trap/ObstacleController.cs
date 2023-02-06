@@ -35,6 +35,7 @@ public class ObstacleController : MonoBehaviour
     }
     void Start()
     {
+        
         rigidbody = new Rigidbody();
         transform.position = new Vector3(position.X, position.Y, position.Z);
         transform.rotation = Quaternion.Euler(rotation.X, rotation.Y, rotation.Z);

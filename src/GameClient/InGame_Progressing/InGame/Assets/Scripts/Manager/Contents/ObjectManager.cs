@@ -35,7 +35,7 @@ public class ObjectManager
        // Debug.Log(players.Count);
 
         PlayerController pc = go.GetComponent<PlayerController>();
-        pc.id = id;
+        pc.playerId = id;
         pc.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
     }
@@ -48,7 +48,7 @@ public class ObjectManager
         players.Add(player.Id, go);
 
         MyPlayer = go.GetComponent<MyPlayerController>();
-        MyPlayer.id = player.Id;
+        MyPlayer.playerId = player.Id;
         MyPlayer.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
 

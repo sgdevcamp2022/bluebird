@@ -16,7 +16,9 @@ enum INGAME
 	GAME_DROP = 8;
 	PLAYER_CRASH = 9;
 	OBSTACLE_CRASH = 10;
-	PACKET_FAIL = 11;
+	CONNECT_FAIL = 11;
+	TIME = 12;
+	GET_TICK = 13;
 }
 
 message Data
@@ -28,19 +30,53 @@ message Data
 	repeated Obtacle obtacle = 5;
 }
 
+message Times
+{
+	int64 time = 1;
+}
+
+message Move
+{
+	int64 id = 1;
+	int64 time = 2;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
+	int32 direction = 5;
+}
+
+message MoveData
+{
+	int64 time = 1;
+	repeated Move move = 2;
+}
+
 message Obtacle
 {
 	int64 id = 1;
 	int32 shape = 2;
-	float x = 3;
-	float y = 4;
-	float z = 5;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
+	float speed = 5;
 }
 
 message Player
 {
 	int64 id = 1;
-	float x = 2;
-	float y = 3;
-	float z = 4;
+	optional Vector position = 2;
+	optional Vector rotation = 3;
+}
+
+message PlayerCrash
+{
+	int64 id = 1;
+	Vector position = 2;
+	Vector rotation = 3;
+	Player enemy = 4;
+}
+
+message Vector
+{
+	float x = 1;
+	float y = 2;
+	float z = 3;
 }

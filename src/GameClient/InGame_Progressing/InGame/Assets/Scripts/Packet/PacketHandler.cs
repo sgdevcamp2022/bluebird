@@ -33,7 +33,7 @@ public class PacketHandler
         foreach (Player player in data.Player)
         {
             //Player Spawn
-            if (Managers.Object.MyPlayer.id == player.Id)
+            if (Managers.Object.MyPlayer.playerId == player.Id)
                 continue;
             Managers.Object.AddPlayer(player.Id, player);
             UnityEngine.Debug.Log(player.Id + " Inside");
