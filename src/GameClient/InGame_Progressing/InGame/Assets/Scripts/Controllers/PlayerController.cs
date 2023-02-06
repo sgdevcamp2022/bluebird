@@ -10,12 +10,15 @@ public class PlayerController : MonoBehaviour
     public Int64 id { get; set; }
     [SerializeField]
     public float speed = 10.0f;
-    protected float h, v;
+
+    protected Vector3 moveVec;
 
     protected Vector3 prevVec;
 
     protected Animator _animator;
-    protected Rigidbody _rigidbody;
+    // protected Rigidbody _rigidbody;
+
+    private CharacterController characterController;
 
 
     [SerializeField]
@@ -67,9 +70,10 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Init()
     {
-      
-        _rigidbody = GetComponent<Rigidbody>();
+        
+        characterController = GetComponent<CharacterController>();
         prevVec = transform.position;
+        
     }
 
     protected virtual void UpdateController()
@@ -122,7 +126,11 @@ public class PlayerController : MonoBehaviour
        
     }
 
-  
+    protected void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
 
 
 

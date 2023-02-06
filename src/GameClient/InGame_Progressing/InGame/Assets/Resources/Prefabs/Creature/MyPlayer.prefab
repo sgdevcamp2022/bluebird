@@ -145,4 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   _state: 0
-  serverCommunication: 1
+  serverCommunication: 0

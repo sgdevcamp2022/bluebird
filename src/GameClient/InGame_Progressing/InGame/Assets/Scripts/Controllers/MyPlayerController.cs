@@ -8,14 +8,20 @@ using static Define;
 public class MyPlayerController : PlayerController
 {
 
+    CameraController cameracontroller;
     public  bool serverCommunication = false;
 
-
+    [SerializeField]
+    private Transform cameraTransform;
 
     protected override void Init()
     {
-        base.Init();
         
+        base.Init();
+        cameraTransform = Camera.main.gameObject.transform;
+        cameracontroller = CameraController.Instance;
+        Debug.Log(cameracontroller);
+
     }
 
     protected override void UpdateController()
@@ -34,17 +40,21 @@ public class MyPlayerController : PlayerController
 
     void GetInput()
     {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
+
+        //Debug.Log(cameracontroller.pov.m_HorizontalAxis.Value);
+        //float h = cameracontroller.pov.m_HorizontalAxis.Value;
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        // float v = Input.GetAxis("vertical");
+        moveVec = new Vector3(h, 0f, v);
 
     }
 
 
     protected override void UpdateIdle()
     {
-        if (h != 0 || v != 0)
+        if (moveVec.x != 0 || moveVec.z != 0)
         {
-
             State = PlayerState.Moving;
             return;
         }
@@ -61,9 +71,9 @@ public class MyPlayerController : PlayerController
             prevVec = transform.position;
 
 
-            Vector3 moveVec = new Vector3(h, 0, v);
-            moveVec = transform.position + (moveVec * speed * Time.deltaTime);
-            //moveVec += transform.position * speed * Time.deltaTime;
+        
+            //moveVec = transform.position + (moveVec * speed * Time.deltaTime);
+
 
 
 
@@ -101,14 +111,17 @@ public class MyPlayerController : PlayerController
             PlayerState prevState = State;
             prevVec = transform.position;
 
-            if (h == 0 && v == 0)
+            if (moveVec.x == 0 && moveVec.z == 0) 
             {
                 State = PlayerState.Idle;
                 return;
             }
 
-            Vector3 moveVec = new Vector3(h, 0, v);
-            transform.position += moveVec * speed * Time.deltaTime;
+           Vector3 movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveVec;
+            movementDirection.Normalize();
+            
+            transform.position += movementDirection * speed * Time.deltaTime;   
+           
 
             if (prevState != State || prevVec != transform.position)
             {
@@ -126,4 +139,6 @@ public class MyPlayerController : PlayerController
             }
         }
     }
+
+  
 }
