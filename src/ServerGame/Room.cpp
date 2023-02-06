@@ -139,7 +139,7 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 		GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
 		GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
 	}
-
+	
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 }
 
