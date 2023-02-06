@@ -22,11 +22,12 @@ public class ObstacleController : MonoBehaviour
         get { return position; }
         set { position = value; }
     }
-    //public Vector RotInfo
-    //{
-    //    get { return rotation; }
-    //    set { rotation = value; }
-    //}
+    public Vector RotInfo 
+    { 
+        get {  return rotation; }
+        set { rotation = value; }
+    }
+
     public bool PacketRecv
     {
         get { return isRecv; }

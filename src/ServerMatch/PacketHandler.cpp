@@ -31,6 +31,8 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
     player->playerId = pkt.id();
     player->mapLevel = pkt.level();
 
+    cout << pkt.id() << " " << pkt.level() << endl;
+
     GMatch->DoAsync(&MatchManager::MatchEnter, _ref, std::move(pkt), player, pkt.level());
 }
 
