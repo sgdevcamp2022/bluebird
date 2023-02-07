@@ -59,9 +59,28 @@ public class ObstacleController : MonoBehaviour
         }
 
     }
-    void Update()
+    void FixedUpdate()
     {
         UpdateController();
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        OnTriggerEnterController(other);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        OnTriggerExitController(other);
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        OnTriggerStayController(other);
+    }
+
     protected virtual void UpdateController() { }
+    protected virtual void OnTriggerEnterController(Collider other) { }
+    protected virtual void OnTriggerExitController(Collider other) { }
+    protected virtual void OnTriggerStayController(Collider other) { }
 }

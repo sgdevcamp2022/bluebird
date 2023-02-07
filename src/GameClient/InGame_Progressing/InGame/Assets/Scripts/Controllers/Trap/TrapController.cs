@@ -26,6 +26,7 @@ public class TrapController : ObstacleController
             {
                 goPositive = true;
             }
+            transform.position = pos;
             PacketRecv = false;
         }
         else
