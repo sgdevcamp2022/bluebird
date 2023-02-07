@@ -38,13 +38,14 @@ private:
 
 class Obtacle : public GameObject {
 public:
-	Obtacle(int64 id, int32 shape, int32 room, Vector3 position = Vector3{ 0,0,0 }, Vector3 rotation = Vector3{ 0,0,0 }, float speed = 10.0f)
-		: _shape(shape), GameObject(id, room, position, rotation, speed) {}
+	Obtacle(int64 id, int32 shape, int32 room, Vector3 position = Vector3{ 0,0,0 }, Vector3 rotation = Vector3{ 0,0,0 }, float speed = 10.0f, int32 direction = 0)
+		: _shape(shape), _direction(direction), GameObject(id, room, position, rotation, speed) {}
 
 	virtual bool	Move(Vector3&& position, Vector3&& rotation);
 	void			SetShape(int32 shape) { _shape = shape; }
 	int32			GetShape() { return _shape; }
-
+	int32			GetDirection() { return _direction; }
 private:
 	int32 _shape;
+	int32 _direction;
 };

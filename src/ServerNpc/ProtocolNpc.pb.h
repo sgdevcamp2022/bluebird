@@ -379,7 +379,6 @@ class GameData final :
     kIdFieldNumber = 2,
     kMatchRoomFieldNumber = 1,
     kShapeFieldNumber = 3,
-    kDirectionFieldNumber = 6,
   };
   // optional .Npc.Vector3 position = 4;
   bool has_position() const;
@@ -444,15 +443,6 @@ class GameData final :
   void _internal_set_shape(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 direction = 6;
-  void clear_direction();
-  ::PROTOBUF_NAMESPACE_ID::int32 direction() const;
-  void set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_direction() const;
-  void _internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:Npc.GameData)
  private:
   class _Internal;
@@ -467,7 +457,6 @@ class GameData final :
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 matchroom_;
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
-  ::PROTOBUF_NAMESPACE_ID::int32 direction_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1148,26 +1137,6 @@ inline void GameData::set_allocated_rotation(::Npc::Vector3* rotation) {
   }
   rotation_ = rotation;
   // @@protoc_insertion_point(field_set_allocated:Npc.GameData.rotation)
-}
-
-// int32 direction = 6;
-inline void GameData::clear_direction() {
-  direction_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::_internal_direction() const {
-  return direction_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 GameData::direction() const {
-  // @@protoc_insertion_point(field_get:Npc.GameData.direction)
-  return _internal_direction();
-}
-inline void GameData::_internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  direction_ = value;
-}
-inline void GameData::set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_direction(value);
-  // @@protoc_insertion_point(field_set:Npc.GameData.direction)
 }
 
 // -------------------------------------------------------------------
