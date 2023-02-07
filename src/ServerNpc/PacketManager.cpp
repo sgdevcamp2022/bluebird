@@ -25,6 +25,7 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
         obsData->mutable_rotation()->set_y(loginData.obstacle[i].rotationY);
         obsData->mutable_rotation()->set_z(loginData.obstacle[i].rotationZ);
         obsData->set_speed(loginData.obstacle[i].speed);
+        obsData->set_direction(loginData.obstacle[i].direction);
     }
 
     bufSize = headerSize + npcLoginData.ByteSizeLong();
@@ -53,7 +54,6 @@ char* PacketManager::MakeGamePacket(GameData gameData)
     npcGameData.mutable_rotation()->set_x(gameData.obstacle.rotationX);
     npcGameData.mutable_rotation()->set_y(gameData.obstacle.rotationY);
     npcGameData.mutable_rotation()->set_z(gameData.obstacle.rotationZ);
-    npcGameData.set_speed(gameData.obstacle.speed);
 
     bufSize = headerSize + npcGameData.ByteSizeLong();
 

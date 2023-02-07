@@ -17,6 +17,7 @@ enum INGAME
 	CONNECT_FAIL = 11;
 	TIME = 12;
 	GET_TICK = 13;
+	PLAYER_GOAL = 14;
 }
 
 message GameCompleteData

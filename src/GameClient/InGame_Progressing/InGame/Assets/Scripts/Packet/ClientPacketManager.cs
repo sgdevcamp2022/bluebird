@@ -43,6 +43,9 @@ class PacketManager
         handler.Add((ushort)INGAME.ConnectFail, PacketHandler.CnnectFail);
         recv.Add((ushort)INGAME.GameComplte, MakePacket<GameCompleteData>);
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
+        recv.Add((ushort)INGAME.PlayerGoal, MakePacket<GameCompleteData>);
+        handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
+        
     }
 
     public void OnReceievePacket(byte[] buffer, Pkt_Head head)

@@ -101,4 +101,9 @@ public class PacketHandler
             UnityEngine.Debug.Log("Fail");
         }
     }
+    public static void PlayerGoal(IMessage packet)
+    {
+        GameCompleteData data = packet as GameCompleteData;
+        // TODO
+    }
 }

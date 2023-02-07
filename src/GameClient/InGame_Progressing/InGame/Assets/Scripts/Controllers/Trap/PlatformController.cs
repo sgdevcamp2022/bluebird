@@ -14,11 +14,11 @@ public class PlatformController : ObstacleController
     {
         Vector3 pos = new Vector3(PosInfo.X, PosInfo.Y, PosInfo.Z);
         //Vector3 moveTo = direction;
-        
+
 
         if (PacketRecv)
         {
-            if(prevPos.x < pos.x || prevPos.y < pos.y || prevPos.z < pos.z)
+            if (prevPos.x < pos.x || prevPos.y < pos.y || prevPos.z < pos.z)
             {
                 goPositive = false;
             }
@@ -26,6 +26,7 @@ public class PlatformController : ObstacleController
             {
                 goPositive = true;
             }
+            transform.position = pos;
             PacketRecv = false;
         }
         else
@@ -53,5 +54,49 @@ public class PlatformController : ObstacleController
         //{
         //    transform.position += moveDir.normalized * speed * Time.deltaTime;
         //}
+    }
+
+    protected override void OnTriggerEnterController(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+        }
+    }
+
+    protected override void OnTriggerExitController(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+        }
+    }
+
+    protected override void OnTriggerStayController(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+            if (goPositive)
+            {
+                other.transform.position += direction * speed * Time.deltaTime;
+            }
+            else
+            {
+                other.transform.position -= direction * speed * Time.deltaTime;
+            }
+
+            PlayerController pc = other.GetComponent<PlayerController>();
+            Move playerMove = new Move()
+            {
+                Id = pc.playerId,
+                Position = new Vector { X = other.transform.position.x, Y = other.transform.position.y, Z = other.transform.position.z },
+                Rotation = new Vector { X = other.transform.rotation.x, Y = other.transform.rotation.y, Z = other.transform.rotation.z },
+
+            };
+
+            Managers.Network.Send(playerMove, INGAME.PlayerMove);
+        }
+
     }
 }

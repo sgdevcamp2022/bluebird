@@ -156,6 +156,12 @@ void Room::PlayerGoal(Protocol::Player data)
 		//TODO 넘기는 작업 필요
 		GameEnd();
 	}
+	else {
+		Protocol::GameCompleteData player;
+		player.set_id(data.id());
+		player.set_success(true);
+		Broadcast(GameHandler::MakeSendBuffer(player, Protocol::PLAYER_GOAL));
+	}
 }
 
 void Room::TimeSync()
