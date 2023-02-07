@@ -50,8 +50,7 @@ constexpr Move::Move(
   : position_(nullptr)
   , rotation_(nullptr)
   , id_(int64_t{0})
-  , time_(int64_t{0})
-  , direction_(0){}
+  , time_(int64_t{0}){}
 struct MoveDefaultTypeInternal {
   constexpr MoveDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -80,7 +79,8 @@ constexpr Obtacle::Obtacle(
   , rotation_(nullptr)
   , id_(int64_t{0})
   , shape_(0)
-  , speed_(0){}
+  , speed_(0)
+  , direction_(0){}
 struct ObtacleDefaultTypeInternal {
   constexpr ObtacleDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -164,12 +164,10 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, time_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, rotation_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Move, direction_),
   ~0u,
   ~0u,
   0,
   1,
-  ~0u,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -187,10 +185,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::Protocol::Obtacle, position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Obtacle, rotation_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Obtacle, speed_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Obtacle, direction_),
   ~0u,
   ~0u,
   0,
   1,
+  ~0u,
   ~0u,
   PROTOBUF_FIELD_OFFSET(::Protocol::Player, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Player, _internal_metadata_),
@@ -224,9 +224,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Protocol::Data)},
   { 10, -1, sizeof(::Protocol::Times)},
-  { 16, 26, sizeof(::Protocol::Move)},
-  { 31, -1, sizeof(::Protocol::MoveData)},
-  { 38, 48, sizeof(::Protocol::Obtacle)},
+  { 16, 25, sizeof(::Protocol::Move)},
+  { 29, -1, sizeof(::Protocol::MoveData)},
+  { 36, 47, sizeof(::Protocol::Obtacle)},
   { 53, 61, sizeof(::Protocol::Player)},
   { 64, -1, sizeof(::Protocol::PlayerCrash)},
   { 73, -1, sizeof(::Protocol::Vector)},
@@ -248,16 +248,16 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "\022\n\n\002id\030\001 \001(\003\022\020\n\010mapLevel\030\002 \001(\005\022\021\n\tmatchR"
   "oom\030\003 \001(\005\022 \n\006player\030\004 \003(\0132\020.Protocol.Pla"
   "yer\022\"\n\007obtacle\030\005 \003(\0132\021.Protocol.Obtacle\""
-  "\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\237\001\n\004Move\022\n\n\002id\030\001 "
+  "\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\214\001\n\004Move\022\n\n\002id\030\001 "
   "\001(\003\022\014\n\004time\030\002 \001(\003\022\'\n\010position\030\003 \001(\0132\020.Pr"
   "otocol.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.P"
-  "rotocol.VectorH\001\210\001\001\022\021\n\tdirection\030\005 \001(\005B\013"
-  "\n\t_positionB\013\n\t_rotation\"6\n\010MoveData\022\014\n\004"
-  "time\030\001 \001(\003\022\034\n\004move\030\002 \003(\0132\016.Protocol.Move"
-  "\"\237\001\n\007Obtacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022"
-  "\'\n\010position\030\003 \001(\0132\020.Protocol.VectorH\000\210\001\001"
-  "\022\'\n\010rotation\030\004 \001(\0132\020.Protocol.VectorH\001\210\001"
-  "\001\022\r\n\005speed\030\005 \001(\002B\013\n\t_positionB\013\n\t_rotati"
+  "rotocol.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_rot"
+  "ation\"6\n\010MoveData\022\014\n\004time\030\001 \001(\003\022\034\n\004move\030"
+  "\002 \003(\0132\016.Protocol.Move\"\262\001\n\007Obtacle\022\n\n\002id\030"
+  "\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022\'\n\010position\030\003 \001(\0132\020"
+  ".Protocol.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132"
+  "\020.Protocol.VectorH\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n"
+  "\tdirection\030\006 \001(\005B\013\n\t_positionB\013\n\t_rotati"
   "on\"\200\001\n\006Player\022\n\n\002id\030\001 \001(\003\022\'\n\010position\030\002 "
   "\001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010rotation\030\003"
   " \001(\0132\020.Protocol.VectorH\001\210\001\001B\013\n\t_position"
@@ -860,16 +860,16 @@ Move::Move(const Move& from)
     rotation_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&direction_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(direction_));
+    static_cast<size_t>(reinterpret_cast<char*>(&time_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(time_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Move)
 }
 
 void Move::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&direction_) -
-    reinterpret_cast<char*>(&position_)) + sizeof(direction_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&time_) -
+    reinterpret_cast<char*>(&position_)) + sizeof(time_));
 }
 
 Move::~Move() {
@@ -912,8 +912,8 @@ void Move::Clear() {
     }
   }
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&direction_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(direction_));
+      reinterpret_cast<char*>(&time_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(time_));
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -950,13 +950,6 @@ const char* Move::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 direction = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          direction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1018,12 +1011,6 @@ failure:
         4, _Internal::rotation(this), target, stream);
   }
 
-  // int32 direction = 5;
-  if (this->direction() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_direction(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1069,13 +1056,6 @@ size_t Move::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
         this->_internal_time());
-  }
-
-  // int32 direction = 5;
-  if (this->direction() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_direction());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1124,9 +1104,6 @@ void Move::MergeFrom(const Move& from) {
   if (from.time() != 0) {
     _internal_set_time(from._internal_time());
   }
-  if (from.direction() != 0) {
-    _internal_set_direction(from._internal_direction());
-  }
 }
 
 void Move::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1152,8 +1129,8 @@ void Move::InternalSwap(Move* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Move, direction_)
-      + sizeof(Move::direction_)
+      PROTOBUF_FIELD_OFFSET(Move, time_)
+      + sizeof(Move::time_)
       - PROTOBUF_FIELD_OFFSET(Move, position_)>(
           reinterpret_cast<char*>(&position_),
           reinterpret_cast<char*>(&other->position_));
@@ -1431,16 +1408,16 @@ Obtacle::Obtacle(const Obtacle& from)
     rotation_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(speed_));
+    static_cast<size_t>(reinterpret_cast<char*>(&direction_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(direction_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Obtacle)
 }
 
 void Obtacle::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
-    reinterpret_cast<char*>(&position_)) + sizeof(speed_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&direction_) -
+    reinterpret_cast<char*>(&position_)) + sizeof(direction_));
 }
 
 Obtacle::~Obtacle() {
@@ -1483,8 +1460,8 @@ void Obtacle::Clear() {
     }
   }
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&speed_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(speed_));
+      reinterpret_cast<char*>(&direction_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(direction_));
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1529,6 +1506,13 @@ const char* Obtacle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
           speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 direction = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          direction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -1595,6 +1579,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_speed(), target);
   }
 
+  // int32 direction = 6;
+  if (this->direction() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_direction(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1647,6 +1637,13 @@ size_t Obtacle::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
+  // int32 direction = 6;
+  if (this->direction() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_direction());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -1696,6 +1693,9 @@ void Obtacle::MergeFrom(const Obtacle& from) {
   if (!(from.speed() <= 0 && from.speed() >= 0)) {
     _internal_set_speed(from._internal_speed());
   }
+  if (from.direction() != 0) {
+    _internal_set_direction(from._internal_direction());
+  }
 }
 
 void Obtacle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1721,8 +1721,8 @@ void Obtacle::InternalSwap(Obtacle* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Obtacle, speed_)
-      + sizeof(Obtacle::speed_)
+      PROTOBUF_FIELD_OFFSET(Obtacle, direction_)
+      + sizeof(Obtacle::direction_)
       - PROTOBUF_FIELD_OFFSET(Obtacle, position_)>(
           reinterpret_cast<char*>(&position_),
           reinterpret_cast<char*>(&other->position_));

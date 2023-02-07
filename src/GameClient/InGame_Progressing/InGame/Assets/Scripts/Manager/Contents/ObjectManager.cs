@@ -120,6 +120,8 @@ public class ObjectManager
                 pc.PosInfo = obtacle.Position;
                 pc.RotInfo = obtacle.Rotation;
                 pc.speed = obtacle.Speed;
+                pc.direct = obtacle.Direction;
+
                 shapes.Add(id, pc);
                 break;
             case 2:
@@ -133,6 +135,8 @@ public class ObjectManager
                 rc.PosInfo = obtacle.Position;
                 rc.RotInfo = obtacle.Rotation;
                 rc.speed = obtacle.Speed;
+                rc.direct = obtacle.Direction;
+
                 shapes.Add(id, rc);
                 break;
             default:

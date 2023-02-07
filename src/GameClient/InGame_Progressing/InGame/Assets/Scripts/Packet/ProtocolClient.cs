@@ -28,14 +28,14 @@ namespace Google.Protobuf.Protocol {
             "ZBgBIAEoAxIQCghtYXBMZXZlbBgCIAEoBRIRCgltYXRjaFJvb20YAyABKAUS",
             "IAoGcGxheWVyGAQgAygLMhAuUHJvdG9jb2wuUGxheWVyEiIKB29idGFjbGUY",
             "BSADKAsyES5Qcm90b2NvbC5PYnRhY2xlIhUKBVRpbWVzEgwKBHRpbWUYASAB",
-            "KAMinwEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
+            "KAMijAEKBE1vdmUSCgoCaWQYASABKAMSDAoEdGltZRgCIAEoAxInCghwb3Np",
             "dGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9u",
-            "GAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQESEQoJZGlyZWN0aW9uGAUg",
-            "ASgFQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24iNgoITW92ZURhdGESDAoE",
-            "dGltZRgBIAEoAxIcCgRtb3ZlGAIgAygLMg4uUHJvdG9jb2wuTW92ZSKfAQoH",
-            "T2J0YWNsZRIKCgJpZBgBIAEoAxINCgVzaGFwZRgCIAEoBRInCghwb3NpdGlv",
-            "bhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9uGAQg",
-            "ASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQESDQoFc3BlZWQYBSABKAJCCwoJ",
+            "GAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFCCwoJX3Bvc2l0aW9uQgsK",
+            "CV9yb3RhdGlvbiI2CghNb3ZlRGF0YRIMCgR0aW1lGAEgASgDEhwKBG1vdmUY",
+            "AiADKAsyDi5Qcm90b2NvbC5Nb3ZlIrIBCgdPYnRhY2xlEgoKAmlkGAEgASgD",
+            "Eg0KBXNoYXBlGAIgASgFEicKCHBvc2l0aW9uGAMgASgLMhAuUHJvdG9jb2wu",
+            "VmVjdG9ySACIAQESJwoIcm90YXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0",
+            "b3JIAYgBARINCgVzcGVlZBgFIAEoAhIRCglkaXJlY3Rpb24YBiABKAVCCwoJ",
             "X3Bvc2l0aW9uQgsKCV9yb3RhdGlvbiKAAQoGUGxheWVyEgoKAmlkGAEgASgD",
             "EicKCHBvc2l0aW9uGAIgASgLMhAuUHJvdG9jb2wuVmVjdG9ySACIAQESJwoI",
             "cm90YXRpb24YAyABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAYgBAUILCglfcG9z",
@@ -55,9 +55,9 @@ namespace Google.Protobuf.Protocol {
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Data), global::Google.Protobuf.Protocol.Data.Parser, new[]{ "Id", "MapLevel", "MatchRoom", "Player", "Obtacle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Times), global::Google.Protobuf.Protocol.Times.Parser, new[]{ "Time" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Position", "Rotation", "Direction" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.MoveData), global::Google.Protobuf.Protocol.MoveData.Parser, new[]{ "Time", "Move" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation", "Speed" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation", "Speed", "Direction" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Player), global::Google.Protobuf.Protocol.Player.Parser, new[]{ "Id", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PlayerCrash), global::Google.Protobuf.Protocol.PlayerCrash.Parser, new[]{ "Id", "Position", "Rotation", "Enemy" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Vector), global::Google.Protobuf.Protocol.Vector.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
@@ -586,7 +586,6 @@ namespace Google.Protobuf.Protocol {
       time_ = other.time_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
-      direction_ = other.direction_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -639,17 +638,6 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
-    /// <summary>Field number for the "direction" field.</summary>
-    public const int DirectionFieldNumber = 5;
-    private int direction_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Direction {
-      get { return direction_; }
-      set {
-        direction_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Move);
@@ -667,7 +655,6 @@ namespace Google.Protobuf.Protocol {
       if (Time != other.Time) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
-      if (Direction != other.Direction) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -678,7 +665,6 @@ namespace Google.Protobuf.Protocol {
       if (Time != 0L) hash ^= Time.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
-      if (Direction != 0) hash ^= Direction.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -711,10 +697,6 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(34);
         output.WriteMessage(Rotation);
       }
-      if (Direction != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Direction);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -740,10 +722,6 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(34);
         output.WriteMessage(Rotation);
       }
-      if (Direction != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Direction);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -764,9 +742,6 @@ namespace Google.Protobuf.Protocol {
       }
       if (rotation_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
-      }
-      if (Direction != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Direction);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -796,9 +771,6 @@ namespace Google.Protobuf.Protocol {
           Rotation = new global::Google.Protobuf.Protocol.Vector();
         }
         Rotation.MergeFrom(other.Rotation);
-      }
-      if (other.Direction != 0) {
-        Direction = other.Direction;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -836,10 +808,6 @@ namespace Google.Protobuf.Protocol {
             input.ReadMessage(Rotation);
             break;
           }
-          case 40: {
-            Direction = input.ReadInt32();
-            break;
-          }
         }
       }
     #endif
@@ -874,10 +842,6 @@ namespace Google.Protobuf.Protocol {
               Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Rotation);
-            break;
-          }
-          case 40: {
-            Direction = input.ReadInt32();
             break;
           }
         }
@@ -1118,6 +1082,7 @@ namespace Google.Protobuf.Protocol {
       position_ = other.position_ != null ? other.position_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
       speed_ = other.speed_;
+      direction_ = other.direction_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1181,6 +1146,17 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
+    /// <summary>Field number for the "direction" field.</summary>
+    public const int DirectionFieldNumber = 6;
+    private int direction_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Direction {
+      get { return direction_; }
+      set {
+        direction_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Obtacle);
@@ -1199,6 +1175,7 @@ namespace Google.Protobuf.Protocol {
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+      if (Direction != other.Direction) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1210,6 +1187,7 @@ namespace Google.Protobuf.Protocol {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
       if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+      if (Direction != 0) hash ^= Direction.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1246,6 +1224,10 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(45);
         output.WriteFloat(Speed);
       }
+      if (Direction != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Direction);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1275,6 +1257,10 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(45);
         output.WriteFloat(Speed);
       }
+      if (Direction != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Direction);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1298,6 +1284,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (Speed != 0F) {
         size += 1 + 4;
+      }
+      if (Direction != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Direction);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1330,6 +1319,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.Speed != 0F) {
         Speed = other.Speed;
+      }
+      if (other.Direction != 0) {
+        Direction = other.Direction;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1371,6 +1363,10 @@ namespace Google.Protobuf.Protocol {
             Speed = input.ReadFloat();
             break;
           }
+          case 48: {
+            Direction = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -1409,6 +1405,10 @@ namespace Google.Protobuf.Protocol {
           }
           case 45: {
             Speed = input.ReadFloat();
+            break;
+          }
+          case 48: {
+            Direction = input.ReadInt32();
             break;
           }
         }

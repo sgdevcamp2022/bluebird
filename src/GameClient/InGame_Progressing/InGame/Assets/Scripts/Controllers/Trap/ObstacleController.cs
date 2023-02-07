@@ -12,6 +12,7 @@ public class ObstacleController : MonoBehaviour
     Rigidbody rigidbody;
 
     public float speed;
+    public Int32 direct;
     protected Vector3 direction;
     Vector position = new Vector();
     Vector rotation = new Vector();
