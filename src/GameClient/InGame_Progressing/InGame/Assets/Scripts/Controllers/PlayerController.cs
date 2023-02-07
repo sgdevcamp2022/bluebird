@@ -7,15 +7,22 @@ using static Define;
 
 public class PlayerController : MonoBehaviour
 {
-    public Int64 id { get; set; }
+    public Int64 playerId { get; set; }
     [SerializeField]
     public float speed = 10.0f;
-    protected float h, v;
+    public float jumpPower = 5.0f;
 
+    protected Vector3 moveVec;
     protected Vector3 prevVec;
 
+    protected bool isJumping = false;
+
     protected Animator _animator;
-    protected Rigidbody _rigidbody;
+    // protected Rigidbody _rigidbody;
+
+    protected Rigidbody rigid;
+
+    
 
 
     [SerializeField]
@@ -67,9 +74,10 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Init()
     {
-      
-        _rigidbody = GetComponent<Rigidbody>();
+
+        rigid = GetComponent<Rigidbody>();
         prevVec = transform.position;
+        
     }
 
     protected virtual void UpdateController()
@@ -89,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateIdle()
     {
-        if (playerInfo.Position.X != 0 || playerInfo.Position.Z != 0)
+        if (playerInfo.Position.X != 0 || playerInfo.Position.Y != 0 || playerInfo.Position.Z != 0)
         {
             
             State = PlayerState.Moving;
@@ -102,7 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x && playerInfo.Position.Z == prevVec.z)
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z)
         {
             State = PlayerState.Idle;
             return;
@@ -122,7 +130,39 @@ public class PlayerController : MonoBehaviour
        
     }
 
-  
+    protected void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    protected void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Victory Ground"))
+        {
+            isJumping = false;
+            Data pkt = new Data()
+            {
+                Id = playerId,
+                MapLevel = 2,
+                MatchRoom = 0,
+                Player = { new Player
+                {   Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                    Rotation = new Vector { X = transform.rotation.x, Y = transform.rotation.y, Z = transform.rotation.z }}
+                },
+            };
+
+            Managers.Network.Send(pkt, INGAME.GameComplte);
+            Debug.Log("GameComplete Packet Sent");
+        }
+
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+    }
+
+
+
 
 
 

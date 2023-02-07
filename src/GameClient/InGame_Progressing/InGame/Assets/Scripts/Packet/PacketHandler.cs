@@ -33,7 +33,7 @@ public class PacketHandler
         foreach (Player player in data.Player)
         {
             //Player Spawn
-            if (Managers.Object.MyPlayer.id == player.Id)
+            if (Managers.Object.MyPlayer.playerId == player.Id)
                 continue;
             Managers.Object.AddPlayer(player.Id, player);
             UnityEngine.Debug.Log(player.Id + " Inside");
@@ -51,6 +51,7 @@ public class PacketHandler
     {
         Player data = packet as Player;
         Managers.Object.AddMyPlayer(data.Id, data);
+ 
         //Managers.Object.AddMyCamera(data.Id, data);
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);

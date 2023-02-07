@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Cinemachine;
 
 
 /*
@@ -13,6 +14,7 @@ using UnityEngine;
 public class ObjectManager
 {
     public MyPlayerController MyPlayer { get;  set; }
+    public CameraController cameraController { get; set; }
     static ObjectManager _instance = new ObjectManager();
     public static ObjectManager Instance { get { return _instance; } }
 
@@ -33,31 +35,54 @@ public class ObjectManager
        // Debug.Log(players.Count);
 
         PlayerController pc = go.GetComponent<PlayerController>();
-        pc.id = id;
+        pc.playerId = id;
         pc.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
     }
     public void AddMyPlayer(Int64 id, Player player)
     {
         GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
-        go.name = "MyPlayer" + player.Id;
+        go.name = "MyPlayer" + id;
      
 
         players.Add(player.Id, go);
 
         MyPlayer = go.GetComponent<MyPlayerController>();
-        MyPlayer.id = player.Id;
+        MyPlayer.playerId = player.Id;
         MyPlayer.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
+
+        FindCamera(id, player);
+
+        
     }
 
+    public void FindCamera(Int64 id, Player player)
+    {
+        GameObject go = GameObject.Find("Virtual Camera");
+
+        if (go == null)
+            return;
+
+        cameraController = go.GetComponent<CameraController>();
+        cameraController.SetFollowTarget(players[player.Id]);
+        
+
+    }
+    /*
     public void AddMyCamera(Int64 id, Player player)
     {
         GameObject go = Managers.Resource.Instantiate("Camera/MyCamera");
         go.name = "MyCamera" + player.Id;
 
+        CameraController cc = go.GetComponent<CameraController>();
+        Debug.Log(players[player.Id]);
+        cc.SetFollowTarget(players[player.Id]);
+        
+
         Debug.Log("My virtual Camera Created");
     }
+    */
 
 
     public void RemovePlayer(Int64 id)
