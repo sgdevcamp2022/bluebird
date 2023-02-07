@@ -14,11 +14,12 @@ public:
 
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);
-	void PlayerCrash(Protocol::PlayerCrash data);
-
-	void ComplteGame(Protocol::Player);
+	//void PlayerCrash(Protocol::PlayerCrash data);
+	void PlayerGoal(Protocol::Player data);
 	void TimeSync();
+
 	void Broadcast(SendBufferRef ref);
+	void GameEnd();
 
 	bool IsPlayer(int64 id);
 public:

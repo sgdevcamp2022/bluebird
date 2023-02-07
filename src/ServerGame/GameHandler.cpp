@@ -20,7 +20,7 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
         HNoMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::GAME_COMPLTE:
-        HGameComplete(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HGameComplete(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::GAME_DROP:
         HGameDrop(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
@@ -64,14 +64,12 @@ void GameHandler::HNoMove(GameSessionRef& ref, Protocol::Data&& pkt)
 
 }
 
-void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
 {
     if (ref->_mySelf != nullptr) {
-        Protocol::Player point = pkt.player(0);
-
         if (auto room = ref->_room.lock()) {
-            if (room->_start && pkt.id() == point.id())
-                room->DoAsync(&Room::ComplteGame, std::move(point));
+            if (room->_start && pkt.id() == pkt.id())
+                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
         }
     }
 }
@@ -121,4 +119,9 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Times, GameHeader, Protocol::INGAME>(pkt, type);
+}
+
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::GameCompleteData pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::GameCompleteData, GameHeader, Protocol::INGAME>(pkt, type);
 }

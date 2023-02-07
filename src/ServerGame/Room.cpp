@@ -71,7 +71,6 @@ void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
 		ob->set_shape(obta.second->GetShape());
 		ob->set_direction(obta.second->GetDirection());
 
-		cout << "Shape" << ob->shape() << endl;
 		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
 		GameUtils::SetVector3(ob->mutable_rotation(), obta.second->GetRotation());
 	}
@@ -145,14 +144,17 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 }
 
-void Room::ComplteGame(Protocol::Player player)
+void Room::PlayerGoal(Protocol::Player data)
 {
-	_winnerId.push_back(player.id());
+	_winnerId.push_back(data.id());
 	//TODO 확인 작업 필요
-	if (_winner.fetch_add(1) == WINNER1(_playerSize))
+	//if (_winner.fetch_add(1) == WINNER1(_playerSize))
+	_winner.fetch_add(1);
+	if (_winner == GOAL_COUNT)
 	{
 		_start.store(false);
 		//TODO 넘기는 작업 필요
+		GameEnd();
 	}
 }
 
@@ -172,6 +174,19 @@ void Room::Broadcast(SendBufferRef ref)
 	for (auto& _ref : _players) {
 		if(_ref.second->GetOwner() != nullptr)
 			_ref.second->GetOwner()->Send(ref);
+	}
+}
+
+void Room::GameEnd()
+{
+	Protocol::GameCompleteData data;
+	for (auto& _ref : _players) {
+		data.set_id(_ref.first);
+		if (find(_winnerId.begin(), _winnerId.end(), _ref.first) != _winnerId.end())
+			data.set_success(true);
+		else
+			data.set_success(false);
+		_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
 	}
 }
 

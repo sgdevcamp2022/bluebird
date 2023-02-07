@@ -79,12 +79,13 @@ namespace Npc {
 enum INGAME : int {
   LOGIN = 0,
   GAME = 1,
+  START = 2,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = LOGIN;
-constexpr INGAME INGAME_MAX = GAME;
+constexpr INGAME INGAME_MAX = START;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();

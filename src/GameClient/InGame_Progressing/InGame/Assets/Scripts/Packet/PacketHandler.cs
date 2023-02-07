@@ -90,4 +90,15 @@ public class PacketHandler
         else if(data.MatchRoom == -1)
             UnityEngine.Debug.Log("Room Error");
     }
+    public static void GameComplete(IMessage packet)
+    {
+        GameCompleteData data = packet as GameCompleteData;
+        if (data.Success)
+        {
+            UnityEngine.Debug.Log("Success");
+        }else
+        {
+            UnityEngine.Debug.Log("Fail");
+        }
+    }
 }

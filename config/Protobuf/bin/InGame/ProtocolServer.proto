@@ -19,6 +19,12 @@ enum INGAME
 	GET_TICK = 13;
 }
 
+message GameCompleteData
+{
+	int64 id = 1;
+	bool success = 2;
+}
+
 message Data
 {
 	int64 id = 1;

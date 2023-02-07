@@ -160,12 +160,12 @@ const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARI
   "\0132\014.Npc.Vector3H\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n\td"
   "irection\030\006 \001(\005B\013\n\t_positionB\013\n\t_rotation"
   "\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003"
-  " \001(\002*\035\n\006INGAME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001b\006pro"
-  "to3"
+  " \001(\002*(\n\006INGAME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001\022\t\n\005S"
+  "TART\020\002b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 523, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  false, false, 534, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
   &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
@@ -185,6 +185,7 @@ bool INGAME_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;

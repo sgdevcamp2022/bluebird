@@ -5,6 +5,7 @@ enum INGAME
 {
 	LOGIN = 0;
 	GAME = 1;
+	START = 2;
 }
 
 message LoginData
