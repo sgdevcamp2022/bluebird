@@ -19,7 +19,8 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	//테스트 코드
 	if (TEST)
 	{
-		if (!IsRoom(room)) {
+		if (!IsRoom(room)) 
+		{
 			_games[room] = RoomInfo(make_shared<Room>(2, room));
 			session->_room = _games[room]();
 			_games[room]()->GameEnter(session, id);
@@ -27,19 +28,27 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 			DoTimer(5000, &Games::StartGame, room);
 			auto _ref = GetNpcRef();
-			if (_ref != nullptr) {
+			if (_ref != nullptr) 
+			{
 				Npc::LoginData data;
 				data.set_maplevel(2);
 				data.set_matchroom(0);
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 			}
-			/*else {
-				map<int64, ObtacleRef> input;
-				input[0] = make_shared<Obtacle>(0, 0, 0, Vector3{ 5, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
-				input[1] = make_shared<Obtacle>(1, 1, 0, Vector3{ 1, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
-				_games[room]()->ObstacleEnter(&input);
-			}*/
+			else {
+				Npc::LoginData input;
+				input.set_maplevel(2);
+				input.set_matchroom(0);
+				auto ob = input.add_obstacle();
+				ob->set_id(1);
+				ob->set_shape(1);
+				ob->set_speed(10.f);
+				GameUtils::SetVector3(ob->mutable_position(), 1.f, 1.f, 1.f);
+				GameUtils::SetVector3(ob->mutable_rotation(), 1.f, 1.f, 1.f);
+
+				_games[room]()->ObstacleEnter(input);
+			}
 		}
 		else {
 			if (!_games[room])
@@ -95,11 +104,13 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 void Games::StartGame(int32 room)
 {
 	int check;
-	if ((check = _games[room]()->Start()) == -1) {
+	if ((check = _games[room]()->Start()) == -1) 
+	{
 		DoTimer(5000, &Games::StartGame, room);
 		return;
 	}
-	else if(GetNpcRef() != nullptr){
+	else if(GetNpcRef() != nullptr)
+	{
 		Npc::StartData data;
 		data.set_game(true);
 		data.set_room(room);
