@@ -16,4 +16,4 @@ DEL /Q /F *.pb.h
 DEL /Q /F *.pb.cc
 DEL /Q /F *.cs
 
- PAUSE
+IF ERRORLEVEL 1 PAUSE

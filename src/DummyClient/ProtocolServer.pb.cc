@@ -288,18 +288,18 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "\n\002id\030\001 \001(\003\022\"\n\010position\030\002 \001(\0132\020.Protocol."
   "Vector\022\"\n\010rotation\030\003 \001(\0132\020.Protocol.Vect"
   "or\022\037\n\005enemy\030\004 \001(\0132\020.Protocol.Player\")\n\006V"
-  "ector\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\355"
+  "ector\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\374"
   "\001\n\006INGAME\022\013\n\007CONNECT\020\000\022\t\n\005START\020\001\022\t\n\005LEA"
   "VE\020\002\022\017\n\013PLAYER_MOVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004"
   "\022\013\n\007NO_MOVE\020\005\022\020\n\014GAME_COMPLTE\020\006\022\r\n\tGAME_"
   "FAIL\020\007\022\r\n\tGAME_DROP\020\010\022\020\n\014PLAYER_CRASH\020\t\022"
   "\022\n\016OBSTACLE_CRASH\020\n\022\020\n\014CONNECT_FAIL\020\013\022\010\n"
-  "\004TIME\020\014\022\014\n\010GET_TICK\020\r\022\017\n\013PLAYER_GOAL\020\016b\006"
-  "proto3"
+  "\004TIME\020\014\022\014\n\010GET_TICK\020\r\022\017\n\013PLAYER_GOAL\020\016\022\r"
+  "\n\tRECONNECT\020\017b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 1166, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 1181, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 9,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
@@ -332,6 +332,7 @@ bool INGAME_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
       return true;
     default:
       return false;

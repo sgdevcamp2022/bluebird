@@ -251,7 +251,7 @@ namespace ServerCore
 			else
 			{
                 UnityEngine.Debug.Log("else Disconnect");
-                Disconnect();
+                //Disconnect();
 			}
 		}
 

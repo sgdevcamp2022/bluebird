@@ -45,23 +45,9 @@ public class CameraController : MonoBehaviour
         cinemachineFreeLook.m_Orbits[1].m_Radius = 15;
         cinemachineFreeLook.m_Orbits[2].m_Height = 8;
         cinemachineFreeLook.m_Orbits[2].m_Radius = 15;
-
-
-
-
-
-
-
         //transposer.m_FollowOffset = new Vector3(0f, 5f, -12f);
         // pov.m_VerticalAxis.Value = 18.0f;
         //  pov.m_VerticalAxis.m_InputAxisName = null;
-
-
-
-
-
-
-
 
     }
 
@@ -74,11 +60,7 @@ public class CameraController : MonoBehaviour
             cameraInstance = obj.GetComponent<CameraController>();
         }
 
-       
     }
-
-
-
 
     public void SetFollowTarget(GameObject Target)
     {

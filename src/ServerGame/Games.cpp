@@ -7,8 +7,9 @@ shared_ptr<Games> Ggames = make_shared<Games>();
 
 void Games::NewGame(vector<PlayerRef> players, int32 level, int32 room)
 {
-	_games[room] = make_shared<Room>(level, room);
-	_games[room]->MatchEnter(std::move(players));
+	_games[room] = RoomInfo(make_shared<Room>(level, room));
+
+	_games[room]()->MatchEnter(std::move(players));
 }
 
 void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
@@ -19,11 +20,12 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	if (TEST)
 	{
 		if (!IsRoom(room)) {
-			_games[room] = make_shared<Room>(2, room);
-			session->_room = _games[room];
-			_games[room]->GameEnter(session, id);
-			DoTimer(5000, &Games::StartGame, room);
+			_games[room] = RoomInfo(make_shared<Room>(2, room));
+			session->_room = _games[room]();
+			_games[room]()->GameEnter(session, id);
+			_games[room] << id;
 
+			DoTimer(5000, &Games::StartGame, room);
 			auto _ref = GetNpcRef();
 			if (_ref != nullptr) {
 				Npc::LoginData data;
@@ -32,31 +34,56 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 			}
-			else {
+			/*else {
 				map<int64, ObtacleRef> input;
 				input[0] = make_shared<Obtacle>(0, 0, 0, Vector3{ 5, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
 				input[1] = make_shared<Obtacle>(1, 1, 0, Vector3{ 1, 1, 1 }, Vector3{ 0,0,0 }, 10.0f);
-				_games[room]->ObstacleEnter(&input);
+				_games[room]()->ObstacleEnter(&input);
+			}*/
+		}
+		else {
+			if (!_games[room])
+			{
+				if (_games[room] >> id)
+				{
+					session->_room = _games[room]();
+					_games[room]()->DoAsync(&Room::ReConnect, session, id);
+				}
+			}
+			else
+			{
+				if (_games[room]()->IsPlayer(id))
+				{
+					cout << "Player Inside = " << id << " " << room << endl;
+					session->_room = _games[room]();
+					_games[room]()->GameEnter(session, id);
+					_games[room] << id;
+				}
 			}
 		}
-		else {
-			session->_room = _games[room];
-			_games[room]->GameEnter(session, id);
+	}
+	//고쳐보기 맘에 안듬
+	else if (IsRoom(room)) 
+	{
+		if (!_games[room]) 
+		{
+			if (_games[room] >> id) 
+			{
+				_games[room]()->DoAsync(&Room::ReConnect, session, id);
+			}
+		}
+		else 
+		{
+			if (_games[room]()->IsPlayer(id))
+			{
+				cout << "Player Inside = " << id << " " << room << endl;
+				session->_room = _games[room]();
+				_games[room]()->GameEnter(session, id);
+				_games[room] << id;
+			}
 		}
 	}
-	else if (IsRoom(room)) {
-		if (_games[room]->IsPlayer(id)) {
-			cout << "Player Inside = " << id << " " << room << endl;
-			session->_room = _games[room];
-			_games[room]->GameEnter(session, id);
-		}
-		else {
-			Protocol::Data data;
-			data.set_id(-1);
-			data.set_matchroom(room);
-			session->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT_FAIL));
-		}
-	}
+	// 재 접속 코드 넣기
 	else {
 		Protocol::Data data;
 		data.set_id(id);
@@ -68,8 +95,10 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 void Games::StartGame(int32 room)
 {
 	int check;
-	if((check = _games[room]->Start()) == -1)
+	if ((check = _games[room]()->Start()) == -1) {
 		DoTimer(5000, &Games::StartGame, room);
+		return;
+	}
 	else if(GetNpcRef() != nullptr){
 		Npc::StartData data;
 		data.set_game(true);
@@ -77,13 +106,15 @@ void Games::StartGame(int32 room)
 		data.set_size(check);
 		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
 	}
-	else
-		cout << "게임 시작" << endl;
+	cout << "게임 시작" << endl;
+	_games[room] == true;
 	//게임 시작
 }
 
-void Games::EndGame()
+void Games::EndGame(int32 room)
 {
+	_games.erase(room);
+	
 	//TODO
 }
 
