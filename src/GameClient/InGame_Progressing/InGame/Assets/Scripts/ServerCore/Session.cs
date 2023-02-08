@@ -219,6 +219,7 @@ namespace ServerCore
 					// Write 커서 이동
 					if (_recvBuffer.OnWrite(args.BytesTransferred) == false)
 					{
+						UnityEngine.Debug.Log("OnWrite Disconnect");
 						Disconnect();
 						return;
 					}
@@ -227,14 +228,16 @@ namespace ServerCore
 					int processLen = OnRecv(_recvBuffer.ReadSegment);
 					if (processLen < 0 || _recvBuffer.DataSize < processLen)
 					{
-						Disconnect();
+                        UnityEngine.Debug.Log("OnRecv Disconnect");
+                        Disconnect();
 						return;
 					}
 
 					// Read 커서 이동
 					if (_recvBuffer.OnRead(processLen) == false)
 					{
-						Disconnect();
+                        UnityEngine.Debug.Log("OnRead Disconnect");
+                        Disconnect();
 						return;
 					}
 
@@ -247,7 +250,8 @@ namespace ServerCore
 			}
 			else
 			{
-				Disconnect();
+                UnityEngine.Debug.Log("else Disconnect");
+                Disconnect();
 			}
 		}
 

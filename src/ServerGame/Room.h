@@ -10,7 +10,7 @@ public:
 	void GameEnter(GameSessionRef ref, int64 id);
 	void ObstacleEnter(map<int64, ObtacleRef>* obtacles);
 	void Leave(PlayerRef ref);
-	void Start();
+	int Start();
 
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);
