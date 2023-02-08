@@ -31,7 +31,7 @@ public class NetworkManager
 
 	public void Init()
 	{
-        string mIp = "203.241.228.47";
+        string mIp = "127.0.0.1";
         //string mIp = "203.241.228.47";
         IPAddress ipAddress = IPAddress.Parse(mIp);
         IPEndPoint endPoint = new IPEndPoint(ipAddress, 5000);

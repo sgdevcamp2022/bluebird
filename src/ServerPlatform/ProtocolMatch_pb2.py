@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\">\n\x04\x44\x61ta\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\x12\r\n\x05state\x18\x04 \x01(\x08\"5\n\x07Success\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\x10\n\x08gamePort\x18\x03 \x01(\x05*^\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x62\x06proto3'
+  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\"$\n\x07\x43_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x08\x43_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"3\n\x08S_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x08\"2\n\x07S_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"E\n\x07S_Match\x12\x10\n\x08userSize\x18\x01 \x01(\x05\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x12\x0b\n\x03ids\x18\x04 \x03(\x03*^\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x62\x06proto3'
 )
 
 _STATE = _descriptor.EnumDescriptor(
@@ -68,8 +68,8 @@ _STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=202,
-  serialized_end=296,
+  serialized_start=350,
+  serialized_end=444,
 )
 _sym_db.RegisterEnumDescriptor(_STATE)
 
@@ -123,39 +123,25 @@ _HEADER = _descriptor.Descriptor(
 )
 
 
-_DATA = _descriptor.Descriptor(
-  name='Data',
-  full_name='Match.Data',
+_C_LOGIN = _descriptor.Descriptor(
+  name='C_Login',
+  full_name='Match.C_Login',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Match.Data.id', index=0,
+      name='id', full_name='Match.C_Login.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='level', full_name='Match.Data.level', index=1,
+      name='level', full_name='Match.C_Login.level', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='room', full_name='Match.Data.room', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='Match.Data.state', index=3,
-      number=4, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -172,34 +158,34 @@ _DATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=83,
-  serialized_end=145,
+  serialized_end=119,
 )
 
 
-_SUCCESS = _descriptor.Descriptor(
-  name='Success',
-  full_name='Match.Success',
+_C_CANCLE = _descriptor.Descriptor(
+  name='C_Cancle',
+  full_name='Match.C_Cancle',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Match.Success.id', index=0,
+      name='id', full_name='Match.C_Cancle.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='room', full_name='Match.Success.room', index=1,
+      name='level', full_name='Match.C_Cancle.level', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gamePort', full_name='Match.Success.gamePort', index=2,
+      name='room', full_name='Match.C_Cancle.room', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -217,14 +203,162 @@ _SUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=147,
-  serialized_end=200,
+  serialized_start=121,
+  serialized_end=172,
+)
+
+
+_S_CANCLE = _descriptor.Descriptor(
+  name='S_Cancle',
+  full_name='Match.S_Cancle',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='Match.S_Cancle.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='room', full_name='Match.S_Cancle.room', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='Match.S_Cancle.state', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=174,
+  serialized_end=225,
+)
+
+
+_S_LOGIN = _descriptor.Descriptor(
+  name='S_Login',
+  full_name='Match.S_Login',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='Match.S_Login.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='Match.S_Login.level', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='room', full_name='Match.S_Login.room', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=227,
+  serialized_end=277,
+)
+
+
+_S_MATCH = _descriptor.Descriptor(
+  name='S_Match',
+  full_name='Match.S_Match',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userSize', full_name='Match.S_Match.userSize', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='room', full_name='Match.S_Match.room', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='level', full_name='Match.S_Match.level', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ids', full_name='Match.S_Match.ids', index=3,
+      number=4, type=3, cpp_type=2, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=279,
+  serialized_end=348,
 )
 
 _HEADER.fields_by_name['state'].enum_type = _STATE
 DESCRIPTOR.message_types_by_name['Header'] = _HEADER
-DESCRIPTOR.message_types_by_name['Data'] = _DATA
-DESCRIPTOR.message_types_by_name['Success'] = _SUCCESS
+DESCRIPTOR.message_types_by_name['C_Login'] = _C_LOGIN
+DESCRIPTOR.message_types_by_name['C_Cancle'] = _C_CANCLE
+DESCRIPTOR.message_types_by_name['S_Cancle'] = _S_CANCLE
+DESCRIPTOR.message_types_by_name['S_Login'] = _S_LOGIN
+DESCRIPTOR.message_types_by_name['S_Match'] = _S_MATCH
 DESCRIPTOR.enum_types_by_name['STATE'] = _STATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -235,19 +369,40 @@ Header = _reflection.GeneratedProtocolMessageType('Header', (_message.Message,),
   })
 _sym_db.RegisterMessage(Header)
 
-Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
-  'DESCRIPTOR' : _DATA,
+C_Login = _reflection.GeneratedProtocolMessageType('C_Login', (_message.Message,), {
+  'DESCRIPTOR' : _C_LOGIN,
   '__module__' : 'ProtocolMatch_pb2'
-  # @@protoc_insertion_point(class_scope:Match.Data)
+  # @@protoc_insertion_point(class_scope:Match.C_Login)
   })
-_sym_db.RegisterMessage(Data)
+_sym_db.RegisterMessage(C_Login)
 
-Success = _reflection.GeneratedProtocolMessageType('Success', (_message.Message,), {
-  'DESCRIPTOR' : _SUCCESS,
+C_Cancle = _reflection.GeneratedProtocolMessageType('C_Cancle', (_message.Message,), {
+  'DESCRIPTOR' : _C_CANCLE,
   '__module__' : 'ProtocolMatch_pb2'
-  # @@protoc_insertion_point(class_scope:Match.Success)
+  # @@protoc_insertion_point(class_scope:Match.C_Cancle)
   })
-_sym_db.RegisterMessage(Success)
+_sym_db.RegisterMessage(C_Cancle)
+
+S_Cancle = _reflection.GeneratedProtocolMessageType('S_Cancle', (_message.Message,), {
+  'DESCRIPTOR' : _S_CANCLE,
+  '__module__' : 'ProtocolMatch_pb2'
+  # @@protoc_insertion_point(class_scope:Match.S_Cancle)
+  })
+_sym_db.RegisterMessage(S_Cancle)
+
+S_Login = _reflection.GeneratedProtocolMessageType('S_Login', (_message.Message,), {
+  'DESCRIPTOR' : _S_LOGIN,
+  '__module__' : 'ProtocolMatch_pb2'
+  # @@protoc_insertion_point(class_scope:Match.S_Login)
+  })
+_sym_db.RegisterMessage(S_Login)
+
+S_Match = _reflection.GeneratedProtocolMessageType('S_Match', (_message.Message,), {
+  'DESCRIPTOR' : _S_MATCH,
+  '__module__' : 'ProtocolMatch_pb2'
+  # @@protoc_insertion_point(class_scope:Match.S_Match)
+  })
+_sym_db.RegisterMessage(S_Match)
 
 
 # @@protoc_insertion_point(module_scope)

@@ -48,9 +48,6 @@
     <ClCompile Include="ConnectSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="ProtocolConnect.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="Redis.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -85,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="ConnectSession.h">
       <Filter>Session</Filter>
-    </ClInclude>
-    <ClInclude Include="ProtocolConnect.pb.h">
-      <Filter>Protocol</Filter>
     </ClInclude>
     <ClInclude Include="Redis.h">
       <Filter>Utils</Filter>

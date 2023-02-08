@@ -45,9 +45,6 @@
     <ClCompile Include="NpcSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="ProtocolConnect.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="GameHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
@@ -97,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="NpcSession.h">
       <Filter>Session</Filter>
-    </ClInclude>
-    <ClInclude Include="ProtocolConnect.pb.h">
-      <Filter>Protocol</Filter>
     </ClInclude>
     <ClInclude Include="MatchHandler.h">
       <Filter>Handler</Filter>

@@ -23,7 +23,6 @@ using RoomRef			= shared_ptr<class Room>;
 
 #include "ProtocolMatch.pb.h"
 #include "ProtocolServer.pb.h"
-#include "ProtocolConnect.pb.h"
 #include "ProtocolNpc.pb.h"
 
 #include "PacketSession.h"

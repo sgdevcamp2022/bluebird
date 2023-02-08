@@ -16,12 +16,12 @@
 #include <Service.h>
 
 #include "ProtocolMatch.pb.h"
-#include "ProtocolConnect.pb.h"
 #include "PacketSession.h"
 #include "Constant.h"
 
 using PacketSessionRef		= shared_ptr<class PacketSession>;
 using MatchSessionRef		= shared_ptr<class MatchSession>;
+using ConnectSessionRef		= shared_ptr<class ConnectSession>;
 using PlayerRef				= shared_ptr<class Player>;
 using MatchRoomRef			= shared_ptr<class MatchRoom>;
 

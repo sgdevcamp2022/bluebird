@@ -149,9 +149,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ProtocolConnect.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -168,7 +165,6 @@
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="ProtocolConnect.pb.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
     <ClInclude Include="Redis.h" />
   </ItemGroup>

@@ -30,7 +30,7 @@ int main() {
 		MakeShared<IocpCore>(),
 		MakeShared<MatchSession>, 1);
 	ServerServiceRef gameService = MakeShared<ServerService>(
-		NetAddress(L"192.168.0.224", 5000),
+		NetAddress(L"127.0.0.1", 5000),
 		MakeShared<IocpCore>(),
 		MakeShared<GameSession>, 10);
 	ServerServiceRef npcService = MakeShared<ServerService>(

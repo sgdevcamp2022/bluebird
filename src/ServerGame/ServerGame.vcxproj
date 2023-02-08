@@ -150,7 +150,6 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClInclude Include="NpcSession.h" />
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ProtocolConnect.pb.h" />
     <ClInclude Include="ProtocolNpc.pb.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
@@ -170,9 +169,6 @@ CALL $(SolutionDir)..\..\config\Protobuf\bin\Match\GenPackets.bat</Command>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="ProtocolConnect.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ProtocolNpc.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

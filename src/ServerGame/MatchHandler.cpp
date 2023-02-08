@@ -9,14 +9,14 @@ void MatchHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     switch (head->type)
     {
     case Match::S_MATCH:
-        HandlerMatch(ref, ParsingPacket<Match::Users, MatchHeader>(buffer, (int32)head->size));
+        HandlerMatch(ref, ParsingPacket<Match::S_Match, MatchHeader>(buffer, (int32)head->size));
         break;
     default:
         break;
     }
 }
 
-void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
+void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::S_Match&& pkt)
 {
     cout << "Input" << endl;
     // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
@@ -41,7 +41,7 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::Users&& pkt)
     }
 }
 
-SendBufferRef MatchHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
+SendBufferRef MatchHandler::MakeSendBuffer(Match::S_Match pkt, Match::STATE type)
 {
-    return _MakeSendBuffer<Match::Data, MatchHeader, Match::STATE>(pkt, type);
+    return _MakeSendBuffer<Match::S_Match, MatchHeader, Match::STATE>(pkt, type);
 }
