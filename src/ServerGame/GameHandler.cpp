@@ -43,7 +43,6 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
 
 void GameHandler::HConnect(GameSessionRef& ref, Protocol::Data&& pkt)
 {
-    cout << "Player Inside = " << pkt.id() << " " << pkt.maplevel() << " " << pkt.matchroom() << endl;
     if ((ref->_mySelf == nullptr) && ref->_room.expired())
         Ggames->DoAsync(&Games::EnterGame, ref, pkt.id(), pkt.matchroom());
     //접속 시 전체 유저 정보 전달 -> 고민 이슈

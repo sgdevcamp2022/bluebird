@@ -63,7 +63,7 @@ void MatchManager::MatchPull(int32 level, int32 match, int32 room)
 	_users.set_level(level);
 
 	if(_gameref != nullptr)
-		_gameref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
+		_gameref->Send(PacketHandler::MakeSuccessBuffer(_users, Match::S_MATCH));
 	if(_lobyref != nullptr)
 		_lobyref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
 

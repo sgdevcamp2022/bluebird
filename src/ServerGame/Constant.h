@@ -3,7 +3,7 @@
 #define THREAD_SIZE 10
 #define ROOM_COUNT 20
 
-#define START_COUNT 1
+#define START_COUNT 2
 #define GOAL_COUNT 1
 
 //#define WINNER1(count)	count/3
