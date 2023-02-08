@@ -69,10 +69,10 @@ public class PacketHandler
         if (pc == null)
             return;
 
-        //pc.playerInfo.Id = data.Id;
+       
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
-        //pc.playerInfoUpdate();
+        
     }
     public static void ObtacleMove(IMessage packet)
     {

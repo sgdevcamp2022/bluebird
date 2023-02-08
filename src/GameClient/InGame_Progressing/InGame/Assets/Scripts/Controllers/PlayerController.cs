@@ -15,9 +15,12 @@ public class PlayerController : MonoBehaviour
     protected Vector3 moveVec;
     protected Vector3 prevVec;
 
+
+
     protected Camera cam;
 
-
+    //canJump를 위한 변수
+    protected bool pressedJump = false;
     protected bool isJumping = false;
 
     protected Animator _animator;
@@ -54,8 +57,7 @@ public class PlayerController : MonoBehaviour
             if (_playerInfo.Equals(value))
                 return;
             _playerInfo = value;
-            //serverVec = new Vector3(value.Position.X,value.Position.Y,value.Position.Z);
-            //State = PlayerState.Moving;
+
 
         }
     }
@@ -78,7 +80,6 @@ public class PlayerController : MonoBehaviour
     protected virtual void Init()
     {
         cam = Camera.main.gameObject.GetComponent<Camera>();
-
         rigid = GetComponent<Rigidbody>();
         prevVec = transform.position;
         
@@ -95,13 +96,18 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Moving:
                 UpdateMoving();
                 break;
+            case PlayerState.Jumping:
+                UpdateJumping();
+                break;
+          
+        
         }
 
     }
 
     protected virtual void UpdateIdle()
     {
-        if (playerInfo.Position.X != 0 || playerInfo.Position.Y != 0 || playerInfo.Position.Z != 0)
+        if (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z )
         {
             
             State = PlayerState.Moving;
@@ -114,22 +120,45 @@ public class PlayerController : MonoBehaviour
     {
         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z)
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z )
         {
             State = PlayerState.Idle;
             return;
         }
 
         Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
         transform.position = moveVec;
+        transform.rotation = Quaternion.Euler(moveRot);
 
-        Debug.Log("Player:UpdateMoving : moveVec    " + moveVec + "State :" + State );
+       
+
+    
 
     }
 
 
+    protected virtual void UpdateJumping()
+    {
+        prevVec = transform.position;
 
-    
+      
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+        transform.position = moveVec;
+        transform.rotation = Quaternion.Euler(moveRot);
+
+
+
+
+
+    }
+
+  
+
+
+
+
 
     protected void HideCursor()
     {
@@ -159,6 +188,8 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isJumping = false;
+            State = PlayerState.Idle;
+
         }
     }
 

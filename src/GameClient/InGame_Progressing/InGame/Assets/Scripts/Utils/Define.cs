@@ -8,6 +8,7 @@ public class Define
 	{
         Idle,
         Moving,
+        Jumping,
       
 	}
 
