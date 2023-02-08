@@ -11,8 +11,7 @@ public class MyPlayerController : PlayerController
     CameraController cameracontroller;
     public  bool serverCommunication = false;
 
-    [SerializeField]
-    private Transform cameraTransform;
+
 
     bool pressedJump = false;
 
@@ -20,10 +19,7 @@ public class MyPlayerController : PlayerController
     {
         
         base.Init();
-        cameraTransform = Camera.main.gameObject.transform;
-        cameracontroller = CameraController.Instance;
-        Debug.Log(cameracontroller);
-
+     
     }
 
     protected override void UpdateController()
@@ -43,15 +39,18 @@ public class MyPlayerController : PlayerController
     void GetInput()
     {
 
-        //Debug.Log(cameracontroller.pov.m_HorizontalAxis.Value);
-        //float h = cameracontroller.pov.m_HorizontalAxis.Value;
+        
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
+        
         pressedJump = Input.GetKeyDown(KeyCode.Space);
-        // float v = Input.GetAxis("vertical");
         moveVec = new Vector3(h, 0f, v);
 
+        if (pressedJump && !isJumping)
+        {
+            State = PlayerState.Moving;
+        }
     }
 
 
@@ -80,9 +79,14 @@ public class MyPlayerController : PlayerController
                 return;
             }
 
-            Vector3 movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveVec;
+ 
+            Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
+       
             movementDirection.Normalize();
+
             
+            Debug.Log(cam.transform.eulerAngles.y);
+            transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             
             transform.position += movementDirection * speed * Time.deltaTime;
             Jump();

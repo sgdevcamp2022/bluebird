@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     protected Vector3 moveVec;
     protected Vector3 prevVec;
 
+    protected Camera cam;
+
+
     protected bool isJumping = false;
 
     protected Animator _animator;
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Init()
     {
+        cam = Camera.main.gameObject.GetComponent<Camera>();
 
         rigid = GetComponent<Rigidbody>();
         prevVec = transform.position;
@@ -125,10 +129,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    protected virtual void MoveToNextPos()
-    {
-       
-    }
+    
 
     protected void HideCursor()
     {
