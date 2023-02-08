@@ -8,6 +8,13 @@ enum INGAME
 	START = 2;
 }
 
+message StartData
+{
+	int32 room = 1;
+	int32 size = 2;
+	bool game = 3;
+}
+
 message LoginData
 {
 	int32 mapLevel = 1;

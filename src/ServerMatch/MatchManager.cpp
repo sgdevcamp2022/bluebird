@@ -55,6 +55,7 @@ void MatchManager::MatchPull(int32 level, int32 match, int32 room)
 {
 	//브로드 캐스트 이후에 확인 작업 필요 한가..?
 	_matchRooms[level][room]->Broadcast(_users, match);
+
 	_users.set_room(match);
 	_users.set_level(level);
 

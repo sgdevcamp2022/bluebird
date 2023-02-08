@@ -22,7 +22,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			_games[room] = make_shared<Room>(2, room);
 			session->_room = _games[room];
 			_games[room]->GameEnter(session, id);
-			_games[room]->DoTimer(5000, &Room::Start);
+			DoTimer(5000, &Games::StartGame, room);
 
 			auto _ref = GetNpcRef();
 			if (_ref != nullptr) {
@@ -66,7 +66,16 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 void Games::StartGame(int32 room)
 {
-	_games[room]->Start();
+	int check;
+	if(check = _games[room]->Start() == -1)
+		DoTimer(5000, &Games::StartGame, room);
+	else {
+		Npc::StartData data;
+		data.set_game(true);
+		data.set_room(room);
+		data.set_size(check);
+		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
+	}
 	//게임 시작
 }
 

@@ -90,14 +90,12 @@ void Room::Leave(PlayerRef ref)
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
 }
 
-void Room::Start()
+
+int Room::Start()
 {
 	//테스트 코드
-	if (_start)
-		return;
 	if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
-		DoTimer(3000, &Room::Start);
-		return;
+		return -1;
 	}
 	vector<int64> keys;
 	for (auto player : _players)
@@ -115,6 +113,7 @@ void Room::Start()
 
 	_start.store(true);
 	TimeSync();
+	return _players.size();
 }
 
 void Room::PlayerMove(Protocol::Move data)
