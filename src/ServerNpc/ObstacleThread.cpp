@@ -4,6 +4,7 @@ ObstacleThread::ObstacleThread(LoginData loginData,int index, ServerNpc& npcServ
 {
     gameData.matchRoom = loginData.matchRoom;
     gameData.obstacle = loginData.obstacle[index];
+    roomGroup = npcServer.GetStartData();
 }
 
 void ObstacleThread::operator()()
@@ -18,6 +19,18 @@ void ObstacleThread::operator()()
     //    npcServer.PostWrite(gameData);
     //    boost::this_thread::sleep(boost::posix_time::seconds(1));
     //}
+    bool isStart = false;
+    while (!isStart)
+    {
+        for (iterRoom = roomGroup->begin(); iterRoom != roomGroup->end(); iterRoom++)
+        {
+            if (iterRoom->room == loginData.matchRoom && iterRoom->game == true)
+            {
+                isStart = true;
+                break;
+            }
+        }
+    }
 
     switch (gameData.obstacle.obstacleShape)
     {
