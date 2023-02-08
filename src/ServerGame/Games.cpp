@@ -69,7 +69,7 @@ void Games::StartGame(int32 room)
 	int check;
 	if(check = _games[room]->Start() == -1)
 		DoTimer(5000, &Games::StartGame, room);
-	else {
+	else if(GetNpcRef() != nullptr){
 		Npc::StartData data;
 		data.set_game(true);
 		data.set_room(room);
