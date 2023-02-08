@@ -50,12 +50,13 @@ void GameHandler::HConnect(GameSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
-    if (ref->_mySelf != nullptr) {
-        if (auto room = ref->_room.lock()) {
-            if (room->_start)
+    bool expected = true;
+    bool desired = true;
+
+    if (ref->_mySelf != nullptr)
+        if (auto room = ref->_room.lock())
+            if (ref->_start)
                 room->DoAsync(&Room::PlayerMove, pkt);
-        }
-    }
 }
 
 void GameHandler::HNoMove(GameSessionRef& ref, Protocol::Data&& pkt)
@@ -65,12 +66,13 @@ void GameHandler::HNoMove(GameSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
 {
-    if (ref->_mySelf != nullptr) {
-        if (auto room = ref->_room.lock()) {
-            if (room->_start && pkt.id() == pkt.id())
+    bool expected = true;
+    bool desired = true;
+
+    if (ref->_mySelf != nullptr)
+        if (auto room = ref->_room.lock())
+            if (pkt.id() == pkt.id() && ref->_start)
                 room->DoAsync(&Room::PlayerGoal, std::move(pkt));
-        }
-    }
 }
 
 void GameHandler::HGameFail(GameSessionRef& ref, Protocol::Data&& pkt)

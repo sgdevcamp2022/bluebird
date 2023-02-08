@@ -35,17 +35,10 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 {
 	//TODO 게임 실행 확인
 	cout << "새로 생성 확인" << endl;
-
-	map<int64, ObtacleRef> datas;
 	
 	if (pkt.obstacle_size() != 0) {
-		for (int i = 0; i < pkt.obstacle_size(); i++) {
-			auto data = pkt.obstacle(i);
-			if (data.has_position() && data.has_rotation()) {
-				datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data.position()), Vector3(data.rotation()), data.speed(), data.direction());
-			}
-		}
-		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
+		//TODO 고치기
+		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, std::move(pkt));
 	}
 }
 
@@ -57,5 +50,7 @@ void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 
 	//복사 비용 줄이기
 	cout << pkt.rotation().x() << pkt.rotation().y() << pkt.rotation().z() << endl;
+
+	//TODO 고치기
 	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, pkt.id(), pkt.position(), pkt.rotation(), std::move(data));
 }

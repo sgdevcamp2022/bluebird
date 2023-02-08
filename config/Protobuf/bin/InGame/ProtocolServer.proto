@@ -18,6 +18,7 @@ enum INGAME
 	TIME = 12;
 	GET_TICK = 13;
 	PLAYER_GOAL = 14;
+	RECONNECT = 15;
 }
 
 message GameCompleteData

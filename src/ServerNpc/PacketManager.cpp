@@ -74,7 +74,7 @@ void PacketManager::PrintMsg(::google::protobuf::Message& msg)
     cout << str << endl;
 }
 
-int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index)
+int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& msg)
 {
     const google::protobuf::Reflection* refl = msg.GetReflection();
     const google::protobuf::Descriptor* desc = msg.GetDescriptor();
@@ -116,6 +116,60 @@ int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& m
     
 }
 
+int PacketManager::GetField(StartData* startData, ::google::protobuf::Message& msg)
+{
+    const google::protobuf::Reflection* refl = msg.GetReflection();
+    const google::protobuf::Descriptor* desc = msg.GetDescriptor();
+    int fieldCnt = desc->field_count();
+    for (int i = 0; i < fieldCnt; i++)
+    {
+
+        const google::protobuf::FieldDescriptor* field = desc->field(i);
+        string fieldName = field->name();
+        if (field->type() == google::protobuf::FieldDescriptor::TYPE_INT32 && !field->is_repeated())
+        {
+            if (fieldName == "room")
+            {
+                try
+                {
+                    startData->room = refl->GetInt32(msg, field);
+                }
+                catch (exception)
+                {
+                    startData->room = -1;
+                }
+            }
+            else if (fieldName == "size")
+            {
+                try
+                {
+                    startData->size = refl->GetInt32(msg, field);
+                }
+                catch (exception)
+                {
+                    startData->size = -1;
+                }
+            }
+        }
+        else if (field->type() == google::protobuf::FieldDescriptor::TYPE_BOOL && !field->is_repeated())
+        {
+            if (fieldName == "game")
+            {
+                try
+                {
+                    startData->game = refl->GetBool(msg, field);
+                }
+                catch (exception)
+                {
+                    startData->game = false;
+                }
+            }
+        }
+    }
+    return 2;
+
+}
+
 void PacketManager::WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
     protobuf::io::CodedOutputStream& stream)
 {
@@ -132,7 +186,7 @@ int PacketManager::GetBufSize()
 }
 
 
-int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream)
+int PacketManager::PacketProcess(LoginData* loginData, StartData* startData, protobuf::io::CodedInputStream& input_stream)
 {
     int returnValue = 0;
     MessageHeader msgHeader;
@@ -161,6 +215,14 @@ int PacketManager::PacketProcess(LoginData* loginData, protobuf::io::CodedInputS
             Npc::LoginData packet;
             if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
             returnValue = GetField(loginData, packet);
+            break;
+        }
+
+        case Npc::START:
+        {
+            Npc::StartData packet;
+            if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
+            returnValue = GetField(startData, packet);
             break;
         }
 

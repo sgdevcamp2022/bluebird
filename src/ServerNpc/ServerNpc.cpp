@@ -56,6 +56,11 @@ void ServerNpc::PostWrite(GameData gameData)
 
 }
 
+list<StartData>* ServerNpc::GetStartData()
+{
+    return &roomGroup;
+}
+
 void ServerNpc::PostReceive()
 {
     memset(&m_ReceiveBuffer, '\0', sizeof(m_ReceiveBuffer));
@@ -120,10 +125,11 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
         //cout << "게임 서버로부터 패킷을 수신받음" << endl;
         inputBuf = &m_ReceiveBuffer[0];
         LoginData loginData;
+        StartData startData;
         protobuf::io::ArrayInputStream input_array_stream(inputBuf, bytes_transferred);
         protobuf::io::CodedInputStream input_coded_stream(&input_array_stream);
-        int matchRoom = packetManager->PacketProcess(&loginData, input_coded_stream);
-        if (matchRoom != 0)
+        int matchRoom = packetManager->PacketProcess(&loginData, &startData, input_coded_stream);
+        if (matchRoom == 1)
         {
             for (int i = 0; i < loginData.obstacle.size(); i++)
             {
@@ -132,6 +138,12 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
             }
             
             PostWrite(loginData);
+        }
+        else if (matchRoom == 2)
+        {
+            cout << "StartData 수신 | Room: " << startData.room << " | State: " << startData.game << endl;
+            roomGroup.push_back(startData);
+            PostReceive();
         }
         else
         {
@@ -151,6 +163,15 @@ void ServerNpc::ThreadInterrupt()
             delete iter->second;
             threadGroup.erase(iter);
             //break;
+        }
+    }
+
+    for (iterRoom = roomGroup.begin(); iterRoom != roomGroup.end(); iterRoom++)
+    {
+        if (iterRoom->room == 1)
+        {
+            roomGroup.erase(iterRoom);
+            break;
         }
     }
 }

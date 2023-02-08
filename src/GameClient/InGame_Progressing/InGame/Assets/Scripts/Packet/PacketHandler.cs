@@ -45,7 +45,25 @@ public class PacketHandler
             UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
     }
-
+    public static void ReConnect(IMessage packet)
+    {
+        Data data = packet as Data;
+        foreach (Player player in data.Player)
+        {
+            //Player Spawn
+            if (Managers.Object.myPlayerId == player.Id)
+                Managers.Object.AddMyPlayer(player.Id, player);
+            else
+                Managers.Object.AddPlayer(player.Id, player);
+            UnityEngine.Debug.Log(player.Id + " Inside");
+        }
+        foreach (Obtacle obtacle in data.Obtacle)
+        {
+            Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
+            UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
+            UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
+        }
+    }
     //카메라가 follow하는 프리펩 대상을 특정시켜주기
     public static void GameConnect(IMessage packet)
     {

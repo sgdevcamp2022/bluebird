@@ -20,7 +20,6 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 	for (auto _ref : ref) {
 		int64 id = _ref->GetId();
 		_players[id] = _ref;
-		_players[id]->SetPosition(_spawnPosition[id%15]);
 	}
 }
 
@@ -28,16 +27,15 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
-	auto player = _startData.add_player();
+	auto p = _startData.add_player();
 	
 	if (TEST) {
-		PlayerRef player = make_shared<Player>(id, _matchRoom, _spawnPosition[id % 15]);
+		PlayerRef player = make_shared<Player>(id, _matchRoom);
 		player->SetOwner(ref);
 
 		_players[id] = player;
 		ref->_mySelf = player;
 		_playerSize += 1;
-		cout << _playerSize << endl;
 	}
 	else if (_players.find(id) != _players.end()) {
 		_players[id]->SetOwner(ref);
@@ -45,9 +43,9 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 		_playerSize += 1;
 	}
 
-	player->set_id(id);
-	GameUtils::SetVector3(player->mutable_position(), _players[id]->GetPosition());
-	GameUtils::SetVector3(player->mutable_rotation(), _players[id]->GetRotation());
+	//내부에서 다 저장
+	_players[id]->SetPlayer(p);
+	_players[id]->SetPosition(0.1f, 0.2f, 29.f);
 
 	{
 		Protocol::Player data;
@@ -59,21 +57,42 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	}
 }
 
-void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
+void Room::ObstacleEnter(Npc::LoginData pkt)
 {
-	_obstacles = *obtacles;
+	for (int i = 0; i < pkt.obstacle_size(); i++) {
+		auto data = pkt.obstacle(i);
+		auto ob = _startData.add_obtacle();
+
+		if (data.has_position() && data.has_rotation()) {
+			_obstacles[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), data.speed(), data.direction());
+			_obstacles[data.id()]->SetObstacle(ob);
+			_obstacles[data.id()]->SetPosition(data.position().x(), data.position().y(), data.position().z());
+			ob->set_direction(_obstacles[data.id()]->GetDirection());
+		}
+	}
 
 	//전체 플레이어에게 정보 전달 필요
-	for(auto obta : _obstacles){
-		auto ob = _startData.add_obtacle();
-		ob->set_id(obta.first);
-		ob->set_speed(obta.second->GetSpeed());
-		ob->set_shape(obta.second->GetShape());
-		ob->set_direction(obta.second->GetDirection());
+}
 
-		GameUtils::SetVector3(ob->mutable_position(), obta.second->GetPosition());
-		GameUtils::SetVector3(ob->mutable_rotation(), obta.second->GetRotation());
+void Room::ReConnect(GameSessionRef ref, int64 id)
+{
+	// 정보 전체 전달
+	// 나중에 고치기
+	cout << "ReConnect" << endl;
+	_players[id]->SetOwner(ref);
+	ref->_mySelf = _players[id];
+	ref->_start = true;
+	for (int i = 0; i < _startData.player_size(); i++) {
+		auto player = _startData.player(i);
+		cout << player.position().x() << " " << player.position().y() << " " << player.position().z();
 	}
+	ref->Send(GameHandler::MakeSendBuffer(_startData, Protocol::RECONNECT));
+}
+
+void Room::Disconnect(PlayerRef ref)
+{
+	cout << "Disconncet" << endl;
+	_players[ref->GetId()]->SetOwner(nullptr);
 }
 
 void Room::Leave(PlayerRef ref)
@@ -101,11 +120,14 @@ int Room::Start()
 		return -1;
 	}
 	vector<int64> keys;
-	for (auto player : _players)
+	for (auto& player : _players)
 	{
 		if (player.second->GetOwner() == nullptr) {
 			keys.push_back(player.first);
 			continue;
+		}
+		else {
+			player.second->GetOwner()->_start = true;
 		}
 	}
 	for (auto key : keys)
@@ -116,6 +138,7 @@ int Room::Start()
 
 	_start.store(true);
 	TimeSync();
+
 	return _players.size();
 }
 
@@ -152,8 +175,7 @@ void Room::PlayerGoal(Protocol::Player data)
 	_winnerId.push_back(data.id());
 	//TODO 확인 작업 필요
 	//if (_winner.fetch_add(1) == WINNER1(_playerSize))
-	_winner.fetch_add(1);
-	if (_winner == GOAL_COUNT)
+	if (_winnerId.size() == GOAL_COUNT)
 	{
 		_start.store(false);
 		//TODO 넘기는 작업 필요
@@ -196,7 +218,14 @@ void Room::GameEnd()
 		else
 			data.set_success(false);
 		_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
+
+		_ref.second->GetOwner()->_mySelf = nullptr;
+		_ref.second->SetOwner(nullptr);
 	}
+
+	//TODO 넘겨주기
+
+	_players.clear();
 }
 
 bool Room::IsPlayer(int64 id)

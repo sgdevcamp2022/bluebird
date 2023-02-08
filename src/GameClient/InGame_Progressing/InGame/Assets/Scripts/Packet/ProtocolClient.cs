@@ -44,13 +44,13 @@ namespace Google.Protobuf.Protocol {
             "ASABKAMSIgoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0b3ISIgoI",
             "cm90YXRpb24YAyABKAsyEC5Qcm90b2NvbC5WZWN0b3ISHwoFZW5lbXkYBCAB",
             "KAsyEC5Qcm90b2NvbC5QbGF5ZXIiKQoGVmVjdG9yEgkKAXgYASABKAISCQoB",
-            "eRgCIAEoAhIJCgF6GAMgASgCKu0BCgZJTkdBTUUSCwoHQ09OTkVDVBAAEgkK",
+            "eRgCIAEoAhIJCgF6GAMgASgCKvwBCgZJTkdBTUUSCwoHQ09OTkVDVBAAEgkK",
             "BVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEKDU9CU1RB",
             "Q0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRFEAYSDQoJ",
             "R0FNRV9GQUlMEAcSDQoJR0FNRV9EUk9QEAgSEAoMUExBWUVSX0NSQVNIEAkS",
             "EgoOT0JTVEFDTEVfQ1JBU0gQChIQCgxDT05ORUNUX0ZBSUwQCxIICgRUSU1F",
-            "EAwSDAoIR0VUX1RJQ0sQDRIPCgtQTEFZRVJfR09BTBAOQhuqAhhHb29nbGUu",
-            "UHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
+            "EAwSDAoIR0VUX1RJQ0sQDRIPCgtQTEFZRVJfR09BTBAOEg0KCVJFQ09OTkVD",
+            "VBAPQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -85,6 +85,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("TIME")] Time = 12,
     [pbr::OriginalName("GET_TICK")] GetTick = 13,
     [pbr::OriginalName("PLAYER_GOAL")] PlayerGoal = 14,
+    [pbr::OriginalName("RECONNECT")] Reconnect = 15,
   }
 
   #endregion
