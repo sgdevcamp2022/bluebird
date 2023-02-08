@@ -23,7 +23,6 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
-    cout << "Login" << endl;
     // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
     // Redis로 판별해도 괜찮을 듯
     PlayerRef player = make_shared<Player>();
@@ -31,7 +30,7 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
     player->playerId = pkt.id();
     player->mapLevel = pkt.level();
 
-    cout << pkt.id() << " " << pkt.level() << endl;
+    cout << "Login : " << pkt.id() << " " << pkt.level() << endl;
 
     GMatch->DoAsync(&MatchManager::MatchEnter, _ref, player, pkt.level());
 }

@@ -17,7 +17,6 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 // 规 积己
 void Room::MatchEnter(vector<PlayerRef> ref)
 {
-	_playerSize = ref.size();
 	for (auto _ref : ref) {
 		int64 id = _ref->GetId();
 		_players[id] = _ref;
@@ -43,6 +42,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	else if (_players.find(id) != _players.end()) {
 		_players[id]->SetOwner(ref);
 		ref->_mySelf = _players[id];
+		_playerSize += 1;
 	}
 
 	player->set_id(id);
@@ -93,8 +93,11 @@ void Room::Leave(PlayerRef ref)
 
 int Room::Start()
 {
+	/*if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
+		return -1;
+	}*/
 	//抛胶飘 内靛
-	if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
+	if (_playerSize < START_COUNT) {
 		return -1;
 	}
 	vector<int64> keys;
@@ -198,9 +201,12 @@ void Room::GameEnd()
 
 bool Room::IsPlayer(int64 id)
 {
-	if (_players.find(id) != _players.end()) {
-		if (_players[id]->GetOwner() == nullptr)
-			true;
+	if (_players.find(id) != _players.end()) 
+	{
+		if (_players[id]->GetOwner() == nullptr) 
+		{
+			return true;
+		}
 	}
 	return false;
 }

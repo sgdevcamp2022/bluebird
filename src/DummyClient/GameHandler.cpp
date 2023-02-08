@@ -22,6 +22,10 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
         break;
     case Protocol::GET_TICK:
         HandlerTick(ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
+        break;
+    case Protocol::CONNECT_FAIL:
+        HandlerFail(ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        break;
     default:
         break;
     }
@@ -47,7 +51,6 @@ void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
-    cout << "½ÃÀÛÇÔ" << pkt.player_size() << endl;
     GameSessionRef session = static_pointer_cast<GameSession>(ref);
     this_thread::sleep_for(1s);
     {
@@ -63,6 +66,11 @@ void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HandlerTick(Protocol::Times&& time)
 {
+}
+
+void GameHandler::HandlerFail(Protocol::Data&& data)
+{
+    cout << "Fail : " << data.id() << endl;
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
