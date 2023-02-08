@@ -20,7 +20,6 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 	for (auto _ref : ref) {
 		int64 id = _ref->GetId();
 		_players[id] = _ref;
-		_players[id]->SetPosition(Vector3{ 0.1f, 0.2f, 29.f });
 	}
 }
 
@@ -28,10 +27,10 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
-	auto player = _startData.add_player();
+	auto p = _startData.add_player();
 	
 	if (TEST) {
-		PlayerRef player = make_shared<Player>(id, _matchRoom, Vector3{ 0.1f, 0.2f, 29.f });
+		PlayerRef player = make_shared<Player>(id, _matchRoom);
 		player->SetOwner(ref);
 
 		_players[id] = player;
@@ -44,8 +43,9 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 		_playerSize += 1;
 	}
 
-	// 내부에서 다 저장
-	_players[id]->SetPlayer(player);
+	//내부에서 다 저장
+	_players[id]->SetPlayer(p);
+	_players[id]->SetPosition(0.1f, 0.2f, 29.f);
 
 	{
 		Protocol::Player data;
@@ -57,16 +57,21 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	}
 }
 
-void Room::ObstacleEnter(map<int64, ObtacleRef>* obtacles)
+void Room::ObstacleEnter(Npc::LoginData pkt)
 {
-	_obstacles = *obtacles;
+	for (int i = 0; i < pkt.obstacle_size(); i++) {
+		auto data = pkt.obstacle(i);
+		auto ob = _startData.add_obtacle();
+
+		if (data.has_position() && data.has_rotation()) {
+			_obstacles[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), data.speed(), data.direction());
+			_obstacles[data.id()]->SetObstacle(ob);
+			_obstacles[data.id()]->SetPosition(data.position().x(), data.position().y(), data.position().z());
+			ob->set_direction(_obstacles[data.id()]->GetDirection());
+		}
+	}
 
 	//전체 플레이어에게 정보 전달 필요
-	for(auto& obta : _obstacles){
-		auto ob = _startData.add_obtacle();
-		obta.second->SetObstacle(ob);
-		ob->set_direction(obta.second->GetDirection());
-	}
 }
 
 void Room::ReConnect(GameSessionRef ref, int64 id)
@@ -170,8 +175,7 @@ void Room::PlayerGoal(Protocol::Player data)
 	_winnerId.push_back(data.id());
 	//TODO 확인 작업 필요
 	//if (_winner.fetch_add(1) == WINNER1(_playerSize))
-	_winner.fetch_add(1);
-	if (_winner == GOAL_COUNT)
+	if (_winnerId.size() == GOAL_COUNT)
 	{
 		_start.store(false);
 		//TODO 넘기는 작업 필요

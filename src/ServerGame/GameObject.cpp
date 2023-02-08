@@ -3,11 +3,8 @@
 
 bool Player::Move(Vector3&& position, Vector3&& rotation)
 {
-	_position = position;
-	_rotation = rotation;
-
-	GameUtils::SetVector3(_ownerPlayer->mutable_position(), _position);
-	GameUtils::SetVector3(_ownerPlayer->mutable_rotation(), _rotation);
+	GameUtils::SetVector3(_position, position);
+	GameUtils::SetVector3(_rotation, rotation);
 
 	return true;
 }
@@ -16,14 +13,15 @@ void Player::SetPlayer(Protocol::Player* ref)
 {
 	_ownerPlayer = ref;
 	_ownerPlayer->set_id(_id);
-	GameUtils::SetVector3(_ownerPlayer->mutable_position(), _position);
-	GameUtils::SetVector3(_ownerPlayer->mutable_rotation(), _rotation);
+
+	_position = _ownerPlayer->mutable_position();
+	_rotation = _ownerPlayer->mutable_rotation();
 }
 
 bool Obtacle::Move(Vector3&& position, Vector3&& rotation)
 {
-	_position = position;
-	_rotation = rotation;
+	GameUtils::SetVector3(_position, position);
+	GameUtils::SetVector3(_rotation, rotation);
 
 	return true;
 }
@@ -39,6 +37,7 @@ void Obtacle::SetObstacle(Protocol::Obtacle* ref)
 	ref->set_shape(_shape);
 	ref->set_speed(_speed);
 	_ownerObtacle->set_id(_id);
-	GameUtils::SetVector3(_ownerObtacle->mutable_position(), _position);
-	GameUtils::SetVector3(_ownerObtacle->mutable_rotation(), _rotation);
+
+	_position = _ownerObtacle->mutable_position();
+	_rotation = _ownerObtacle->mutable_rotation();
 }
