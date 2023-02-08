@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 
+import time
 import bcrypt
 import jwt
+import aioredis
 from fastapi import APIRouter, Form, Depends, Response
 from fastapi.templating import Jinja2Templates
 
@@ -9,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+from starlette.responses import RedirectResponse
 
 from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
@@ -17,39 +20,10 @@ from app.models import Token, UserToken
 from app.middlewares.token_validator import AccessControl
 from app.errors import exceptions as ex
 
-"""
-1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)
-2. FB 로그인을 위한 FB 앱 준비 (FB 개발자 도구)
-3. 카카오 로그인을 위한 카카오 앱준비( 카카오 개발자 도구)
-4. 이메일, 비밀번호로 가입 (v)
-5. 가입된 이메일, 비밀번호로 로그인, (v)
-6. JWT 발급 (v)
-
-7. 이메일 인증 실패시 이메일 변경
-8. 이메일 인증 메일 발송
-9. 각 SNS 에서 Unlink 
-10. 회원 탈퇴
-11. 탈퇴 회원 정보 저장 기간 동안 보유(법적 최대 한도 내에서, 가입 때 약관 동의 받아야 함, 재가입 방지 용도로 사용하면 가능)
-
-400 Bad Request
-401 Unauthorized
-403 Forbidden
-404 Not Found
-405 Method not allowed
-500 Internal Error
-502 Bad Gateway 
-504 Timeout
-200 OK
-201 Created
-
-"""
-
-
 router = APIRouter(prefix="/auth")
 TEMPLATES = Jinja2Templates(directory='app/templates')
 
-# @router.post("/register/{sns_type}", status_code=201, response_model=Token)
-@router.post("/register/")
+@router.post("/register")
 async def register(
     request : Request,
     userID : str = Form(...),
@@ -63,7 +37,6 @@ async def register(
     sex : int = Form(...),
     session: Session = Depends(db.session),
     ):
-# async def register(sns_type: SnsType, reg_info : UserRegister = Depends(), session: Session = Depends(db.session)):
     """
     `회원가입 API`\n
     :param sns_type:
@@ -89,10 +62,10 @@ async def register(
     return response
     
 
-
-# @router.post("/login/{sns_type}", status_code=200, response_model=Token)
 @router.post("/login", status_code=200, response_model=Token)
 async def login(request : Request, logEmail : str = Form(...), logPass : str = Form(...)):
+    # if "Authorization" not in request.cookies.keys():
+    #     request.cookies.clear()
     is_exist = await is_email_exist(logEmail)
     if not logEmail or not logPass:
         return JSONResponse(status_code=400, content=dict(msg="Email and PW must be provided'"))
@@ -102,19 +75,39 @@ async def login(request : Request, logEmail : str = Form(...), logPass : str = F
     is_verified = bcrypt.checkpw(logPass.encode("utf-8"), user.password.encode("utf-8"))
     if not is_verified:
         return JSONResponse(status_code=400, content=dict(msg="NO_MATCH_USER"))
-    token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(user).dict(exclude={'pw', 'marketing_agree'}),)}")
-    response = TEMPLATES.TemplateResponse("index.html",{"request": request,"id": logEmail})
+    
+    userData = UserToken.from_orm(user).dict(exclude={'password'})
+    token = dict(Authorization=f"Bearer {create_access_token(data = userData , expires_delta = 30)}")
+    response = TEMPLATES.TemplateResponse("index.html",{"request": request, "userNo": userData['userNo'], "id": userData['id']})
     response.set_cookie(key="Authorization", value = token["Authorization"])
+    print(token)
+    redis = aioredis.from_url("redis://:a12b34@34.84.148.50:6379")
+    await redis.hset(userData['userNo'],"nickname", userData['nickname'])
+    await redis.hset(userData['userNo'],"loginTime", time.strftime('%Y-%m-%d %H:%M:%S'))
+
     return response
 
-@router.post("/logout")
+@router.get("/logout/")
 async def logout(request: Request):
+
     # 템플릿 렌더링인 경우 쿠키에서 토큰 검사
     if "Authorization" not in request.cookies.keys():
         raise ex.NotAuthorized()
-    access_token=request.cookies.get("Authorization")
-    token_info = await self.token_decode(access_token=request.cookies.get("Authorization"))
-    request.state.user = UserToken(**token_info)
+    token = request.cookies.get("Authorization")
+    token_info = await AccessControl.token_decode(token)
+    print(token_info)
+    redis = aioredis.from_url("redis://:a12b34@34.84.148.50:6379")
+    value = await redis.hget(token_info['userNo'],"nickname")
+    print(value)
+
+    await redis.delete(token_info['userNo'])
+
+    value = await redis.hget(token_info['userNo'],"nickname")
+    print(value)
+
+    response = RedirectResponse('/')
+    response.delete_cookie("Authorization")
+    return response
 
 
 async def is_email_exist(email: str):
@@ -127,6 +120,6 @@ async def is_email_exist(email: str):
 def create_access_token(*, data: dict = None, expires_delta: int = None):
     to_encode = data.copy()
     if expires_delta:
-        to_encode.update({"exp": datetime.utcnow() + timedelta(hours=expires_delta)})
+        to_encode.update({"exp": datetime.utcnow() + timedelta(minutes=expires_delta)})
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return encoded_jwt
