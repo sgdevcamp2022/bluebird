@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "MatchSession.h"
 #include "ConnectSession.h"
-#include "MatchManager.h"
 #include <CoreGlobal.h>
 #include <ThreadManager.h>
 
@@ -37,8 +36,6 @@ int main()
 		NetAddress(L"127.0.0.1", 7000),
 		MakeShared<IocpCore>(),
 		MakeShared<ConnectSession>, 1);
-
-	GMatch->SetService(Cservice);
 
 	ASSERT_CRASH(Sservice->Start());
 	ASSERT_CRASH(Cservice->Start());

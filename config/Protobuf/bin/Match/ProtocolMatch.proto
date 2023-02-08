@@ -18,17 +18,35 @@ message Header
 	STATE state = 2;
 }
 
-message Data
+message C_Login
 {
 	int64 id = 1;
-	int32 level= 2;	
-	int32 room = 3;
-	bool state = 4;
+	int32 level = 2;
 }
 
-message Success
+message C_Cancle
+{
+	int64 id = 1;
+	int32 level = 2;
+	int32 room = 3;
+}
+message S_Cancle
 {
 	int64 id = 1;
 	int32 room = 2;
-	int32 gamePort = 3;
+	bool state = 3;
+}
+message S_Login
+{
+	int64 id = 1;
+	int32 level = 2;
+	int32 room = 3;
+}
+
+message S_Match
+{
+	int32 userSize = 1;
+	int32 room = 2;
+	int32 level = 3;
+	repeated int64 ids = 4;
 }

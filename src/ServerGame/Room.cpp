@@ -145,6 +145,7 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 
 void Room::PlayerGoal(Protocol::Player data)
 {
+	cout << "Input goal" << endl;
 	_winnerId.push_back(data.id());
 	//TODO 확인 작업 필요
 	//if (_winner.fetch_add(1) == WINNER1(_playerSize))

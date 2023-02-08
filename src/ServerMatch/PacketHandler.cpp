@@ -9,17 +9,17 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::He
     switch (head.state())
     {
     case Match::C_LOGIN:
-        HandlerLogin(ref, ParsingPacket<Match::Data>(buffer, (int32)head.size()));
+        HandlerLogin(ref, ParsingPacket<Match::C_Login>(buffer, (int32)head.size()));
         break;
     case Match::C_CANCLE:
-        HandlerCancle(ref, ParsingPacket<Match::Data>(buffer, (int32)head.size()));
+        HandlerCancle(ref, ParsingPacket<Match::C_Cancle>(buffer, (int32)head.size()));
         break;
     default:
         break;
     }
 }
 
-void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
+void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
@@ -33,27 +33,33 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::Data&& pkt)
 
     cout << pkt.id() << " " << pkt.level() << endl;
 
-    GMatch->DoAsync(&MatchManager::MatchEnter, _ref, std::move(pkt), player, pkt.level());
+    GMatch->DoAsync(&MatchManager::MatchEnter, _ref, player, pkt.level());
 }
 
-void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::Data&& pkt)
+void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::C_Cancle && pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
     GMatch->DoAsync(&MatchManager::MatchLeave, pkt.id(), pkt.level(), pkt.room());
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Match::Data pkt, Match::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::S_Cancle pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Match::Users pkt, Match::STATE type)
-{
-    return _Making<Match::Users, MatchHeader, Match::STATE>(pkt, type);
-}
-
-SendBufferRef PacketHandler::MakeSendBuffer(Match::Success pkt, Match::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::S_Match pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
+}
+
+
+SendBufferRef PacketHandler::MakeSendBuffer(Match::S_Login pkt, Match::STATE type)
+{
+    return _MakeSendBuffer(pkt, type);
+}
+
+SendBufferRef PacketHandler::MakeSuccessBuffer(Match::S_Match pkt, Match::STATE type)
+{
+    return _Making<Match::S_Match, MatchHeader, Match::STATE>(pkt, type);
 }

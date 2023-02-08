@@ -1,8 +1,8 @@
 #pragma once
 
 #define THREAD_SIZE 10
-#define PLATER_COUNT 1
-#define MAX_PLAYER_COUNT 15
+#define PLATER_COUNT 5
+#define MAX_PLAYER_COUNT 10
 
 #define TestLevel 5
 #define TestRoom 10

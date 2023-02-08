@@ -3,6 +3,7 @@
 #include "MatchRoom.h"
 #include "Player.h"
 #include "MatchSession.h"
+#include "ConnectSession.h"
 
 shared_ptr<MatchManager> GMatch = make_shared<MatchManager>();
 
@@ -22,13 +23,15 @@ MatchManager::~MatchManager()
 	_matchRooms.clear();
 }
 
-void MatchManager::MatchEnter(MatchSessionRef session, Match::Data data, PlayerRef player, int32 level)
+void MatchManager::MatchEnter(MatchSessionRef session, PlayerRef player, int32 level)
 {
 	//에러 체크 필요함
 	int32 room = _matchNums[level];
 	int32 count = _matchRooms[level][room]->Enter(player);
 
-	data.set_state(true);
+	Match::S_Login data;
+	data.set_id(player->playerId);
+	data.set_level(player->mapLevel);
 	data.set_room(room);
 	
 	session->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
@@ -59,7 +62,10 @@ void MatchManager::MatchPull(int32 level, int32 match, int32 room)
 	_users.set_room(match);
 	_users.set_level(level);
 
-	_ref->Broadcast(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
+	if(_gameref != nullptr)
+		_gameref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
+	if(_lobyref != nullptr)
+		_lobyref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
 
 	_users.Clear();
 
@@ -70,7 +76,13 @@ void MatchManager::MatchPull(int32 level, int32 match, int32 room)
 		_matchNums[level] = (_matchNums[level] + 1) % 10;
 }
 
-void MatchManager::SetService(ClientServiceRef ref)
+void MatchManager::ConnectGameServer(ConnectSessionRef ref)
 {
-	_ref = ref;
+	_gameref = ref;
 }
+
+void MatchManager::ConnectLobyServer(MatchSessionRef ref)
+{
+	_lobyref = ref;
+}
+
