@@ -74,4 +74,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# *.unitypackage
+build_info.txt
+Assets/StreamingAssets/build_info
+
 # End of https://www.toptal.com/developers/gitignore/api/unity
