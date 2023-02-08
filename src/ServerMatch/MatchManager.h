@@ -1,7 +1,7 @@
 #pragma once
 #include <JobQueue.h>
 
-class MatchManager : public JobQueue
+class MatchManager
 {
 public:
 	MatchManager();

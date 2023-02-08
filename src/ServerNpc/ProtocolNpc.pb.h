@@ -47,7 +47,7 @@ struct TableStruct_ProtocolNpc_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -64,6 +64,9 @@ extern LoginDataDefaultTypeInternal _LoginData_default_instance_;
 class Obstacle;
 struct ObstacleDefaultTypeInternal;
 extern ObstacleDefaultTypeInternal _Obstacle_default_instance_;
+class StartData;
+struct StartDataDefaultTypeInternal;
+extern StartDataDefaultTypeInternal _StartData_default_instance_;
 class Vector3;
 struct Vector3DefaultTypeInternal;
 extern Vector3DefaultTypeInternal _Vector3_default_instance_;
@@ -72,6 +75,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::Npc::GameData* Arena::CreateMaybeMessage<::Npc::GameData>(Arena*);
 template<> ::Npc::LoginData* Arena::CreateMaybeMessage<::Npc::LoginData>(Arena*);
 template<> ::Npc::Obstacle* Arena::CreateMaybeMessage<::Npc::Obstacle>(Arena*);
+template<> ::Npc::StartData* Arena::CreateMaybeMessage<::Npc::StartData>(Arena*);
 template<> ::Npc::Vector3* Arena::CreateMaybeMessage<::Npc::Vector3>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Npc {
@@ -103,6 +107,160 @@ inline bool INGAME_Parse(
     INGAME_descriptor(), name, value);
 }
 // ===================================================================
+
+class StartData final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.StartData) */ {
+ public:
+  inline StartData() : StartData(nullptr) {}
+  ~StartData() override;
+  explicit constexpr StartData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StartData(const StartData& from);
+  StartData(StartData&& from) noexcept
+    : StartData() {
+    *this = ::std::move(from);
+  }
+
+  inline StartData& operator=(const StartData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StartData& operator=(StartData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const StartData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StartData* internal_default_instance() {
+    return reinterpret_cast<const StartData*>(
+               &_StartData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(StartData& a, StartData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StartData* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StartData* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline StartData* New() const final {
+    return new StartData();
+  }
+
+  StartData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StartData>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const StartData& from);
+  void MergeFrom(const StartData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StartData* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Npc.StartData";
+  }
+  protected:
+  explicit StartData(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRoomFieldNumber = 1,
+    kSizeFieldNumber = 2,
+    kGameFieldNumber = 3,
+  };
+  // int32 room = 1;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 size = 2;
+  void clear_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 size() const;
+  void set_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_size() const;
+  void _internal_set_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // bool game = 3;
+  void clear_game();
+  bool game() const;
+  void set_game(bool value);
+  private:
+  bool _internal_game() const;
+  void _internal_set_game(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Npc.StartData)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
+  ::PROTOBUF_NAMESPACE_ID::int32 size_;
+  bool game_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolNpc_2eproto;
+};
+// -------------------------------------------------------------------
 
 class LoginData final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.LoginData) */ {
@@ -148,7 +306,7 @@ class LoginData final :
                &_LoginData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(LoginData& a, LoginData& b) {
     a.Swap(&b);
@@ -311,7 +469,7 @@ class GameData final :
                &_GameData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(GameData& a, GameData& b) {
     a.Swap(&b);
@@ -506,7 +664,7 @@ class Obstacle final :
                &_Obstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(Obstacle& a, Obstacle& b) {
     a.Swap(&b);
@@ -712,7 +870,7 @@ class Vector3 final :
                &_Vector3_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Vector3& a, Vector3& b) {
     a.Swap(&b);
@@ -829,6 +987,70 @@ class Vector3 final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// StartData
+
+// int32 room = 1;
+inline void StartData::clear_room() {
+  room_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 StartData::_internal_room() const {
+  return room_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 StartData::room() const {
+  // @@protoc_insertion_point(field_get:Npc.StartData.room)
+  return _internal_room();
+}
+inline void StartData::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  room_ = value;
+}
+inline void StartData::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Npc.StartData.room)
+}
+
+// int32 size = 2;
+inline void StartData::clear_size() {
+  size_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 StartData::_internal_size() const {
+  return size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 StartData::size() const {
+  // @@protoc_insertion_point(field_get:Npc.StartData.size)
+  return _internal_size();
+}
+inline void StartData::_internal_set_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  size_ = value;
+}
+inline void StartData::set_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:Npc.StartData.size)
+}
+
+// bool game = 3;
+inline void StartData::clear_game() {
+  game_ = false;
+}
+inline bool StartData::_internal_game() const {
+  return game_;
+}
+inline bool StartData::game() const {
+  // @@protoc_insertion_point(field_get:Npc.StartData.game)
+  return _internal_game();
+}
+inline void StartData::_internal_set_game(bool value) {
+  
+  game_ = value;
+}
+inline void StartData::set_game(bool value) {
+  _internal_set_game(value);
+  // @@protoc_insertion_point(field_set:Npc.StartData.game)
+}
+
+// -------------------------------------------------------------------
+
 // LoginData
 
 // int32 mapLevel = 1;
@@ -1457,6 +1679,8 @@ inline void Vector3::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

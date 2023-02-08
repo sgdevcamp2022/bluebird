@@ -17,6 +17,20 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace Npc {
+constexpr StartData::StartData(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : room_(0)
+  , size_(0)
+  , game_(false){}
+struct StartDataDefaultTypeInternal {
+  constexpr StartDataDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~StartDataDefaultTypeInternal() {}
+  union {
+    StartData _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartDataDefaultTypeInternal _StartData_default_instance_;
 constexpr LoginData::LoginData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : obstacle_()
@@ -79,11 +93,19 @@ struct Vector3DefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Vector3DefaultTypeInternal _Vector3_default_instance_;
 }  // namespace Npc
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ProtocolNpc_2eproto[4];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ProtocolNpc_2eproto[5];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_ProtocolNpc_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_ProtocolNpc_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Npc::StartData, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Npc::StartData, room_),
+  PROTOBUF_FIELD_OFFSET(::Npc::StartData, size_),
+  PROTOBUF_FIELD_OFFSET(::Npc::StartData, game_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Npc::LoginData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -134,13 +156,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolNpc_2eproto::offsets[]
   PROTOBUF_FIELD_OFFSET(::Npc::Vector3, z_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::Npc::LoginData)},
-  { 8, 18, sizeof(::Npc::GameData)},
-  { 23, 34, sizeof(::Npc::Obstacle)},
-  { 40, -1, sizeof(::Npc::Vector3)},
+  { 0, -1, sizeof(::Npc::StartData)},
+  { 8, -1, sizeof(::Npc::LoginData)},
+  { 16, 26, sizeof(::Npc::GameData)},
+  { 31, 42, sizeof(::Npc::Obstacle)},
+  { 48, -1, sizeof(::Npc::Vector3)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Npc::_StartData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Npc::_LoginData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Npc::_GameData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Npc::_Obstacle_default_instance_),
@@ -148,25 +172,26 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_ProtocolNpc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021ProtocolNpc.proto\022\003Npc\"Q\n\tLoginData\022\020\n"
-  "\010mapLevel\030\001 \001(\005\022\021\n\tmatchRoom\030\002 \001(\005\022\037\n\010ob"
-  "stacle\030\003 \003(\0132\r.Npc.Obstacle\"\234\001\n\010GameData"
-  "\022\021\n\tmatchRoom\030\001 \001(\005\022\n\n\002id\030\002 \001(\003\022\r\n\005shape"
-  "\030\003 \001(\005\022#\n\010position\030\004 \001(\0132\014.Npc.Vector3H\000"
-  "\210\001\001\022#\n\010rotation\030\005 \001(\0132\014.Npc.Vector3H\001\210\001\001"
-  "B\013\n\t_positionB\013\n\t_rotation\"\253\001\n\010Obstacle\022"
-  "\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022#\n\010position\030\003"
-  " \001(\0132\014.Npc.Vector3H\000\210\001\001\022#\n\010rotation\030\004 \001("
-  "\0132\014.Npc.Vector3H\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n\td"
-  "irection\030\006 \001(\005B\013\n\t_positionB\013\n\t_rotation"
-  "\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003"
-  " \001(\002*(\n\006INGAME\022\t\n\005LOGIN\020\000\022\010\n\004GAME\020\001\022\t\n\005S"
-  "TART\020\002b\006proto3"
+  "\n\021ProtocolNpc.proto\022\003Npc\"5\n\tStartData\022\014\n"
+  "\004room\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\022\014\n\004game\030\003 \001(\010\""
+  "Q\n\tLoginData\022\020\n\010mapLevel\030\001 \001(\005\022\021\n\tmatchR"
+  "oom\030\002 \001(\005\022\037\n\010obstacle\030\003 \003(\0132\r.Npc.Obstac"
+  "le\"\234\001\n\010GameData\022\021\n\tmatchRoom\030\001 \001(\005\022\n\n\002id"
+  "\030\002 \001(\003\022\r\n\005shape\030\003 \001(\005\022#\n\010position\030\004 \001(\0132"
+  "\014.Npc.Vector3H\000\210\001\001\022#\n\010rotation\030\005 \001(\0132\014.N"
+  "pc.Vector3H\001\210\001\001B\013\n\t_positionB\013\n\t_rotatio"
+  "n\"\253\001\n\010Obstacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001("
+  "\005\022#\n\010position\030\003 \001(\0132\014.Npc.Vector3H\000\210\001\001\022#"
+  "\n\010rotation\030\004 \001(\0132\014.Npc.Vector3H\001\210\001\001\022\r\n\005s"
+  "peed\030\005 \001(\002\022\021\n\tdirection\030\006 \001(\005B\013\n\t_positi"
+  "onB\013\n\t_rotation\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n"
+  "\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*(\n\006INGAME\022\t\n\005LOGIN\020\000"
+  "\022\010\n\004GAME\020\001\022\t\n\005START\020\002b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolNpc_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto = {
-  false, false, 534, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
-  &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 4,
+  false, false, 589, descriptor_table_protodef_ProtocolNpc_2eproto, "ProtocolNpc.proto", 
+  &descriptor_table_ProtocolNpc_2eproto_once, nullptr, 0, 5,
   schemas, file_default_instances, TableStruct_ProtocolNpc_2eproto::offsets,
   file_level_metadata_ProtocolNpc_2eproto, file_level_enum_descriptors_ProtocolNpc_2eproto, file_level_service_descriptors_ProtocolNpc_2eproto,
 };
@@ -192,6 +217,252 @@ bool INGAME_IsValid(int value) {
   }
 }
 
+
+// ===================================================================
+
+class StartData::_Internal {
+ public:
+};
+
+StartData::StartData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:Npc.StartData)
+}
+StartData::StartData(const StartData& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&room_, &from.room_,
+    static_cast<size_t>(reinterpret_cast<char*>(&game_) -
+    reinterpret_cast<char*>(&room_)) + sizeof(game_));
+  // @@protoc_insertion_point(copy_constructor:Npc.StartData)
+}
+
+void StartData::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&room_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&game_) -
+    reinterpret_cast<char*>(&room_)) + sizeof(game_));
+}
+
+StartData::~StartData() {
+  // @@protoc_insertion_point(destructor:Npc.StartData)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void StartData::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void StartData::ArenaDtor(void* object) {
+  StartData* _this = reinterpret_cast< StartData* >(object);
+  (void)_this;
+}
+void StartData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void StartData::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StartData::Clear() {
+// @@protoc_insertion_point(message_clear_start:Npc.StartData)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&room_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&game_) -
+      reinterpret_cast<char*>(&room_)) + sizeof(game_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* StartData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 room = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 size = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool game = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          game_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* StartData::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Npc.StartData)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 room = 1;
+  if (this->room() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_room(), target);
+  }
+
+  // int32 size = 2;
+  if (this->size() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_size(), target);
+  }
+
+  // bool game = 3;
+  if (this->game() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_game(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Npc.StartData)
+  return target;
+}
+
+size_t StartData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Npc.StartData)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 room = 1;
+  if (this->room() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_room());
+  }
+
+  // int32 size = 2;
+  if (this->size() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_size());
+  }
+
+  // bool game = 3;
+  if (this->game() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StartData::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Npc.StartData)
+  GOOGLE_DCHECK_NE(&from, this);
+  const StartData* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StartData>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Npc.StartData)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Npc.StartData)
+    MergeFrom(*source);
+  }
+}
+
+void StartData::MergeFrom(const StartData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Npc.StartData)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.room() != 0) {
+    _internal_set_room(from._internal_room());
+  }
+  if (from.size() != 0) {
+    _internal_set_size(from._internal_size());
+  }
+  if (from.game() != 0) {
+    _internal_set_game(from._internal_game());
+  }
+}
+
+void StartData::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Npc.StartData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StartData::CopyFrom(const StartData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Npc.StartData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StartData::IsInitialized() const {
+  return true;
+}
+
+void StartData::InternalSwap(StartData* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(StartData, game_)
+      + sizeof(StartData::game_)
+      - PROTOBUF_FIELD_OFFSET(StartData, room_)>(
+          reinterpret_cast<char*>(&room_),
+          reinterpret_cast<char*>(&other->room_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata StartData::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_ProtocolNpc_2eproto_getter, &descriptor_table_ProtocolNpc_2eproto_once,
+      file_level_metadata_ProtocolNpc_2eproto[0]);
+}
 
 // ===================================================================
 
@@ -447,7 +718,7 @@ void LoginData::InternalSwap(LoginData* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LoginData::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolNpc_2eproto_getter, &descriptor_table_ProtocolNpc_2eproto_once,
-      file_level_metadata_ProtocolNpc_2eproto[0]);
+      file_level_metadata_ProtocolNpc_2eproto[1]);
 }
 
 // ===================================================================
@@ -796,7 +1067,7 @@ void GameData::InternalSwap(GameData* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GameData::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolNpc_2eproto_getter, &descriptor_table_ProtocolNpc_2eproto_once,
-      file_level_metadata_ProtocolNpc_2eproto[1]);
+      file_level_metadata_ProtocolNpc_2eproto[2]);
 }
 
 // ===================================================================
@@ -1166,7 +1437,7 @@ void Obstacle::InternalSwap(Obstacle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Obstacle::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolNpc_2eproto_getter, &descriptor_table_ProtocolNpc_2eproto_once,
-      file_level_metadata_ProtocolNpc_2eproto[2]);
+      file_level_metadata_ProtocolNpc_2eproto[3]);
 }
 
 // ===================================================================
@@ -1408,12 +1679,15 @@ void Vector3::InternalSwap(Vector3* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Vector3::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolNpc_2eproto_getter, &descriptor_table_ProtocolNpc_2eproto_once,
-      file_level_metadata_ProtocolNpc_2eproto[3]);
+      file_level_metadata_ProtocolNpc_2eproto[4]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Npc
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::Npc::StartData* Arena::CreateMaybeMessage< ::Npc::StartData >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Npc::StartData >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Npc::LoginData* Arena::CreateMaybeMessage< ::Npc::LoginData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Npc::LoginData >(arena);
 }
