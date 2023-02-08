@@ -18,7 +18,6 @@ void MatchHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 
 void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::S_Match&& pkt)
 {
-    cout << "Input" << endl;
     // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
     // Redis로 판별해도 괜찮을 듯
     vector<PlayerRef> players;

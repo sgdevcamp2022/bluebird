@@ -28,12 +28,8 @@ int main() {
 	ClientServiceRef service1 = MakeShared<ClientService>(
 		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 10);
+		MakeShared<MatchSession>, 1);
 	ClientServiceRef service2;
-	ClientServiceRef service3 = MakeShared<ClientService>(
-		NetAddress(L"127.0.0.1", 6000),
-		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 10);
 
 	// 테스트 작동 
 	// true = NPC
@@ -47,29 +43,14 @@ int main() {
 			MakeShared<GameSession>, 10);
 
 		ASSERT_CRASH(service1->Start());
-
-		for (int i = 0; i < THREAD_SIZE; i++) {
-			GThreadManager->Launch([&service1]()
+		GThreadManager->Launch([&service1]()
+			{
+				while (true)
 				{
-					while (true)
-					{
-						DoWorkerJob(service1);
-					}
-				});
-		}
+					DoWorkerJob(service1);
+				}
+			});
 		this_thread::sleep_for(1s);
-
-		ASSERT_CRASH(service3->Start());
-
-		for (int i = 0; i < THREAD_SIZE; i++) {
-			GThreadManager->Launch([&service3]()
-				{
-					while (true)
-					{
-						DoWorkerJob(service3);
-					}
-				});
-		}
 
 		//게임 클라이언트 접속 테스트
 		this_thread::sleep_for(5s);
@@ -82,7 +63,6 @@ int main() {
 	}
 
 	ASSERT_CRASH(service2->Start());
-
 	for (int i = 0; i < THREAD_SIZE; i++) {
 		GThreadManager->Launch([&service2]()
 			{

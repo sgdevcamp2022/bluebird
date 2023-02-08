@@ -24,7 +24,6 @@ int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
 		memcpy(str.data(), buffer, 4);
 		Match::Header header;
 		header.ParseFromString(str);
-		cout << header.size() << " "  << header.state() << endl;
 		// 헤더에 기록된 패킷 크기를 파싱할 수 있어야 한다
 		if ((dataSize - 4) < header.size())
 			break;

@@ -46,6 +46,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	}
 	else if (IsRoom(room)) {
 		if (_games[room]->IsPlayer(id)) {
+			cout << "Player Inside = " << id << " " << room << endl;
 			session->_room = _games[room];
 			_games[room]->GameEnter(session, id);
 		}
@@ -67,7 +68,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 void Games::StartGame(int32 room)
 {
 	int check;
-	if(check = _games[room]->Start() == -1)
+	if((check = _games[room]->Start()) == -1)
 		DoTimer(5000, &Games::StartGame, room);
 	else if(GetNpcRef() != nullptr){
 		Npc::StartData data;
@@ -76,6 +77,8 @@ void Games::StartGame(int32 room)
 		data.set_size(check);
 		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
 	}
+	else
+		cout << "게임 시작" << endl;
 	//게임 시작
 }
 
