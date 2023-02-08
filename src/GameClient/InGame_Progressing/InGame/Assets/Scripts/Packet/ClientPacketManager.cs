@@ -45,7 +45,8 @@ class PacketManager
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
         recv.Add((ushort)INGAME.PlayerGoal, MakePacket<GameCompleteData>);
         handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
-        
+        recv.Add((ushort)INGAME.Reconnect, MakePacket<Data>);
+        handler.Add((ushort)INGAME.Reconnect, PacketHandler.ReConnect);
     }
 
     public void OnReceievePacket(byte[] buffer, Pkt_Head head)

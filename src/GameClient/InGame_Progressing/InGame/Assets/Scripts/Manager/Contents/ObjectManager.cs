@@ -18,6 +18,7 @@ public class ObjectManager
     static ObjectManager _instance = new ObjectManager();
     public static ObjectManager Instance { get { return _instance; } }
 
+    public Int64 myPlayerId = 1;
     //플레이어 정보 저장
     Dictionary<Int64, GameObject>               obtacles = new Dictionary<Int64, GameObject>();
     Dictionary<Int64, GameObject>               players = new Dictionary<Int64, GameObject>();
@@ -43,8 +44,8 @@ public class ObjectManager
     {
         GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
         go.name = "MyPlayer" + id;
-     
 
+        myPlayerId = id;
         players.Add(player.Id, go);
 
         MyPlayer = go.GetComponent<MyPlayerController>();

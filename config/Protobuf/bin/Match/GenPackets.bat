@@ -14,7 +14,8 @@ XCOPY /Y ProtocolMatch.pb.cc "../../../../src/ServerGame"
 
 XCOPY /Y ProtocolMatch_pb2.py "../../../../src/ServerPlatform"
 
-PAUSE
+IF ERRORLEVEL 1 PAUSE
 
 DEL /Q /F *.pb.h
 DEL /Q /F *.pb.cc
+DEL /Q /F *.py

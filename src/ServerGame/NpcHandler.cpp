@@ -45,6 +45,7 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 				datas[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), Vector3(data.position()), Vector3(data.rotation()), data.speed(), data.direction());
 			}
 		}
+		//TODO 고치기
 		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, &datas);
 	}
 }
@@ -57,5 +58,7 @@ void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 
 	//복사 비용 줄이기
 	cout << pkt.rotation().x() << pkt.rotation().y() << pkt.rotation().z() << endl;
+
+	//TODO 고치기
 	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, pkt.id(), pkt.position(), pkt.rotation(), std::move(data));
 }
