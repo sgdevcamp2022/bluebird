@@ -1,4 +1,4 @@
-import ProtocolMatch_pb2 as pb2
+import protobufs.ProtocolMatch_pb2 as pb2
 import socket
 
 # server IP, PORT
@@ -36,3 +36,4 @@ while 1:
     head = pb2.Header()
     head.ParseFromString(data[:4]);
     print(head.size, " ", head.state)
+    print(head)

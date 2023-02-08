@@ -171,7 +171,7 @@
     <div id="wrap">
         <div id="header">
         </div>
-        <form id="register_form" name="register_form" method="POST" action="/api/auth/register" onsubmit="required()">
+        <form id="register_form" name="register_form" method="POST" action="/auth/register">
             <div id="container">
                 <div id="content">
                     <table width="940" style="padding:5px 0 5px 0;">
@@ -274,10 +274,10 @@
                             <td><span>동의하지 않음<input type="radio" name="gather_agree" value="0" checked /></span></td>
                         </tr>
                         <br>
-                        <tr id="btn_area">
-                            <td><button type="button" onclick="check_required()" id="btnSend"><span>가입하기</span></button>
+                        <tr id="btn_area" style="text-align: center;">
+                            <td colspan="2"><button type="button" onclick="check_required()" id="btnSend"><span>가입하기</span></button>
                             </td>
-                            <td><button type="button" onclick="location.href = '/'">로그인 화면으로 돌아가기!</button></td>
+                            <td colspan="2"><button type="button" onclick="location.href = '/'">메인으로</button></td>
 
                         </tr>
                     </table>

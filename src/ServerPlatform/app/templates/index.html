@@ -63,6 +63,12 @@
             z-index: 1;
         }
     </style>
+    <script type="text/javascript">
+        navigator.registerProtocolHandler(
+            "web+launch",
+            "C:\Users\Rizin\OneDrive\Desktop\PoorGuys_develop\bluebird\binary\client\Debug\Lobby\Lobby.exe",
+            )
+    </script>
     <title>Home</title>
 </head>
 
@@ -71,14 +77,14 @@
         <section class="layout bubbles">
             <div id="1"></div>
             {% if id %} 
-            <div style="text-align: center;"><a href="/user-logout/">로그아웃</a></div>
+            <div style="text-align: center;"><a href="/auth/logout/">로그아웃</a></div>
             {% else %}
             <div style="text-align: center;"><a href="/user-login/">로그인</a></div>
             {% endif %}
             <div style="text-align: right; font-size: 15px;">{% if id %} 로그인 완료 <br> login ID : {{id}} {% endif %}</div>
             <div style="padding: 15vh 0;"><a href="/user-sign-up/">회원가입</a></div>
             <div style="text-align: center;"><h1>Poor<br>Guys</h1></div>
-            <div style="padding: 15vh 0; text-align: right;"><a href="/game-launch/">게임 실행</a></div>
+            <div style="padding: 15vh 0; text-align: right;"><a href="bluebird:{{userNo}}">게임 실행</a></div>
             <div id="7" style="padding-top: 28vh;"></div>
             <div style="padding-top: 28vh; text-align: center;"><a href="/game-download/">게임 설치</a></div>
             <div id="9" style="padding-top: 28vh; text-align: right;"></div>

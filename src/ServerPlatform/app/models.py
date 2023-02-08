@@ -34,13 +34,14 @@ class Token(BaseModel):
 
 
 class UserToken(BaseModel):
-    id: int
+    userNo: int
+    id: str
     password: str = None
-    email: str = None
-    name: str = None
-    phone_number: str = None
-    profile_img: str = None
-    sns_type: str = None
+
+    isAdmin: bool 
+    nickname: str
+    birthday: str
+    sex: str
 
     class Config:
         orm_mode = True

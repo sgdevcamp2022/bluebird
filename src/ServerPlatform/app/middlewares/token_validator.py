@@ -58,11 +58,8 @@ class AccessControl:
                         raise ex.NotAuthorized()
             else:
                 # 템플릿 렌더링인 경우 쿠키에서 토큰 검사
-                request.cookies["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTQsImVtYWlsIjoia29hbGFAZGluZ3JyLmNvbSIsIm5hbWUiOm51bGwsInBob25lX251bWJlciI6bnVsbCwicHJvZmlsZV9pbWciOm51bGwsInNuc190eXBlIjpudWxsfQ.4vgrFvxgH8odoXMvV70BBqyqXOFa2NDQtzYkGywhV48"
-
                 if "Authorization" not in request.cookies.keys():
                     raise ex.NotAuthorized()
-
                 token_info = await self.token_decode(access_token=request.cookies.get("Authorization"))
                 request.state.user = UserToken(**token_info)
 

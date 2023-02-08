@@ -56,9 +56,8 @@ public class NetworkManager
 
 	public void Retry()
 	{
-        
 
-    }
+	}
 
     public IEnumerator CountRtt()
 	{

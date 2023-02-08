@@ -29,6 +29,7 @@ def create_app():
     c = conf()
     app = FastAPI()
     app.mount("/static", StaticFiles(directory="app/static"), name="static")
+    # app.mount("/files",  StaticFiles(directory="app/files"), name="files")
     conf_dict = asdict(c)
     db.init_app(app, **conf_dict)
     # 데이터 베이스 이니셜라이즈
@@ -45,13 +46,13 @@ def create_app():
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    app.add_middleware(TrustedHostMiddleware, allowed_hosts=conf().TRUSTED_HOSTS, except_path=["/health"])
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=conf().TRUSTED_HOSTS, except_path=["/user-login"])
 
     # 라우터 정의
     app.include_router(index.router)
-    app.include_router(auth.router, tags=["Authentication"], prefix="/api")
-    app.include_router(users.router, tags=["Users"], prefix="/api", dependencies=[Depends(API_KEY_HEADER)])
-    app.include_router(lobby.router, tags=["Lobby"], prefix="/api")
+    app.include_router(auth.router, tags=["Authentication"])
+    # app.include_router(users.router, tags=["Users"], dependencies=[Depends(API_KEY_HEADER)])
+    app.include_router(lobby.router, tags=["Lobby"])
     return app
 
 

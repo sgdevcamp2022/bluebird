@@ -16,6 +16,7 @@ async def m(request: Request):
     requestLevel = 2
     requestRoom = 3
     requestState = True
+
     # server IP, PORT
     server_ip = '127.0.0.1'
     server_port = 6000
@@ -30,26 +31,24 @@ async def m(request: Request):
 
     # header
     head = pb2.Header()
-    head.size = np.uint32(len(body))
+    head.size = len(body)
     if requestAction == 1 :
         head.state = pb2.STATE.C_LOGIN
-    
-    header = head.SerializeToString()
 
     # print("header content =", header)
     # print("body content =", body)
     # print("header size =",len(header))
     # print("body size =",len(body))
 
-    message = header
-    message += body
+    message = head.SerializeToString() + body
+    byte = bytes(message)
 
     # print("send Message: ", message, "\nmessage size =",len(message))
 
     # address family : IPv4 , Socket type : TCP(Stream)
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((server_ip, server_port))
-    client_socket.sendall(message)
+    client_socket.send(byte)
 
     data = client_socket.recv(1024)
     print('Server Received my Message~!')

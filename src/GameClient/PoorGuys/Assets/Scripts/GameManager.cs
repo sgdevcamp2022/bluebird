@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,10 +11,29 @@ public class GameManager : MonoBehaviour
 
     public UserInfo player;
 
+    public string[] args;
+
+    private void Awake()
+    {
+        args = Environment.GetCommandLineArgs();
+    }
+
     void Start()
     {
-        LoadUserInfo();
-        nicknameText.text = player.nickname;
+        if(args.Length == 2)
+        {
+            string[] arrTemp = args[1].Split(":");
+            if(arrTemp.Length == 2 )
+            {
+                nicknameText.text = arrTemp[1];
+            }
+        }
+        else
+        {
+            nicknameText.text = "Default";
+        }
+        //LoadUserInfo();
+        //nicknameText.text = player.nickname;
     }
 
     void Update()
