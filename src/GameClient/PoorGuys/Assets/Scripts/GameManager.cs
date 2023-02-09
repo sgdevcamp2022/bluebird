@@ -8,13 +8,16 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text nicknameText;
+    public int userNo;
 
     public UserInfo player;
 
     public string[] args;
 
+    public static GameManager gameManager;
     private void Awake()
     {
+        gameManager = this;
         args = Environment.GetCommandLineArgs();
     }
 
@@ -26,11 +29,13 @@ public class GameManager : MonoBehaviour
             if(arrTemp.Length == 2 )
             {
                 nicknameText.text = arrTemp[1];
+                userNo = int.Parse(arrTemp[1]);
             }
         }
         else
         {
-            nicknameText.text = "Default";
+            nicknameText.text = "-1";
+            userNo = -1;
         }
         //LoadUserInfo();
         //nicknameText.text = player.nickname;
