@@ -3,10 +3,12 @@
 
 bool Player::Move(Vector3&& position, Vector3&& rotation)
 {
-	GameUtils::SetVector3(_position, position);
-	GameUtils::SetVector3(_rotation, rotation);
-
-	return true;
+	if (_move) {
+		GameUtils::SetVector3(_position, position);
+		GameUtils::SetVector3(_rotation, rotation);
+		return true;
+	}
+	return false;
 }
 
 void Player::SetPlayer(Protocol::Player* ref)
@@ -24,6 +26,7 @@ bool Obtacle::Move(Vector3&& position, Vector3&& rotation)
 	GameUtils::SetVector3(_rotation, rotation);
 
 	return true;
+
 }
 
 GameObject::~GameObject()

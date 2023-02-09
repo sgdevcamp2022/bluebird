@@ -37,3 +37,14 @@ SendBufferRef _Making(T& pkt, S type)
 
 	return sendBuffer;
 }
+
+enum PlayerLevel
+{
+	SOLO = 1
+	, DUO
+	, SOLO_DUO
+	, THREE
+	, SOLO_THREE
+	, DUO_THREE
+	, ALL
+};

@@ -22,8 +22,8 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     case Protocol::GAME_COMPLTE:
         HGameComplete(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
         break;
-    case Protocol::GAME_DROP:
-        HGameDrop(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+    case Protocol::PLAYER_DROP:
+        HGameDrop(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::GAME_FAIL:
         HGameFail(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
@@ -36,6 +36,10 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
         break;
     case Protocol::TIME:
         HTime(ref, ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
+        break;
+    case Protocol::PLAYER_GOAL:
+        HPlayerGoal(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
+        break;
     default:
         break;
     }
@@ -50,9 +54,6 @@ void GameHandler::HConnect(GameSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
-    bool expected = true;
-    bool desired = true;
-
     if (ref->_mySelf != nullptr)
         if (auto room = ref->_room.lock())
             if (ref->_start)
@@ -80,9 +81,13 @@ void GameHandler::HGameFail(GameSessionRef& ref, Protocol::Data&& pkt)
     
 }
 
-void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
 {
-    
+    if (pkt.id() == ref->_mySelf->GetId()) 
+    {
+        cout << "Á¤»ó" << endl;
+        ref->_mySelf->MoveChange();
+    }
 }
 
 void GameHandler::HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt)
@@ -101,6 +106,14 @@ void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)
 void GameHandler::HTime(GameSessionRef& ref, Protocol::Times&& pkt)
 {
     ref->Send(GameHandler::MakeSendBuffer(pkt, Protocol::TIME));
+}
+
+void GameHandler::HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt)
+{
+    if (ref->_mySelf != nullptr)
+        if (auto room = ref->_room.lock())
+            if (ref->_start)
+                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
@@ -125,4 +138,9 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::GameCompleteData pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::GameCompleteData, GameHeader, Protocol::INGAME>(pkt, type);
+}
+
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::PlayerGoalData, GameHeader, Protocol::INGAME>(pkt, type);
 }

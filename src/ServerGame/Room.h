@@ -29,15 +29,16 @@ public:
 	atomic<bool>			_start = false;
 
 private:
-	int32					_matchRoom;
-	int32					_mapLevel;
+	int32						_matchRoom;
+	int32						_mapLevel;
 
-	map<int64, PlayerRef>	_players;
-	map<int64, ObtacleRef>	_obstacles;
+	map<int64, PlayerRef>		_players;
+	map<int64, ObtacleRef>		_obstacles;
 
-	vector<Vector3>			_spawnPosition;
-	vector<int64>			_winnerId;
+	vector<Vector3>				_spawnPosition;
+	vector<int64>				_winnerId;
 
-	Protocol::Data			_startData;
-	atomic<int32>			_playerSize = 0;
+	Protocol::Data				_startData;
+	Protocol::GameCompleteData	_winner;
+	atomic<int32>				_playerSize = 0;
 };

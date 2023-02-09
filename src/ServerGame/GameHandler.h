@@ -9,10 +9,11 @@ private:
 	static void HNoMove(GameSessionRef& ref, Protocol::Data&& pkt);
 	static void HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt);
 	static void HGameFail(GameSessionRef& ref, Protocol::Data&& pkt);
-	static void HGameDrop(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt);
 	static void HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt);
 	static void HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt);
 	static void HTime(GameSessionRef& ref, Protocol::Times&& pkt);
+	static void HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt);
 
 public:
 	static void HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len);
@@ -22,6 +23,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::GameCompleteData pkt, Protocol::INGAME type);
+	static SendBufferRef MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type);
 };
 
 struct GameHeader {
