@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z )
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping)
         {
             State = PlayerState.Idle;
             return;
