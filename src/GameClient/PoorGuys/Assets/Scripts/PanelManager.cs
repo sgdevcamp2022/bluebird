@@ -20,18 +20,102 @@ public class PanelManager : MonoBehaviour
     public Text squadText;
 
     private bool isMatching = false;
+    private bool isCancel = false;
 
     public bool[] seletedModes = { true, false, false };
+    public int modsSum = 1;
+
+    public static PanelManager panelManager;
+
+    Coroutine changeMatchTextRoutine = null;
+    private void Awake()
+    {
+        panelManager = this;
+    }
 
     public void MatchSelect()
     {
         if (!isMatching)
         {
             isMatching = true;
-            matchCancleButton.SetActive(true);
-            StartCoroutine(ChangeMatchText());
-            StartCoroutine(NetworkManager.networkManager.UnityWebRequestPost(seletedModes));
+            changeMatchTextRoutine = StartCoroutine(ChangeMatchText());
+            StartCoroutine(StartMatch());
         }
+    }
+
+    IEnumerator StartMatch()
+    {
+        bool wait = true;
+        bool isSuccess = false;
+        StartCoroutine(NetworkManager.networkManager.MatchInitPost((callback) =>
+        {
+            isSuccess = callback;
+            wait = false;
+        }));
+
+        while(wait)
+        {
+            yield return null;
+        }
+
+        wait = true;
+        isSuccess = false;
+        Debug.Log("MatchRoom: " + isSuccess);
+        matchCancleButton.SetActive(true);
+        int matchStatus = 0;
+        while(true)
+        {
+            StartCoroutine(NetworkManager.networkManager.MatchStartPost(isCancel, (callback) =>
+            {
+                matchStatus = callback;
+                wait = false;
+            }));
+
+            while (wait)
+            {
+                yield return null;
+            }
+            wait = true;
+
+            if(matchStatus == 0)
+            {
+                continue;
+            }
+            else if(matchStatus == 1)
+            {
+                //게임 시작 및 씬 전환
+                LobbyInfo.lobbyInfo.userNo = GameManager.gameManager.userNo;
+                LobbyInfo.lobbyInfo.room = 1;
+            }
+            else
+            {
+                Debug.Log("매치메이킹 취소됨");
+                StopCoroutine(changeMatchTextRoutine);
+                matchText.text = "매치 취소중..";
+
+                StartCoroutine(NetworkManager.networkManager.MatchCancelPost((callback) =>
+                {
+                    isSuccess = callback;
+                    wait = false;
+                }));
+
+                while (wait)
+                {
+                    yield return null;
+                }
+
+                isMatching = false;
+                isCancel = false;
+                
+                matchText.text = "매치메이킹";
+                matchCancleButton.SetActive(false);
+                break;
+            }
+
+            Debug.Log("매치 상태: " + matchStatus);
+            yield return new WaitForSeconds(1.0f);
+        }
+        Debug.Log("While문 종료");
     }
 
     IEnumerator ChangeMatchText()
@@ -50,10 +134,7 @@ public class PanelManager : MonoBehaviour
 
     public void MatchCancle()
     {
-        isMatching = false;
-        matchText.text = "매치메이킹";
-        matchCancleButton.SetActive(false);
-        StopAllCoroutines();
+        isCancel = true;
     }
 
     public void ModeSelect()
@@ -86,11 +167,13 @@ public class PanelManager : MonoBehaviour
         {
             soloText.text = "선택됨";
             seletedModes[0] = true;
+            modsSum += 1;
         }
         else
         {
             soloText.text = "제외됨";
             seletedModes[0] = false;
+            modsSum -= 1;
         }
     }
 
@@ -100,11 +183,13 @@ public class PanelManager : MonoBehaviour
         {
             duoText.text = "선택됨";
             seletedModes[1] = true;
+            modsSum += 2;
         }
         else
         {
             duoText.text = "제외됨";
             seletedModes[1] = false;
+            modsSum -= 2;
         }
     }
 
@@ -114,11 +199,13 @@ public class PanelManager : MonoBehaviour
         {
             squadText.text = "선택됨";
             seletedModes[2] = true;
+            modsSum += 4;
         }
         else
         {
             squadText.text = "제외됨";
             seletedModes[2] = false;
+            modsSum -= 4;
         }
     }
 }
