@@ -70,7 +70,7 @@ public class PacketHandler
         Player data = packet as Player;
         Managers.Object.AddMyPlayer(data.Id, data);
  
-        //Managers.Object.AddMyCamera(data.Id, data);
+
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
@@ -87,10 +87,10 @@ public class PacketHandler
         if (pc == null)
             return;
 
-        //pc.playerInfo.Id = data.Id;
+       
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
-        //pc.playerInfoUpdate();
+        
     }
     public static void ObtacleMove(IMessage packet)
     {

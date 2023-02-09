@@ -28,6 +28,8 @@ public:
     void Connect(boost::asio::ip::tcp::endpoint& endpoint);
     void PostWrite(LoginData loginData);
     void PostWrite(GameData gameData);
+
+    list<StartData>* GetStartData();
 private:
     
 
@@ -52,6 +54,9 @@ private:
     list<pair<int, boost::thread*>> threadGroup;
     list<pair<int, boost::thread*>>::iterator iter;
 
+    list<StartData> roomGroup;
+    list<StartData>::iterator iterRoom;
+
     boost::mutex mutex;
 };
 
@@ -69,4 +74,6 @@ private:
     ServerNpc& npcServer;
     LoginData loginData;
     GameData gameData;
+    list<StartData>* roomGroup;
+    list<StartData>::iterator iterRoom;
 };

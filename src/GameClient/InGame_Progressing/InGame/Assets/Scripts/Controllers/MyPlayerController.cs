@@ -11,19 +11,15 @@ public class MyPlayerController : PlayerController
     CameraController cameracontroller;
     public  bool serverCommunication = false;
 
-    [SerializeField]
-    private Transform cameraTransform;
 
-    bool pressedJump = false;
+
+    
 
     protected override void Init()
     {
         
         base.Init();
-        cameraTransform = Camera.main.gameObject.transform;
-        cameracontroller = CameraController.Instance;
-        Debug.Log(cameracontroller);
-
+     
     }
 
     protected override void UpdateController()
@@ -36,6 +32,10 @@ public class MyPlayerController : PlayerController
             case PlayerState.Moving:
                 GetInput();
                 break;
+            case PlayerState.Jumping:
+                GetInput();
+                break;
+
         }
         base.UpdateController();
     }
@@ -43,75 +43,122 @@ public class MyPlayerController : PlayerController
     void GetInput()
     {
 
-        //Debug.Log(cameracontroller.pov.m_HorizontalAxis.Value);
-        //float h = cameracontroller.pov.m_HorizontalAxis.Value;
+        
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
+        
         pressedJump = Input.GetKeyDown(KeyCode.Space);
-        // float v = Input.GetAxis("vertical");
         moveVec = new Vector3(h, 0f, v);
+
+        if (pressedJump && !isJumping)
+        {
+            State = PlayerState.Jumping; 
+        }
+
+        Debug.Log("State : " + State + " isJumping: " + isJumping);
 
     }
 
 
     protected override void UpdateIdle()
     {
-        if (moveVec.x != 0 || moveVec.z != 0 || pressedJump)
+        if (moveVec.x != 0 || moveVec.z != 0 )
         {
             State = PlayerState.Moving;
             return;
         }
     }
 
-    //여기서 MyPlayer 이동이 이루어진다.
+    //내가 이동하고 좌표를 보내는 형식  
     protected override void UpdateMoving()
     {
-
-        
-        //내가 이동하고 좌표를 보내는 형식
-       
-            PlayerState prevState = State;
+           
+     
             prevVec = transform.position;
-
-            if (moveVec.x == 0 && moveVec.z == 0 && !pressedJump) 
-            {
-                State = PlayerState.Idle;
-                return;
-            }
-
-            Vector3 movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveVec;
+     
+ 
+            Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
+       
             movementDirection.Normalize();
-            
-            
+
+            transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             transform.position += movementDirection * speed * Time.deltaTime;
-            Jump();
 
-            if (prevState != State || prevVec != transform.position)
+         
+        if (prevVec != transform.position )
+        {
+            Move playerMove = new Move()
             {
+                Id = playerId,
+                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
 
-                Move playerMove = new Move()
-                {
-                    Id = playerId,
-                    Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-                    Rotation = new Vector { X = transform.rotation.x, Y = transform.rotation.y, Z = transform.rotation.z },
+            };
 
-                };
 
-                Managers.Network.Send(playerMove, INGAME.PlayerMove);
+            Managers.Network.Send(playerMove, INGAME.PlayerMove);
+        }
 
-            }
+        else if (prevVec == transform.position )
+        {
+            State = PlayerState.Idle;
+        }
         
+    }
+
+
+    //점프를 해서 착지할때까지 계속해서 패킷을 보내줘야한다.
+
+    protected override void UpdateJumping()
+    {
+       
+
+        Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
+
+        movementDirection.Normalize();
+
+        transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+
+        //바닥에 착지해있는 상태라면 점프 수행
+        if (!isJumping)
+        {
+            Jump();
+        }
+
+        //아직까지 공중에 떠있다면 계속해서 패킷 전송, 공중에서도 움직일 수 있도록 Moving으로 변경
+        if (isJumping)
+        {
+            State = PlayerState.Moving;
+           
+        }
+
+
+
+        Move playerMove = new Move()
+        {
+             Id = playerId,
+             Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+             Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+
+         };
+
+
+        Managers.Network.Send(playerMove, INGAME.PlayerMove);
+
+     
+        
+
+
     }
 
     void Jump()
     {
-        if (!isJumping && pressedJump)
+        if (!isJumping )
         {
             isJumping = true;
-            pressedJump = false;
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            Debug.Log("Jump Success");
+    
         }
         else
             return;

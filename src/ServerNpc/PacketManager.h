@@ -46,6 +46,13 @@ struct LoginData
 	vector<Obstacle> obstacle;
 };
 
+struct StartData
+{
+	int room;
+	int size;
+	bool game;
+};
+
 struct GameData
 {
 	int matchRoom;
@@ -79,11 +86,12 @@ public:
 	char* MakeGamePacket(GameData gameData);
     //~PacketManager();
     int GetBufSize();
-    int PacketProcess(LoginData* loginData, protobuf::io::CodedInputStream& input_stream);
+    int PacketProcess(LoginData* loginData, StartData* startData, protobuf::io::CodedInputStream& input_stream);
 
 private:
     void PrintMsg(::google::protobuf::Message& msg);
-	int GetField(LoginData* loginData, ::google::protobuf::Message& msg, int index = 0);
+	int GetField(LoginData* loginData, ::google::protobuf::Message& msg);
+	int GetField(StartData* startData, ::google::protobuf::Message& msg);
     void WriteMessageToStream(Npc::INGAME msgType, const protobuf::Message& message,
         protobuf::io::CodedOutputStream& stream);
     const int headerSize = sizeof(MessageHeader);
