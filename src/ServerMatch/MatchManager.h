@@ -14,8 +14,8 @@ public:
 	void ConnectLobyServer(MatchSessionRef ref);
 
 private:
-	vector<vector<MatchRoomRef>> _matchRooms;
-	vector<int32>				_matchNums;
+	array<vector<int32>, 7>		_playerWait;
+	//<int32>					_matchNums;
 	atomic<int32>				_roomId = 0;
 
 	ConnectSessionRef			_gameref = nullptr;

@@ -20,14 +20,13 @@ MatchManager::MatchManager()
 
 MatchManager::~MatchManager()
 {
-	_matchRooms.clear();
+	_matchRooms.();
 }
 
 void MatchManager::MatchEnter(MatchSessionRef session, PlayerRef player, int32 level)
 {
 	//에러 체크 필요함
-	int32 room = _matchNums[level];
-	int32 count = _matchRooms[level][room]->Enter(player);
+	
 
 	Match::S_Login data;
 	data.set_id(player->playerId);
@@ -49,8 +48,6 @@ void MatchManager::MatchEnter(MatchSessionRef session, PlayerRef player, int32 l
 void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 {
 	//확인작업 필요
-	if (level >= 5 && level < 0 )
-		return;
 	_matchRooms[level][room]->Leave(id);
 }
 
@@ -85,4 +82,3 @@ void MatchManager::ConnectLobyServer(MatchSessionRef ref)
 {
 	_lobyref = ref;
 }
-

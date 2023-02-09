@@ -139,6 +139,34 @@ inline bool INGAME_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<INGAME>(
     INGAME_descriptor(), name, value);
 }
+enum Animation : int {
+  IDLE = 0,
+  MOVE = 1,
+  JUMP_START = 2,
+  JUMP_LOOP = 3,
+  JUMP_END = 4,
+  Animation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  Animation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool Animation_IsValid(int value);
+constexpr Animation Animation_MIN = IDLE;
+constexpr Animation Animation_MAX = JUMP_END;
+constexpr int Animation_ARRAYSIZE = Animation_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Animation_descriptor();
+template<typename T>
+inline const std::string& Animation_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Animation>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Animation_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    Animation_descriptor(), enum_t_value);
+}
+inline bool Animation_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Animation* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Animation>(
+    Animation_descriptor(), name, value);
+}
 // ===================================================================
 
 class PlayerGoalData final :
@@ -859,12 +887,13 @@ class Move final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 3,
-    kRotationFieldNumber = 4,
+    kPositionFieldNumber = 4,
+    kRotationFieldNumber = 5,
     kIdFieldNumber = 1,
     kTimeFieldNumber = 2,
+    kAnimFieldNumber = 3,
   };
-  // optional .Protocol.Vector position = 3;
+  // optional .Protocol.Vector position = 4;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -882,7 +911,7 @@ class Move final :
       ::Protocol::Vector* position);
   ::Protocol::Vector* unsafe_arena_release_position();
 
-  // optional .Protocol.Vector rotation = 4;
+  // optional .Protocol.Vector rotation = 5;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -918,6 +947,15 @@ class Move final :
   void _internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
+  // .Protocol.Animation anim = 3;
+  void clear_anim();
+  ::Protocol::Animation anim() const;
+  void set_anim(::Protocol::Animation value);
+  private:
+  ::Protocol::Animation _internal_anim() const;
+  void _internal_set_anim(::Protocol::Animation value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.Move)
  private:
   class _Internal;
@@ -931,6 +969,7 @@ class Move final :
   ::Protocol::Vector* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int64 time_;
+  int anim_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2114,7 +2153,27 @@ inline void Move::set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
   // @@protoc_insertion_point(field_set:Protocol.Move.time)
 }
 
-// optional .Protocol.Vector position = 3;
+// .Protocol.Animation anim = 3;
+inline void Move::clear_anim() {
+  anim_ = 0;
+}
+inline ::Protocol::Animation Move::_internal_anim() const {
+  return static_cast< ::Protocol::Animation >(anim_);
+}
+inline ::Protocol::Animation Move::anim() const {
+  // @@protoc_insertion_point(field_get:Protocol.Move.anim)
+  return _internal_anim();
+}
+inline void Move::_internal_set_anim(::Protocol::Animation value) {
+  
+  anim_ = value;
+}
+inline void Move::set_anim(::Protocol::Animation value) {
+  _internal_set_anim(value);
+  // @@protoc_insertion_point(field_set:Protocol.Move.anim)
+}
+
+// optional .Protocol.Vector position = 4;
 inline bool Move::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -2197,7 +2256,7 @@ inline void Move::set_allocated_position(::Protocol::Vector* position) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Move.position)
 }
 
-// optional .Protocol.Vector rotation = 4;
+// optional .Protocol.Vector rotation = 5;
 inline bool Move::_internal_has_rotation() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || rotation_ != nullptr);
@@ -3152,6 +3211,11 @@ template <> struct is_proto_enum< ::Protocol::INGAME> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::INGAME>() {
   return ::Protocol::INGAME_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::Animation> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::Animation>() {
+  return ::Protocol::Animation_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

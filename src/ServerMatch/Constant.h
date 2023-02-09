@@ -40,7 +40,7 @@ SendBufferRef _Making(T& pkt, S type)
 
 enum PlayerLevel
 {
-	SOLO = 1
+	SOLO
 	, DUO
 	, SOLO_DUO
 	, THREE
