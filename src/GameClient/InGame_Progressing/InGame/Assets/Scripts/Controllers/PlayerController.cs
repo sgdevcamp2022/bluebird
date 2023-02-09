@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     protected bool pressedJump = false;
     protected bool isJumping = false;
 
-    protected Animator _animator;
+    protected Animator animator;
     // protected Rigidbody _rigidbody;
 
     protected Rigidbody rigid;
@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         cam = Camera.main.gameObject.GetComponent<Camera>();
         rigid = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         prevVec = transform.position;
         
     }
@@ -185,6 +186,7 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = false;
             State = PlayerState.Idle;
+            animator.SetBool("inAir", false);
 
         }
     }

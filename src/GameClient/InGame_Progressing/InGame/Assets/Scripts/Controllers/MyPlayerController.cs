@@ -51,7 +51,7 @@ public class MyPlayerController : PlayerController
 
         
         pressedJump = Input.GetKeyDown(KeyCode.Space);
-        moveVec = new Vector3(h, 0f, v);
+        moveVec = new Vector3(h, 0f, v).normalized;
 
         if (pressedJump && !isJumping)
         {
@@ -82,11 +82,23 @@ public class MyPlayerController : PlayerController
  
             Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
        
-            movementDirection.Normalize();
-
+             movementDirection.Normalize();
+         
+            
+        
             transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             transform.position += movementDirection * speed * Time.deltaTime;
 
+            if (moveVec != Vector3.zero )
+            {
+            Debug.Log("MoveForward");
+                animator.SetBool("MoveForward", true);
+
+            }
+
+          
+            
+           
          
         if (prevVec != transform.position || isJumping)
         {
@@ -104,7 +116,11 @@ public class MyPlayerController : PlayerController
 
         else if (prevVec == transform.position && !isJumping)
         {
+            Debug.Log("MoveForward false");
             State = PlayerState.Idle;
+            animator.SetBool("MoveForward", false);
+     
+
         }
         
     }
@@ -160,6 +176,9 @@ public class MyPlayerController : PlayerController
         {
             isJumping = true;
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            animator.SetTrigger("doJump");
+            animator.SetBool("inAir", true);
+
     
         }
         else
