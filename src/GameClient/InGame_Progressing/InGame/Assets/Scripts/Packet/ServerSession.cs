@@ -47,7 +47,7 @@ public class ServerSession : PacketSession
         int random = rand.Next(100);
         Data dataPkt = new Data()
         {
-            Id = 1,
+            Id = random,
             MapLevel = 2,
             MatchRoom = 0,
             //Player = {new Player {X = 0,Y=0,Z=0 } }

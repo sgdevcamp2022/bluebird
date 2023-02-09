@@ -61,13 +61,10 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			}
 			else
 			{
-				if (_games[room]()->IsPlayer(id))
-				{
-					cout << "Player Inside = " << id << " " << room << endl;
-					session->_room = _games[room]();
-					_games[room]()->GameEnter(session, id);
-					_games[room] << id;
-				}
+				cout << "Player Inside = " << id << " " << room << endl;
+				session->_room = _games[room]();
+				_games[room]()->GameEnter(session, id);
+				_games[room] << id;
 			}
 		}
 	}
