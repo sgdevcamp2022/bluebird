@@ -30,37 +30,39 @@ namespace Google.Protobuf.Protocol {
             "RGF0YSJ9CgREYXRhEgoKAmlkGAEgASgDEhAKCG1hcExldmVsGAIgASgFEhEK",
             "CW1hdGNoUm9vbRgDIAEoBRIgCgZwbGF5ZXIYBCADKAsyEC5Qcm90b2NvbC5Q",
             "bGF5ZXISIgoHb2J0YWNsZRgFIAMoCzIRLlByb3RvY29sLk9idGFjbGUiFQoF",
-            "VGltZXMSDAoEdGltZRgBIAEoAyKMAQoETW92ZRIKCgJpZBgBIAEoAxIMCgR0",
-            "aW1lGAIgASgDEicKCHBvc2l0aW9uGAMgASgLMhAuUHJvdG9jb2wuVmVjdG9y",
-            "SACIAQESJwoIcm90YXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAYgB",
-            "AUILCglfcG9zaXRpb25CCwoJX3JvdGF0aW9uIjYKCE1vdmVEYXRhEgwKBHRp",
-            "bWUYASABKAMSHAoEbW92ZRgCIAMoCzIOLlByb3RvY29sLk1vdmUisgEKB09i",
-            "dGFjbGUSCgoCaWQYASABKAMSDQoFc2hhcGUYAiABKAUSJwoIcG9zaXRpb24Y",
-            "AyABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAIgBARInCghyb3RhdGlvbhgEIAEo",
-            "CzIQLlByb3RvY29sLlZlY3RvckgBiAEBEg0KBXNwZWVkGAUgASgCEhEKCWRp",
-            "cmVjdGlvbhgGIAEoBUILCglfcG9zaXRpb25CCwoJX3JvdGF0aW9uIoABCgZQ",
-            "bGF5ZXISCgoCaWQYASABKAMSJwoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2Nv",
-            "bC5WZWN0b3JIAIgBARInCghyb3RhdGlvbhgDIAEoCzIQLlByb3RvY29sLlZl",
-            "Y3RvckgBiAEBQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24iggEKC1BsYXll",
-            "ckNyYXNoEgoKAmlkGAEgASgDEiIKCHBvc2l0aW9uGAIgASgLMhAuUHJvdG9j",
-            "b2wuVmVjdG9yEiIKCHJvdGF0aW9uGAMgASgLMhAuUHJvdG9jb2wuVmVjdG9y",
-            "Eh8KBWVuZW15GAQgASgLMhAuUHJvdG9jb2wuUGxheWVyIikKBlZlY3RvchIJ",
-            "CgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAir+AQoGSU5HQU1FEgsK",
-            "B0NPTk5FQ1QQABIJCgVTVEFSVBABEgkKBUxFQVZFEAISDwoLUExBWUVSX01P",
-            "VkUQAxIRCg1PQlNUQUNMRV9NT1ZFEAQSCwoHTk9fTU9WRRAFEhAKDEdBTUVf",
-            "Q09NUExURRAGEg0KCUdBTUVfRkFJTBAHEg8KC1BMQVlFUl9EUk9QEAgSEAoM",
-            "UExBWUVSX0NSQVNIEAkSEgoOT0JTVEFDTEVfQ1JBU0gQChIQCgxDT05ORUNU",
-            "X0ZBSUwQCxIICgRUSU1FEAwSDAoIR0VUX1RJQ0sQDRIPCgtQTEFZRVJfR09B",
-            "TBAOEg0KCVJFQ09OTkVDVBAPQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9j",
-            "b2xiBnByb3RvMw=="));
+            "VGltZXMSDAoEdGltZRgBIAEoAyKvAQoETW92ZRIKCgJpZBgBIAEoAxIMCgR0",
+            "aW1lGAIgASgDEiEKBGFuaW0YAyABKA4yEy5Qcm90b2NvbC5BbmltYXRpb24S",
+            "JwoIcG9zaXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAIgBARInCghy",
+            "b3RhdGlvbhgFIAEoCzIQLlByb3RvY29sLlZlY3RvckgBiAEBQgsKCV9wb3Np",
+            "dGlvbkILCglfcm90YXRpb24iNgoITW92ZURhdGESDAoEdGltZRgBIAEoAxIc",
+            "CgRtb3ZlGAIgAygLMg4uUHJvdG9jb2wuTW92ZSKyAQoHT2J0YWNsZRIKCgJp",
+            "ZBgBIAEoAxINCgVzaGFwZRgCIAEoBRInCghwb3NpdGlvbhgDIAEoCzIQLlBy",
+            "b3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9uGAQgASgLMhAuUHJvdG9j",
+            "b2wuVmVjdG9ySAGIAQESDQoFc3BlZWQYBSABKAISEQoJZGlyZWN0aW9uGAYg",
+            "ASgFQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24igAEKBlBsYXllchIKCgJp",
+            "ZBgBIAEoAxInCghwb3NpdGlvbhgCIAEoCzIQLlByb3RvY29sLlZlY3RvckgA",
+            "iAEBEicKCHJvdGF0aW9uGAMgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFC",
+            "CwoJX3Bvc2l0aW9uQgsKCV9yb3RhdGlvbiKCAQoLUGxheWVyQ3Jhc2gSCgoC",
+            "aWQYASABKAMSIgoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0b3IS",
+            "IgoIcm90YXRpb24YAyABKAsyEC5Qcm90b2NvbC5WZWN0b3ISHwoFZW5lbXkY",
+            "BCABKAsyEC5Qcm90b2NvbC5QbGF5ZXIiKQoGVmVjdG9yEgkKAXgYASABKAIS",
+            "CQoBeRgCIAEoAhIJCgF6GAMgASgCKv4BCgZJTkdBTUUSCwoHQ09OTkVDVBAA",
+            "EgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEKDU9C",
+            "U1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRFEAYS",
+            "DQoJR0FNRV9GQUlMEAcSDwoLUExBWUVSX0RST1AQCBIQCgxQTEFZRVJfQ1JB",
+            "U0gQCRISCg5PQlNUQUNMRV9DUkFTSBAKEhAKDENPTk5FQ1RfRkFJTBALEggK",
+            "BFRJTUUQDBIMCghHRVRfVElDSxANEg8KC1BMQVlFUl9HT0FMEA4SDQoJUkVD",
+            "T05ORUNUEA8qTAoJQW5pbWF0aW9uEggKBElETEUQABIICgRNT1ZFEAESDgoK",
+            "SlVNUF9TVEFSVBACEg0KCUpVTVBfTE9PUBADEgwKCEpVTVBfRU5EEARCG6oC",
+            "GEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), typeof(global::Google.Protobuf.Protocol.Animation), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PlayerGoalData), global::Google.Protobuf.Protocol.PlayerGoalData.Parser, new[]{ "Id", "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.GameCompleteData), global::Google.Protobuf.Protocol.GameCompleteData.Parser, new[]{ "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Data), global::Google.Protobuf.Protocol.Data.Parser, new[]{ "Id", "MapLevel", "MatchRoom", "Player", "Obtacle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Times), global::Google.Protobuf.Protocol.Times.Parser, new[]{ "Time" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Anim", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.MoveData), global::Google.Protobuf.Protocol.MoveData.Parser, new[]{ "Time", "Move" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation", "Speed", "Direction" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Player), global::Google.Protobuf.Protocol.Player.Parser, new[]{ "Id", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
@@ -89,6 +91,14 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("GET_TICK")] GetTick = 13,
     [pbr::OriginalName("PLAYER_GOAL")] PlayerGoal = 14,
     [pbr::OriginalName("RECONNECT")] Reconnect = 15,
+  }
+
+  public enum Animation {
+    [pbr::OriginalName("IDLE")] Idle = 0,
+    [pbr::OriginalName("MOVE")] Move = 1,
+    [pbr::OriginalName("JUMP_START")] JumpStart = 2,
+    [pbr::OriginalName("JUMP_LOOP")] JumpLoop = 3,
+    [pbr::OriginalName("JUMP_END")] JumpEnd = 4,
   }
 
   #endregion
@@ -960,6 +970,7 @@ namespace Google.Protobuf.Protocol {
     public Move(Move other) : this() {
       id_ = other.id_;
       time_ = other.time_;
+      anim_ = other.anim_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -992,8 +1003,19 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
+    /// <summary>Field number for the "anim" field.</summary>
+    public const int AnimFieldNumber = 3;
+    private global::Google.Protobuf.Protocol.Animation anim_ = global::Google.Protobuf.Protocol.Animation.Idle;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.Protocol.Animation Anim {
+      get { return anim_; }
+      set {
+        anim_ = value;
+      }
+    }
+
     /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 3;
+    public const int PositionFieldNumber = 4;
     private global::Google.Protobuf.Protocol.Vector position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Vector Position {
@@ -1004,7 +1026,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "rotation" field.</summary>
-    public const int RotationFieldNumber = 4;
+    public const int RotationFieldNumber = 5;
     private global::Google.Protobuf.Protocol.Vector rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Vector Rotation {
@@ -1029,6 +1051,7 @@ namespace Google.Protobuf.Protocol {
       }
       if (Id != other.Id) return false;
       if (Time != other.Time) return false;
+      if (Anim != other.Anim) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1039,6 +1062,7 @@ namespace Google.Protobuf.Protocol {
       int hash = 1;
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (Time != 0L) hash ^= Time.GetHashCode();
+      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) hash ^= Anim.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
       if (_unknownFields != null) {
@@ -1065,12 +1089,16 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(16);
         output.WriteInt64(Time);
       }
+      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Anim);
+      }
       if (position_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
       if (rotation_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
       if (_unknownFields != null) {
@@ -1090,12 +1118,16 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(16);
         output.WriteInt64(Time);
       }
+      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Anim);
+      }
       if (position_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
       if (rotation_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
       if (_unknownFields != null) {
@@ -1112,6 +1144,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (Time != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
+      }
+      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Anim);
       }
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
@@ -1135,6 +1170,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (other.Time != 0L) {
         Time = other.Time;
+      }
+      if (other.Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+        Anim = other.Anim;
       }
       if (other.position_ != null) {
         if (position_ == null) {
@@ -1170,14 +1208,18 @@ namespace Google.Protobuf.Protocol {
             Time = input.ReadInt64();
             break;
           }
-          case 26: {
+          case 24: {
+            Anim = (global::Google.Protobuf.Protocol.Animation) input.ReadEnum();
+            break;
+          }
+          case 34: {
             if (position_ == null) {
               Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 34: {
+          case 42: {
             if (rotation_ == null) {
               Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
@@ -1206,14 +1248,18 @@ namespace Google.Protobuf.Protocol {
             Time = input.ReadInt64();
             break;
           }
-          case 26: {
+          case 24: {
+            Anim = (global::Google.Protobuf.Protocol.Animation) input.ReadEnum();
+            break;
+          }
+          case 34: {
             if (position_ == null) {
               Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 34: {
+          case 42: {
             if (rotation_ == null) {
               Rotation = new global::Google.Protobuf.Protocol.Vector();
             }

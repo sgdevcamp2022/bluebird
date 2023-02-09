@@ -75,8 +75,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT S_CancleDefaultTypeInternal _S_
 constexpr S_Login::S_Login(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
-  , level_(0)
-  , room_(0){}
+  , level_(0){}
 struct S_LoginDefaultTypeInternal {
   constexpr S_LoginDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -145,7 +144,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Match::S_Login, id_),
   PROTOBUF_FIELD_OFFSET(::Match::S_Login, level_),
-  PROTOBUF_FIELD_OFFSET(::Match::S_Login, room_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Match::S_Match, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -162,7 +160,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 14, -1, sizeof(::Match::C_Cancle)},
   { 22, -1, sizeof(::Match::S_Cancle)},
   { 30, -1, sizeof(::Match::S_Login)},
-  { 38, -1, sizeof(::Match::S_Match)},
+  { 37, -1, sizeof(::Match::S_Match)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -180,17 +178,16 @@ const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VA
   "E\"$\n\007C_Login\022\n\n\002id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\""
   "3\n\010C_Cancle\022\n\n\002id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014"
   "\n\004room\030\003 \001(\005\"3\n\010S_Cancle\022\n\n\002id\030\001 \001(\003\022\014\n\004"
-  "room\030\002 \001(\005\022\r\n\005state\030\003 \001(\010\"2\n\007S_Login\022\n\n\002"
-  "id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014\n\004room\030\003 \001(\005\"E\n"
-  "\007S_Match\022\020\n\010userSize\030\001 \001(\005\022\014\n\004room\030\002 \001(\005"
-  "\022\r\n\005level\030\003 \001(\005\022\013\n\003ids\030\004 \003(\003*^\n\005STATE\022\010\n"
-  "\004NULL\020\000\022\013\n\007C_LOGIN\020\001\022\014\n\010C_CANCLE\020\002\022\010\n\004FA"
-  "IL\020\003\022\013\n\007S_LOGIN\020\004\022\013\n\007S_MATCH\020\005\022\014\n\010S_CANC"
-  "LE\020\006b\006proto3"
+  "room\030\002 \001(\005\022\r\n\005state\030\003 \001(\010\"$\n\007S_Login\022\n\n\002"
+  "id\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\"E\n\007S_Match\022\020\n\010us"
+  "erSize\030\001 \001(\005\022\014\n\004room\030\002 \001(\005\022\r\n\005level\030\003 \001("
+  "\005\022\013\n\003ids\030\004 \003(\003*^\n\005STATE\022\010\n\004NULL\020\000\022\013\n\007C_L"
+  "OGIN\020\001\022\014\n\010C_CANCLE\020\002\022\010\n\004FAIL\020\003\022\013\n\007S_LOGI"
+  "N\020\004\022\013\n\007S_MATCH\020\005\022\014\n\010S_CANCLE\020\006b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolMatch_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolMatch_2eproto = {
-  false, false, 452, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
+  false, false, 438, descriptor_table_protodef_ProtocolMatch_2eproto, "ProtocolMatch.proto", 
   &descriptor_table_ProtocolMatch_2eproto_once, nullptr, 0, 6,
   schemas, file_default_instances, TableStruct_ProtocolMatch_2eproto::offsets,
   file_level_metadata_ProtocolMatch_2eproto, file_level_enum_descriptors_ProtocolMatch_2eproto, file_level_service_descriptors_ProtocolMatch_2eproto,
@@ -1183,16 +1180,16 @@ S_Login::S_Login(const S_Login& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&room_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(room_));
+    static_cast<size_t>(reinterpret_cast<char*>(&level_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(level_));
   // @@protoc_insertion_point(copy_constructor:Match.S_Login)
 }
 
 void S_Login::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&room_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(room_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&level_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(level_));
 }
 
 S_Login::~S_Login() {
@@ -1222,8 +1219,8 @@ void S_Login::Clear() {
   (void) cached_has_bits;
 
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&room_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(room_));
+      reinterpret_cast<char*>(&level_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(level_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1244,13 +1241,6 @@ const char* S_Login::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // int32 room = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          room_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1295,12 +1285,6 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_level(), target);
   }
 
-  // int32 room = 3;
-  if (this->room() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_room(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1329,13 +1313,6 @@ size_t S_Login::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_level());
-  }
-
-  // int32 room = 3;
-  if (this->room() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_room());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1375,9 +1352,6 @@ void S_Login::MergeFrom(const S_Login& from) {
   if (from.level() != 0) {
     _internal_set_level(from._internal_level());
   }
-  if (from.room() != 0) {
-    _internal_set_room(from._internal_room());
-  }
 }
 
 void S_Login::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1402,8 +1376,8 @@ void S_Login::InternalSwap(S_Login* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_Login, room_)
-      + sizeof(S_Login::room_)
+      PROTOBUF_FIELD_OFFSET(S_Login, level_)
+      + sizeof(S_Login::level_)
       - PROTOBUF_FIELD_OFFSET(S_Login, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));
