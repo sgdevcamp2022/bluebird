@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z )
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping)
         {
             State = PlayerState.Idle;
             return;
@@ -170,15 +170,10 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Victory Ground"))
         {
             isJumping = false;
-            Data pkt = new Data()
+            GameCompleteData pkt = new GameCompleteData()
             {
                 Id = playerId,
-                MapLevel = 2,
-                MatchRoom = 0,
-                Player = { new Player
-                {   Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-                    Rotation = new Vector { X = transform.rotation.x, Y = transform.rotation.y, Z = transform.rotation.z }}
-                },
+                Success = true,
             };
 
             Managers.Network.Send(pkt, INGAME.GameComplte);

@@ -5,6 +5,8 @@ using UnityEngine;
 using Cinemachine;
 using static Define;
 
+
+//제자리 점프할때 Idle인데 isJumping은 True인 상태가 지속되서 상대방에게 안보인다.
 public class MyPlayerController : PlayerController
 {
 
@@ -86,7 +88,7 @@ public class MyPlayerController : PlayerController
             transform.position += movementDirection * speed * Time.deltaTime;
 
          
-        if (prevVec != transform.position )
+        if (prevVec != transform.position || isJumping)
         {
             Move playerMove = new Move()
             {
@@ -100,7 +102,7 @@ public class MyPlayerController : PlayerController
             Managers.Network.Send(playerMove, INGAME.PlayerMove);
         }
 
-        else if (prevVec == transform.position )
+        else if (prevVec == transform.position && !isJumping)
         {
             State = PlayerState.Idle;
         }
