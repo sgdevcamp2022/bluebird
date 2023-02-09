@@ -170,18 +170,14 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Victory Ground"))
         {
             isJumping = false;
-            Data pkt = new Data()
+            Player pkt = new Player()
             {
                 Id = playerId,
-                MapLevel = 2,
-                MatchRoom = 0,
-                Player = { new Player
-                {   Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-                    Rotation = new Vector { X = transform.rotation.x, Y = transform.rotation.y, Z = transform.rotation.z }}
-                },
+                Position = playerInfo.Position,
+                Rotation = playerInfo.Rotation
             };
 
-            Managers.Network.Send(pkt, INGAME.GameComplte);
+            Managers.Network.Send(pkt, INGAME.PlayerGoal);
             Debug.Log("GameComplete Packet Sent");
         }
 

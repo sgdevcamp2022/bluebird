@@ -70,7 +70,6 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 			ob->set_direction(_obstacles[data.id()]->GetDirection());
 		}
 	}
-
 	//전체 플레이어에게 정보 전달 필요
 }
 
@@ -109,7 +108,6 @@ void Room::Leave(PlayerRef ref)
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
 }
 
-
 int Room::Start()
 {
 	/*if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
@@ -147,14 +145,20 @@ void Room::PlayerMove(Protocol::Move data)
 	//콘텐츠 구현
 	//시뮬레이션 구현해야됨.
 	auto point = data.position();
-
-	cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
-
 	PlayerRef player = _players[data.id()];
 
-	player->Move(data.position(), data.rotation());
-	
-	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
+	if (point.y() > 0.f) {
+		cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+		
+		player->Move(data.position(), data.rotation());
+		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
+	}
+	else if(player->GetMoveRight()){
+		cout << "DROP" << endl;
+		player->SetPosition(0.1f, 0.2f, 29.f);
+		player->MoveChange();
+		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_DROP));
+	}
 }
 
 void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data)
@@ -182,10 +186,10 @@ void Room::PlayerGoal(Protocol::Player data)
 		GameEnd();
 	}
 	else {
-		Protocol::GameCompleteData player;
-		player.set_id(data.id());
-		player.set_success(true);
-		Broadcast(GameHandler::MakeSendBuffer(player, Protocol::PLAYER_GOAL));
+		auto player = _winner.add_data();
+		player->set_id(data.id());
+		player->set_success(true);
+		Broadcast(GameHandler::MakeSendBuffer(*player, Protocol::PLAYER_GOAL));
 	}
 }
 
@@ -210,19 +214,12 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::GameEnd()
 {
-	Protocol::GameCompleteData data;
 	for (auto& _ref : _players) {
-		data.set_id(_ref.first);
-		if (find(_winnerId.begin(), _winnerId.end(), _ref.first) != _winnerId.end())
-			data.set_success(true);
-		else
-			data.set_success(false);
-		_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
-
 		_ref.second->GetOwner()->_mySelf = nullptr;
 		_ref.second->SetOwner(nullptr);
 	}
 
+	Broadcast(GameHandler::MakeSendBuffer(_winner, Protocol::GAME_COMPLTE));
 	//TODO 넘겨주기
 
 	_players.clear();

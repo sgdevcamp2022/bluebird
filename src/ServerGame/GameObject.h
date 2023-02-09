@@ -14,7 +14,6 @@ public:
 	float				GetSpeed() { return _speed; }
 	int64				GetId() { return _id; }
 	int32				GetRoom() { return _room; }
-
 	void				SetPosition(float x, float y, float z) {
 		GameUtils::SetVector3(_position, x, y, z);
 	}
@@ -25,6 +24,7 @@ protected:
 	int64				_id = 0;
 	int32				_room = 0;
 	float				_speed;
+	
 	Protocol::Vector*	_position = nullptr;
 	Protocol::Vector*	_rotation = nullptr;
 };
@@ -40,8 +40,10 @@ public:
 
 	GameSessionRef	GetOwner() { return _ownerSession; }
 	void			SetOwner(GameSessionRef session) { _ownerSession = session; }
-
+	void				MoveChange() { _move = !_move; }
+	bool				GetMoveRight() { return _move; }
 private:
+	bool				_move = true;
 	GameSessionRef		_ownerSession = nullptr;
 	Protocol::Player*	_ownerPlayer = nullptr;
 };

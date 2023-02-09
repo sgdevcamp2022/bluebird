@@ -47,7 +47,7 @@ struct TableStruct_ProtocolServer_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[10]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -76,6 +76,9 @@ extern PlayerDefaultTypeInternal _Player_default_instance_;
 class PlayerCrash;
 struct PlayerCrashDefaultTypeInternal;
 extern PlayerCrashDefaultTypeInternal _PlayerCrash_default_instance_;
+class PlayerGoalData;
+struct PlayerGoalDataDefaultTypeInternal;
+extern PlayerGoalDataDefaultTypeInternal _PlayerGoalData_default_instance_;
 class Times;
 struct TimesDefaultTypeInternal;
 extern TimesDefaultTypeInternal _Times_default_instance_;
@@ -91,6 +94,7 @@ template<> ::Protocol::MoveData* Arena::CreateMaybeMessage<::Protocol::MoveData>
 template<> ::Protocol::Obtacle* Arena::CreateMaybeMessage<::Protocol::Obtacle>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
 template<> ::Protocol::PlayerCrash* Arena::CreateMaybeMessage<::Protocol::PlayerCrash>(Arena*);
+template<> ::Protocol::PlayerGoalData* Arena::CreateMaybeMessage<::Protocol::PlayerGoalData>(Arena*);
 template<> ::Protocol::Times* Arena::CreateMaybeMessage<::Protocol::Times>(Arena*);
 template<> ::Protocol::Vector* Arena::CreateMaybeMessage<::Protocol::Vector>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -105,7 +109,7 @@ enum INGAME : int {
   NO_MOVE = 5,
   GAME_COMPLTE = 6,
   GAME_FAIL = 7,
-  GAME_DROP = 8,
+  PLAYER_DROP = 8,
   PLAYER_CRASH = 9,
   OBSTACLE_CRASH = 10,
   CONNECT_FAIL = 11,
@@ -136,6 +140,149 @@ inline bool INGAME_Parse(
     INGAME_descriptor(), name, value);
 }
 // ===================================================================
+
+class PlayerGoalData final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.PlayerGoalData) */ {
+ public:
+  inline PlayerGoalData() : PlayerGoalData(nullptr) {}
+  ~PlayerGoalData() override;
+  explicit constexpr PlayerGoalData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayerGoalData(const PlayerGoalData& from);
+  PlayerGoalData(PlayerGoalData&& from) noexcept
+    : PlayerGoalData() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerGoalData& operator=(const PlayerGoalData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayerGoalData& operator=(PlayerGoalData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PlayerGoalData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayerGoalData* internal_default_instance() {
+    return reinterpret_cast<const PlayerGoalData*>(
+               &_PlayerGoalData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(PlayerGoalData& a, PlayerGoalData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayerGoalData* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayerGoalData* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayerGoalData* New() const final {
+    return new PlayerGoalData();
+  }
+
+  PlayerGoalData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PlayerGoalData>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PlayerGoalData& from);
+  void MergeFrom(const PlayerGoalData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerGoalData* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.PlayerGoalData";
+  }
+  protected:
+  explicit PlayerGoalData(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kSuccessFieldNumber = 2,
+  };
+  // int64 id = 1;
+  void clear_id();
+  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // bool success = 2;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.PlayerGoalData)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int64 id_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolServer_2eproto;
+};
+// -------------------------------------------------------------------
 
 class GameCompleteData final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.GameCompleteData) */ {
@@ -181,7 +328,7 @@ class GameCompleteData final :
                &_GameCompleteData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(GameCompleteData& a, GameCompleteData& b) {
     a.Swap(&b);
@@ -245,26 +392,25 @@ class GameCompleteData final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
-    kSuccessFieldNumber = 2,
+    kDataFieldNumber = 1,
   };
-  // int64 id = 1;
-  void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::int64 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  // repeated .Protocol.PlayerGoalData data = 1;
+  int data_size() const;
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
+  int _internal_data_size() const;
   public:
-
-  // bool success = 2;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
+  void clear_data();
+  ::Protocol::PlayerGoalData* mutable_data(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >*
+      mutable_data();
   private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
+  const ::Protocol::PlayerGoalData& _internal_data(int index) const;
+  ::Protocol::PlayerGoalData* _internal_add_data();
   public:
+  const ::Protocol::PlayerGoalData& data(int index) const;
+  ::Protocol::PlayerGoalData* add_data();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >&
+      data() const;
 
   // @@protoc_insertion_point(class_scope:Protocol.GameCompleteData)
  private:
@@ -273,8 +419,7 @@ class GameCompleteData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::int64 id_;
-  bool success_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData > data_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -324,7 +469,7 @@ class Data final :
                &_Data_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(Data& a, Data& b) {
     a.Swap(&b);
@@ -518,7 +663,7 @@ class Times final :
                &_Times_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(Times& a, Times& b) {
     a.Swap(&b);
@@ -650,7 +795,7 @@ class Move final :
                &_Move_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Move& a, Move& b) {
     a.Swap(&b);
@@ -834,7 +979,7 @@ class MoveData final :
                &_MoveData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(MoveData& a, MoveData& b) {
     a.Swap(&b);
@@ -986,7 +1131,7 @@ class Obtacle final :
                &_Obtacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(Obtacle& a, Obtacle& b) {
     a.Swap(&b);
@@ -1192,7 +1337,7 @@ class Player final :
                &_Player_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(Player& a, Player& b) {
     a.Swap(&b);
@@ -1365,7 +1510,7 @@ class PlayerCrash final :
                &_PlayerCrash_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(PlayerCrash& a, PlayerCrash& b) {
     a.Swap(&b);
@@ -1557,7 +1702,7 @@ class Vector final :
                &_Vector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(Vector& a, Vector& b) {
     a.Swap(&b);
@@ -1674,46 +1819,89 @@ class Vector final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// GameCompleteData
+// PlayerGoalData
 
 // int64 id = 1;
-inline void GameCompleteData::clear_id() {
+inline void PlayerGoalData::clear_id() {
   id_ = int64_t{0};
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 GameCompleteData::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int64 PlayerGoalData::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 GameCompleteData::id() const {
-  // @@protoc_insertion_point(field_get:Protocol.GameCompleteData.id)
+inline ::PROTOBUF_NAMESPACE_ID::int64 PlayerGoalData::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerGoalData.id)
   return _internal_id();
 }
-inline void GameCompleteData::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void PlayerGoalData::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   id_ = value;
 }
-inline void GameCompleteData::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void PlayerGoalData::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.GameCompleteData.id)
+  // @@protoc_insertion_point(field_set:Protocol.PlayerGoalData.id)
 }
 
 // bool success = 2;
-inline void GameCompleteData::clear_success() {
+inline void PlayerGoalData::clear_success() {
   success_ = false;
 }
-inline bool GameCompleteData::_internal_success() const {
+inline bool PlayerGoalData::_internal_success() const {
   return success_;
 }
-inline bool GameCompleteData::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.GameCompleteData.success)
+inline bool PlayerGoalData::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerGoalData.success)
   return _internal_success();
 }
-inline void GameCompleteData::_internal_set_success(bool value) {
+inline void PlayerGoalData::_internal_set_success(bool value) {
   
   success_ = value;
 }
-inline void GameCompleteData::set_success(bool value) {
+inline void PlayerGoalData::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.GameCompleteData.success)
+  // @@protoc_insertion_point(field_set:Protocol.PlayerGoalData.success)
+}
+
+// -------------------------------------------------------------------
+
+// GameCompleteData
+
+// repeated .Protocol.PlayerGoalData data = 1;
+inline int GameCompleteData::_internal_data_size() const {
+  return data_.size();
+}
+inline int GameCompleteData::data_size() const {
+  return _internal_data_size();
+}
+inline void GameCompleteData::clear_data() {
+  data_.Clear();
+}
+inline ::Protocol::PlayerGoalData* GameCompleteData::mutable_data(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.GameCompleteData.data)
+  return data_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >*
+GameCompleteData::mutable_data() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.GameCompleteData.data)
+  return &data_;
+}
+inline const ::Protocol::PlayerGoalData& GameCompleteData::_internal_data(int index) const {
+  return data_.Get(index);
+}
+inline const ::Protocol::PlayerGoalData& GameCompleteData::data(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.GameCompleteData.data)
+  return _internal_data(index);
+}
+inline ::Protocol::PlayerGoalData* GameCompleteData::_internal_add_data() {
+  return data_.Add();
+}
+inline ::Protocol::PlayerGoalData* GameCompleteData::add_data() {
+  // @@protoc_insertion_point(field_add:Protocol.GameCompleteData.data)
+  return _internal_add_data();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >&
+GameCompleteData::data() const {
+  // @@protoc_insertion_point(field_list:Protocol.GameCompleteData.data)
+  return data_;
 }
 
 // -------------------------------------------------------------------
@@ -2935,6 +3123,8 @@ inline void Vector::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

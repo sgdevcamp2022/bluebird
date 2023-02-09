@@ -108,20 +108,28 @@ public class PacketHandler
         else if(data.MatchRoom == -1)
             UnityEngine.Debug.Log("Room Error");
     }
+    public static void PlayerFail(IMessage packet)
+    {
+        Player player = packet as Player;
+        // TODO 스폰 위치로 초기화 (패킷에 초기화 위치 넣어놨습니다)
+        // 이후 player 패킷에 Position, Rotation 현 위치로 변경
+
+        UnityEngine.Debug.Log("정상");
+        if (Managers.Object.myPlayerId == player.Id)
+        {
+            Managers.Network.Send(player, INGAME.PlayerDrop);
+        }
+    }
     public static void GameComplete(IMessage packet)
     {
         GameCompleteData data = packet as GameCompleteData;
-        if (data.Success)
-        {
-            UnityEngine.Debug.Log("Success");
-        }else
-        {
-            UnityEngine.Debug.Log("Fail");
-        }
+        UnityEngine.Debug.Log("GameComplte");
+        //TODO
     }
     public static void PlayerGoal(IMessage packet)
     {
-        GameCompleteData data = packet as GameCompleteData;
+        PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("PlayerGoal");
         // TODO
     }
 }
