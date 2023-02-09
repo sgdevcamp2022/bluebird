@@ -820,7 +820,6 @@ class S_Login final :
   enum : int {
     kIdFieldNumber = 1,
     kLevelFieldNumber = 2,
-    kRoomFieldNumber = 3,
   };
   // int64 id = 1;
   void clear_id();
@@ -840,15 +839,6 @@ class S_Login final :
   void _internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 room = 3;
-  void clear_room();
-  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
-  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
-  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:Match.S_Login)
  private:
   class _Internal;
@@ -858,7 +848,6 @@ class S_Login final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 level_;
-  ::PROTOBUF_NAMESPACE_ID::int32 room_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
 };
@@ -1306,26 +1295,6 @@ inline void S_Login::_internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
 inline void S_Login::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_level(value);
   // @@protoc_insertion_point(field_set:Match.S_Login.level)
-}
-
-// int32 room = 3;
-inline void S_Login::clear_room() {
-  room_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 S_Login::_internal_room() const {
-  return room_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 S_Login::room() const {
-  // @@protoc_insertion_point(field_get:Match.S_Login.room)
-  return _internal_room();
-}
-inline void S_Login::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  room_ = value;
-}
-inline void S_Login::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_room(value);
-  // @@protoc_insertion_point(field_set:Match.S_Login.room)
 }
 
 // -------------------------------------------------------------------

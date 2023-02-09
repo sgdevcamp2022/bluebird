@@ -66,4 +66,5 @@ int main() {
 	DoWorkerJob(matchService);
 
 	GThreadManager->Join();
+
 }
