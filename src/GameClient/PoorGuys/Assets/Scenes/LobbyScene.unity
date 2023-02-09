@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 31162472}
   - component: {fileID: 31162471}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: Panel Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   duoText: {fileID: 1009525603}
   squadText: {fileID: 902779427}
   seletedModes: 010000
+  modsSum: 1
 --- !u!4 &31162472
 Transform:
   m_ObjectHideFlags: 0
@@ -2168,9 +2169,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nicknameText: {fileID: 1055378199}
+  userNo: 0
   player:
     userNo: 0
     nickname: 
+  args: []
 --- !u!4 &782628377
 Transform:
   m_ObjectHideFlags: 0
@@ -3191,6 +3194,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055378197}
   m_CullTransparentMesh: 1
+--- !u!1 &1070032825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070032827}
+  - component: {fileID: 1070032826}
+  m_Layer: 0
+  m_Name: Lobby Information
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1070032826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070032825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9db968fd42b67e4f903de936f98a890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userNo: 0
+  room: 0
+--- !u!4 &1070032827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070032825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1073393858
 GameObject:
   m_ObjectHideFlags: 0

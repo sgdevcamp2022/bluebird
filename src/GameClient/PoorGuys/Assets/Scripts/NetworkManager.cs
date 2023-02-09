@@ -32,39 +32,107 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public IEnumerator UnityWebRequestPost(bool[] selectedModes)
+    public IEnumerator MatchInitPost(Action<bool> callback)
     {
         //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/HTTP_Test/";
+        string url = "http://127.0.0.1:8000/lobby/";
+        
+        //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
-        int userID = 11;
-        int id = 101;
-        string body = "test body";
-        string title = "test title";
-        form.AddField("userID", userID);
-        form.AddField("id", id);
-        form.AddField("body", body);
-        form.AddField("title", title);
-        form.AddField("solo", Convert.ToInt32(selectedModes[0]));
-        form.AddField("duo", Convert.ToInt32(selectedModes[1]));
-        form.AddField("squad", Convert.ToInt32(selectedModes[2]));
 
+        int userNo = GameManager.gameManager.userNo;
+        int modsSum = PanelManager.panelManager.modsSum;
+
+        Debug.Log("Mods: " + modsSum);
+
+        form.AddField("userNo", userNo);
+        form.AddField("level", modsSum);
+        
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             yield return www.SendWebRequest();
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(1.0f);
             if (www.error == null)
             {
                 Debug.Log(www.downloadHandler.text);
-                Debug.Log("POST Result");
+                callback(true);
             }
             else
             {
                 Debug.Log(www.error);
+                callback(false);
             }
             www.Dispose();
         }
 
     }
 
+    public IEnumerator MatchStartPost(bool isCancel, Action<int> callback)
+    {
+        if(isCancel)
+        {
+            callback(2);
+            yield break;
+        }
+        //string url = "https://jsonplaceholder.typicode.com/posts";
+        string url = "http://127.0.0.1:8000/lobby/";
+
+        //Debug.Log("UserNo: " + userNo);
+        WWWForm form = new WWWForm();
+
+        int userNo = GameManager.gameManager.userNo;
+
+        form.AddField("userNo", userNo);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+            yield return new WaitForSeconds(1.0f);
+            if (www.error == null)
+            {
+                Debug.Log(www.downloadHandler.text);
+                callback(1);
+            }
+            else
+            {
+                Debug.Log(www.error);
+                Debug.Log("매치가 아직 시작되지 않음");
+                callback(0);
+            }
+            www.Dispose();
+        }
+
+    }
+
+    public IEnumerator MatchCancelPost(Action<bool> callback)
+    {
+        //string url = "https://jsonplaceholder.typicode.com/posts";
+        string url = "http://127.0.0.1:8000/lobby/";
+
+        //Debug.Log("UserNo: " + userNo);
+        WWWForm form = new WWWForm();
+
+        int userNo = GameManager.gameManager.userNo;
+
+        form.AddField("userNo", userNo);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+            yield return new WaitForSeconds(1.0f);
+            if (www.error == null)
+            {
+                Debug.Log(www.downloadHandler.text);
+                callback(true);
+            }
+            else
+            {
+                Debug.Log(www.error);
+                Debug.Log("매치가 취소되는 중");
+                callback(false);
+            }
+            www.Dispose();
+        }
+
+    }
 }
