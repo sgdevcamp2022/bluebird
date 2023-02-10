@@ -30,15 +30,15 @@ public class PlayerController : MonoBehaviour
 
 
     protected Rigidbody rigid;
-    protected Google.Protobuf.Protocol.Animation anim;
+    protected Google.Protobuf.Protocol.PlayerState playerState;
 
 
 
 
     [SerializeField]
-    protected PlayerState _state;
+    protected BirdState _state;
 
-    public virtual PlayerState State
+    public virtual BirdState State
     {
         get { return _state; }
         set
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
                 return;
 
             _state = value;
-            //UpdateAnimation();
+          
         }
     }
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         prevVec = transform.position;
-        anim = Google.Protobuf.Protocol.Animation.Idle;
+        State = BirdState.Idle;
         
     }
 
@@ -96,13 +96,13 @@ public class PlayerController : MonoBehaviour
        
         switch (State)
         {
-            case PlayerState.Idle:
+            case BirdState.Idle:
                 UpdateIdle();
                 break;
-            case PlayerState.Moving:
+            case BirdState.Moving:
                 UpdateMoving();
                 break;
-            case PlayerState.Jumping:
+            case BirdState.Jumping:
                 UpdateJumping();
                 break;
           
@@ -116,33 +116,23 @@ public class PlayerController : MonoBehaviour
     {
         if ( (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z) )
         {
-            State = PlayerState.Moving;
+            State = BirdState.Moving;
             return;
         }
 
-        switch (State)
-        {
-            case PlayerState.Idle:
-                isJumping = false;
-                animator.SetBool("MoveForward", false);
-                animator.SetBool("inAir", false);
-                break;
-           
+        UpdateAnimation();
 
-        }
+      
 
     }
     
     protected virtual void UpdateMoving()
     {
-        prevVec = transform.position;
+         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping )
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z   )
         {
-            State = PlayerState.Idle;
-            anim = Google.Protobuf.Protocol.Animation.Idle;
-            animator.SetBool("MoveForward", false);
-            animator.SetBool("inAir", false);
+            State = BirdState.Idle;
             return;
         }
 
@@ -151,22 +141,9 @@ public class PlayerController : MonoBehaviour
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
 
-        switch(anim)
-        {
-            case Google.Protobuf.Protocol.Animation.Idle:
-                animator.SetBool("MoveForward", false);
-                break;
-            case Google.Protobuf.Protocol.Animation.Move:
-                animator.SetBool("MoveForward", true);
-                break;
-            case Google.Protobuf.Protocol.Animation.JumpStart:
-                animator.SetTrigger("doJump");
-                break;
-            case Google.Protobuf.Protocol.Animation.JumpLoop:
-                animator.SetBool("inAir", true);
-                break;
-         
-        }
+        UpdateAnimation();
+
+       
 
        
 
@@ -177,6 +154,12 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateJumping()
     {
+        if (!isJumping)
+        {
+            animator.SetTrigger("doJump");
+            isJumping = true;
+        }
+
         prevVec = transform.position;
 
       
@@ -185,38 +168,19 @@ public class PlayerController : MonoBehaviour
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
 
-        switch (anim)
-        {
-            case Google.Protobuf.Protocol.Animation.Idle:
-                animator.SetBool("MoveForward", false);
-                break;
-            case Google.Protobuf.Protocol.Animation.Move:
-                animator.SetBool("MoveForward", true);
-                break;
-            case Google.Protobuf.Protocol.Animation.JumpStart:
-                animator.SetTrigger("doJump");
-                break;
-            case Google.Protobuf.Protocol.Animation.JumpLoop:
-                animator.SetBool("inAir", true);
-                break;
+        UpdateAnimation();
 
-        }
+       
 
 
     }
-
-  
-
-
-
-
 
     protected void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Victory Ground"))
         {
@@ -236,13 +200,46 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("collisionGround");
             isJumping = false;
-            State = PlayerState.Idle;
+            State = BirdState.Idle;
         }
     }
 
-    public void SetAnim(Google.Protobuf.Protocol.Animation anim)
+    public void SetAnim(Google.Protobuf.Protocol.PlayerState state)
     {
-        this.anim = anim;
+        switch(state)
+        {
+            case Google.Protobuf.Protocol.PlayerState.Idle:
+                State = BirdState.Idle;
+                break;
+            case Google.Protobuf.Protocol.PlayerState.Move:
+                State = BirdState.Moving;
+                break;
+            case Google.Protobuf.Protocol.PlayerState.Jump:
+                State = BirdState.Jumping;
+                break;
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        switch (playerState)
+        {
+            case PlayerState.Idle:
+                isJumping = false;
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", false);
+                break;
+            case PlayerState.Move:
+                animator.SetBool("MoveForward", true);
+                animator.SetBool("inAir", false);
+                break;
+            case PlayerState.Jump:
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", true);
+                break;
+
+
+        }
     }
 
 

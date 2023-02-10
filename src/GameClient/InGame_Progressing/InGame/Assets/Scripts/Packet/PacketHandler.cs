@@ -93,7 +93,7 @@ public class PacketHandler
        
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
-        pc.SetAnim(data.Anim);
+        pc.SetAnim(data.State);
         
     }
     public static void ObtacleMove(IMessage packet)
@@ -127,7 +127,7 @@ public class PacketHandler
 
         pc.playerInfo.Position = spawnPoint;
         pc.playerInfo.Rotation = spawnRotation;
-        pc.State = Define.PlayerState.Idle;
+        pc.State = Define.BirdState.Idle;
 
         player.Position = spawnPoint;
         player.Rotation = spawnRotation;
