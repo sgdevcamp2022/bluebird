@@ -62,20 +62,40 @@ public class MyPlayerController : PlayerController
 
     }
 
-
+    //Idle로 계속 남을지, 다른 상태로 넘어갈지를 판단.
     protected override void UpdateIdle()
     {
+        if (transform.position.y < -1)
+        {
+            transform.position = new Vector3(0.1f, 0.2f, 29f);
+            transform.rotation = Quaternion.Euler(0, 180f, 0f);
+        }
+
         if (moveVec.x != 0 || moveVec.z != 0 )
         {
             State = PlayerState.Moving;
             return;
         }
+
+        State = PlayerState.Idle;
+
+        UpdateAnimation();
+
+
+       
+
+
     }
 
-    //내가 이동하고 좌표를 보내는 형식  
+    //플레이어가 먼저 이동하고 좌표를 보냄, 플레이어의 지상에서의 움직임을 제어한다.
     protected override void UpdateMoving()
     {
-           
+
+           if(transform.position.y <-1)
+            {
+                transform.position = new Vector3(0.1f, 0.2f, 29f);
+                transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            }
      
             prevVec = transform.position;
      
@@ -84,44 +104,47 @@ public class MyPlayerController : PlayerController
        
              movementDirection.Normalize();
          
-            
+           
         
             transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             transform.position += movementDirection * speed * Time.deltaTime;
 
+
+
+            UpdateAnimation();
+
+
+
             if (moveVec != Vector3.zero )
             {
-            Debug.Log("MoveForward");
+   
                 animator.SetBool("MoveForward", true);
 
             }
 
-          
-            
-           
-         
-        if (prevVec != transform.position || isJumping)
-        {
-            Move playerMove = new Move()
+            if (prevVec != transform.position)
             {
-                Id = playerId,
-                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
 
-            };
+               
+                    Move playerMove = new Move()
+                    {
+                        Id = playerId,
+                        Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                        Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+                        Anim = Google.Protobuf.Protocol.Animation.Move,
 
+                    };
 
-            Managers.Network.Send(playerMove, INGAME.PlayerMove);
-        }
+                    Managers.Network.Send(playerMove, INGAME.PlayerMove);
+ 
+           }
 
-        else if (prevVec == transform.position && !isJumping)
-        {
-            Debug.Log("MoveForward false");
-            State = PlayerState.Idle;
-            animator.SetBool("MoveForward", false);
-     
-
-        }
+            else if (prevVec == transform.position)
+            {
+                
+                State = PlayerState.Idle;
+             
+            }
         
     }
 
@@ -142,30 +165,25 @@ public class MyPlayerController : PlayerController
         if (!isJumping)
         {
             Jump();
+            isJumping = true;
         }
 
         //아직까지 공중에 떠있다면 계속해서 패킷 전송, 공중에서도 움직일 수 있도록 Moving으로 변경
         if (isJumping)
         {
-            State = PlayerState.Moving;
-           
+            UpdateAnimation();
         }
-
-
 
         Move playerMove = new Move()
         {
              Id = playerId,
              Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
              Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
-
-         };
+             Anim = Google.Protobuf.Protocol.Animation.JumpLoop,     
+        };
 
 
         Managers.Network.Send(playerMove, INGAME.PlayerMove);
-
-     
-        
 
 
     }
@@ -174,15 +192,35 @@ public class MyPlayerController : PlayerController
     {
         if (!isJumping )
         {
-            isJumping = true;
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             animator.SetTrigger("doJump");
-            animator.SetBool("inAir", true);
-
-    
+           
         }
         else
             return;
+    }
+
+    void UpdateAnimation()
+    {
+        switch (State)
+        {
+            case PlayerState.Idle:
+                isJumping = false;
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", false);
+                break;
+            case PlayerState.Moving:
+                isJumping = false;
+                animator.SetBool("MoveForward", true);
+                animator.SetBool("inAir", false);
+                break;
+            case PlayerState.Jumping:
+                isJumping = true;
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", true);
+                break;
+
+        }
     }
 
   

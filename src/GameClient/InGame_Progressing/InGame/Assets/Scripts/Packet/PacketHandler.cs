@@ -93,6 +93,7 @@ public class PacketHandler
        
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
+        pc.SetAnim(data.Anim);
         
     }
     public static void ObtacleMove(IMessage packet)
@@ -126,11 +127,13 @@ public class PacketHandler
 
         pc.playerInfo.Position = spawnPoint;
         pc.playerInfo.Rotation = spawnRotation;
+        pc.State = Define.PlayerState.Idle;
 
         player.Position = spawnPoint;
         player.Rotation = spawnRotation;
 
-        UnityEngine.Debug.Log("정상");
+
+            
         if (Managers.Object.myPlayerId == player.Id)
         {
             Managers.Network.Send(player, INGAME.PlayerDrop);

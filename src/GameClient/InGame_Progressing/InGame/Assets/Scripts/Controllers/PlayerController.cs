@@ -5,6 +5,9 @@ using UnityEngine;
 using Google.Protobuf.Protocol;
 using static Define;
 
+
+//PlayerMove 패킷 핸들러로부터 playerinfo 및 animation 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
+
 public class PlayerController : MonoBehaviour
 {
     public Int64 playerId { get; set; }
@@ -19,20 +22,21 @@ public class PlayerController : MonoBehaviour
 
     protected Camera cam;
 
-    //canJump를 위한 변수
+
     protected bool pressedJump = false;
     protected bool isJumping = false;
 
     protected Animator animator;
-    // protected Rigidbody _rigidbody;
+
 
     protected Rigidbody rigid;
+    protected Google.Protobuf.Protocol.Animation anim;
 
-    
+
 
 
     [SerializeField]
-    protected PlayerState _state = PlayerState.Idle;
+    protected PlayerState _state;
 
     public virtual PlayerState State
     {
@@ -83,6 +87,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         prevVec = transform.position;
+        anim = Google.Protobuf.Protocol.Animation.Idle;
         
     }
 
@@ -106,13 +111,24 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //다른 State로 넘어갈지, Idle로 남을지를 판단하는 함수
     protected virtual void UpdateIdle()
     {
-        if (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z )
+        if ( (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z) )
         {
-            
             State = PlayerState.Moving;
             return;
+        }
+
+        switch (State)
+        {
+            case PlayerState.Idle:
+                isJumping = false;
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", false);
+                break;
+           
+
         }
 
     }
@@ -121,9 +137,12 @@ public class PlayerController : MonoBehaviour
     {
         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping)
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping )
         {
             State = PlayerState.Idle;
+            anim = Google.Protobuf.Protocol.Animation.Idle;
+            animator.SetBool("MoveForward", false);
+            animator.SetBool("inAir", false);
             return;
         }
 
@@ -131,6 +150,23 @@ public class PlayerController : MonoBehaviour
         Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
+
+        switch(anim)
+        {
+            case Google.Protobuf.Protocol.Animation.Idle:
+                animator.SetBool("MoveForward", false);
+                break;
+            case Google.Protobuf.Protocol.Animation.Move:
+                animator.SetBool("MoveForward", true);
+                break;
+            case Google.Protobuf.Protocol.Animation.JumpStart:
+                animator.SetTrigger("doJump");
+                break;
+            case Google.Protobuf.Protocol.Animation.JumpLoop:
+                animator.SetBool("inAir", true);
+                break;
+         
+        }
 
        
 
@@ -149,8 +185,22 @@ public class PlayerController : MonoBehaviour
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
 
+        switch (anim)
+        {
+            case Google.Protobuf.Protocol.Animation.Idle:
+                animator.SetBool("MoveForward", false);
+                break;
+            case Google.Protobuf.Protocol.Animation.Move:
+                animator.SetBool("MoveForward", true);
+                break;
+            case Google.Protobuf.Protocol.Animation.JumpStart:
+                animator.SetTrigger("doJump");
+                break;
+            case Google.Protobuf.Protocol.Animation.JumpLoop:
+                animator.SetBool("inAir", true);
+                break;
 
-
+        }
 
 
     }
@@ -184,11 +234,15 @@ public class PlayerController : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Ground"))
         {
+            Debug.Log("collisionGround");
             isJumping = false;
             State = PlayerState.Idle;
-            animator.SetBool("inAir", false);
-
         }
+    }
+
+    public void SetAnim(Google.Protobuf.Protocol.Animation anim)
+    {
+        this.anim = anim;
     }
 
 
