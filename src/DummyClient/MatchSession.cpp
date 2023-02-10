@@ -4,12 +4,14 @@
 void MatchSession::OnConnected()
 {
     atomic<int32> th = 0;
-    for (int i = 0; i < 5; i++) {
-        Match::C_Login pkt;
-        pkt.set_id(th.fetch_add(1));
-        pkt.set_level(2);
-        auto ref = PacketHandler::MakeSendBuffer(pkt, Match::C_LOGIN);
-        Send(ref);
+    for (int i = 1; i <= 7; i++) {
+        for (int j = 0; j < 10; j++) {
+            Match::C_Login pkt;
+            pkt.set_id(th.fetch_add(1));
+            pkt.set_level(i);
+            auto ref = PacketHandler::MakeSendBuffer(pkt, Match::C_LOGIN);
+            Send(ref);
+        }
     }
 }
 

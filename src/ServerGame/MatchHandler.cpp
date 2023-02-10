@@ -21,10 +21,14 @@ void MatchHandler::HandlerMatch(PacketSessionRef& ref, Match::S_Match&& pkt)
     // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
     // Redis로 판별해도 괜찮을 듯
     vector<PlayerRef> players;
-    for (int i = 0; i < pkt.usersize(); i++) {
+    cout << pkt.level() << " " << pkt.ids_size() << " INSIDE : ";
+    for (int i = 0; i < pkt.ids_size(); i++) {
+        cout << pkt.ids(i) << " ";
+    }
+    cout << endl;
+    for (int i = 0; i < pkt.ids_size(); i++) {
         auto data = pkt.ids(i);
         players.emplace_back(make_shared<Player>(data, pkt.room()));
-        cout << data << " " << pkt.room() << endl;
     }
     Ggames->DoAsync(&Games::NewGame, std::move(players), pkt.level(), pkt.room());
     Ggames->DoTimer(5000, &Games::StartGame, pkt.room());
