@@ -11,11 +11,8 @@ public class MyPlayerController : PlayerController
 {
 
     CameraController cameracontroller;
-    public  bool serverCommunication = false;
+    //public  bool serverCommunication = false;
 
-
-
-    
 
     protected override void Init()
     {
@@ -28,16 +25,15 @@ public class MyPlayerController : PlayerController
     {
         switch (State)
         {
-            case PlayerState.Idle:
+            case BirdState.Idle:
                 GetInput();
                 break;
-            case PlayerState.Moving:
+            case BirdState.Moving:
                 GetInput();
                 break;
-            case PlayerState.Jumping:
+            case BirdState.Jumping:
                 GetInput();
                 break;
-
         }
         base.UpdateController();
     }
@@ -45,37 +41,64 @@ public class MyPlayerController : PlayerController
     void GetInput()
     {
 
-        
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        if (transform.position.y < -1)
+        {
+            transform.position = new Vector3(0.1f, 0.2f, 29f);
+            transform.rotation = Quaternion.Euler(0, 180f, 0f);
+        }
 
+        if(State == BirdState.Jumping && isJumping == false)
+        {
+           State = BirdState.Idle;
+        }
+        
+
+      
+        float h = 0.0f;
+        float v = 0.0f;
+
+      
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+        
         
         pressedJump = Input.GetKeyDown(KeyCode.Space);
-        moveVec = new Vector3(h, 0f, v);
+        moveVec = new Vector3(h, 0f, v).normalized;
 
         if (pressedJump && !isJumping)
         {
-            State = PlayerState.Jumping; 
+            State = BirdState.Jumping;
         }
 
-        Debug.Log("State : " + State + " isJumping: " + isJumping);
+
+
+
+        
+
+
+        Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
 
     }
 
-
+    //Idle로 계속 남을지, 다른 상태로 넘어갈지를 판단.
     protected override void UpdateIdle()
     {
+      
+
         if (moveVec.x != 0 || moveVec.z != 0 )
         {
-            State = PlayerState.Moving;
+            State = BirdState.Moving;
             return;
         }
+
+
     }
 
-    //내가 이동하고 좌표를 보내는 형식  
+    //플레이어가 먼저 이동하고 좌표를 보냄, 플레이어의 지상에서의 움직임을 제어한다.
     protected override void UpdateMoving()
     {
-           
+
+       
      
             prevVec = transform.position;
      
@@ -87,34 +110,43 @@ public class MyPlayerController : PlayerController
             transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             transform.position += movementDirection * speed * Time.deltaTime;
 
-         
-        if (prevVec != transform.position || isJumping)
-        {
-            Move playerMove = new Move()
+            UpdateAnimation();
+
+        if (prevVec == transform.position)
             {
-                Id = playerId,
-                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
 
-            };
+                State = BirdState.Idle;
+                UpdateAnimation();
 
+            }
+            else if (prevVec != transform.position)
+            {
 
-            Managers.Network.Send(playerMove, INGAME.PlayerMove);
-        }
+                    Move playerMove = new Move()
+                    {
+                        Id = playerId,
+                        Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                        Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+                        State = PlayerState.Move,
 
-        else if (prevVec == transform.position && !isJumping)
-        {
-            State = PlayerState.Idle;
-        }
+                    };
+
+                    Managers.Network.Send(playerMove, INGAME.PlayerMove);
+ 
+           }
+
+   
         
     }
 
 
     //점프를 해서 착지할때까지 계속해서 패킷을 보내줘야한다.
-
+    //점프를 하고, 점프를 하면서도 조금 움직일 수 있어야한다.
+    //점프를 하고, Moving으로 바꿔주기
     protected override void UpdateJumping()
     {
-       
+
+        prevVec = transform.position;
 
         Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
 
@@ -123,50 +155,96 @@ public class MyPlayerController : PlayerController
         transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
 
         //바닥에 착지해있는 상태라면 점프 수행
-        if (!isJumping)
+        if (!isJumping && State == BirdState.Jumping)
         {
             Jump();
+            isJumping = true;
         }
 
-        //아직까지 공중에 떠있다면 계속해서 패킷 전송, 공중에서도 움직일 수 있도록 Moving으로 변경
-        if (isJumping)
+        //아직까지 공중에 떠있다면 계속해서 패킷 전송
+        if (isJumping && State == BirdState.Jumping)
         {
-            State = PlayerState.Moving;
-           
+            UpdateAnimation();
+            transform.position += movementDirection * speed * Time.deltaTime;
         }
-
 
 
         Move playerMove = new Move()
         {
-             Id = playerId,
-             Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-             Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
-
-         };
+            Id = playerId,
+            Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+            Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+            State = PlayerState.Jump,
+        };
 
 
         Managers.Network.Send(playerMove, INGAME.PlayerMove);
-
-     
-        
-
 
     }
 
     void Jump()
     {
-        if (!isJumping )
+        if (!isJumping && State == BirdState.Jumping )
         {
-            isJumping = true;
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-    
+            animator.SetTrigger("doJump");
+           
         }
         else
             return;
     }
 
-  
+    void UpdateAnimation()
+    {
+        switch (State)
+        {
+            case BirdState.Idle:
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", false);
+                break;
+            case BirdState.Moving:
+                animator.SetBool("MoveForward", true);
+                animator.SetBool("inAir", false);
+                break;
+            case BirdState.Jumping:
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", true);
+                break;
+            
+
+        }
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Victory Ground"))
+        {
+            isJumping = false;
+            Player pkt = new Player()
+            {
+                Id = playerId,
+                Position = playerInfo.Position,
+                Rotation = playerInfo.Rotation
+            };
+
+            Managers.Network.Send(pkt, INGAME.PlayerGoal);
+            Debug.Log("GameComplete Packet Sent");
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            if (isJumping)
+            {
+                Debug.Log("collisionGround");
+                State = BirdState.Idle;
+                isJumping = false;
+
+                UpdateAnimation();
+            }
+        }
+    }
+
+
 
 
 }

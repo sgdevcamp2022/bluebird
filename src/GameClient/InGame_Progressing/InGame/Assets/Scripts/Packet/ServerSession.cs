@@ -34,6 +34,7 @@ public class ServerSession : PacketSession
         Send(send_buffer);
     }
 
+    
 	public override void OnConnected(EndPoint endPoint)
 	{
 		Debug.Log($"OnConnected : {endPoint}");
@@ -44,7 +45,7 @@ public class ServerSession : PacketSession
         };
 
         System.Random rand = new System.Random();
-        int random = rand.Next(100);
+        int random = rand.Next(2);
         Data dataPkt = new Data()
         {
             Id = random,
@@ -53,6 +54,7 @@ public class ServerSession : PacketSession
             //Player = {new Player {X = 0,Y=0,Z=0 } }
         };
         Send(dataPkt, INGAME.Connect);
+        Debug.Log("try connection..." + random);
     }
 
 	public override void OnDisconnected(EndPoint endPoint)

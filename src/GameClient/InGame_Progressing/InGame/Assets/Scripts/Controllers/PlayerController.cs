@@ -5,6 +5,9 @@ using UnityEngine;
 using Google.Protobuf.Protocol;
 using static Define;
 
+
+//PlayerMove 패킷 핸들러로부터 playerinfo 및 State 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
+
 public class PlayerController : MonoBehaviour
 {
     public Int64 playerId { get; set; }
@@ -19,22 +22,23 @@ public class PlayerController : MonoBehaviour
 
     protected Camera cam;
 
-    //canJump를 위한 변수
+
     protected bool pressedJump = false;
     protected bool isJumping = false;
 
-    protected Animator _animator;
-    // protected Rigidbody _rigidbody;
+    protected Animator animator;
+
 
     protected Rigidbody rigid;
+    protected Google.Protobuf.Protocol.PlayerState playerState;
 
-    
+
 
 
     [SerializeField]
-    protected PlayerState _state = PlayerState.Idle;
+    protected BirdState _state;
 
-    public virtual PlayerState State
+    public virtual BirdState State
     {
         get { return _state; }
         set
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
                 return;
 
             _state = value;
-            //UpdateAnimation();
+          
         }
     }
 
@@ -81,7 +85,9 @@ public class PlayerController : MonoBehaviour
     {
         cam = Camera.main.gameObject.GetComponent<Camera>();
         rigid = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         prevVec = transform.position;
+        State = BirdState.Idle;
         
     }
 
@@ -90,13 +96,13 @@ public class PlayerController : MonoBehaviour
        
         switch (State)
         {
-            case PlayerState.Idle:
+            case BirdState.Idle:
                 UpdateIdle();
                 break;
-            case PlayerState.Moving:
+            case BirdState.Moving:
                 UpdateMoving();
                 break;
-            case PlayerState.Jumping:
+            case BirdState.Jumping:
                 UpdateJumping();
                 break;
           
@@ -105,24 +111,83 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //State와 transform 정보를 계속해서 수신 받기에, State에 따라 애니메이션을 재생시키며 이동시켜주면 된다.
+    //문제: Idle 패킷은 오지 않아서 알아서 판별해야한다...
+     
     protected virtual void UpdateIdle()
     {
-        if (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z )
+        UpdateAnimation();
+    }
+
+    protected virtual void UpdateMoving()
+    {
+
+        prevVec = transform.position;
+
+        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Z == prevVec.z))
         {
-            
-            State = PlayerState.Moving;
+            State = BirdState.Idle;
             return;
         }
+
+
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+        transform.position = moveVec;
+        transform.rotation = Quaternion.Euler(moveRot);
+
+        UpdateAnimation();
+
+    }
+
+
+    protected virtual void UpdateJumping()
+    {
+
+
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+        transform.rotation = Quaternion.Euler(moveRot);
+
+        if (!isJumping)
+        {
+            animator.SetTrigger("doJump");
+            isJumping = true;
+        }
+        
+
+        if(isJumping)
+        {
+            transform.position = moveVec;
+            UpdateAnimation();
+        }
+
+    
+    }
+
+    /*
+    //다른 State로 넘어갈지, Idle로 남을지를 판단하는 함수
+    protected virtual void UpdateIdle()
+    {
+        if ( (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z) )
+        {
+            State = BirdState.Moving;
+            return;
+        }
+
+        UpdateAnimation();
+
+      
 
     }
     
     protected virtual void UpdateMoving()
     {
-        prevVec = transform.position;
+         prevVec = transform.position;
 
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z  && !isJumping)
+        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z   )
         {
-            State = PlayerState.Idle;
+            State = BirdState.Idle;
             return;
         }
 
@@ -130,6 +195,10 @@ public class PlayerController : MonoBehaviour
         Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
+
+        UpdateAnimation();
+
+       
 
        
 
@@ -140,6 +209,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateJumping()
     {
+       
         prevVec = transform.position;
 
       
@@ -148,43 +218,74 @@ public class PlayerController : MonoBehaviour
         transform.position = moveVec;
         transform.rotation = Quaternion.Euler(moveRot);
 
+        UpdateAnimation();
 
-
+       
 
 
     }
 
-  
-
-
-
-
+    */
 
     protected void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Victory Ground"))
         {
-            isJumping = false;
-            Player pkt = new Player()
-            {
-                Id = playerId,
-                Position = playerInfo.Position,
-                Rotation = playerInfo.Rotation
-            };
-
-            Managers.Network.Send(pkt, INGAME.PlayerGoal);
+           
             Debug.Log("GameComplete Packet Sent");
         }
 
         if(collision.gameObject.CompareTag("Ground"))
         {
-            isJumping = false;
-            State = PlayerState.Idle;
+            if(isJumping)
+            {
+                State = BirdState.Idle;
+                isJumping = false;
+
+                
+            }
+            Debug.Log("collisionGround");
+        }
+    }
+
+    public void SetAnim(Google.Protobuf.Protocol.PlayerState state)
+    {
+        switch(state)
+        {
+            case Google.Protobuf.Protocol.PlayerState.Idle:
+                State = BirdState.Idle;
+                break;
+            case Google.Protobuf.Protocol.PlayerState.Move:
+                State = BirdState.Moving;
+                break;
+            case Google.Protobuf.Protocol.PlayerState.Jump:
+                State = BirdState.Jumping;
+                break;
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        switch (State)
+        {
+            case BirdState.Idle:
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", false);
+                break;
+            case BirdState.Moving:
+                animator.SetBool("MoveForward", true);
+                animator.SetBool("inAir", false);
+                break;
+            case BirdState.Jumping:
+                animator.SetBool("MoveForward", false);
+                animator.SetBool("inAir", true);
+                break;
+
 
         }
     }

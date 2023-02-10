@@ -23,13 +23,13 @@ enum INGAME
 	RECONNECT = 15;
 }
 
-enum Animation
+enum PlayerState
 {
 	IDLE = 0;
 	MOVE = 1;
-	JUMP_START = 2;
+	JUMP = 2;
 	JUMP_LOOP = 3;
-	JUMP_END = 4;
+	
 }
 
 message PlayerGoalData
@@ -61,7 +61,7 @@ message Move
 {
 	int64 id = 1;
 	int64 time = 2;
-	Animation anim = 3;
+	PlayerState state = 3;
 	optional Vector position = 4;
 	optional Vector rotation = 5;
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Define
 {
-    public enum PlayerState
+    public enum BirdState
 	{
         Idle,
         Moving,
         Jumping,
+
       
 	}
 

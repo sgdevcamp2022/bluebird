@@ -30,39 +30,39 @@ namespace Google.Protobuf.Protocol {
             "RGF0YSJ9CgREYXRhEgoKAmlkGAEgASgDEhAKCG1hcExldmVsGAIgASgFEhEK",
             "CW1hdGNoUm9vbRgDIAEoBRIgCgZwbGF5ZXIYBCADKAsyEC5Qcm90b2NvbC5Q",
             "bGF5ZXISIgoHb2J0YWNsZRgFIAMoCzIRLlByb3RvY29sLk9idGFjbGUiFQoF",
-            "VGltZXMSDAoEdGltZRgBIAEoAyKvAQoETW92ZRIKCgJpZBgBIAEoAxIMCgR0",
-            "aW1lGAIgASgDEiEKBGFuaW0YAyABKA4yEy5Qcm90b2NvbC5BbmltYXRpb24S",
-            "JwoIcG9zaXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAIgBARInCghy",
-            "b3RhdGlvbhgFIAEoCzIQLlByb3RvY29sLlZlY3RvckgBiAEBQgsKCV9wb3Np",
-            "dGlvbkILCglfcm90YXRpb24iNgoITW92ZURhdGESDAoEdGltZRgBIAEoAxIc",
-            "CgRtb3ZlGAIgAygLMg4uUHJvdG9jb2wuTW92ZSKyAQoHT2J0YWNsZRIKCgJp",
-            "ZBgBIAEoAxINCgVzaGFwZRgCIAEoBRInCghwb3NpdGlvbhgDIAEoCzIQLlBy",
-            "b3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9uGAQgASgLMhAuUHJvdG9j",
-            "b2wuVmVjdG9ySAGIAQESDQoFc3BlZWQYBSABKAISEQoJZGlyZWN0aW9uGAYg",
-            "ASgFQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24igAEKBlBsYXllchIKCgJp",
-            "ZBgBIAEoAxInCghwb3NpdGlvbhgCIAEoCzIQLlByb3RvY29sLlZlY3RvckgA",
-            "iAEBEicKCHJvdGF0aW9uGAMgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFC",
-            "CwoJX3Bvc2l0aW9uQgsKCV9yb3RhdGlvbiKCAQoLUGxheWVyQ3Jhc2gSCgoC",
-            "aWQYASABKAMSIgoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0b3IS",
-            "IgoIcm90YXRpb24YAyABKAsyEC5Qcm90b2NvbC5WZWN0b3ISHwoFZW5lbXkY",
-            "BCABKAsyEC5Qcm90b2NvbC5QbGF5ZXIiKQoGVmVjdG9yEgkKAXgYASABKAIS",
-            "CQoBeRgCIAEoAhIJCgF6GAMgASgCKv4BCgZJTkdBTUUSCwoHQ09OTkVDVBAA",
-            "EgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEKDU9C",
-            "U1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRFEAYS",
-            "DQoJR0FNRV9GQUlMEAcSDwoLUExBWUVSX0RST1AQCBIQCgxQTEFZRVJfQ1JB",
-            "U0gQCRISCg5PQlNUQUNMRV9DUkFTSBAKEhAKDENPTk5FQ1RfRkFJTBALEggK",
-            "BFRJTUUQDBIMCghHRVRfVElDSxANEg8KC1BMQVlFUl9HT0FMEA4SDQoJUkVD",
-            "T05ORUNUEA8qTAoJQW5pbWF0aW9uEggKBElETEUQABIICgRNT1ZFEAESDgoK",
-            "SlVNUF9TVEFSVBACEg0KCUpVTVBfTE9PUBADEgwKCEpVTVBfRU5EEARCG6oC",
-            "GEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "VGltZXMSDAoEdGltZRgBIAEoAyKyAQoETW92ZRIKCgJpZBgBIAEoAxIMCgR0",
+            "aW1lGAIgASgDEiQKBXN0YXRlGAMgASgOMhUuUHJvdG9jb2wuUGxheWVyU3Rh",
+            "dGUSJwoIcG9zaXRpb24YBCABKAsyEC5Qcm90b2NvbC5WZWN0b3JIAIgBARIn",
+            "Cghyb3RhdGlvbhgFIAEoCzIQLlByb3RvY29sLlZlY3RvckgBiAEBQgsKCV9w",
+            "b3NpdGlvbkILCglfcm90YXRpb24iNgoITW92ZURhdGESDAoEdGltZRgBIAEo",
+            "AxIcCgRtb3ZlGAIgAygLMg4uUHJvdG9jb2wuTW92ZSKyAQoHT2J0YWNsZRIK",
+            "CgJpZBgBIAEoAxINCgVzaGFwZRgCIAEoBRInCghwb3NpdGlvbhgDIAEoCzIQ",
+            "LlByb3RvY29sLlZlY3RvckgAiAEBEicKCHJvdGF0aW9uGAQgASgLMhAuUHJv",
+            "dG9jb2wuVmVjdG9ySAGIAQESDQoFc3BlZWQYBSABKAISEQoJZGlyZWN0aW9u",
+            "GAYgASgFQgsKCV9wb3NpdGlvbkILCglfcm90YXRpb24igAEKBlBsYXllchIK",
+            "CgJpZBgBIAEoAxInCghwb3NpdGlvbhgCIAEoCzIQLlByb3RvY29sLlZlY3Rv",
+            "ckgAiAEBEicKCHJvdGF0aW9uGAMgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGI",
+            "AQFCCwoJX3Bvc2l0aW9uQgsKCV9yb3RhdGlvbiKCAQoLUGxheWVyQ3Jhc2gS",
+            "CgoCaWQYASABKAMSIgoIcG9zaXRpb24YAiABKAsyEC5Qcm90b2NvbC5WZWN0",
+            "b3ISIgoIcm90YXRpb24YAyABKAsyEC5Qcm90b2NvbC5WZWN0b3ISHwoFZW5l",
+            "bXkYBCABKAsyEC5Qcm90b2NvbC5QbGF5ZXIiKQoGVmVjdG9yEgkKAXgYASAB",
+            "KAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKv4BCgZJTkdBTUUSCwoHQ09OTkVD",
+            "VBAAEgkKBVNUQVJUEAESCQoFTEVBVkUQAhIPCgtQTEFZRVJfTU9WRRADEhEK",
+            "DU9CU1RBQ0xFX01PVkUQBBILCgdOT19NT1ZFEAUSEAoMR0FNRV9DT01QTFRF",
+            "EAYSDQoJR0FNRV9GQUlMEAcSDwoLUExBWUVSX0RST1AQCBIQCgxQTEFZRVJf",
+            "Q1JBU0gQCRISCg5PQlNUQUNMRV9DUkFTSBAKEhAKDENPTk5FQ1RfRkFJTBAL",
+            "EggKBFRJTUUQDBIMCghHRVRfVElDSxANEg8KC1BMQVlFUl9HT0FMEA4SDQoJ",
+            "UkVDT05ORUNUEA8qOgoLUGxheWVyU3RhdGUSCAoESURMRRAAEggKBE1PVkUQ",
+            "ARIICgRKVU1QEAISDQoJSlVNUF9MT09QEANCG6oCGEdvb2dsZS5Qcm90b2J1",
+            "Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), typeof(global::Google.Protobuf.Protocol.Animation), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), typeof(global::Google.Protobuf.Protocol.PlayerState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PlayerGoalData), global::Google.Protobuf.Protocol.PlayerGoalData.Parser, new[]{ "Id", "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.GameCompleteData), global::Google.Protobuf.Protocol.GameCompleteData.Parser, new[]{ "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Data), global::Google.Protobuf.Protocol.Data.Parser, new[]{ "Id", "MapLevel", "MatchRoom", "Player", "Obtacle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Times), global::Google.Protobuf.Protocol.Times.Parser, new[]{ "Time" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "Anim", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Move), global::Google.Protobuf.Protocol.Move.Parser, new[]{ "Id", "Time", "State", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.MoveData), global::Google.Protobuf.Protocol.MoveData.Parser, new[]{ "Time", "Move" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Obtacle), global::Google.Protobuf.Protocol.Obtacle.Parser, new[]{ "Id", "Shape", "Position", "Rotation", "Speed", "Direction" }, new[]{ "Position", "Rotation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Player), global::Google.Protobuf.Protocol.Player.Parser, new[]{ "Id", "Position", "Rotation" }, new[]{ "Position", "Rotation" }, null, null, null),
@@ -93,12 +93,11 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("RECONNECT")] Reconnect = 15,
   }
 
-  public enum Animation {
+  public enum PlayerState {
     [pbr::OriginalName("IDLE")] Idle = 0,
     [pbr::OriginalName("MOVE")] Move = 1,
-    [pbr::OriginalName("JUMP_START")] JumpStart = 2,
+    [pbr::OriginalName("JUMP")] Jump = 2,
     [pbr::OriginalName("JUMP_LOOP")] JumpLoop = 3,
-    [pbr::OriginalName("JUMP_END")] JumpEnd = 4,
   }
 
   #endregion
@@ -970,7 +969,7 @@ namespace Google.Protobuf.Protocol {
     public Move(Move other) : this() {
       id_ = other.id_;
       time_ = other.time_;
-      anim_ = other.anim_;
+      state_ = other.state_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1003,14 +1002,14 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
-    /// <summary>Field number for the "anim" field.</summary>
-    public const int AnimFieldNumber = 3;
-    private global::Google.Protobuf.Protocol.Animation anim_ = global::Google.Protobuf.Protocol.Animation.Idle;
+    /// <summary>Field number for the "state" field.</summary>
+    public const int StateFieldNumber = 3;
+    private global::Google.Protobuf.Protocol.PlayerState state_ = global::Google.Protobuf.Protocol.PlayerState.Idle;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Google.Protobuf.Protocol.Animation Anim {
-      get { return anim_; }
+    public global::Google.Protobuf.Protocol.PlayerState State {
+      get { return state_; }
       set {
-        anim_ = value;
+        state_ = value;
       }
     }
 
@@ -1051,7 +1050,7 @@ namespace Google.Protobuf.Protocol {
       }
       if (Id != other.Id) return false;
       if (Time != other.Time) return false;
-      if (Anim != other.Anim) return false;
+      if (State != other.State) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1062,7 +1061,7 @@ namespace Google.Protobuf.Protocol {
       int hash = 1;
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (Time != 0L) hash ^= Time.GetHashCode();
-      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) hash ^= Anim.GetHashCode();
+      if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) hash ^= State.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
       if (_unknownFields != null) {
@@ -1089,9 +1088,9 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(16);
         output.WriteInt64(Time);
       }
-      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+      if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
         output.WriteRawTag(24);
-        output.WriteEnum((int) Anim);
+        output.WriteEnum((int) State);
       }
       if (position_ != null) {
         output.WriteRawTag(34);
@@ -1118,9 +1117,9 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(16);
         output.WriteInt64(Time);
       }
-      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
+      if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
         output.WriteRawTag(24);
-        output.WriteEnum((int) Anim);
+        output.WriteEnum((int) State);
       }
       if (position_ != null) {
         output.WriteRawTag(34);
@@ -1145,8 +1144,8 @@ namespace Google.Protobuf.Protocol {
       if (Time != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
       }
-      if (Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Anim);
+      if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
       }
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
@@ -1171,8 +1170,8 @@ namespace Google.Protobuf.Protocol {
       if (other.Time != 0L) {
         Time = other.Time;
       }
-      if (other.Anim != global::Google.Protobuf.Protocol.Animation.Idle) {
-        Anim = other.Anim;
+      if (other.State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
+        State = other.State;
       }
       if (other.position_ != null) {
         if (position_ == null) {
@@ -1209,7 +1208,7 @@ namespace Google.Protobuf.Protocol {
             break;
           }
           case 24: {
-            Anim = (global::Google.Protobuf.Protocol.Animation) input.ReadEnum();
+            State = (global::Google.Protobuf.Protocol.PlayerState) input.ReadEnum();
             break;
           }
           case 34: {
@@ -1249,7 +1248,7 @@ namespace Google.Protobuf.Protocol {
             break;
           }
           case 24: {
-            Anim = (global::Google.Protobuf.Protocol.Animation) input.ReadEnum();
+            State = (global::Google.Protobuf.Protocol.PlayerState) input.ReadEnum();
             break;
           }
           case 34: {

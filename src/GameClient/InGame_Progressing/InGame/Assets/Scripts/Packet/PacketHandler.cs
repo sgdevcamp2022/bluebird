@@ -13,6 +13,9 @@ using UnityEngine;
 
 public class PacketHandler
 {
+
+    public static  Google.Protobuf.Protocol.Vector spawnPoint = new Vector { X = 0.1f, Y = 0.2f, Z = 29f };
+    public static Google.Protobuf.Protocol.Vector spawnRotation = new Vector { X = 0f, Y = 180f, Z = 0f };
     public static void GetTickCount(IMessage packet)
     {
         //TODO RTT구하기
@@ -90,6 +93,7 @@ public class PacketHandler
        
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
+        pc.SetAnim(data.State);
         
     }
     public static void ObtacleMove(IMessage packet)
@@ -111,10 +115,25 @@ public class PacketHandler
     public static void PlayerFail(IMessage packet)
     {
         Player player = packet as Player;
-        // TODO 스폰 위치로 초기화 (패킷에 초기화 위치 넣어놨습니다)
-        // 이후 player 패킷에 Position, Rotation 현 위치로 변경
+        GameObject go = Managers.Object.GetPlayer(player.Id);
 
-        UnityEngine.Debug.Log("정상");
+        if (go == null)
+            return;
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+
+        if (pc == null)
+            return;
+
+        pc.playerInfo.Position = spawnPoint;
+        pc.playerInfo.Rotation = spawnRotation;
+        pc.State = Define.BirdState.Idle;
+
+        player.Position = spawnPoint;
+        player.Rotation = spawnRotation;
+
+
+            
         if (Managers.Object.myPlayerId == player.Id)
         {
             Managers.Network.Send(player, INGAME.PlayerDrop);
