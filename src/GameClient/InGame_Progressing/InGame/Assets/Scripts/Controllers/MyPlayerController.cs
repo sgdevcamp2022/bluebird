@@ -11,7 +11,7 @@ public class MyPlayerController : PlayerController
 {
 
     CameraController cameracontroller;
-    public  bool serverCommunication = false;
+    //public  bool serverCommunication = false;
 
 
     protected override void Init()
@@ -41,17 +41,36 @@ public class MyPlayerController : PlayerController
     void GetInput()
     {
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        if (transform.position.y < -1)
+        {
+            transform.position = new Vector3(0.1f, 0.2f, 29f);
+            transform.rotation = Quaternion.Euler(0, 180f, 0f);
+        }
 
+        if(State == BirdState.Jumping && isJumping == false)
+        {
+           State = BirdState.Idle;
+        }
+        
+
+      
+        float h = 0.0f;
+        float v = 0.0f;
+
+      
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+        
         
         pressedJump = Input.GetKeyDown(KeyCode.Space);
         moveVec = new Vector3(h, 0f, v).normalized;
 
-        if (pressedJump)
+        if (pressedJump && !isJumping)
         {
-            State = BirdState.Jumping; 
+            State = BirdState.Jumping;
         }
+
+
 
 
         
@@ -64,22 +83,13 @@ public class MyPlayerController : PlayerController
     //Idle로 계속 남을지, 다른 상태로 넘어갈지를 판단.
     protected override void UpdateIdle()
     {
-        if (transform.position.y < -1)
-        {
-            transform.position = new Vector3(0.1f, 0.2f, 29f);
-            transform.rotation = Quaternion.Euler(0, 180f, 0f);
-        }
+      
 
         if (moveVec.x != 0 || moveVec.z != 0 )
         {
             State = BirdState.Moving;
             return;
         }
-
-        UpdateAnimation();
-
-
-       
 
 
     }
@@ -88,11 +98,7 @@ public class MyPlayerController : PlayerController
     protected override void UpdateMoving()
     {
 
-           if(transform.position.y < -1)
-            {
-                transform.position = new Vector3(0.1f, 0.2f, 29f);
-                transform.rotation = Quaternion.Euler(0, 180f, 0f);
-            }
+       
      
             prevVec = transform.position;
      
@@ -103,18 +109,18 @@ public class MyPlayerController : PlayerController
 
             transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
             transform.position += movementDirection * speed * Time.deltaTime;
+
             UpdateAnimation();
 
         if (prevVec == transform.position)
             {
 
                 State = BirdState.Idle;
+                UpdateAnimation();
 
             }
             else if (prevVec != transform.position)
             {
-
-
 
                     Move playerMove = new Move()
                     {
@@ -135,7 +141,8 @@ public class MyPlayerController : PlayerController
 
 
     //점프를 해서 착지할때까지 계속해서 패킷을 보내줘야한다.
-
+    //점프를 하고, 점프를 하면서도 조금 움직일 수 있어야한다.
+    //점프를 하고, Moving으로 바꿔주기
     protected override void UpdateJumping()
     {
 
@@ -148,25 +155,19 @@ public class MyPlayerController : PlayerController
         transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
 
         //바닥에 착지해있는 상태라면 점프 수행
-        if (!isJumping)
+        if (!isJumping && State == BirdState.Jumping)
         {
             Jump();
             isJumping = true;
-            State = BirdState.Jumping;
         }
 
         //아직까지 공중에 떠있다면 계속해서 패킷 전송
-        if (isJumping )
+        if (isJumping && State == BirdState.Jumping)
         {
             UpdateAnimation();
+            transform.position += movementDirection * speed * Time.deltaTime;
         }
 
-        if(prevVec.x == transform.position.x && prevVec.y == transform.position.y && prevVec.z == transform.position.z && !isJumping )
-        {
-            State = BirdState.Idle;
-            isJumping = false;
-            return;
-        }
 
         Move playerMove = new Move()
         {
@@ -183,7 +184,7 @@ public class MyPlayerController : PlayerController
 
     void Jump()
     {
-        if (!isJumping )
+        if (!isJumping && State == BirdState.Jumping )
         {
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             animator.SetTrigger("doJump");
@@ -232,8 +233,14 @@ public class MyPlayerController : PlayerController
 
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("collisionGround");
-            State = BirdState.Idle;
+            if (isJumping)
+            {
+                Debug.Log("collisionGround");
+                State = BirdState.Idle;
+                isJumping = false;
+
+                UpdateAnimation();
+            }
         }
     }
 

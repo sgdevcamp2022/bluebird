@@ -6,7 +6,7 @@ using Google.Protobuf.Protocol;
 using static Define;
 
 
-//PlayerMove 패킷 핸들러로부터 playerinfo 및 animation 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
+//PlayerMove 패킷 핸들러로부터 playerinfo 및 State 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
 
 public class PlayerController : MonoBehaviour
 {
@@ -111,6 +111,61 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //State와 transform 정보를 계속해서 수신 받기에, State에 따라 애니메이션을 재생시키며 이동시켜주면 된다.
+    //문제: Idle 패킷은 오지 않아서 알아서 판별해야한다...
+     
+    protected virtual void UpdateIdle()
+    {
+        UpdateAnimation();
+    }
+
+    protected virtual void UpdateMoving()
+    {
+
+        prevVec = transform.position;
+
+        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Z == prevVec.z))
+        {
+            State = BirdState.Idle;
+            return;
+        }
+
+
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+        transform.position = moveVec;
+        transform.rotation = Quaternion.Euler(moveRot);
+
+        UpdateAnimation();
+
+    }
+
+
+    protected virtual void UpdateJumping()
+    {
+
+
+        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+        transform.rotation = Quaternion.Euler(moveRot);
+
+        if (!isJumping)
+        {
+            animator.SetTrigger("doJump");
+            isJumping = true;
+        }
+        
+
+        if(isJumping)
+        {
+            transform.position = moveVec;
+            UpdateAnimation();
+        }
+
+    
+    }
+
+    /*
     //다른 State로 넘어갈지, Idle로 남을지를 판단하는 함수
     protected virtual void UpdateIdle()
     {
@@ -154,12 +209,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateJumping()
     {
-        if (!isJumping)
-        {
-            animator.SetTrigger("doJump");
-            isJumping = true;
-        }
-
+       
         prevVec = transform.position;
 
       
@@ -175,6 +225,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    */
+
     protected void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -184,23 +236,20 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Victory Ground"))
         {
-            isJumping = false;
-            Player pkt = new Player()
-            {
-                Id = playerId,
-                Position = playerInfo.Position,
-                Rotation = playerInfo.Rotation
-            };
-
-            Managers.Network.Send(pkt, INGAME.PlayerGoal);
+           
             Debug.Log("GameComplete Packet Sent");
         }
 
         if(collision.gameObject.CompareTag("Ground"))
         {
+            if(isJumping)
+            {
+                State = BirdState.Idle;
+                isJumping = false;
+
+                
+            }
             Debug.Log("collisionGround");
-            isJumping = false;
-            State = BirdState.Idle;
         }
     }
 
@@ -222,18 +271,17 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAnimation()
     {
-        switch (playerState)
+        switch (State)
         {
-            case PlayerState.Idle:
-                isJumping = false;
+            case BirdState.Idle:
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", false);
                 break;
-            case PlayerState.Move:
+            case BirdState.Moving:
                 animator.SetBool("MoveForward", true);
                 animator.SetBool("inAir", false);
                 break;
-            case PlayerState.Jump:
+            case BirdState.Jumping:
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", true);
                 break;
