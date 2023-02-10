@@ -40,5 +40,5 @@ private:
 
 	Protocol::Data				_startData;
 	Protocol::GameCompleteData	_winner;
-	atomic<int32>				_playerSize = 0;
+	int32						_playerSize = 0;
 };

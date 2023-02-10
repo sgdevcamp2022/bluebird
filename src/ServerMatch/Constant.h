@@ -1,8 +1,14 @@
 #pragma once
 
 #define THREAD_SIZE 10
-#define PLATER_COUNT 5
-#define MAX_PLAYER_COUNT 10
+#define SOLO_PLAYER_COUNT 5
+#define SOLO_MAX_PLAYER_COUNT 10
+
+#define DUO_PLAYER_COUNT 10
+#define DUO_MAX_PLAYER_COUNT 20
+
+#define THREE_PLAYER_COUNT 15
+#define THREE_MAX_PLAYER_COUNT 30
 
 #define TestLevel 5
 #define TestRoom 10
@@ -40,7 +46,8 @@ SendBufferRef _Making(T& pkt, S type)
 
 enum PlayerLevel
 {
-	SOLO
+	EMPTY
+	,SOLO
 	, DUO
 	, SOLO_DUO
 	, THREE

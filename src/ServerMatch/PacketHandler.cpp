@@ -2,7 +2,6 @@
 #include "PacketHandler.h"
 #include "MatchManager.h"
 #include "MatchSession.h"
-#include "Player.h"
 
 void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::Header&& head)
 {
@@ -25,14 +24,11 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
 
     // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
     // Redis로 판별해도 괜찮을 듯
-    PlayerRef player = make_shared<Player>();
-    player->ownerSession = _ref;
-    player->playerId = pkt.id();
-    player->mapLevel = pkt.level();
+    
 
     cout << "Login : " << pkt.id() << " " << pkt.level() << endl;
 
-    GMatch->DoAsync(&MatchManager::MatchEnter, _ref, player, pkt.level());
+    GMatch->DoAsync(&MatchManager::MatchEnter, pkt.id(), pkt.level());
 }
 
 void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::C_Cancle && pkt)
