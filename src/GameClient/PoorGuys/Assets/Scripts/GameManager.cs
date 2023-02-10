@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Web;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,16 +27,18 @@ public class GameManager : MonoBehaviour
     {
         if(args.Length == 2)
         {
-            string[] arrTemp = args[1].Split(":");
-            if(arrTemp.Length == 2 )
+            string[] arrTemp = args[1].Split("/");
+            if(arrTemp.Length == 4 )
             {
-                nicknameText.text = arrTemp[1];
-                userNo = int.Parse(arrTemp[1]);
-            }
-            else if(arrTemp.Length == 3 )
-            {
-                nicknameText.text = arrTemp[2];
-                userNo = int.Parse(arrTemp[1]);
+                try
+                {
+                    nicknameText.text = HttpUtility.UrlDecode(arrTemp[3], Encoding.UTF8);
+                }
+                catch (Exception e)
+                {
+                    nicknameText.text = "-1";
+                }
+                userNo = int.Parse(arrTemp[2]);
             }
         }
         else

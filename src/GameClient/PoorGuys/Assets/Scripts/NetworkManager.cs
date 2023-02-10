@@ -35,7 +35,7 @@ public class NetworkManager : MonoBehaviour
     public IEnumerator MatchInitPost(Action<bool> callback)
     {
         //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/lobby/";
+        string url = "http://127.0.0.1:8000/lobby/start/";
         
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
@@ -75,7 +75,7 @@ public class NetworkManager : MonoBehaviour
             yield break;
         }
         //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/lobby/";
+        string url = "http://127.0.0.1:8000/lobby/check/";
 
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
@@ -107,7 +107,7 @@ public class NetworkManager : MonoBehaviour
     public IEnumerator MatchCancelPost(Action<bool> callback)
     {
         //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/lobby/";
+        string url = "http://127.0.0.1:8000/lobby/cancel";
 
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
