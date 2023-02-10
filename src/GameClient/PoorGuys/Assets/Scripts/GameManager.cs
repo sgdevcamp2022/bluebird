@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
                 nicknameText.text = arrTemp[1];
                 userNo = int.Parse(arrTemp[1]);
             }
+            else if(arrTemp.Length == 3 )
+            {
+                nicknameText.text = arrTemp[2];
+                userNo = int.Parse(arrTemp[1]);
+            }
         }
         else
         {
