@@ -29,7 +29,7 @@ SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Cancle pkt, Match::STATE ty
 
 void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::S_Login&& pkt)
 {
-    cout << "Inside : " << pkt.id() << " " << pkt.room() << endl;
+    cout << "Inside : " << pkt.id() << " " << pkt.level() << endl;
 }
 
 void PacketHandler::HandlerMatch(PacketSessionRef& ref, Match::S_Match&& pkt)
@@ -38,5 +38,5 @@ void PacketHandler::HandlerMatch(PacketSessionRef& ref, Match::S_Match&& pkt)
     for (int i = 0; i < pkt.ids_size(); i++) {
         cout << pkt.ids(i) << " ";
     }
-    cout << "(" << pkt.room() << ")" << endl;
+    cout << "(" << pkt.level() << " "<<pkt.room() << ")" << endl;
 }

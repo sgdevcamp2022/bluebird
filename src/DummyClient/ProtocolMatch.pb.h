@@ -961,12 +961,11 @@ class S_Match final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdsFieldNumber = 4,
-    kUserSizeFieldNumber = 1,
-    kRoomFieldNumber = 2,
-    kLevelFieldNumber = 3,
+    kIdsFieldNumber = 3,
+    kRoomFieldNumber = 1,
+    kLevelFieldNumber = 2,
   };
-  // repeated int64 ids = 4;
+  // repeated int64 ids = 3;
   int ids_size() const;
   private:
   int _internal_ids_size() const;
@@ -988,16 +987,7 @@ class S_Match final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
       mutable_ids();
 
-  // int32 userSize = 1;
-  void clear_usersize();
-  ::PROTOBUF_NAMESPACE_ID::int32 usersize() const;
-  void set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_usersize() const;
-  void _internal_set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
-  // int32 room = 2;
+  // int32 room = 1;
   void clear_room();
   ::PROTOBUF_NAMESPACE_ID::int32 room() const;
   void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -1006,7 +996,7 @@ class S_Match final :
   void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // int32 level = 3;
+  // int32 level = 2;
   void clear_level();
   ::PROTOBUF_NAMESPACE_ID::int32 level() const;
   void set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -1024,7 +1014,6 @@ class S_Match final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 > ids_;
   mutable std::atomic<int> _ids_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::int32 usersize_;
   ::PROTOBUF_NAMESPACE_ID::int32 room_;
   ::PROTOBUF_NAMESPACE_ID::int32 level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -1301,27 +1290,7 @@ inline void S_Login::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // S_Match
 
-// int32 userSize = 1;
-inline void S_Match::clear_usersize() {
-  usersize_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 S_Match::_internal_usersize() const {
-  return usersize_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 S_Match::usersize() const {
-  // @@protoc_insertion_point(field_get:Match.S_Match.userSize)
-  return _internal_usersize();
-}
-inline void S_Match::_internal_set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  usersize_ = value;
-}
-inline void S_Match::set_usersize(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_usersize(value);
-  // @@protoc_insertion_point(field_set:Match.S_Match.userSize)
-}
-
-// int32 room = 2;
+// int32 room = 1;
 inline void S_Match::clear_room() {
   room_ = 0;
 }
@@ -1341,7 +1310,7 @@ inline void S_Match::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Match.S_Match.room)
 }
 
-// int32 level = 3;
+// int32 level = 2;
 inline void S_Match::clear_level() {
   level_ = 0;
 }
@@ -1361,7 +1330,7 @@ inline void S_Match::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Match.S_Match.level)
 }
 
-// repeated int64 ids = 4;
+// repeated int64 ids = 3;
 inline int S_Match::_internal_ids_size() const {
   return ids_.size();
 }

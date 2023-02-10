@@ -114,7 +114,7 @@ void Games::StartGame(int32 room)
 		data.set_size(check);
 		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
 	}
-	cout << "게임 시작" << endl;
+	cout << "게임 시작 "<< check << endl;
 	_games[room] == true;
 	//게임 시작
 }

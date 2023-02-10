@@ -23,7 +23,6 @@ using PacketSessionRef		= shared_ptr<class PacketSession>;
 using MatchSessionRef		= shared_ptr<class MatchSession>;
 using ConnectSessionRef		= shared_ptr<class ConnectSession>;
 using PlayerRef				= shared_ptr<class Player>;
-using MatchRoomRef			= shared_ptr<class MatchRoom>;
 
 #include "PacketHandler.h"
 #include "Redis.h"
