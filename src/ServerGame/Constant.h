@@ -3,13 +3,13 @@
 #define THREAD_SIZE 10
 #define ROOM_COUNT 20
 
-static int START_COUNT;
+#define START_COUNT 2
 #define GOAL_COUNT 1
 
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5
 //#define WINNER3	1
-#define TEST true
+#define TEST false
 
 struct Vector3
 {

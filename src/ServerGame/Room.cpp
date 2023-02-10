@@ -27,6 +27,7 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
+	cout << "Inside User" << endl;
 	auto p = _startData.add_player();
 	
 	if (TEST) {
@@ -104,7 +105,7 @@ void Room::Leave(PlayerRef ref)
 	data.set_matchroom(_matchRoom);
 	data.set_maplevel(_mapLevel);
 
-	_playerSize.fetch_sub(1);
+	_playerSize -= 1;
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
 }
 
@@ -214,6 +215,7 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::GameEnd()
 {
+	cout << "Game End" << endl;
 	for (auto& _ref : _players) {
 		_ref.second->GetOwner()->_mySelf = nullptr;
 		_ref.second->SetOwner(nullptr);

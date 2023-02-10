@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\"$\n\x07\x43_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x08\x43_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"3\n\x08S_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x08\"$\n\x07S_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"E\n\x07S_Match\x12\x10\n\x08userSize\x18\x01 \x01(\x05\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05level\x18\x03 \x01(\x05\x12\x0b\n\x03ids\x18\x04 \x03(\x03*^\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x62\x06proto3'
+  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\"$\n\x07\x43_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x08\x43_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"3\n\x08S_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x08\"$\n\x07S_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x07S_Match\x12\x0c\n\x04room\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0b\n\x03ids\x18\x03 \x03(\x03*^\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x62\x06proto3'
 )
 
 _STATE = _descriptor.EnumDescriptor(
@@ -68,8 +68,8 @@ _STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=336,
-  serialized_end=430,
+  serialized_start=318,
+  serialized_end=412,
 )
 _sym_db.RegisterEnumDescriptor(_STATE)
 
@@ -302,29 +302,22 @@ _S_MATCH = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='userSize', full_name='Match.S_Match.userSize', index=0,
+      name='room', full_name='Match.S_Match.room', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='room', full_name='Match.S_Match.room', index=1,
+      name='level', full_name='Match.S_Match.level', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='level', full_name='Match.S_Match.level', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='ids', full_name='Match.S_Match.ids', index=3,
-      number=4, type=3, cpp_type=2, label=3,
+      name='ids', full_name='Match.S_Match.ids', index=2,
+      number=3, type=3, cpp_type=2, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -342,7 +335,7 @@ _S_MATCH = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=265,
-  serialized_end=334,
+  serialized_end=316,
 )
 
 _HEADER.fields_by_name['state'].enum_type = _STATE

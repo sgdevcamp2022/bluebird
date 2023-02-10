@@ -46,8 +46,7 @@ message S_Login
 
 message S_Match
 {
-	int32 userSize = 1;
-	int32 room = 2;
-	int32 level = 3;
-	repeated int64 ids = 4;
+	int32 room = 1;
+	int32 level = 2;
+	repeated int64 ids = 3;
 }

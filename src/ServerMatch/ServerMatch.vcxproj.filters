@@ -36,12 +36,6 @@
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="MatchRoom.cpp">
-      <Filter>Match</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Match</Filter>
-    </ClCompile>
     <ClCompile Include="MatchManager.cpp">
       <Filter>Match</Filter>
     </ClCompile>
@@ -67,12 +61,6 @@
     </ClInclude>
     <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="MatchRoom.h">
-      <Filter>Match</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Match</Filter>
     </ClInclude>
     <ClInclude Include="MatchManager.h">
       <Filter>Match</Filter>
