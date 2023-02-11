@@ -147,7 +147,7 @@ void Room::PlayerMove(Protocol::Move data)
 	//½Ã¹Ä·¹ÀÌ¼Ç ±¸ÇöÇØ¾ßµÊ.
 	auto point = data.position();
 	PlayerRef player = _players[data.id()];
-
+	
 	if (point.y() > 0.f) {
 		cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 		
