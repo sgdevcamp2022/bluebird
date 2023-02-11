@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody rigid;
     protected Google.Protobuf.Protocol.PlayerState playerState;
 
+    protected int clearStageNum = 0;
+
 
 
 
@@ -128,7 +130,6 @@ public class PlayerController : MonoBehaviour
         if ((playerInfo.Position.X == transform.position.x && playerInfo.Position.Y == transform.position.y && playerInfo.Position.Z == transform.position.z))
         {
             State = BirdState.Idle;
-            Debug.Log("Move to Idle");
             return;
         }
         else
@@ -145,6 +146,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    //바닥에 착지하여도, 그 사이에 다량의 Jump 패킷이 넘어와서 Jump가 되버린다...
     protected virtual void UpdateJumping()
     {
 
@@ -197,7 +199,17 @@ public class PlayerController : MonoBehaviour
                 UpdateAnimation();
 
             }
-            Debug.Log("collisionGround");
+            Debug.Log("Collision Enter");
+        }
+    }
+
+    protected virtual void OnCollisionStay(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+            Debug.Log("Collision Stay");
         }
     }
 
@@ -240,6 +252,17 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    public void SetClearStageNum()
+    {
+        clearStageNum += 1;
+    }
+
+    public void SetDestroy()
+    {
+        Destroy(this.gameObject);
+    }
+
 
 
 

@@ -149,6 +149,25 @@ public class PacketHandler
     {
         PlayerGoalData data = packet as PlayerGoalData;
         UnityEngine.Debug.Log("PlayerGoal");
-        // TODO
+
+        GameObject go = Managers.Object.GetPlayer(data.Id);
+        PlayerController pc = go.GetComponent<PlayerController>();
+
+
+        if (go == null)
+            return;
+
+        //안보이게 만들고, 비활성화 시키고 카메라를 관전 카메라로 전환??
+        //don't destory on load 사용
+        if (data.Success)
+        {
+            pc.SetClearStageNum();
+
+        }
+        else
+        {
+            pc.SetDestroy();
+        }
+
     }
 }

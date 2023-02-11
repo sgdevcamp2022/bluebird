@@ -246,6 +246,11 @@ public class MyPlayerController : PlayerController
         }
     }
 
+    protected override void OnCollisionStay(Collision collision)
+    {
+        
+    }
+
 
 
 
