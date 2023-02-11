@@ -111,7 +111,7 @@ public class ObjectManager
                 shapes.Add(id, tc);
                 break;
             case 1:
-                go = Managers.Resource.Instantiate("Trap/Cube");
+                go = Managers.Resource.Instantiate("Trap/MovePlatform");
                 UnityEngine.Debug.Log(1 + " Obtacle");
                 go.name = "Obstacle" + id;
                 obtacles.Add(id, go);
