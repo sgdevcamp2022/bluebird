@@ -20,6 +20,7 @@ message LoginData
 	int32 mapLevel = 1;
 	int32 matchRoom = 2;
 	repeated Obstacle obstacle = 3;
+	repeated PlayerSpawn spawn = 4;
 }
 
 message GameData
@@ -39,6 +40,12 @@ message Obstacle
 	optional Vector3 rotation = 4;
 	float speed = 5;
 	int32 direction = 6;
+}
+
+message PlayerSpawn 
+{
+	optional Vector3 position = 1;
+	optional Vector3 rotation = 2;
 }
 
 message Vector3
