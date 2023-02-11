@@ -10,15 +10,18 @@ using static Define;
 public class MyPlayerController : PlayerController
 {
 
-    CameraController cameracontroller;
     //public  bool serverCommunication = false;
+
+    GameScene gamescene;
 
 
     protected override void Init()
     {
         
         base.Init();
-     
+        gamescene = GameObject.Find("GameScene").GetComponent<GameScene>();
+
+
     }
 
     protected override void UpdateController()
@@ -40,41 +43,36 @@ public class MyPlayerController : PlayerController
 
     void GetInput()
     {
-
-        if (transform.position.y < -1)
+        if (gamescene.CheckStartGame())
         {
-            transform.position = new Vector3(0.1f, 0.2f, 29f);
-            transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            if (transform.position.y < -1)
+            {
+                transform.position = new Vector3(0.1f, 0.2f, 29f);
+                transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            }
+
+            if (State == BirdState.Jumping && isJumping == false)
+            {
+                State = BirdState.Idle;
+            }
+
+
+            float h = 0.0f;
+            float v = 0.0f;
+
+
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+
+
+            pressedJump = Input.GetKeyDown(KeyCode.Space);
+            moveVec = new Vector3(h, 0f, v).normalized;
+
+            if (pressedJump && !isJumping)
+            {
+                State = BirdState.Jumping;
+            }
         }
-
-        if(State == BirdState.Jumping && isJumping == false)
-        {
-           State = BirdState.Idle;
-        }
-        
-
-      
-        float h = 0.0f;
-        float v = 0.0f;
-
-      
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-        
-        
-        pressedJump = Input.GetKeyDown(KeyCode.Space);
-        moveVec = new Vector3(h, 0f, v).normalized;
-
-        if (pressedJump && !isJumping)
-        {
-            State = BirdState.Jumping;
-        }
-
-
-
-
-        
-
 
         //Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
 
@@ -220,15 +218,26 @@ public class MyPlayerController : PlayerController
         if (collision.gameObject.CompareTag("Victory Ground"))
         {
             isJumping = false;
+
+            /*
             Player pkt = new Player()
             {
                 Id = playerId,
                 Position = playerInfo.Position,
                 Rotation = playerInfo.Rotation
             };
+            */
 
+            PlayerGoalData pkt = new PlayerGoalData
+            {
+                Id = playerId,
+                Success = true,
+            };
             Managers.Network.Send(pkt, INGAME.PlayerGoal);
             Debug.Log("GameComplete Packet Sent");
+
+            Destroy(this.gameObject);
+          
         }
 
         if (collision.gameObject.CompareTag("Ground"))

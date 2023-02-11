@@ -10,6 +10,9 @@ using static Define;
 
 public class PlayerController : MonoBehaviour
 {
+
+
+
     public Int64 playerId { get; set; }
     [SerializeField]
     public float speed = 10.0f;
@@ -90,6 +93,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         prevVec = transform.position;
         State = BirdState.Idle;
+
         
     }
 

@@ -47,6 +47,17 @@ public class PacketHandler
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
             UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
+
+        GameObject go = GameObject.Find("GameScene");
+        GameScene gs = go.GetComponent<GameScene>();
+        gs.SetStartGame();
+
+        GameObject go2 = GameObject.Find("InGameManager");
+        InGameManager igm = go2.GetComponent<InGameManager>();
+        igm.GameStartTxt();
+
+
+        UnityEngine.Debug.Log("Game Start!");
     }
     public static void ReConnect(IMessage packet)
     {
@@ -162,6 +173,7 @@ public class PacketHandler
         if (data.Success)
         {
             pc.SetClearStageNum();
+            pc.SetDestroy();
 
         }
         else
