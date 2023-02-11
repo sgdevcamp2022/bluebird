@@ -109,34 +109,38 @@ public class PlayerController : MonoBehaviour
         
         }
 
+        Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
+
     }
 
     //State와 transform 정보를 계속해서 수신 받기에, State에 따라 애니메이션을 재생시키며 이동시켜주면 된다.
     //문제: Idle 패킷은 오지 않아서 알아서 판별해야한다...
-     
+
     protected virtual void UpdateIdle()
     {
+        isJumping = false;
         UpdateAnimation();
     }
 
     protected virtual void UpdateMoving()
     {
 
-        prevVec = transform.position;
-
-        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Z == prevVec.z))
+        if ((playerInfo.Position.X == transform.position.x && playerInfo.Position.Y == transform.position.y && playerInfo.Position.Z == transform.position.z))
         {
             State = BirdState.Idle;
+            Debug.Log("Move to Idle");
             return;
         }
+        else
+        {
+            Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+            Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+            transform.position = moveVec;
+            transform.rotation = Quaternion.Euler(moveRot);
 
-
-        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
-        transform.position = moveVec;
-        transform.rotation = Quaternion.Euler(moveRot);
-
-        UpdateAnimation();
+            UpdateAnimation();
+        }
+   
 
     }
 
@@ -144,6 +148,14 @@ public class PlayerController : MonoBehaviour
     protected virtual void UpdateJumping()
     {
 
+        
+        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
+        {
+            State = BirdState.Idle;
+            isJumping = false;
+            return;
+        }
+        
 
         Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
         Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
@@ -155,77 +167,13 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
         }
         
-
-        if(isJumping)
-        {
-            transform.position = moveVec;
-            UpdateAnimation();
-        }
-
-    
-    }
-
-    /*
-    //다른 State로 넘어갈지, Idle로 남을지를 판단하는 함수
-    protected virtual void UpdateIdle()
-    {
-        if ( (playerInfo.Position.X != prevVec.x || playerInfo.Position.Y != prevVec.y || playerInfo.Position.Z != prevVec.z) )
-        {
-            State = BirdState.Moving;
-            return;
-        }
-
-        UpdateAnimation();
-
-      
-
-    }
-    
-    protected virtual void UpdateMoving()
-    {
-         prevVec = transform.position;
-
-        if (playerInfo.Position.X == prevVec.x &&  playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z   )
-        {
-            State = BirdState.Idle;
-            return;
-        }
-
-        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
         transform.position = moveVec;
-        transform.rotation = Quaternion.Euler(moveRot);
-
         UpdateAnimation();
-
-       
-
-       
 
     
-
     }
 
-
-    protected virtual void UpdateJumping()
-    {
-       
-        prevVec = transform.position;
-
-      
-        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
-        transform.position = moveVec;
-        transform.rotation = Quaternion.Euler(moveRot);
-
-        UpdateAnimation();
-
-       
-
-
-    }
-
-    */
+   
 
     protected void HideCursor()
     {
@@ -246,8 +194,8 @@ public class PlayerController : MonoBehaviour
             {
                 State = BirdState.Idle;
                 isJumping = false;
+                UpdateAnimation();
 
-                
             }
             Debug.Log("collisionGround");
         }
@@ -255,6 +203,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetAnim(Google.Protobuf.Protocol.PlayerState state)
     {
+
         switch(state)
         {
             case Google.Protobuf.Protocol.PlayerState.Idle:
@@ -267,6 +216,8 @@ public class PlayerController : MonoBehaviour
                 State = BirdState.Jumping;
                 break;
         }
+
+        Debug.Log("Got State and Change State :" + State);
     }
 
     void UpdateAnimation()

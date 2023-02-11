@@ -76,7 +76,7 @@ public class MyPlayerController : PlayerController
         
 
 
-        Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
+        //Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
 
     }
 
@@ -238,8 +238,10 @@ public class MyPlayerController : PlayerController
                 Debug.Log("collisionGround");
                 State = BirdState.Idle;
                 isJumping = false;
-
                 UpdateAnimation();
+
+
+
             }
         }
     }
