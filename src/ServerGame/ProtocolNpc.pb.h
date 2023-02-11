@@ -266,6 +266,168 @@ class StartData final :
 };
 // -------------------------------------------------------------------
 
+class PlayerSpawn final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.PlayerSpawn) */ {
+ public:
+  inline PlayerSpawn() : PlayerSpawn(nullptr) {}
+  ~PlayerSpawn() override;
+  explicit constexpr PlayerSpawn(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayerSpawn(const PlayerSpawn& from);
+  PlayerSpawn(PlayerSpawn&& from) noexcept
+    : PlayerSpawn() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerSpawn& operator=(const PlayerSpawn& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayerSpawn& operator=(PlayerSpawn&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PlayerSpawn& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayerSpawn* internal_default_instance() {
+    return reinterpret_cast<const PlayerSpawn*>(
+               &_PlayerSpawn_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(PlayerSpawn& a, PlayerSpawn& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayerSpawn* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayerSpawn* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayerSpawn* New() const final {
+    return new PlayerSpawn();
+  }
+
+  PlayerSpawn* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PlayerSpawn>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PlayerSpawn& from);
+  void MergeFrom(const PlayerSpawn& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerSpawn* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Npc.PlayerSpawn";
+  }
+  protected:
+  explicit PlayerSpawn(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPositionFieldNumber = 1,
+    kRotationFieldNumber = 2,
+  };
+  // optional .Npc.Vector3 position = 1;
+  bool has_position() const;
+  private:
+  bool _internal_has_position() const;
+  public:
+  void clear_position();
+  const ::Npc::Vector3& position() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_position();
+  ::Npc::Vector3* mutable_position();
+  void set_allocated_position(::Npc::Vector3* position);
+  private:
+  const ::Npc::Vector3& _internal_position() const;
+  ::Npc::Vector3* _internal_mutable_position();
+  public:
+  void unsafe_arena_set_allocated_position(
+      ::Npc::Vector3* position);
+  ::Npc::Vector3* unsafe_arena_release_position();
+
+  // optional .Npc.Vector3 rotation = 2;
+  bool has_rotation() const;
+  private:
+  bool _internal_has_rotation() const;
+  public:
+  void clear_rotation();
+  const ::Npc::Vector3& rotation() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_rotation();
+  ::Npc::Vector3* mutable_rotation();
+  void set_allocated_rotation(::Npc::Vector3* rotation);
+  private:
+  const ::Npc::Vector3& _internal_rotation() const;
+  ::Npc::Vector3* _internal_mutable_rotation();
+  public:
+  void unsafe_arena_set_allocated_rotation(
+      ::Npc::Vector3* rotation);
+  ::Npc::Vector3* unsafe_arena_release_rotation();
+
+  // @@protoc_insertion_point(class_scope:Npc.PlayerSpawn)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::Npc::Vector3* position_;
+  ::Npc::Vector3* rotation_;
+  friend struct ::TableStruct_ProtocolNpc_2eproto;
+};
+// -------------------------------------------------------------------
+
 class LoginData final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.LoginData) */ {
  public:
@@ -310,7 +472,7 @@ class LoginData final :
                &_LoginData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(LoginData& a, LoginData& b) {
     a.Swap(&b);
@@ -493,7 +655,7 @@ class GameData final :
                &_GameData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(GameData& a, GameData& b) {
     a.Swap(&b);
@@ -688,7 +850,7 @@ class Obstacle final :
                &_Obstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Obstacle& a, Obstacle& b) {
     a.Swap(&b);
@@ -846,168 +1008,6 @@ class Obstacle final :
   ::PROTOBUF_NAMESPACE_ID::int32 shape_;
   float speed_;
   ::PROTOBUF_NAMESPACE_ID::int32 direction_;
-  friend struct ::TableStruct_ProtocolNpc_2eproto;
-};
-// -------------------------------------------------------------------
-
-class PlayerSpawn final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.PlayerSpawn) */ {
- public:
-  inline PlayerSpawn() : PlayerSpawn(nullptr) {}
-  ~PlayerSpawn() override;
-  explicit constexpr PlayerSpawn(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  PlayerSpawn(const PlayerSpawn& from);
-  PlayerSpawn(PlayerSpawn&& from) noexcept
-    : PlayerSpawn() {
-    *this = ::std::move(from);
-  }
-
-  inline PlayerSpawn& operator=(const PlayerSpawn& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline PlayerSpawn& operator=(PlayerSpawn&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const PlayerSpawn& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const PlayerSpawn* internal_default_instance() {
-    return reinterpret_cast<const PlayerSpawn*>(
-               &_PlayerSpawn_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  friend void swap(PlayerSpawn& a, PlayerSpawn& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(PlayerSpawn* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(PlayerSpawn* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline PlayerSpawn* New() const final {
-    return new PlayerSpawn();
-  }
-
-  PlayerSpawn* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<PlayerSpawn>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const PlayerSpawn& from);
-  void MergeFrom(const PlayerSpawn& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(PlayerSpawn* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Npc.PlayerSpawn";
-  }
-  protected:
-  explicit PlayerSpawn(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kPositionFieldNumber = 1,
-    kRotationFieldNumber = 2,
-  };
-  // optional .Npc.Vector3 position = 1;
-  bool has_position() const;
-  private:
-  bool _internal_has_position() const;
-  public:
-  void clear_position();
-  const ::Npc::Vector3& position() const;
-  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_position();
-  ::Npc::Vector3* mutable_position();
-  void set_allocated_position(::Npc::Vector3* position);
-  private:
-  const ::Npc::Vector3& _internal_position() const;
-  ::Npc::Vector3* _internal_mutable_position();
-  public:
-  void unsafe_arena_set_allocated_position(
-      ::Npc::Vector3* position);
-  ::Npc::Vector3* unsafe_arena_release_position();
-
-  // optional .Npc.Vector3 rotation = 2;
-  bool has_rotation() const;
-  private:
-  bool _internal_has_rotation() const;
-  public:
-  void clear_rotation();
-  const ::Npc::Vector3& rotation() const;
-  PROTOBUF_FUTURE_MUST_USE_RESULT ::Npc::Vector3* release_rotation();
-  ::Npc::Vector3* mutable_rotation();
-  void set_allocated_rotation(::Npc::Vector3* rotation);
-  private:
-  const ::Npc::Vector3& _internal_rotation() const;
-  ::Npc::Vector3* _internal_mutable_rotation();
-  public:
-  void unsafe_arena_set_allocated_rotation(
-      ::Npc::Vector3* rotation);
-  ::Npc::Vector3* unsafe_arena_release_rotation();
-
-  // @@protoc_insertion_point(class_scope:Npc.PlayerSpawn)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::Npc::Vector3* position_;
-  ::Npc::Vector3* rotation_;
   friend struct ::TableStruct_ProtocolNpc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1233,6 +1233,176 @@ inline void StartData::_internal_set_game(bool value) {
 inline void StartData::set_game(bool value) {
   _internal_set_game(value);
   // @@protoc_insertion_point(field_set:Npc.StartData.game)
+}
+
+// -------------------------------------------------------------------
+
+// PlayerSpawn
+
+// optional .Npc.Vector3 position = 1;
+inline bool PlayerSpawn::_internal_has_position() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || position_ != nullptr);
+  return value;
+}
+inline bool PlayerSpawn::has_position() const {
+  return _internal_has_position();
+}
+inline void PlayerSpawn::clear_position() {
+  if (position_ != nullptr) position_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::Npc::Vector3& PlayerSpawn::_internal_position() const {
+  const ::Npc::Vector3* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
+      ::Npc::_Vector3_default_instance_);
+}
+inline const ::Npc::Vector3& PlayerSpawn::position() const {
+  // @@protoc_insertion_point(field_get:Npc.PlayerSpawn.position)
+  return _internal_position();
+}
+inline void PlayerSpawn::unsafe_arena_set_allocated_position(
+    ::Npc::Vector3* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  position_ = position;
+  if (position) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.PlayerSpawn.position)
+}
+inline ::Npc::Vector3* PlayerSpawn::release_position() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::Npc::Vector3* temp = position_;
+  position_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Npc::Vector3* PlayerSpawn::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Npc.PlayerSpawn.position)
+  _has_bits_[0] &= ~0x00000001u;
+  ::Npc::Vector3* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::Npc::Vector3* PlayerSpawn::_internal_mutable_position() {
+  _has_bits_[0] |= 0x00000001u;
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
+    position_ = p;
+  }
+  return position_;
+}
+inline ::Npc::Vector3* PlayerSpawn::mutable_position() {
+  // @@protoc_insertion_point(field_mutable:Npc.PlayerSpawn.position)
+  return _internal_mutable_position();
+}
+inline void PlayerSpawn::set_allocated_position(::Npc::Vector3* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete position_;
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(position);
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:Npc.PlayerSpawn.position)
+}
+
+// optional .Npc.Vector3 rotation = 2;
+inline bool PlayerSpawn::_internal_has_rotation() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || rotation_ != nullptr);
+  return value;
+}
+inline bool PlayerSpawn::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void PlayerSpawn::clear_rotation() {
+  if (rotation_ != nullptr) rotation_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::Npc::Vector3& PlayerSpawn::_internal_rotation() const {
+  const ::Npc::Vector3* p = rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
+      ::Npc::_Vector3_default_instance_);
+}
+inline const ::Npc::Vector3& PlayerSpawn::rotation() const {
+  // @@protoc_insertion_point(field_get:Npc.PlayerSpawn.rotation)
+  return _internal_rotation();
+}
+inline void PlayerSpawn::unsafe_arena_set_allocated_rotation(
+    ::Npc::Vector3* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation_);
+  }
+  rotation_ = rotation;
+  if (rotation) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.PlayerSpawn.rotation)
+}
+inline ::Npc::Vector3* PlayerSpawn::release_rotation() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::Npc::Vector3* temp = rotation_;
+  rotation_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Npc::Vector3* PlayerSpawn::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Npc.PlayerSpawn.rotation)
+  _has_bits_[0] &= ~0x00000002u;
+  ::Npc::Vector3* temp = rotation_;
+  rotation_ = nullptr;
+  return temp;
+}
+inline ::Npc::Vector3* PlayerSpawn::_internal_mutable_rotation() {
+  _has_bits_[0] |= 0x00000002u;
+  if (rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
+    rotation_ = p;
+  }
+  return rotation_;
+}
+inline ::Npc::Vector3* PlayerSpawn::mutable_rotation() {
+  // @@protoc_insertion_point(field_mutable:Npc.PlayerSpawn.rotation)
+  return _internal_mutable_rotation();
+}
+inline void PlayerSpawn::set_allocated_rotation(::Npc::Vector3* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:Npc.PlayerSpawn.rotation)
 }
 
 // -------------------------------------------------------------------
@@ -1835,176 +2005,6 @@ inline void Obstacle::_internal_set_direction(::PROTOBUF_NAMESPACE_ID::int32 val
 inline void Obstacle::set_direction(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_direction(value);
   // @@protoc_insertion_point(field_set:Npc.Obstacle.direction)
-}
-
-// -------------------------------------------------------------------
-
-// PlayerSpawn
-
-// optional .Npc.Vector3 position = 1;
-inline bool PlayerSpawn::_internal_has_position() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || position_ != nullptr);
-  return value;
-}
-inline bool PlayerSpawn::has_position() const {
-  return _internal_has_position();
-}
-inline void PlayerSpawn::clear_position() {
-  if (position_ != nullptr) position_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::Npc::Vector3& PlayerSpawn::_internal_position() const {
-  const ::Npc::Vector3* p = position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
-      ::Npc::_Vector3_default_instance_);
-}
-inline const ::Npc::Vector3& PlayerSpawn::position() const {
-  // @@protoc_insertion_point(field_get:Npc.PlayerSpawn.position)
-  return _internal_position();
-}
-inline void PlayerSpawn::unsafe_arena_set_allocated_position(
-    ::Npc::Vector3* position) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
-  }
-  position_ = position;
-  if (position) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.PlayerSpawn.position)
-}
-inline ::Npc::Vector3* PlayerSpawn::release_position() {
-  _has_bits_[0] &= ~0x00000001u;
-  ::Npc::Vector3* temp = position_;
-  position_ = nullptr;
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline ::Npc::Vector3* PlayerSpawn::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:Npc.PlayerSpawn.position)
-  _has_bits_[0] &= ~0x00000001u;
-  ::Npc::Vector3* temp = position_;
-  position_ = nullptr;
-  return temp;
-}
-inline ::Npc::Vector3* PlayerSpawn::_internal_mutable_position() {
-  _has_bits_[0] |= 0x00000001u;
-  if (position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
-    position_ = p;
-  }
-  return position_;
-}
-inline ::Npc::Vector3* PlayerSpawn::mutable_position() {
-  // @@protoc_insertion_point(field_mutable:Npc.PlayerSpawn.position)
-  return _internal_mutable_position();
-}
-inline void PlayerSpawn::set_allocated_position(::Npc::Vector3* position) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete position_;
-  }
-  if (position) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(position);
-    if (message_arena != submessage_arena) {
-      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, position, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:Npc.PlayerSpawn.position)
-}
-
-// optional .Npc.Vector3 rotation = 2;
-inline bool PlayerSpawn::_internal_has_rotation() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  PROTOBUF_ASSUME(!value || rotation_ != nullptr);
-  return value;
-}
-inline bool PlayerSpawn::has_rotation() const {
-  return _internal_has_rotation();
-}
-inline void PlayerSpawn::clear_rotation() {
-  if (rotation_ != nullptr) rotation_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline const ::Npc::Vector3& PlayerSpawn::_internal_rotation() const {
-  const ::Npc::Vector3* p = rotation_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Npc::Vector3&>(
-      ::Npc::_Vector3_default_instance_);
-}
-inline const ::Npc::Vector3& PlayerSpawn::rotation() const {
-  // @@protoc_insertion_point(field_get:Npc.PlayerSpawn.rotation)
-  return _internal_rotation();
-}
-inline void PlayerSpawn::unsafe_arena_set_allocated_rotation(
-    ::Npc::Vector3* rotation) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rotation_);
-  }
-  rotation_ = rotation;
-  if (rotation) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Npc.PlayerSpawn.rotation)
-}
-inline ::Npc::Vector3* PlayerSpawn::release_rotation() {
-  _has_bits_[0] &= ~0x00000002u;
-  ::Npc::Vector3* temp = rotation_;
-  rotation_ = nullptr;
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline ::Npc::Vector3* PlayerSpawn::unsafe_arena_release_rotation() {
-  // @@protoc_insertion_point(field_release:Npc.PlayerSpawn.rotation)
-  _has_bits_[0] &= ~0x00000002u;
-  ::Npc::Vector3* temp = rotation_;
-  rotation_ = nullptr;
-  return temp;
-}
-inline ::Npc::Vector3* PlayerSpawn::_internal_mutable_rotation() {
-  _has_bits_[0] |= 0x00000002u;
-  if (rotation_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Npc::Vector3>(GetArenaForAllocation());
-    rotation_ = p;
-  }
-  return rotation_;
-}
-inline ::Npc::Vector3* PlayerSpawn::mutable_rotation() {
-  // @@protoc_insertion_point(field_mutable:Npc.PlayerSpawn.rotation)
-  return _internal_mutable_rotation();
-}
-inline void PlayerSpawn::set_allocated_rotation(::Npc::Vector3* rotation) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete rotation_;
-  }
-  if (rotation) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Npc::Vector3>::GetOwningArena(rotation);
-    if (message_arena != submessage_arena) {
-      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, rotation, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  rotation_ = rotation;
-  // @@protoc_insertion_point(field_set_allocated:Npc.PlayerSpawn.rotation)
 }
 
 // -------------------------------------------------------------------
