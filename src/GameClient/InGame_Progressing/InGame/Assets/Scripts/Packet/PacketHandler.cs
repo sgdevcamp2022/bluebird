@@ -47,6 +47,17 @@ public class PacketHandler
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
             UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
+
+        GameObject go = GameObject.Find("GameScene");
+        GameScene gs = go.GetComponent<GameScene>();
+        gs.SetStartGame();
+
+        GameObject go2 = GameObject.Find("InGameManager");
+        InGameManager igm = go2.GetComponent<InGameManager>();
+        igm.GameStartTxt();
+
+
+        UnityEngine.Debug.Log("Game Start!");
     }
     public static void ReConnect(IMessage packet)
     {
@@ -149,6 +160,26 @@ public class PacketHandler
     {
         PlayerGoalData data = packet as PlayerGoalData;
         UnityEngine.Debug.Log("PlayerGoal");
-        // TODO
+
+        GameObject go = Managers.Object.GetPlayer(data.Id);
+        PlayerController pc = go.GetComponent<PlayerController>();
+
+
+        if (go == null)
+            return;
+
+        //안보이게 만들고, 비활성화 시키고 카메라를 관전 카메라로 전환??
+        //don't destory on load 사용
+        if (data.Success)
+        {
+            pc.SetClearStageNum();
+            pc.SetDestroy();
+
+        }
+        else
+        {
+            pc.SetDestroy();
+        }
+
     }
 }

@@ -51,7 +51,7 @@ public class ObjectManager
         MyPlayer = go.GetComponent<MyPlayerController>();
         MyPlayer.playerId = player.Id;
         MyPlayer.playerInfo = player;
-        Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
+       // Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
 
         FindCamera(id, player);
 
@@ -70,21 +70,7 @@ public class ObjectManager
         
 
     }
-    /*
-    public void AddMyCamera(Int64 id, Player player)
-    {
-        GameObject go = Managers.Resource.Instantiate("Camera/MyCamera");
-        go.name = "MyCamera" + player.Id;
-
-        CameraController cc = go.GetComponent<CameraController>();
-        Debug.Log(players[player.Id]);
-        cc.SetFollowTarget(players[player.Id]);
-        
-
-        Debug.Log("My virtual Camera Created");
-    }
-    */
-
+   
 
     public void RemovePlayer(Int64 id)
     {
