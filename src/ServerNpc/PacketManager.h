@@ -39,11 +39,22 @@ struct Obstacle
 	int direction;
 };
 
+struct PlayerSpawn
+{
+	float positionX;
+	float positionY;
+	float positionZ;
+	float rotationX;
+	float rotationY;
+	float rotationZ;
+};
+
 struct LoginData
 {
 	int mapLevel;
 	int matchRoom;
 	vector<Obstacle> obstacle;
+	vector<PlayerSpawn> spawn;
 };
 
 struct StartData
@@ -67,8 +78,8 @@ public:
 
 	int SQLInit();
 
-	int SQLQuery(const char* query, LoginData* loginData);
-
+	int ObstacleSQLQuery(const char* query, LoginData* loginData);
+	int SpawnSQLQuery(const char* query, LoginData* loginData);
 
 private:
 	MYSQL Conn;
