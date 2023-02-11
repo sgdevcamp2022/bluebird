@@ -208,7 +208,14 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isJumping = false;
+            if (isJumping)
+            {
+                State = BirdState.Idle;
+                isJumping = false;
+                UpdateAnimation();
+
+            }
+
             Debug.Log("Collision Stay");
         }
     }
@@ -239,10 +246,12 @@ public class PlayerController : MonoBehaviour
             case BirdState.Idle:
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", false);
+                animator.SetTrigger("backJump");
                 break;
             case BirdState.Moving:
                 animator.SetBool("MoveForward", true);
                 animator.SetBool("inAir", false);
+                animator.ResetTrigger("doJump");
                 break;
             case BirdState.Jumping:
                 animator.SetBool("MoveForward", false);

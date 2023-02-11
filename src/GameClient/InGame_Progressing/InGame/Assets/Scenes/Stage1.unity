@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stair (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7256802685444781237, guid: 4b72db99a48ef0645ac69b0f6f8ebab8, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 7970483901999223603, guid: 4b72db99a48ef0645ac69b0f6f8ebab8, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -207,6 +211,10 @@ PrefabInstance:
     - target: {fileID: 7256802685444781237, guid: 4b72db99a48ef0645ac69b0f6f8ebab8, type: 3}
       propertyPath: m_Name
       value: Stair
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256802685444781237, guid: 4b72db99a48ef0645ac69b0f6f8ebab8, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 7970483901999223603, guid: 4b72db99a48ef0645ac69b0f6f8ebab8, type: 3}
       propertyPath: m_RootOrder
@@ -466,6 +474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 1457233416585030568, guid: e01f21538de72e84ca05e0c961774204, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 8624973872222942003, guid: e01f21538de72e84ca05e0c961774204, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -530,6 +542,10 @@ PrefabInstance:
     - target: {fileID: 1529764958922325314, guid: b5041b72915664745bd3942f26774d32, type: 3}
       propertyPath: m_Name
       value: Wood_bridge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529764958922325314, guid: b5041b72915664745bd3942f26774d32, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 3584236069775183218, guid: b5041b72915664745bd3942f26774d32, type: 3}
       propertyPath: m_RootOrder
@@ -782,6 +798,10 @@ PrefabInstance:
     - target: {fileID: 3836288402478158175, guid: 622a49a40928a254fbef423a2137fc64, type: 3}
       propertyPath: m_Name
       value: CircleBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836288402478158175, guid: 622a49a40928a254fbef423a2137fc64, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622a49a40928a254fbef423a2137fc64, type: 3}
@@ -1139,9 +1159,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5171522967754169498, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6616142317143122160, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
       propertyPath: m_Name
       value: Base 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616142317143122160, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
@@ -1636,9 +1664,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5171522967754169498, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6616142317143122160, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
       propertyPath: m_Name
       value: Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616142317143122160, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8612f685b6fc1e74d8d6abab72394d42, type: 3}
@@ -1719,6 +1755,10 @@ PrefabInstance:
     - target: {fileID: 1529764958922325314, guid: b5041b72915664745bd3942f26774d32, type: 3}
       propertyPath: m_Name
       value: Wood_bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529764958922325314, guid: b5041b72915664745bd3942f26774d32, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 3584236069775183218, guid: b5041b72915664745bd3942f26774d32, type: 3}
       propertyPath: m_RootOrder
@@ -1855,6 +1895,10 @@ PrefabInstance:
     - target: {fileID: 1457233416585030568, guid: 5722d568c352c4949af4daf53bb589a4, type: 3}
       propertyPath: m_Name
       value: EndPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457233416585030568, guid: 5722d568c352c4949af4daf53bb589a4, type: 3}
+      propertyPath: m_TagString
+      value: Victory Ground
       objectReference: {fileID: 0}
     - target: {fileID: 8624973872222942003, guid: 5722d568c352c4949af4daf53bb589a4, type: 3}
       propertyPath: m_RootOrder
