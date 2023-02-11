@@ -27,6 +27,17 @@ char* PacketManager::MakeLoginPacket(LoginData loginData)
         obsData->set_speed(loginData.obstacle[i].speed);
         obsData->set_direction(loginData.obstacle[i].direction);
     }
+    for (int i = 0; i < loginData.spawn.size(); i++)
+    {
+        Npc::PlayerSpawn* spawnData = npcLoginData.add_spawn();
+        spawnData->mutable_position()->set_x(loginData.spawn[i].positionX);
+        spawnData->mutable_position()->set_y(loginData.spawn[i].positionY);
+        spawnData->mutable_position()->set_z(loginData.spawn[i].positionZ);
+        spawnData->mutable_rotation()->set_x(loginData.spawn[i].rotationX);
+        spawnData->mutable_rotation()->set_y(loginData.spawn[i].rotationY);
+        spawnData->mutable_rotation()->set_z(loginData.spawn[i].rotationZ);
+    }
+    
 
     bufSize = headerSize + npcLoginData.ByteSizeLong();
 
@@ -112,7 +123,15 @@ int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& m
     }
 
     string sql = "SELECT * FROM map" + (loginData->mapLevel > 9 ? to_string(loginData->mapLevel) : "0" + to_string(loginData->mapLevel));
-    return mysql->SQLQuery(sql.c_str(), loginData);
+    int state = mysql->ObstacleSQLQuery(sql.c_str(), loginData);
+    if (state == 0)
+    {
+        cout << "SQL Query Error.." << endl;
+        return 0;
+    }
+    sql += "spawn";
+    state = mysql->SpawnSQLQuery(sql.c_str(), loginData);
+    return state;
     
 }
 
@@ -261,7 +280,7 @@ int ConnectToSQL::SQLInit()
     return 1;
 }
 
-int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
+int ConnectToSQL::ObstacleSQLQuery(const char* query, LoginData* loginData)
 {
     Stat = mysql_query(ConnPtr, query);
     if (Stat != 0)
@@ -286,6 +305,31 @@ int ConnectToSQL::SQLQuery(const char* query, LoginData* loginData)
         tempObs.distance = atof(Row[9]);
         tempObs.direction = atoi(Row[10]);
         loginData->obstacle.push_back(tempObs);
+    }
+    mysql_free_result(Result);
+    return 1;
+}
+
+int ConnectToSQL::SpawnSQLQuery(const char* query, LoginData* loginData)
+{
+    Stat = mysql_query(ConnPtr, query);
+    if (Stat != 0)
+    {
+        cout << "Error : " << mysql_error(&Conn) << endl;
+        return 0;
+    }
+
+    Result = mysql_store_result(ConnPtr);
+    while ((Row = mysql_fetch_row(Result)) != NULL)
+    {
+        PlayerSpawn tempSpawn;
+        tempSpawn.positionX = atof(Row[1]);
+        tempSpawn.positionY = atof(Row[2]);
+        tempSpawn.positionZ = atof(Row[3]);
+        tempSpawn.rotationX = atof(Row[4]);
+        tempSpawn.rotationY = atof(Row[5]);
+        tempSpawn.rotationZ = atof(Row[6]);
+        loginData->spawn.push_back(tempSpawn);
     }
     mysql_free_result(Result);
     return 1;
