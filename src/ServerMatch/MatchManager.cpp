@@ -70,6 +70,8 @@ MatchManager::MatchManager()
 			return EMPTY;
 	};
 
+	// 디자인 패턴
+
 	_playerOut = [=](Match::S_Match&  _users, array<PlayerLevel, 3> levels, int32 min, int32 max) {
 		if (_playerSize[levels[0]] >= min) {
 			for (int i = 0; i < levels.size(); i++) {
@@ -114,6 +116,9 @@ void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 	{
 		_playerWait[level].erase(f);
 	}
+
+	// 맞습니다...
+
 	switch (level) {
 	case SOLO:
 		_playerSize[SOLO] -= 1;

@@ -11,7 +11,10 @@ void GameSession::OnDisconnected()
 {
 	if (_mySelf != nullptr) {
 		if (auto room = _room.lock()) {
-			room->DoAsync(&Room::Disconnect, _mySelf);
+			if (_start)
+				room->DoAsync(&Room::Disconnect, _mySelf);
+			else
+				room->DoAsync(&Room::Leave, _mySelf);
 		}
 	}
 

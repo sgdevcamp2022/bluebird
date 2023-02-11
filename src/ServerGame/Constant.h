@@ -9,7 +9,7 @@
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5
 //#define WINNER3	1
-#define TEST false
+#define TEST true
 
 struct Vector3
 {

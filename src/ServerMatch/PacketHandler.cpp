@@ -34,7 +34,6 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
 void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::C_Cancle && pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
-
     GMatch->DoAsync(&MatchManager::MatchLeave, pkt.id(), pkt.level(), pkt.room());
 }
 
