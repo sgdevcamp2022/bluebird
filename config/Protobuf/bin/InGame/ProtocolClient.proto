@@ -29,6 +29,7 @@ enum PlayerState
 	MOVE = 1;
 	JUMP = 2;
 	JUMP_LOOP = 3;
+	Slide = 4;
 	
 }
 

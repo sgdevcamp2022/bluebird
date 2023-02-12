@@ -68,13 +68,23 @@ public class MyPlayerController : PlayerController
             pressedJump = Input.GetKeyDown(KeyCode.Space);
             moveVec = new Vector3(h, 0f, v).normalized;
 
+
             if (pressedJump && !isJumping)
             {
                 State = BirdState.Jumping;
             }
+
+            if(isJumping)
+            {
+                bool SlideBtn = Input.GetMouseButtonDown(1);
+
+                if (SlideBtn)
+                    isSliding = true;
+
+            }
         }
 
-        //Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
+        Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump + "isSliding" + isSliding) ; 
 
     }
 
@@ -163,6 +173,10 @@ public class MyPlayerController : PlayerController
         if (isJumping && State == BirdState.Jumping)
         {
             UpdateAnimation();
+
+            if (isSliding)
+                animator.SetBool("isSlide",true);
+
             transform.position += movementDirection * speed * Time.deltaTime;
         }
 
@@ -199,10 +213,12 @@ public class MyPlayerController : PlayerController
             case BirdState.Idle:
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", false);
+                animator.SetBool("isSlide", false);
                 break;
             case BirdState.Moving:
                 animator.SetBool("MoveForward", true);
                 animator.SetBool("inAir", false);
+                animator.SetBool("isSlide", false);
                 break;
             case BirdState.Jumping:
                 animator.SetBool("MoveForward", false);
@@ -247,6 +263,8 @@ public class MyPlayerController : PlayerController
                 Debug.Log("collisionGround");
                 State = BirdState.Idle;
                 isJumping = false;
+                isSliding = false;
+
                 UpdateAnimation();
 
 
