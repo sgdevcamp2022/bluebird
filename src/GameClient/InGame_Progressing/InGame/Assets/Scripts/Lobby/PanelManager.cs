@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class PanelManager : MonoBehaviour
     public GameObject menuPanel;
     public GameObject modePanel;
     public GameObject optionPanel;
+    public GameObject errorGroup;
     public GameObject matchButton;
     public GameObject matchCancleButton;
     public GameObject soloButton;
@@ -18,6 +20,7 @@ public class PanelManager : MonoBehaviour
     public Text soloText;
     public Text duoText;
     public Text squadText;
+    public Text errorText;
 
     private bool isMatching = false;
     private bool isCancel = false;
@@ -28,6 +31,7 @@ public class PanelManager : MonoBehaviour
     public static PanelManager panelManager;
 
     Coroutine changeMatchTextRoutine = null;
+    Coroutine errorTextRoutine = null;
     private void Awake()
     {
         panelManager = this;
@@ -35,6 +39,15 @@ public class PanelManager : MonoBehaviour
 
     public void MatchSelect()
     {
+        if (modsSum == 0)
+        {
+            if(errorTextRoutine != null)
+            {
+                StopCoroutine(errorTextRoutine);
+            }
+            errorTextRoutine = StartCoroutine(ErrorTextOutput("한 개 이상의 모드를 선택해주세요!"));
+            return;
+        }
         if (!isMatching)
         {
             isMatching = true;
@@ -59,8 +72,17 @@ public class PanelManager : MonoBehaviour
         }
 
         wait = true;
-        isSuccess = false;
-        Debug.Log("MatchRoom: " + isSuccess);
+
+        Debug.Log("Match Start: " + isSuccess);
+        if(!isSuccess)
+        {
+            StartCoroutine(ErrorTextOutput("매칭에 실패했습니다."));
+            yield return new WaitForSeconds(2f);
+            StopCoroutine(changeMatchTextRoutine);
+            matchText.text = "매치메이킹";
+            isMatching = false;
+            yield break;
+        }
         matchCancleButton.SetActive(true);
         int matchStatus = 0;
         while(true)
@@ -77,17 +99,11 @@ public class PanelManager : MonoBehaviour
             }
             wait = true;
 
-            if(matchStatus == 0)
+            if(matchStatus == -1)
             {
                 continue;
             }
-            else if(matchStatus == 1)
-            {
-                //게임 시작 및 씬 전환
-                LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
-                LobbyInfo.lobbyInfo.room = 1;
-            }
-            else
+            else if(matchStatus == -2)
             {
                 Debug.Log("매치메이킹 취소됨");
                 StopCoroutine(changeMatchTextRoutine);
@@ -104,12 +120,24 @@ public class PanelManager : MonoBehaviour
                     yield return null;
                 }
 
+                if (!isSuccess)
+                {
+                    Debug.Log("매치메이킹 취소 에러");
+                }
+
                 isMatching = false;
                 isCancel = false;
-                
+
                 matchText.text = "매치메이킹";
                 matchCancleButton.SetActive(false);
                 break;
+            }
+            else
+            {
+                //게임 시작 및 씬 전환
+                LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
+                LobbyInfo.lobbyInfo.room = matchStatus;
+                SceneManager.LoadScene("Stage1");
             }
 
             Debug.Log("매치 상태: " + matchStatus);
@@ -131,6 +159,13 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    IEnumerator ErrorTextOutput(string msg)
+    {
+        errorText.text = msg;
+        errorGroup.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        errorGroup.SetActive(false);
+    }
 
     public void MatchCancle()
     {
