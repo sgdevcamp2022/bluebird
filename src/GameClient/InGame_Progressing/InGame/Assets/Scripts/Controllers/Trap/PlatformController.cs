@@ -79,11 +79,11 @@ public class PlatformController : ObstacleController
 
             if (goPositive)
             {
-                other.transform.position += direction * speed * Time.deltaTime;
+                other.transform.position += direction * speed / 2.0f * Time.deltaTime;
             }
             else
             {
-                other.transform.position -= direction * speed * Time.deltaTime;
+                other.transform.position -= direction * speed / 2.0f * Time.deltaTime;
             }
 
             PlayerController pc = other.GetComponent<PlayerController>();

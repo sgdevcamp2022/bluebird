@@ -69,7 +69,7 @@ public class CameraController : MonoBehaviour
            
             return;
         }
-        Debug.Log("SetFollowTarget: " + Target);
+        //Debug.Log("SetFollowTarget: " + Target);
         targetTransform = Target.transform;
         cinemachineFreeLook.Follow = targetTransform;
         cinemachineFreeLook.LookAt = targetTransform;
