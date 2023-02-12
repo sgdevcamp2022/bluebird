@@ -7,6 +7,7 @@ public class InGameManager : MonoBehaviour
 {
     public GameObject gamepanel;
     public TMP_Text racestarttxt;
+    public AudioSource audioSource;
 
     public void GameStartTxt()
     {
