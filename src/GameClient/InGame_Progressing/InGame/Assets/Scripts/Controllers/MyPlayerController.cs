@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using static Define;
+using UnityEngine.InputSystem;
 
 
 //제자리 점프할때 Idle인데 isJumping은 True인 상태가 지속되서 상대방에게 안보인다.
@@ -13,6 +14,9 @@ public class MyPlayerController : PlayerController
     //public  bool serverCommunication = false;
 
     GameScene gamescene;
+    InGameManager ingamemanager;
+
+    bool inMenu = false;
 
 
     protected override void Init()
@@ -20,6 +24,7 @@ public class MyPlayerController : PlayerController
         
         base.Init();
         gamescene = GameObject.Find("GameScene").GetComponent<GameScene>();
+        ingamemanager = GameObject.Find("InGameManager").GetComponent<InGameManager>();
 
 
     }
@@ -81,6 +86,14 @@ public class MyPlayerController : PlayerController
                 if (SlideBtn)
                     isSliding = true;
 
+            }
+
+            //esc를 누르면 menupanel이 활성화되고 나의 키보드 시스템은 정지된다.
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                inMenu = true;
+                ingamemanager.ActiveMenu();
+                InputSystem.DisableDevice(Keyboard.current);                  
             }
         }
 

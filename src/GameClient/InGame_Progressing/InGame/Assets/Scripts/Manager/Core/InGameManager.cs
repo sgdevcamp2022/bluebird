@@ -6,8 +6,18 @@ using UnityEngine.UI;
 public class InGameManager : MonoBehaviour
 {
     public GameObject gamepanel;
+    public GameObject menupanel;
+
+    public Button continubtn;
+
     public TMP_Text racestarttxt;
-    public AudioSource audioSource;
+
+
+
+    private void Awake()
+    {
+        menupanel.SetActive(false);
+    }
 
     public void GameStartTxt()
     {
@@ -20,6 +30,19 @@ public class InGameManager : MonoBehaviour
         racestarttxt.enabled = false;
         gamepanel.SetActive(false);
     }
+
+    public void ActiveMenu()
+    {
+        menupanel.SetActive(menupanel);
+        
+    }
+
+    public void OnContinue()
+    {
+        menupanel.SetActive(false);
+    }
+
+    
     
 
 
