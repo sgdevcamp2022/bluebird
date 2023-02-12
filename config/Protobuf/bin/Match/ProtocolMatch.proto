@@ -10,12 +10,18 @@ enum STATE
 	S_LOGIN = 4;
 	S_MATCH = 5;
 	S_CANCLE = 6;
+	CHECK = 7;
 }
 
 message Header
 {
 	uint32 size = 1; 
 	STATE state = 2;
+}
+
+message Check
+{
+	bool type = 1;
 }
 
 message C_Login

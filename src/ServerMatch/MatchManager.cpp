@@ -169,9 +169,8 @@ void MatchManager::MatchPull(int32 level)
 
 	if (_gameref != nullptr)
 		_gameref->Send(PacketHandler::MakeSuccessBuffer(_users, Match::S_MATCH));
-	if (_lobyref != nullptr) {
-		_lobyref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
-	}
+	if (_matchref != nullptr)
+		_matchref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
 }
 
 void MatchManager::ConnectGameServer(ConnectSessionRef ref)

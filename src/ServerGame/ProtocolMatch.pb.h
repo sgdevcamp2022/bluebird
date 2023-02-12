@@ -47,7 +47,7 @@ struct TableStruct_ProtocolMatch_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -61,6 +61,9 @@ extern C_CancleDefaultTypeInternal _C_Cancle_default_instance_;
 class C_Login;
 struct C_LoginDefaultTypeInternal;
 extern C_LoginDefaultTypeInternal _C_Login_default_instance_;
+class Check;
+struct CheckDefaultTypeInternal;
+extern CheckDefaultTypeInternal _Check_default_instance_;
 class Header;
 struct HeaderDefaultTypeInternal;
 extern HeaderDefaultTypeInternal _Header_default_instance_;
@@ -77,6 +80,7 @@ extern S_MatchDefaultTypeInternal _S_Match_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Match::C_Cancle* Arena::CreateMaybeMessage<::Match::C_Cancle>(Arena*);
 template<> ::Match::C_Login* Arena::CreateMaybeMessage<::Match::C_Login>(Arena*);
+template<> ::Match::Check* Arena::CreateMaybeMessage<::Match::Check>(Arena*);
 template<> ::Match::Header* Arena::CreateMaybeMessage<::Match::Header>(Arena*);
 template<> ::Match::S_Cancle* Arena::CreateMaybeMessage<::Match::S_Cancle>(Arena*);
 template<> ::Match::S_Login* Arena::CreateMaybeMessage<::Match::S_Login>(Arena*);
@@ -92,12 +96,13 @@ enum STATE : int {
   S_LOGIN = 4,
   S_MATCH = 5,
   S_CANCLE = 6,
+  CHECK = 7,
   STATE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   STATE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool STATE_IsValid(int value);
 constexpr STATE STATE_MIN = NULL_;
-constexpr STATE STATE_MAX = S_CANCLE;
+constexpr STATE STATE_MAX = CHECK;
 constexpr int STATE_ARRAYSIZE = STATE_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* STATE_descriptor();
@@ -259,6 +264,138 @@ class Header final :
 };
 // -------------------------------------------------------------------
 
+class Check final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Match.Check) */ {
+ public:
+  inline Check() : Check(nullptr) {}
+  ~Check() override;
+  explicit constexpr Check(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Check(const Check& from);
+  Check(Check&& from) noexcept
+    : Check() {
+    *this = ::std::move(from);
+  }
+
+  inline Check& operator=(const Check& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Check& operator=(Check&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Check& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Check* internal_default_instance() {
+    return reinterpret_cast<const Check*>(
+               &_Check_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Check& a, Check& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Check* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Check* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Check* New() const final {
+    return new Check();
+  }
+
+  Check* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Check>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Check& from);
+  void MergeFrom(const Check& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Check* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Match.Check";
+  }
+  protected:
+  explicit Check(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTypeFieldNumber = 1,
+  };
+  // bool type = 1;
+  void clear_type();
+  bool type() const;
+  void set_type(bool value);
+  private:
+  bool _internal_type() const;
+  void _internal_set_type(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Match.Check)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolMatch_2eproto;
+};
+// -------------------------------------------------------------------
+
 class C_Login final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Match.C_Login) */ {
  public:
@@ -303,7 +440,7 @@ class C_Login final :
                &_C_Login_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(C_Login& a, C_Login& b) {
     a.Swap(&b);
@@ -446,7 +583,7 @@ class C_Cancle final :
                &_C_Cancle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(C_Cancle& a, C_Cancle& b) {
     a.Swap(&b);
@@ -600,7 +737,7 @@ class S_Cancle final :
                &_S_Cancle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(S_Cancle& a, S_Cancle& b) {
     a.Swap(&b);
@@ -754,7 +891,7 @@ class S_Login final :
                &_S_Login_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(S_Login& a, S_Login& b) {
     a.Swap(&b);
@@ -897,7 +1034,7 @@ class S_Match final :
                &_S_Match_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(S_Match& a, S_Match& b) {
     a.Swap(&b);
@@ -1068,6 +1205,30 @@ inline void Header::_internal_set_state(::Match::STATE value) {
 inline void Header::set_state(::Match::STATE value) {
   _internal_set_state(value);
   // @@protoc_insertion_point(field_set:Match.Header.state)
+}
+
+// -------------------------------------------------------------------
+
+// Check
+
+// bool type = 1;
+inline void Check::clear_type() {
+  type_ = false;
+}
+inline bool Check::_internal_type() const {
+  return type_;
+}
+inline bool Check::type() const {
+  // @@protoc_insertion_point(field_get:Match.Check.type)
+  return _internal_type();
+}
+inline void Check::_internal_set_type(bool value) {
+  
+  type_ = value;
+}
+inline void Check::set_type(bool value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:Match.Check.type)
 }
 
 // -------------------------------------------------------------------
@@ -1380,6 +1541,8 @@ S_Match::mutable_ids() {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

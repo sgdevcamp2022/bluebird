@@ -71,6 +71,9 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 			ob->set_direction(_obstacles[data.id()]->GetDirection());
 		}
 	}
+	for (int i = 0; i < pkt.spawn_size(); i++) {
+
+	}
 	//전체 플레이어에게 정보 전달 필요
 }
 
