@@ -54,8 +54,9 @@ public class LobbyNetworkManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             if (www.error == null)
             {
+                MatchStart matchStart = JsonUtility.FromJson<MatchStart>(www.downloadHandler.text);
                 Debug.Log(www.downloadHandler.text);
-                callback(true);
+                callback(matchStart.result);
             }
             else
             {
@@ -71,7 +72,7 @@ public class LobbyNetworkManager : MonoBehaviour
     {
         if(isCancel)
         {
-            callback(2);
+            callback(-2);
             yield break;
         }
         //string url = "https://jsonplaceholder.typicode.com/posts";
@@ -90,14 +91,24 @@ public class LobbyNetworkManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             if (www.error == null)
             {
+                MatchCheck matchCheck = JsonUtility.FromJson<MatchCheck>(www.downloadHandler.text);
                 Debug.Log(www.downloadHandler.text);
-                callback(1);
+                if(!matchCheck.result)
+                {
+                    Debug.Log("매치가 아직 시작되지 않음");
+                    callback(-1);
+                }
+                else
+                {
+                    Debug.Log("매칭 완료");
+                    callback(matchCheck.room);
+                }
             }
             else
             {
                 Debug.Log(www.error);
                 Debug.Log("매치가 아직 시작되지 않음");
-                callback(0);
+                callback(-1);
             }
             www.Dispose();
         }
@@ -122,17 +133,36 @@ public class LobbyNetworkManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             if (www.error == null)
             {
+                MatchCancel matchCancel = JsonUtility.FromJson<MatchCancel>(www.downloadHandler.text);
                 Debug.Log(www.downloadHandler.text);
-                callback(true);
+                callback(matchCancel.result);
             }
             else
             {
                 Debug.Log(www.error);
-                Debug.Log("매치가 취소되는 중");
                 callback(false);
             }
             www.Dispose();
         }
 
     }
+}
+
+[System.Serializable]
+class MatchStart
+{
+    public bool result;
+}
+
+[System.Serializable]
+class MatchCheck
+{
+    public bool result;
+    public int room;
+}
+
+[System.Serializable]
+class MatchCancel
+{
+    public bool result;
 }
