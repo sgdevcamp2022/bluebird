@@ -13,6 +13,7 @@ public:
 private:
 	static void HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt);
 	static void HandlerCancle(PacketSessionRef& ref, Match::C_Cancle&& pkt);
+	static void HandlerCheck(PacketSessionRef& ref, Match::Check&& pkt);
 };
 
 template<typename T>

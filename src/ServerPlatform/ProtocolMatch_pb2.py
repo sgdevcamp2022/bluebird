@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\"$\n\x07\x43_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x08\x43_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"3\n\x08S_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x08\"$\n\x07S_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x07S_Match\x12\x0c\n\x04room\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0b\n\x03ids\x18\x03 \x03(\x03*^\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x62\x06proto3'
+  serialized_pb=b'\n\x13ProtocolMatch.proto\x12\x05Match\"3\n\x06Header\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x1b\n\x05state\x18\x02 \x01(\x0e\x32\x0c.Match.STATE\"\x15\n\x05\x43heck\x12\x0c\n\x04type\x18\x01 \x01(\x08\"$\n\x07\x43_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x08\x43_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0c\n\x04room\x18\x03 \x01(\x05\"3\n\x08S_Cancle\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04room\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x08\"$\n\x07S_Login\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05level\x18\x02 \x01(\x05\"3\n\x07S_Match\x12\x0c\n\x04room\x18\x01 \x01(\x05\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0b\n\x03ids\x18\x03 \x03(\x03*i\n\x05STATE\x12\x08\n\x04NULL\x10\x00\x12\x0b\n\x07\x43_LOGIN\x10\x01\x12\x0c\n\x08\x43_CANCLE\x10\x02\x12\x08\n\x04\x46\x41IL\x10\x03\x12\x0b\n\x07S_LOGIN\x10\x04\x12\x0b\n\x07S_MATCH\x10\x05\x12\x0c\n\x08S_CANCLE\x10\x06\x12\t\n\x05\x43HECK\x10\x07\x62\x06proto3'
 )
 
 _STATE = _descriptor.EnumDescriptor(
@@ -65,11 +65,16 @@ _STATE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CHECK', index=7, number=7,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=318,
-  serialized_end=412,
+  serialized_start=341,
+  serialized_end=446,
 )
 _sym_db.RegisterEnumDescriptor(_STATE)
 
@@ -81,6 +86,7 @@ FAIL = 3
 S_LOGIN = 4
 S_MATCH = 5
 S_CANCLE = 6
+CHECK = 7
 
 
 
@@ -123,6 +129,38 @@ _HEADER = _descriptor.Descriptor(
 )
 
 
+_CHECK = _descriptor.Descriptor(
+  name='Check',
+  full_name='Match.Check',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='type', full_name='Match.Check.type', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=83,
+  serialized_end=104,
+)
+
+
 _C_LOGIN = _descriptor.Descriptor(
   name='C_Login',
   full_name='Match.C_Login',
@@ -157,8 +195,8 @@ _C_LOGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=83,
-  serialized_end=119,
+  serialized_start=106,
+  serialized_end=142,
 )
 
 
@@ -203,8 +241,8 @@ _C_CANCLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=121,
-  serialized_end=172,
+  serialized_start=144,
+  serialized_end=195,
 )
 
 
@@ -249,8 +287,8 @@ _S_CANCLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=174,
-  serialized_end=225,
+  serialized_start=197,
+  serialized_end=248,
 )
 
 
@@ -288,8 +326,8 @@ _S_LOGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=227,
-  serialized_end=263,
+  serialized_start=250,
+  serialized_end=286,
 )
 
 
@@ -334,12 +372,13 @@ _S_MATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=265,
-  serialized_end=316,
+  serialized_start=288,
+  serialized_end=339,
 )
 
 _HEADER.fields_by_name['state'].enum_type = _STATE
 DESCRIPTOR.message_types_by_name['Header'] = _HEADER
+DESCRIPTOR.message_types_by_name['Check'] = _CHECK
 DESCRIPTOR.message_types_by_name['C_Login'] = _C_LOGIN
 DESCRIPTOR.message_types_by_name['C_Cancle'] = _C_CANCLE
 DESCRIPTOR.message_types_by_name['S_Cancle'] = _S_CANCLE
@@ -354,6 +393,13 @@ Header = _reflection.GeneratedProtocolMessageType('Header', (_message.Message,),
   # @@protoc_insertion_point(class_scope:Match.Header)
   })
 _sym_db.RegisterMessage(Header)
+
+Check = _reflection.GeneratedProtocolMessageType('Check', (_message.Message,), {
+  'DESCRIPTOR' : _CHECK,
+  '__module__' : 'ProtocolMatch_pb2'
+  # @@protoc_insertion_point(class_scope:Match.Check)
+  })
+_sym_db.RegisterMessage(Check)
 
 C_Login = _reflection.GeneratedProtocolMessageType('C_Login', (_message.Message,), {
   'DESCRIPTOR' : _C_LOGIN,
