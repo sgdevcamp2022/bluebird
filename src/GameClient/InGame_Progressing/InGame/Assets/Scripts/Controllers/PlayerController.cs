@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     protected bool pressedJump = false;
     protected bool isJumping = false;
+    protected bool isSliding = false;
 
     protected Animator animator;
 
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
         
         }
 
-        Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
+        //Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
 
     }
 

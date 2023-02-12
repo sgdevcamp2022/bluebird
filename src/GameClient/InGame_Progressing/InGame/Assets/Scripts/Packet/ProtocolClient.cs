@@ -52,9 +52,9 @@ namespace Google.Protobuf.Protocol {
             "EAYSDQoJR0FNRV9GQUlMEAcSDwoLUExBWUVSX0RST1AQCBIQCgxQTEFZRVJf",
             "Q1JBU0gQCRISCg5PQlNUQUNMRV9DUkFTSBAKEhAKDENPTk5FQ1RfRkFJTBAL",
             "EggKBFRJTUUQDBIMCghHRVRfVElDSxANEg8KC1BMQVlFUl9HT0FMEA4SDQoJ",
-            "UkVDT05ORUNUEA8qOgoLUGxheWVyU3RhdGUSCAoESURMRRAAEggKBE1PVkUQ",
-            "ARIICgRKVU1QEAISDQoJSlVNUF9MT09QEANCG6oCGEdvb2dsZS5Qcm90b2J1",
-            "Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "UkVDT05ORUNUEA8qRQoLUGxheWVyU3RhdGUSCAoESURMRRAAEggKBE1PVkUQ",
+            "ARIICgRKVU1QEAISDQoJSlVNUF9MT09QEAMSCQoFU2xpZGUQBEIbqgIYR29v",
+            "Z2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.INGAME), typeof(global::Google.Protobuf.Protocol.PlayerState), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -98,6 +98,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("MOVE")] Move = 1,
     [pbr::OriginalName("JUMP")] Jump = 2,
     [pbr::OriginalName("JUMP_LOOP")] JumpLoop = 3,
+    [pbr::OriginalName("Slide")] Slide = 4,
   }
 
   #endregion

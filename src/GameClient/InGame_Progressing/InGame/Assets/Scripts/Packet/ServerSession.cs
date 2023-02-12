@@ -45,7 +45,7 @@ public class ServerSession : PacketSession
         };
 
         System.Random rand = new System.Random();
-        int random = 2;
+        int random = 1;
         Data dataPkt = new Data()
         {
             Id = random,

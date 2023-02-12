@@ -13,6 +13,8 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::He
     case Match::C_CANCLE:
         HandlerCancle(ref, ParsingPacket<Match::C_Cancle>(buffer, (int32)head.size()));
         break;
+    case Match::CHECK:
+        HandlerCheck(ref, ParsingPacket<Match::Check>(buffer, (int32)head.size()));
     default:
         break;
     }
@@ -35,6 +37,14 @@ void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::C_Cancle && pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
     GMatch->DoAsync(&MatchManager::MatchLeave, pkt.id(), pkt.level(), pkt.room());
+}
+
+void PacketHandler::HandlerCheck(PacketSessionRef& ref, Match::Check&& pkt)
+{
+    if (pkt.type())
+        GMatch->ConnectMatchServer(static_pointer_cast<MatchSession>(ref));
+    else
+        GMatch->ConnectLobyServer(static_pointer_cast<MatchSession>(ref));
 }
 
 SendBufferRef PacketHandler::MakeSendBuffer(Match::S_Cancle pkt, Match::STATE type)
