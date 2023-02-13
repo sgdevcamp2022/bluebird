@@ -30,18 +30,12 @@ enum PlayerState
 	JUMP = 2;
 	JUMP_LOOP = 3;
 	Slide = 4;
-	
 }
 
 message PlayerGoalData
 {
 	int64 id = 1;
 	bool success = 2;
-}
-
-message GameCompleteData
-{
-	repeated PlayerGoalData data = 1;
 }
 
 message Data

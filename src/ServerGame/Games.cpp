@@ -119,10 +119,21 @@ void Games::StartGame(int32 room)
 	//게임 시작
 }
 
+void Games::NextStageGame(int32 room, int32 level)
+{
+	if (_npcRef != nullptr) {
+		Npc::LoginData data;
+		data.set_maplevel(level);
+		data.set_matchroom(room);
+
+		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
+	}
+	DoTimer(4000, &Games::StartGame, room);
+}
+
 void Games::EndGame(int32 room)
 {
 	_games.erase(room);
-	
 	//TODO
 }
 

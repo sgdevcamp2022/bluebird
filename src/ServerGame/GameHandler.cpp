@@ -56,8 +56,7 @@ void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
     if (ref->_mySelf != nullptr)
         if (auto room = ref->_room.lock())
-            if (ref->_start)
-                room->DoAsync(&Room::PlayerMove, pkt);
+            room->DoAsync(&Room::PlayerMove, pkt);
 }
 
 void GameHandler::HNoMove(GameSessionRef& ref, Protocol::Data&& pkt)
@@ -72,7 +71,7 @@ void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
 
     if (ref->_mySelf != nullptr)
         if (auto room = ref->_room.lock())
-            if (pkt.id() == pkt.id() && ref->_start)
+            if (pkt.id() == pkt.id())
                 room->DoAsync(&Room::PlayerGoal, std::move(pkt));
 }
 
@@ -112,8 +111,7 @@ void GameHandler::HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt)
 {
     if (ref->_mySelf != nullptr)
         if (auto room = ref->_room.lock())
-            if (ref->_start)
-                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
+            room->DoAsync(&Room::PlayerGoal, std::move(pkt));
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
