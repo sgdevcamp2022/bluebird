@@ -374,13 +374,13 @@ class Check final :
   enum : int {
     kTypeFieldNumber = 1,
   };
-  // bool type = 1;
+  // int32 type = 1;
   void clear_type();
-  bool type() const;
-  void set_type(bool value);
+  ::PROTOBUF_NAMESPACE_ID::int32 type() const;
+  void set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  bool _internal_type() const;
-  void _internal_set_type(bool value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_type() const;
+  void _internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:Match.Check)
@@ -390,7 +390,7 @@ class Check final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  bool type_;
+  ::PROTOBUF_NAMESPACE_ID::int32 type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolMatch_2eproto;
 };
@@ -1211,22 +1211,22 @@ inline void Header::set_state(::Match::STATE value) {
 
 // Check
 
-// bool type = 1;
+// int32 type = 1;
 inline void Check::clear_type() {
-  type_ = false;
+  type_ = 0;
 }
-inline bool Check::_internal_type() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Check::_internal_type() const {
   return type_;
 }
-inline bool Check::type() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Check::type() const {
   // @@protoc_insertion_point(field_get:Match.Check.type)
   return _internal_type();
 }
-inline void Check::_internal_set_type(bool value) {
+inline void Check::_internal_set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   type_ = value;
 }
-inline void Check::set_type(bool value) {
+inline void Check::set_type(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_type(value);
   // @@protoc_insertion_point(field_set:Match.Check.type)
 }

@@ -36,8 +36,7 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 
 void GameHandler::HandlerConnect(PacketSessionRef& ref, Protocol::Player&& pkt)
 {
-    auto point = pkt.position();
-    cout << "Connect(" << pkt.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+    cout << "Connect" << endl;
 }
 
 void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Move&& pkt)

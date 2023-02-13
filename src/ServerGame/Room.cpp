@@ -39,7 +39,6 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
-	cout << "Inside User" << endl;
 	auto p = _startData.add_player();
 	
 	if (TEST) {
@@ -58,13 +57,10 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 
 	//내부에서 다 저장
 	_players[_stage][id]->SetPlayer(p);
-	//_players[_stage][id]->SetPosition(0.1f, 0.2f, 29.f);
 
 	{
 		Protocol::Player data;
 		data.set_id(id);
-		GameUtils::SetVector3(data.mutable_position(), _players[_stage][id]->GetPosition());
-		GameUtils::SetVector3(data.mutable_rotation(), _players[_stage][id]->GetRotation());
 
 		ref->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT));
 	}
@@ -136,6 +132,7 @@ int Room::Start()
 	if (_playerSize < START_COUNT && !_start.load()) {
 		return -1;
 	}
+	cout << "Start" << endl;
 	vector<int64> keys;
 	for (auto& player : _players[_stage])
 	{

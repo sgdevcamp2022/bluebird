@@ -21,7 +21,7 @@ message Header
 
 message Check
 {
-	bool type = 1;
+	int32 type = 1;
 }
 
 message C_Login
