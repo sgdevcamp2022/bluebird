@@ -25,7 +25,7 @@ private:
 	array<InFun, 8>				_playerCount;
 	OutFn						_playerOut;
 
-	atomic<int32>				_roomId = 0;
+	atomic<int32>				_roomId = 1;
 
 	ConnectSessionRef			_gameref = nullptr;
 	MatchSessionRef				_lobyref = nullptr;

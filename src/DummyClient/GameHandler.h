@@ -15,6 +15,7 @@ private:
 	static void HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt);
 	static void HandlerTick(Protocol::Times&& time);
 	static void HandlerFail(Protocol::Data&& data);
+	static void HandlerEnd(PacketSessionRef& ref, Protocol::PlayerGoalData&& data);
 	static void HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData&& data);
 };
 

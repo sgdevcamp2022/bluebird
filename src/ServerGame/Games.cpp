@@ -10,6 +10,8 @@ void Games::NewGame(vector<PlayerRef> players, int32 level, int32 room)
 	_games[room] = RoomInfo(make_shared<Room>(level, room));
 
 	_games[room]()->MatchEnter(std::move(players));
+	if(NPC_TEST)
+		_games[room].SetNpc(true);
 }
 
 void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
@@ -17,7 +19,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	//TODO 학인 절차
 	
 	//테스트 코드
-	if (TEST)
+	if (CLIENT_TEST)
 	{
 		if (!IsRoom(room)) 
 		{
@@ -52,7 +54,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			}
 		}
 		else {
-			if (!_games[room])
+			if (_games[room].CheckStart())
 			{
 				if (_games[room] >> id)
 				{
@@ -73,7 +75,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	//고쳐보기 맘에 안듬
 	else if (IsRoom(room)) 
 	{
-		if (!_games[room]) 
+		if (_games[room].CheckStart()) 
 		{
 			if (_games[room] >> id) 
 			{
@@ -100,10 +102,16 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	}
 }
 
+void Games::EnterNpc(Npc::LoginData pkt, int32 room)
+{
+	_games[room]()->ObstacleEnter(std::move(pkt));
+	_games[room].SetNpc(true);
+}
+
 void Games::StartGame(int32 room)
 {
-	int check;
-	if ((check = _games[room]()->Start()) == -1) 
+	int check = 0;
+	if (_games[room].CheckNpc() && (check = _games[room]()->Start()) == -1)
 	{
 		DoTimer(5000, &Games::StartGame, room);
 		return;
@@ -117,13 +125,14 @@ void Games::StartGame(int32 room)
 		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
 	}
 	cout << "게임 시작 "<< check << endl;
-	_games[room] == true;
+	_games[room].SetStart(true);
 	//게임 시작
 }
 
 void Games::NextStageGame(int32 room, int32 level, int32 stage)
 {
 	if (_npcRef != nullptr) {
+		_games[room].SetNpc(false);
 		Npc::NextStage data;
 		data.set_level(level);
 		data.set_room(room);
@@ -136,7 +145,6 @@ void Games::NextStageGame(int32 room, int32 level, int32 stage)
 
 void Games::EndGame(int32 room, int32 level)
 {
-
 	if (_npcRef != nullptr) {
 		Npc::EndGame data;
 		data.set_level(level);
@@ -145,8 +153,9 @@ void Games::EndGame(int32 room, int32 level)
 		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::END));
 	}
 
-	_games.erase(room);
 	//TODO
+
+	_games.erase(room);
 }
 
 bool Games::IsRoom(int64 id)
