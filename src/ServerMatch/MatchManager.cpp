@@ -100,7 +100,7 @@ void MatchManager::MatchEnter(int64 id, int32 level)
 	Match::S_Login data;
 	data.set_id(id);
 	data.set_level(level);
-	if(_lobyref != nullptr)
+	if (_lobyref != nullptr)
 		_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
 
 	auto type = _playerCount[level](id);

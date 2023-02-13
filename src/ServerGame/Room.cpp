@@ -15,6 +15,15 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 		else
 			return false;
 	};
+	if (TEST) {
+		Npc::Vector3 data;
+		data.set_x(0.f);
+		data.set_y(0.1f);
+		data.set_z(30.f);
+
+		_spawnPosition.push_back({ data, data });
+		_spawnPosition.push_back({ data, data });
+	}
 }
 
 Room::~Room()
@@ -129,10 +138,10 @@ int Room::Start()
 		return -1;
 	}*/
 	//테스트 코드
+	cout << "GameStart" << endl;
 	if (_playerSize < START_COUNT && !_start.load()) {
 		return -1;
 	}
-	cout << "Start" << endl;
 	vector<int64> keys;
 	for (auto& player : _players[_stage])
 	{
@@ -246,7 +255,7 @@ void Room::NextStage()
 	cout << "Next Stage" << endl;
 
 	_start.store(false);
-	_spawnPosition.clear();
+	//_spawnPosition.clear();
 
 	int32 past = _stage.fetch_add(1);
 	Protocol::PlayerGoalData data;
@@ -270,6 +279,7 @@ void Room::NextStage()
 
 	// 다음 스테이지로 넘어가기 위한 정리
 	_playerSize = _players[_stage].size();
+	cout << _playerSize << endl;
 	_players[past].clear();
 
 	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
