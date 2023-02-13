@@ -24,7 +24,6 @@ API_KEY_HEADER = APIKeyHeader(name="Authorization", auto_error=False)
 def create_app():
     """
     앱 함수 실행
-    :return:
     """
     c = conf()
     app = FastAPI()
