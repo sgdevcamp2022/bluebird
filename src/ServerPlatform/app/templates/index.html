@@ -84,7 +84,7 @@
             <div style="text-align: right; font-size: 15px;">{% if id %} 로그인 완료 <br> login ID : {{id}} {% endif %}</div>
             <div style="padding: 15vh 0;"><a href="/user-sign-up/">회원가입</a></div>
             <div style="text-align: center;"><h1>Poor<br>Guys</h1></div>
-            <div style="padding: 15vh 0; text-align: right;"><a href="bluebird:{{userNo}}">게임 실행</a></div>
+            <div style="padding: 15vh 0; text-align: right;"><a href="bluebird://{{userNo}}/{{nickname}}" onclick="location.href = '/loading/'">게임 실행</a></div>
             <div id="7" style="padding-top: 28vh;"></div>
             <div style="padding-top: 28vh; text-align: center;"><a href="/game-download/">게임 설치</a></div>
             <div id="9" style="padding-top: 28vh; text-align: right;"></div>

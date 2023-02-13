@@ -57,7 +57,7 @@ async def register(
         birthday = birth,
         sex = sex,
         )
-    token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(new_user).dict(exclude={'pw', 'marketing_agree'}),)}")
+    # token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(new_user).dict(exclude={'pw', 'marketing_agree'}),)}")
     response = TEMPLATES.TemplateResponse("message.html",{"request": request,"msg":"회원가입이 완료되었습니다."})
     return response
     
@@ -78,7 +78,7 @@ async def login(request : Request, logEmail : str = Form(...), logPass : str = F
     
     userData = UserToken.from_orm(user).dict(exclude={'password'})
     token = dict(Authorization=f"Bearer {create_access_token(data = userData , expires_delta = 30)}")
-    response = TEMPLATES.TemplateResponse("index.html",{"request": request, "userNo": userData['userNo'], "id": userData['id']})
+    response = TEMPLATES.TemplateResponse("index.html",{"request": request, "userNo": userData['userNo'], "id": userData['id'], "nickname": userData['nickname']})
     response.set_cookie(key="Authorization", value = token["Authorization"])
     print(token)
     redis = aioredis.from_url("redis://:a12b34@34.84.148.50:6379")
