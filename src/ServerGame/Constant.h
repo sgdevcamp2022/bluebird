@@ -6,11 +6,13 @@
 #define START_COUNT 2
 #define GOAL_COUNT 2
 #define MAX_STAGE 3
+#define LAST(stage) (MAX_STAGE == stage) ? true : false
 
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5
 //#define WINNER3	1
-#define TEST true
+#define CLIENT_TEST false
+#define NPC_TEST true
 
 struct Vector3
 {

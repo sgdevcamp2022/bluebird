@@ -6,6 +6,8 @@ class Room : public JobQueue
 public:
 	Room(int32 level, int32 room);
 	virtual ~Room();
+
+	void RoomClear();
 	void MatchEnter(vector<PlayerRef> ref);
 	void GameEnter(GameSessionRef ref, int64 id);
 	void ObstacleEnter(Npc::LoginData pkt);

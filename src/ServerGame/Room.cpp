@@ -15,7 +15,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 		else
 			return false;
 	};
-	if (TEST) {
+	if (NPC_TEST) {
 		Npc::Vector3 data;
 		data.set_x(0.f);
 		data.set_y(0.1f);
@@ -28,11 +28,17 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 
 Room::~Room()
 {
+
+}
+
+void Room::RoomClear()
+{
 	_spawnPosition.clear();
 	_obstacles.clear();
-	for (int i = 0; i < _players.size();i++) {
+	for (int i = 0; i < _players.size(); i++) {
 		_players[i].clear();
 	}
+	_startData.Clear();
 }
 
 // 방 생성
@@ -50,7 +56,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	//확인 작업 필요
 	auto p = _startData.add_player();
 	
-	if (TEST) {
+	if (CLIENT_TEST) {
 		PlayerRef player = make_shared<Player>(id, _matchRoom);
 		player->SetOwner(ref);
 
@@ -134,14 +140,11 @@ void Room::Leave(PlayerRef ref)
 
 int Room::Start()
 {
-	/*if (_playerSize < START_COUNT || _startData.obtacle_size() == 0) {
-		return -1;
-	}*/
-	//테스트 코드
-	cout << "GameStart" << endl;
 	if (_playerSize < START_COUNT && !_start.load()) {
 		return -1;
 	}
+
+	cout << "GameStart" << endl;
 	vector<int64> keys;
 	for (auto& player : _players[_stage])
 	{
@@ -252,9 +255,6 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::NextStage()
 {
-	cout << "Next Stage" << endl;
-
-	_start.store(false);
 	//_spawnPosition.clear();
 
 	int32 past = _stage.fetch_add(1);
@@ -266,24 +266,26 @@ void Room::NextStage()
 		if (_players[_stage].find(_ref.first) == _players[_stage].end()) {
 			data.set_id(_ref.first);
 			data.set_success(false);
-			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_FAIL));
 		}
 		else
 		{
 			_players[_stage][_ref.first]->SetPlayer(_startData.add_player());
 			data.set_id(_ref.first);
 			data.set_success(true);
-			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
 		}
+		if(LAST(_stage))
+			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_END));
+		else
+			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
 	}
 
 	// 다음 스테이지로 넘어가기 위한 정리
 	_playerSize = _players[_stage].size();
-	cout << _playerSize << endl;
+	cout << "Next Stage : " << _playerSize << endl;
 	_players[past].clear();
 
 	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
-	if (_stage == MAX_STAGE)
+	if (LAST(_stage))
 		RoomEnd();
 	else
 		Ggames->DoAsync(&Games::NextStageGame, _matchRoom, _mapLevel, _stage.load());
@@ -292,6 +294,8 @@ void Room::NextStage()
 void Room::RoomEnd()
 {
 	//TODO 정리하기
+	_jobs.Clear();
+	
 	Ggames->EndGame(_matchRoom, _mapLevel);
 }
 

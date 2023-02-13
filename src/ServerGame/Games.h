@@ -17,16 +17,24 @@ public:
 	}
 	void operator<<(const int i) {
 		_player.push_back(i);
-	}
-	void operator==(bool start) {
+	}		
+	void SetStart(bool start) {
 		_start = start;
 	}
-	bool operator!() {
+	bool CheckStart() {
 		return _start;
 	}
+	void SetNpc(bool npc) {
+		_npcOn = npc;
+	}
+	bool CheckNpc() {
+		return _npcOn;
+	}
+
 private:
 	RoomRef			_room;
 	vector<int64>	_player;
+	bool			_npcOn = false;
 	bool			_start = false;
 };
 
@@ -38,6 +46,7 @@ public:
 
 	void			NewGame(vector<PlayerRef> players, int32 level, int32 room);
 	void			EnterGame(GameSessionRef session, int64 id, int32 room);
+	void			EnterNpc(Npc::LoginData pkt, int32 room);
 	void			StartGame(int32 room);
 	void			NextStageGame(int32 room, int32 level, int32 stage);
 	void			EndGame(int32 room, int32 level);
