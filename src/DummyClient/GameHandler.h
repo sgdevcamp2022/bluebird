@@ -5,6 +5,7 @@ class GameHandler
 public:
 	static SendBufferRef MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type);
+	static SendBufferRef MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type);
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len);
 
 private:
@@ -14,6 +15,7 @@ private:
 	static void HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt);
 	static void HandlerTick(Protocol::Times&& time);
 	static void HandlerFail(Protocol::Data&& data);
+	static void HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData&& data);
 };
 
 struct GameHeader {

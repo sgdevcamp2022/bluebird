@@ -16,24 +16,12 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     case Protocol::PLAYER_MOVE:
         HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
-    case Protocol::NO_MOVE:
-        HNoMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
-        break;
     case Protocol::GAME_COMPLTE:
         HGameComplete(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::PLAYER_DROP:
         HGameDrop(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
-        break;
-    case Protocol::GAME_FAIL:
-        HGameFail(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
-        break;
-    case Protocol::PLAYER_CRASH:
-        HPlayerCrash(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
-        break;
-    case Protocol::OBSTACLE_CRASH:
-        HObstacleCrash(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
-        break;
+        break;;
     case Protocol::TIME:
         HTime(ref, ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
         break;
@@ -59,10 +47,6 @@ void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
             room->DoAsync(&Room::PlayerMove, pkt);
 }
 
-void GameHandler::HNoMove(GameSessionRef& ref, Protocol::Data&& pkt)
-{
-
-}
 
 void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
 {
@@ -75,10 +59,6 @@ void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
                 room->DoAsync(&Room::PlayerGoal, std::move(pkt));
 }
 
-void GameHandler::HGameFail(GameSessionRef& ref, Protocol::Data&& pkt)
-{
-    
-}
 
 void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
 {
@@ -86,19 +66,6 @@ void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
     {
         cout << "Á¤»ó" << endl;
         ref->_mySelf->MoveChange();
-    }
-}
-
-void GameHandler::HPlayerCrash(GameSessionRef& ref, Protocol::Data&& pkt)
-{
-
-}
-
-void GameHandler::HObstacleCrash(GameSessionRef& ref, Protocol::Data&& pkt)
-{
-    if (auto room = ref->_room.lock())
-    {
-        
     }
 }
 

@@ -100,8 +100,8 @@ void MatchManager::MatchEnter(int64 id, int32 level)
 	Match::S_Login data;
 	data.set_id(id);
 	data.set_level(level);
-	
-	_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
+	if(_lobyref != nullptr)
+		_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
 
 	auto type = _playerCount[level](id);
 	if (type)
@@ -184,10 +184,12 @@ void MatchManager::ConnectGameServer(ConnectSessionRef ref)
 
 void MatchManager::ConnectMatchServer(MatchSessionRef ref)
 {
+	cout << "Connect Match" << endl;
 	_matchref = ref;
 }
 
 void MatchManager::ConnectLobyServer(MatchSessionRef ref)
 {
+	cout << "Connect Loby" << endl;
 	_lobyref = ref;
 }
