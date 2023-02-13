@@ -157,6 +157,12 @@ public class PacketHandler
         UnityEngine.Debug.Log("GameComplte");
         
     }
+    public static void GameEnds(IMessage packet)
+    {
+
+        PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("GameEnd");
+    }
     public static void PlayerGoal(IMessage packet)
     {
         PlayerGoalData data = packet as PlayerGoalData;
