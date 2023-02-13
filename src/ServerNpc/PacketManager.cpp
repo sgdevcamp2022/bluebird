@@ -97,7 +97,7 @@ int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& m
         string fieldName = field->name();
         if (field->type() == google::protobuf::FieldDescriptor::TYPE_INT32 && !field->is_repeated())
         {
-            if (fieldName == "mapLevel")
+            if (fieldName == "mapLevel" || fieldName == "level")
             {
                 try
                 {
@@ -108,7 +108,7 @@ int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& m
                     loginData->mapLevel = -1;
                 }
             }
-            else if (fieldName == "matchRoom")
+            else if (fieldName == "matchRoom" || fieldName == "room")
             {
                 try
                 {
@@ -242,6 +242,24 @@ int PacketManager::PacketProcess(LoginData* loginData, StartData* startData, pro
             Npc::StartData packet;
             if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
             returnValue = GetField(startData, packet);
+            break;
+        }
+
+        case Npc::NEXT:
+        {
+            Npc::NextStage packet;
+            if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
+            GetField(loginData, packet);
+            returnValue = 3;
+            break;
+        }
+
+        case Npc::END:
+        {
+            Npc::EndGame packet;
+            if (packet.ParseFromCodedStream(&payload_input_stream) == false) break;
+            GetField(loginData, packet);
+            returnValue = 4;
             break;
         }
 

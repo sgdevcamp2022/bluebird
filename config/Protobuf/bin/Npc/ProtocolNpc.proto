@@ -6,6 +6,8 @@ enum INGAME
 	LOGIN = 0;
 	GAME = 1;
 	START = 2;
+	NEXT = 3;
+	END = 4;
 }
 
 message StartData
@@ -13,6 +15,19 @@ message StartData
 	int32 room = 1;
 	int32 size = 2;
 	bool game = 3;
+}
+
+message NextStage
+{
+	int32 room = 1;
+	int32 level = 2;
+	int32 stage = 3;
+}
+
+message EndGame
+{
+	int32 room = 1;
+	int32 level = 2;
 }
 
 message PlayerSpawn
