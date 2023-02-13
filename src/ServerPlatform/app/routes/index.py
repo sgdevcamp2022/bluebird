@@ -35,9 +35,16 @@ async def signUp(request: Request):
 async def login(request: Request):
     req = dict()
     req['request'] = request
-    return TEMPLATES.TemplateResponse("myLogin.html", req)
+    return TEMPLATES.TemplateResponse("user-login.html", req)
+
 
 @router.get("/game-download")
 async def download():
     file_path = 'app/files/Setup.exe'
     return FileResponse(path=file_path, filename=file_path)
+
+@router.get("/loading", response_class=HTMLResponse)
+async def loading(request: Request):
+    req = dict()
+    req['request'] = request
+    return TEMPLATES.TemplateResponse("message.html", {"request": request, "msg":"게임이 실행 중입니다."})
