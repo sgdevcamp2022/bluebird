@@ -152,7 +152,7 @@ public class PacketHandler
     }
     public static void GameComplete(IMessage packet)
     {
-        GameCompleteData data = packet as GameCompleteData;
+        PlayerGoalData data = packet as PlayerGoalData;
         UnityEngine.Debug.Log("GameComplte");
         //TODO
     }

@@ -41,9 +41,9 @@ class PacketManager
         handler.Add((ushort)INGAME.GetTick, PacketHandler.TimeSync);
         recv.Add((ushort)INGAME.ConnectFail, MakePacket<Data>);
         handler.Add((ushort)INGAME.ConnectFail, PacketHandler.CnnectFail);
-        recv.Add((ushort)INGAME.GameComplte, MakePacket<GameCompleteData>);
+        recv.Add((ushort)INGAME.GameComplte, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
-        recv.Add((ushort)INGAME.PlayerGoal, MakePacket<GameCompleteData>);
+        recv.Add((ushort)INGAME.PlayerGoal, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
         recv.Add((ushort)INGAME.Reconnect, MakePacket<Data>);
         handler.Add((ushort)INGAME.Reconnect, PacketHandler.ReConnect);

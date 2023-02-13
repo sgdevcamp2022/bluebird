@@ -1,14 +1,14 @@
 #pragma once
 
 #define THREAD_SIZE 10
-#define SOLO_PLAYER_COUNT 5
-#define SOLO_MAX_PLAYER_COUNT 10
+#define SOLO_PLAYER_COUNT 4
+#define SOLO_MAX_PLAYER_COUNT 8
 
-#define DUO_PLAYER_COUNT 10
-#define DUO_MAX_PLAYER_COUNT 20
+#define DUO_PLAYER_COUNT 6
+#define DUO_MAX_PLAYER_COUNT 12
 
-#define THREE_PLAYER_COUNT 15
-#define THREE_MAX_PLAYER_COUNT 30
+#define THREE_PLAYER_COUNT 9
+#define THREE_MAX_PLAYER_COUNT 12
 
 #define TestLevel 5
 #define TestRoom 10

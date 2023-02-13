@@ -5,7 +5,7 @@
 
 #define START_COUNT 2
 #define GOAL_COUNT 2
-#define MAX_STAGE 2
+#define MAX_STAGE 3
 
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5

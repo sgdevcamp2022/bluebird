@@ -119,20 +119,30 @@ void Games::StartGame(int32 room)
 	//게임 시작
 }
 
-void Games::NextStageGame(int32 room, int32 level)
+void Games::NextStageGame(int32 room, int32 level, int32 stage)
 {
 	if (_npcRef != nullptr) {
-		Npc::LoginData data;
-		data.set_maplevel(level);
-		data.set_matchroom(room);
+		Npc::NextStage data;
+		data.set_level(level);
+		data.set_room(room);
+		data.set_stage(stage);
 
-		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
+		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::NEXT));
 	}
 	DoTimer(4000, &Games::StartGame, room);
 }
 
-void Games::EndGame(int32 room)
+void Games::EndGame(int32 room, int32 level)
 {
+
+	if (_npcRef != nullptr) {
+		Npc::EndGame data;
+		data.set_level(level);
+		data.set_room(room);
+
+		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::END));
+	}
+
 	_games.erase(room);
 	//TODO
 }

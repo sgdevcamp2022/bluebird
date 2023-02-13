@@ -17,6 +17,15 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 	};
 }
 
+Room::~Room()
+{
+	_spawnPosition.clear();
+	_obstacles.clear();
+	for (int i = 0; i < _players.size();i++) {
+		_players[i].clear();
+	}
+}
+
 // 방 생성
 void Room::MatchEnter(vector<PlayerRef> ref)
 {
@@ -156,6 +165,7 @@ void Room::PlayerMove(Protocol::Move data)
 	//콘텐츠 구현
 	//시뮬레이션 구현해야됨.
 	if (CHECK(data.id())) {
+		// 추가 구현 방식 생각 해보기
 		auto point = data.position();
 		PlayerRef player = _players[_stage][data.id()];
 
@@ -259,14 +269,13 @@ void Room::NextStage()
 	if (_stage == MAX_STAGE)
 		RoomEnd();
 	else
-		Ggames->DoAsync(&Games::NextStageGame, _matchRoom, _mapLevel);
+		Ggames->DoAsync(&Games::NextStageGame, _matchRoom, _mapLevel, _stage.load());
 }
 
 void Room::RoomEnd()
 {
-	
 	//TODO 정리하기
-	Ggames->EndGame(_matchRoom);
+	Ggames->EndGame(_matchRoom, _mapLevel);
 }
 
 bool Room::IsPlayer(int64 id)

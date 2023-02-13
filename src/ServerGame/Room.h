@@ -5,7 +5,7 @@ class Room : public JobQueue
 {
 public:
 	Room(int32 level, int32 room);
-	~Room() { cout << "게임 종료 " << _matchRoom << endl; }
+	virtual ~Room();
 	void MatchEnter(vector<PlayerRef> ref);
 	void GameEnter(GameSessionRef ref, int64 id);
 	void ObstacleEnter(Npc::LoginData pkt);
@@ -32,7 +32,7 @@ public:
 
 public:
 	atomic<bool>				_start = false;
-	atomic<int32>				_stage = 0;
+	atomic<int32>				_stage = 1;
 
 private:
 	int32						_matchRoom;
@@ -41,7 +41,7 @@ private:
 	Protocol::Data				_startData;
 	int32						_playerSize = 0;
 
-	array<map<int64, PlayerRef>, 3>			_players;
+	array<map<int64, PlayerRef>, 4>			_players;
 	map<int64, ObtacleRef>					_obstacles;
 
 	vector<pair<Npc::Vector3, Npc::Vector3>>	_spawnPosition;
