@@ -11,7 +11,8 @@
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5
 //#define WINNER3	1
-#define CLIENT_TEST false
+
+#define CLIENT_TEST true
 #define NPC_TEST true
 
 struct Vector3

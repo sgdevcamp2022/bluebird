@@ -25,7 +25,6 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 		{
 			cout << "Player Inside = " << id << " " << room << endl;
 			_games[room] = RoomInfo(make_shared<Room>(2, room));
-			_games[room].SetNpc(true);
 			session->_room = _games[room]();
 			_games[room]()->GameEnter(session, id);
 			_games[room] << id;
