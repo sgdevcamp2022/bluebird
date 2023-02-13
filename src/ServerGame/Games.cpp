@@ -111,7 +111,7 @@ void Games::EnterNpc(Npc::LoginData pkt, int32 room)
 void Games::StartGame(int32 room)
 {
 	int check = 0;
-	if (_games[room].CheckNpc() && (check = _games[room]()->Start()) == -1)
+	if (!_games[room].CheckNpc() || (check = _games[room]()->Start()) == -1)
 	{
 		DoTimer(5000, &Games::StartGame, room);
 		return;
