@@ -106,7 +106,7 @@ public class PanelManager : MonoBehaviour
             {
                 Debug.Log("¸ÅÄ¡ ·ë: " + matchStatus);
                 Debug.Log("¸Ê Á¤º¸: " + mapLevel);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(2f);
                 continue;
             }
             else if(matchStatus == -2)
