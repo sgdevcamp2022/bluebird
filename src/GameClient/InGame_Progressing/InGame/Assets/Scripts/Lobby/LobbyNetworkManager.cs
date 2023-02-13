@@ -34,8 +34,7 @@ public class LobbyNetworkManager : MonoBehaviour
 
     public IEnumerator MatchInitPost(Action<bool> callback)
     {
-        //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/lobby/start/";
+        string url = "http://127.0.0.1:8000/lobby/start";
         
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
@@ -68,17 +67,19 @@ public class LobbyNetworkManager : MonoBehaviour
 
     }
 
-    public IEnumerator MatchStartPost(bool isCancel, Action<int> callback)
+    public IEnumerator MatchStartPost(bool isCancel, Action<Dictionary<string, int>> callback)
     {
+        Dictionary<string, int> tempDict = new Dictionary<string, int>();
+        tempDict.Add("result", -1);
+        tempDict.Add("level", -1);
         if(isCancel)
         {
-            callback(-2);
+            tempDict["result"] = -2;
+            callback(tempDict);
             yield break;
         }
-        //string url = "https://jsonplaceholder.typicode.com/posts";
-        string url = "http://127.0.0.1:8000/lobby/check/";
+        string url = "http://127.0.0.1:8000/lobby/check";
 
-        //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
 
         int userNo = LobbyGameManager.gameManager.userNo;
@@ -93,22 +94,25 @@ public class LobbyNetworkManager : MonoBehaviour
             {
                 MatchCheck matchCheck = JsonUtility.FromJson<MatchCheck>(www.downloadHandler.text);
                 Debug.Log(www.downloadHandler.text);
-                if(matchCheck.result == -1)
+                tempDict["result"] = matchCheck.result;
+                if (matchCheck.result == -1)
                 {
                     Debug.Log("매치가 아직 시작되지 않음");
-                    callback(-1);
+                    callback(tempDict);
                 }
                 else
                 {
+                    tempDict["level"] = matchCheck.level;
                     Debug.Log("매칭 완료");
-                    callback(matchCheck.result);
+                    callback(tempDict);
                 }
             }
             else
             {
+                tempDict["result"] = -1;
                 Debug.Log(www.error);
                 Debug.Log("매치가 아직 시작되지 않음");
-                callback(-1);
+                callback(tempDict);
             }
             www.Dispose();
         }
@@ -117,7 +121,6 @@ public class LobbyNetworkManager : MonoBehaviour
 
     public IEnumerator MatchCancelPost(Action<bool> callback)
     {
-        //string url = "https://jsonplaceholder.typicode.com/posts";
         string url = "http://127.0.0.1:8000/lobby/cancel";
 
         //Debug.Log("UserNo: " + userNo);
@@ -158,6 +161,7 @@ class MatchStart
 class MatchCheck
 {
     public int result;
+    public int level;
 }
 
 [System.Serializable]

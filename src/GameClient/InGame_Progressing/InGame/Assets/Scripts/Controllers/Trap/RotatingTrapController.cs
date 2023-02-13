@@ -11,11 +11,13 @@ public class RotatingTrapController : ObstacleController
     protected override void UpdateController()
     {
         Quaternion rot = Quaternion.Euler(RotInfo.X, RotInfo.Y, RotInfo.Z);
+        Vector3 pos = new Vector3(PosInfo.X, PosInfo.Y, PosInfo.Z);
         //Vector3 moveTo = direction;
 
 
         if (PacketRecv)
         {
+            transform.position = pos;
             transform.rotation = rot;
             PacketRecv = false;
         }
