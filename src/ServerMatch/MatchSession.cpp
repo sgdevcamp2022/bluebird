@@ -5,12 +5,11 @@
 void MatchSession::OnConnected()
 {
     cout << "Session Connected" << endl;
-    GMatch->ConnectLobyServer(static_pointer_cast<MatchSession>(shared_from_this()));
 }
 
 void MatchSession::OnDisconnected()
 {
-    
+    cout << "SessionDisconnected" << endl;
 }
 
 void MatchSession::OnRecvPacket(BYTE* buffer, Match::Header&& head)

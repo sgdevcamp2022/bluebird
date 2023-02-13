@@ -52,8 +52,8 @@ public class PacketHandler
         GameScene gs = go.GetComponent<GameScene>();
         gs.SetStartGame();
 
-        GameObject go2 = GameObject.Find("InGameManager");
-        InGameManager igm = go2.GetComponent<InGameManager>();
+        GameObject go2 = GameObject.Find("GameManager");
+        GameManager igm = go2.GetComponent<GameManager>();
         igm.GameStartTxt();
 
 
@@ -152,7 +152,7 @@ public class PacketHandler
     }
     public static void GameComplete(IMessage packet)
     {
-        GameCompleteData data = packet as GameCompleteData;
+        PlayerGoalData data = packet as PlayerGoalData;
         UnityEngine.Debug.Log("GameComplte");
         //TODO
     }
@@ -172,13 +172,14 @@ public class PacketHandler
         //don't destory on load 사용
         if (data.Success)
         {
+            UnityEngine.Debug.Log("Goal Packet Arrived");
             pc.SetClearStageNum();
             pc.SetDestroy();
 
         }
         else
         {
-            pc.SetDestroy();
+            //pc.SetDestroy();
         }
 
     }

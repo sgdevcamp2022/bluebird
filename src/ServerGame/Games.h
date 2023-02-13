@@ -39,7 +39,8 @@ public:
 	void			NewGame(vector<PlayerRef> players, int32 level, int32 room);
 	void			EnterGame(GameSessionRef session, int64 id, int32 room);
 	void			StartGame(int32 room);
-	void			EndGame(int32 room);
+	void			NextStageGame(int32 room, int32 level, int32 stage);
+	void			EndGame(int32 room, int32 level);
 
 	bool			IsRoom(int64 id);
 	RoomRef			GetRoomRef(int32 room) { return _games[room](); }

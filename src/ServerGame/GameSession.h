@@ -16,6 +16,5 @@ public:
 public:
 	PlayerRef				_mySelf = nullptr;
 	weak_ptr<class Room>	_room;
-	bool					_start = false;
 };
 

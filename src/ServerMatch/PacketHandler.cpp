@@ -15,6 +15,7 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::He
         break;
     case Match::CHECK:
         HandlerCheck(ref, ParsingPacket<Match::Check>(buffer, (int32)head.size()));
+        break;
     default:
         break;
     }

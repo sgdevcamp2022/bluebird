@@ -14,11 +14,9 @@ public:
 	float				GetSpeed() { return _speed; }
 	int64				GetId() { return _id; }
 	int32				GetRoom() { return _room; }
-	void				SetPosition(float x, float y, float z) {
-		GameUtils::SetVector3(_position, x, y, z);
-	}
-	void				SetRotation(float x, float y, float z) {
-		GameUtils::SetVector3(_rotation, x, y, z);
+	void				SetSpawnPoint(Npc::Vector3 position, Npc::Vector3 rotation) {
+		GameUtils::SetVector3(_position, position);
+		GameUtils::SetVector3(_position, rotation);
 	}
 protected:
 	int64				_id = 0;
@@ -34,6 +32,7 @@ class Player : public GameObject
 public:
 	Player(int64 id, int32 room, float speed = 10.0f)
 		: GameObject(id, room, speed) {}
+	virtual ~Player();
 
 	void			SetPlayer(Protocol::Player* ref);
 	virtual bool	Move(Vector3&& position, Vector3&& rotation);
@@ -52,6 +51,7 @@ class Obtacle : public GameObject {
 public:
 	Obtacle(int64 id, int32 shape, int32 room, float speed = 10.0f, int32 direction = 0)
 		: _shape(shape), _direction(direction), GameObject(id, room, speed) {}
+	virtual ~Obtacle();
 
 	virtual bool	Move(Vector3&& position, Vector3&& rotation);
 	void			SetObstacle(Protocol::Obtacle* ref);
