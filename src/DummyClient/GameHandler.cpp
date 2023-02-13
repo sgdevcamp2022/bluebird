@@ -53,6 +53,7 @@ void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
 
 void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
 {
+    cout << "Game Start" << endl;
     GameSessionRef session = static_pointer_cast<GameSession>(ref);
     this_thread::sleep_for(1s);
     {

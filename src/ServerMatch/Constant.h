@@ -1,7 +1,7 @@
 #pragma once
 
 #define THREAD_SIZE 10
-#define SOLO_PLAYER_COUNT 4
+#define SOLO_PLAYER_COUNT 2
 #define SOLO_MAX_PLAYER_COUNT 8
 
 #define DUO_PLAYER_COUNT 6
