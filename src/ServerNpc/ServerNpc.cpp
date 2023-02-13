@@ -128,21 +128,39 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
         StartData startData;
         protobuf::io::ArrayInputStream input_array_stream(inputBuf, bytes_transferred);
         protobuf::io::CodedInputStream input_coded_stream(&input_array_stream);
-        int matchRoom = packetManager->PacketProcess(&loginData, &startData, input_coded_stream);
-        if (matchRoom == 1)
+        int status = packetManager->PacketProcess(&loginData, &startData, input_coded_stream);
+        if (status == 1)
         {
             for (int i = 0; i < loginData.obstacle.size(); i++)
             {
                 boost::thread* tempThread = new boost::thread(ObstacleThread(loginData, i, *this));
-                threadGroup.push_back(make_pair(matchRoom, tempThread));
+                threadGroup.push_back(make_pair(loginData.matchRoom, tempThread));
             }
             
             PostWrite(loginData);
         }
-        else if (matchRoom == 2)
+        else if (status == 2)
         {
             cout << "StartData 수신 | Room: " << startData.room << " | State: " << startData.game << endl;
             roomGroup.push_back(startData);
+            PostReceive();
+        }
+        else if (status == 3)
+        {
+            ThreadInterrupt(loginData.matchRoom);
+            cout << "NextStage 수신 | Room: " << loginData.matchRoom << " 초기화 중.." << endl;
+            for (int i = 0; i < loginData.obstacle.size(); i++)
+            {
+                boost::thread* tempThread = new boost::thread(ObstacleThread(loginData, i, *this));
+                threadGroup.push_back(make_pair(loginData.matchRoom, tempThread));
+            }
+
+            PostWrite(loginData);
+        }
+        else if (status == 4)
+        {
+            cout << "EndGame 수신 | Room: " << loginData.matchRoom << " 제거 중.." << endl;
+            ThreadInterrupt(loginData.matchRoom);
             PostReceive();
         }
         else
@@ -152,12 +170,12 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
     }
 }
 
-void ServerNpc::ThreadInterrupt()
+void ServerNpc::ThreadInterrupt(int matchRoom)
 {
     for (iter = threadGroup.begin(); iter != threadGroup.end(); iter++)
     {
         //해당 matchRoom 끝났을 때
-        if (iter->first == 1)
+        if (iter->first == matchRoom)
         {
             iter->second->interrupt();
             delete iter->second;
@@ -168,7 +186,7 @@ void ServerNpc::ThreadInterrupt()
 
     for (iterRoom = roomGroup.begin(); iterRoom != roomGroup.end(); iterRoom++)
     {
-        if (iterRoom->room == 1)
+        if (iterRoom->room == matchRoom)
         {
             roomGroup.erase(iterRoom);
             break;
