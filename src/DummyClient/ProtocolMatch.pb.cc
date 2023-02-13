@@ -33,7 +33,7 @@ struct HeaderDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HeaderDefaultTypeInternal _Header_default_instance_;
 constexpr Check::Check(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : type_(false){}
+  : type_(0){}
 struct CheckDefaultTypeInternal {
   constexpr CheckDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -193,7 +193,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\023ProtocolMatch.proto\022\005Match\"3\n\006Header\022\014"
   "\n\004size\030\001 \001(\r\022\033\n\005state\030\002 \001(\0162\014.Match.STAT"
-  "E\"\025\n\005Check\022\014\n\004type\030\001 \001(\010\"$\n\007C_Login\022\n\n\002i"
+  "E\"\025\n\005Check\022\014\n\004type\030\001 \001(\005\"$\n\007C_Login\022\n\n\002i"
   "d\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\"3\n\010C_Cancle\022\n\n\002id"
   "\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014\n\004room\030\003 \001(\005\"3\n\010S"
   "_Cancle\022\n\n\002id\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\r\n\005sta"
@@ -485,7 +485,7 @@ Check::Check(const Check& from)
 }
 
 void Check::SharedCtor() {
-type_ = false;
+type_ = 0;
 }
 
 Check::~Check() {
@@ -514,7 +514,7 @@ void Check::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  type_ = false;
+  type_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -524,7 +524,7 @@ const char* Check::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bool type = 1;
+      // int32 type = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -560,10 +560,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool type = 1;
+  // int32 type = 1;
   if (this->type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_type(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -582,9 +582,11 @@ size_t Check::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool type = 1;
+  // int32 type = 1;
   if (this->type() != 0) {
-    total_size += 1 + 1;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {

@@ -21,6 +21,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	{
 		if (!IsRoom(room)) 
 		{
+			cout << "Player Inside = " << id << " " << room << endl;
 			_games[room] = RoomInfo(make_shared<Room>(2, room));
 			session->_room = _games[room]();
 			_games[room]()->GameEnter(session, id);

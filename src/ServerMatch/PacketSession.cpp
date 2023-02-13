@@ -13,7 +13,6 @@ PacketSession::~PacketSession()
 int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
 {
 	int32 processLen = 0;
-
 	while (true)
 	{
 		int32 dataSize = len - processLen;
