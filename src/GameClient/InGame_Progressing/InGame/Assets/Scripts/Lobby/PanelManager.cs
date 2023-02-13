@@ -85,11 +85,13 @@ public class PanelManager : MonoBehaviour
         }
         matchCancleButton.SetActive(true);
         int matchStatus = 0;
+        int mapLevel = -1;
         while(true)
         {
             StartCoroutine(LobbyNetworkManager.networkManager.MatchStartPost(isCancel, (callback) =>
             {
-                matchStatus = callback;
+                matchStatus = callback["result"];
+                mapLevel = callback["level"];
                 wait = false;
             }));
             
@@ -101,6 +103,9 @@ public class PanelManager : MonoBehaviour
 
             if(matchStatus == -1)
             {
+                Debug.Log("매치 룸: " + matchStatus);
+                Debug.Log("맵 정보: " + mapLevel);
+                yield return new WaitForSeconds(0.5f);
                 continue;
             }
             else if(matchStatus == -2)
@@ -137,12 +142,9 @@ public class PanelManager : MonoBehaviour
                 //게임 시작 및 씬 전환
                 LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
                 LobbyInfo.lobbyInfo.room = matchStatus;
-                LobbyInfo.lobbyInfo.level = modsSum;
+                LobbyInfo.lobbyInfo.level = mapLevel;
                 SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
             }
-
-            Debug.Log("매치 상태: " + matchStatus);
-            yield return new WaitForSeconds(1.0f);
         }
         Debug.Log("While문 종료");
     }
