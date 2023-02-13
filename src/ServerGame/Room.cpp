@@ -224,11 +224,11 @@ void Room::PlayerGoal(Protocol::Player data)
 			NextStage();
 		}
 		else {
-			Protocol::PlayerGoalData data;
-			data.set_id(data.id());
-			data.set_success(true);
+			Protocol::PlayerGoalData send;
+			send.set_id(data.id());
+			send.set_success(true);
 
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_GOAL));
+			Broadcast(GameHandler::MakeSendBuffer(send, Protocol::PLAYER_GOAL));
 		}
 	}
 }
