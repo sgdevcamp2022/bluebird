@@ -7,14 +7,17 @@ using static Define;
 using UnityEngine.InputSystem;
 
 
-//제자리 점프할때 Idle인데 isJumping은 True인 상태가 지속되서 상대방에게 안보인다.
+
+//플레이어가 goal 하면 stagenum을 검사한다. 만약 최종 스테이지가 아니면 don't destory on load. 최종스테이지면 destroy
+//goal 못하면 바로 destory. don't destory on load 한건 다음 스테이지에서 스폰위치에 소환
+
 public class MyPlayerController : PlayerController
 {
 
     //public  bool serverCommunication = false;
 
     GameScene gamescene;
-    InGameManager ingamemanager;
+    GameManager gamemanager;
 
     bool inMenu = false;
 
@@ -24,7 +27,7 @@ public class MyPlayerController : PlayerController
         
         base.Init();
         gamescene = GameObject.Find("GameScene").GetComponent<GameScene>();
-        ingamemanager = GameObject.Find("InGameManager").GetComponent<InGameManager>();
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
 
     }
@@ -79,25 +82,27 @@ public class MyPlayerController : PlayerController
                 State = BirdState.Jumping;
             }
 
-            if(isJumping)
+            if(isJumping && State == BirdState.Jumping)
             {
                 bool SlideBtn = Input.GetMouseButtonDown(1);
 
                 if (SlideBtn)
                     isSliding = true;
+                else
+                    isSliding = false;
 
             }
 
             //esc를 누르면 menupanel이 활성화되고 나의 키보드 시스템은 정지된다.
+            //계속하기를 누르면 menupaneel이 비활성화되고, 나의 키보드 시스템은 다시 시작된다.
             if(Input.GetKeyDown(KeyCode.Escape))
             {
                 inMenu = true;
-                ingamemanager.ActiveMenu();
-                InputSystem.DisableDevice(Keyboard.current);                  
+                gamemanager.ActiveMenu();   
             }
         }
 
-        Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump + "isSliding" + isSliding) ; 
+      //  Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump + "isSliding" + isSliding) ; 
 
     }
 
@@ -161,9 +166,6 @@ public class MyPlayerController : PlayerController
     }
 
 
-    //점프를 해서 착지할때까지 계속해서 패킷을 보내줘야한다.
-    //점프를 하고, 점프를 하면서도 조금 움직일 수 있어야한다.
-    //점프를 하고, Moving으로 바꿔주기
     protected override void UpdateJumping()
     {
 
@@ -193,17 +195,33 @@ public class MyPlayerController : PlayerController
             transform.position += movementDirection * speed * Time.deltaTime;
         }
 
-
-        Move playerMove = new Move()
+        if (!isSliding)
         {
-            Id = playerId,
-            Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
-            Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
-            State = PlayerState.Jump,
-        };
+            Move playerMove = new Move()
+            {
+                Id = playerId,
+                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+                State = PlayerState.Jump,
+            };
+
+            Managers.Network.Send(playerMove, INGAME.PlayerMove);
+        }
+        else
+        {
+            Move playerMove = new Move()
+            {
+                Id = playerId,
+                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+                State = PlayerState.Slide,
+            };
+
+            Managers.Network.Send(playerMove, INGAME.PlayerMove);
+        }
 
 
-        Managers.Network.Send(playerMove, INGAME.PlayerMove);
+        
 
     }
 
@@ -263,9 +281,10 @@ public class MyPlayerController : PlayerController
                 Success = true,
             };
             Managers.Network.Send(pkt, INGAME.PlayerGoal);
+
             Debug.Log("GameComplete Packet Sent");
 
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
           
         }
 
@@ -273,14 +292,14 @@ public class MyPlayerController : PlayerController
         {
             if (isJumping)
             {
-                Debug.Log("collisionGround");
+                //Debug.Log("collisionGround");
                 State = BirdState.Idle;
                 isJumping = false;
                 isSliding = false;
 
                 UpdateAnimation();
 
-
+            
 
             }
         }

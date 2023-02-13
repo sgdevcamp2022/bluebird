@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-public class InGameManager : MonoBehaviour
+using UnityEngine.InputSystem;
+
+public class GameManager : MonoBehaviour
 {
     public GameObject gamepanel;
     public GameObject menupanel;
 
-    public Button continubtn;
 
     public TMP_Text racestarttxt;
 
@@ -24,7 +25,7 @@ public class InGameManager : MonoBehaviour
         racestarttxt.text = "Game Start!";
         Invoke("InActiveGameStartTxt", 2f);
     }
-    
+
     void InActiveGameStartTxt()
     {
         racestarttxt.enabled = false;
@@ -34,7 +35,7 @@ public class InGameManager : MonoBehaviour
     public void ActiveMenu()
     {
         menupanel.SetActive(menupanel);
-        
+
     }
 
     public void OnContinue()
@@ -42,9 +43,14 @@ public class InGameManager : MonoBehaviour
         menupanel.SetActive(false);
     }
 
-    
-    
+    public void OnGoBackLobby()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
+    }
 
 
-    
+
+
+
+
 }
