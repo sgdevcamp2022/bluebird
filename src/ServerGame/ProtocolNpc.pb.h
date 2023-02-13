@@ -47,7 +47,7 @@ struct TableStruct_ProtocolNpc_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,12 +55,18 @@ struct TableStruct_ProtocolNpc_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolNpc_2eproto;
 namespace Npc {
+class EndGame;
+struct EndGameDefaultTypeInternal;
+extern EndGameDefaultTypeInternal _EndGame_default_instance_;
 class GameData;
 struct GameDataDefaultTypeInternal;
 extern GameDataDefaultTypeInternal _GameData_default_instance_;
 class LoginData;
 struct LoginDataDefaultTypeInternal;
 extern LoginDataDefaultTypeInternal _LoginData_default_instance_;
+class NextStage;
+struct NextStageDefaultTypeInternal;
+extern NextStageDefaultTypeInternal _NextStage_default_instance_;
 class Obstacle;
 struct ObstacleDefaultTypeInternal;
 extern ObstacleDefaultTypeInternal _Obstacle_default_instance_;
@@ -75,8 +81,10 @@ struct Vector3DefaultTypeInternal;
 extern Vector3DefaultTypeInternal _Vector3_default_instance_;
 }  // namespace Npc
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Npc::EndGame* Arena::CreateMaybeMessage<::Npc::EndGame>(Arena*);
 template<> ::Npc::GameData* Arena::CreateMaybeMessage<::Npc::GameData>(Arena*);
 template<> ::Npc::LoginData* Arena::CreateMaybeMessage<::Npc::LoginData>(Arena*);
+template<> ::Npc::NextStage* Arena::CreateMaybeMessage<::Npc::NextStage>(Arena*);
 template<> ::Npc::Obstacle* Arena::CreateMaybeMessage<::Npc::Obstacle>(Arena*);
 template<> ::Npc::PlayerSpawn* Arena::CreateMaybeMessage<::Npc::PlayerSpawn>(Arena*);
 template<> ::Npc::StartData* Arena::CreateMaybeMessage<::Npc::StartData>(Arena*);
@@ -88,12 +96,14 @@ enum INGAME : int {
   LOGIN = 0,
   GAME = 1,
   START = 2,
+  NEXT = 3,
+  END = 4,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = LOGIN;
-constexpr INGAME INGAME_MAX = START;
+constexpr INGAME INGAME_MAX = END;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();
@@ -266,6 +276,303 @@ class StartData final :
 };
 // -------------------------------------------------------------------
 
+class NextStage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.NextStage) */ {
+ public:
+  inline NextStage() : NextStage(nullptr) {}
+  ~NextStage() override;
+  explicit constexpr NextStage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NextStage(const NextStage& from);
+  NextStage(NextStage&& from) noexcept
+    : NextStage() {
+    *this = ::std::move(from);
+  }
+
+  inline NextStage& operator=(const NextStage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NextStage& operator=(NextStage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const NextStage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NextStage* internal_default_instance() {
+    return reinterpret_cast<const NextStage*>(
+               &_NextStage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(NextStage& a, NextStage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NextStage* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NextStage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline NextStage* New() const final {
+    return new NextStage();
+  }
+
+  NextStage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<NextStage>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const NextStage& from);
+  void MergeFrom(const NextStage& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(NextStage* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Npc.NextStage";
+  }
+  protected:
+  explicit NextStage(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRoomFieldNumber = 1,
+    kLevelFieldNumber = 2,
+    kStageFieldNumber = 3,
+  };
+  // int32 room = 1;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 level = 2;
+  void clear_level();
+  ::PROTOBUF_NAMESPACE_ID::int32 level() const;
+  void set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_level() const;
+  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 stage = 3;
+  void clear_stage();
+  ::PROTOBUF_NAMESPACE_ID::int32 stage() const;
+  void set_stage(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_stage() const;
+  void _internal_set_stage(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Npc.NextStage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
+  ::PROTOBUF_NAMESPACE_ID::int32 level_;
+  ::PROTOBUF_NAMESPACE_ID::int32 stage_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolNpc_2eproto;
+};
+// -------------------------------------------------------------------
+
+class EndGame final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.EndGame) */ {
+ public:
+  inline EndGame() : EndGame(nullptr) {}
+  ~EndGame() override;
+  explicit constexpr EndGame(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EndGame(const EndGame& from);
+  EndGame(EndGame&& from) noexcept
+    : EndGame() {
+    *this = ::std::move(from);
+  }
+
+  inline EndGame& operator=(const EndGame& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EndGame& operator=(EndGame&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const EndGame& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EndGame* internal_default_instance() {
+    return reinterpret_cast<const EndGame*>(
+               &_EndGame_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(EndGame& a, EndGame& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EndGame* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EndGame* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EndGame* New() const final {
+    return new EndGame();
+  }
+
+  EndGame* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EndGame>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EndGame& from);
+  void MergeFrom(const EndGame& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EndGame* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Npc.EndGame";
+  }
+  protected:
+  explicit EndGame(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRoomFieldNumber = 1,
+    kLevelFieldNumber = 2,
+  };
+  // int32 room = 1;
+  void clear_room();
+  ::PROTOBUF_NAMESPACE_ID::int32 room() const;
+  void set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_room() const;
+  void _internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 level = 2;
+  void clear_level();
+  ::PROTOBUF_NAMESPACE_ID::int32 level() const;
+  void set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_level() const;
+  void _internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Npc.EndGame)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 room_;
+  ::PROTOBUF_NAMESPACE_ID::int32 level_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolNpc_2eproto;
+};
+// -------------------------------------------------------------------
+
 class PlayerSpawn final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Npc.PlayerSpawn) */ {
  public:
@@ -310,7 +617,7 @@ class PlayerSpawn final :
                &_PlayerSpawn_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(PlayerSpawn& a, PlayerSpawn& b) {
     a.Swap(&b);
@@ -472,7 +779,7 @@ class LoginData final :
                &_LoginData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(LoginData& a, LoginData& b) {
     a.Swap(&b);
@@ -655,7 +962,7 @@ class GameData final :
                &_GameData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(GameData& a, GameData& b) {
     a.Swap(&b);
@@ -850,7 +1157,7 @@ class Obstacle final :
                &_Obstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(Obstacle& a, Obstacle& b) {
     a.Swap(&b);
@@ -1056,7 +1363,7 @@ class Vector3 final :
                &_Vector3_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(Vector3& a, Vector3& b) {
     a.Swap(&b);
@@ -1233,6 +1540,114 @@ inline void StartData::_internal_set_game(bool value) {
 inline void StartData::set_game(bool value) {
   _internal_set_game(value);
   // @@protoc_insertion_point(field_set:Npc.StartData.game)
+}
+
+// -------------------------------------------------------------------
+
+// NextStage
+
+// int32 room = 1;
+inline void NextStage::clear_room() {
+  room_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::_internal_room() const {
+  return room_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::room() const {
+  // @@protoc_insertion_point(field_get:Npc.NextStage.room)
+  return _internal_room();
+}
+inline void NextStage::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  room_ = value;
+}
+inline void NextStage::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Npc.NextStage.room)
+}
+
+// int32 level = 2;
+inline void NextStage::clear_level() {
+  level_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::_internal_level() const {
+  return level_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::level() const {
+  // @@protoc_insertion_point(field_get:Npc.NextStage.level)
+  return _internal_level();
+}
+inline void NextStage::_internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  level_ = value;
+}
+inline void NextStage::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Npc.NextStage.level)
+}
+
+// int32 stage = 3;
+inline void NextStage::clear_stage() {
+  stage_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::_internal_stage() const {
+  return stage_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 NextStage::stage() const {
+  // @@protoc_insertion_point(field_get:Npc.NextStage.stage)
+  return _internal_stage();
+}
+inline void NextStage::_internal_set_stage(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  stage_ = value;
+}
+inline void NextStage::set_stage(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_stage(value);
+  // @@protoc_insertion_point(field_set:Npc.NextStage.stage)
+}
+
+// -------------------------------------------------------------------
+
+// EndGame
+
+// int32 room = 1;
+inline void EndGame::clear_room() {
+  room_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EndGame::_internal_room() const {
+  return room_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EndGame::room() const {
+  // @@protoc_insertion_point(field_get:Npc.EndGame.room)
+  return _internal_room();
+}
+inline void EndGame::_internal_set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  room_ = value;
+}
+inline void EndGame::set_room(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_room(value);
+  // @@protoc_insertion_point(field_set:Npc.EndGame.room)
+}
+
+// int32 level = 2;
+inline void EndGame::clear_level() {
+  level_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EndGame::_internal_level() const {
+  return level_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 EndGame::level() const {
+  // @@protoc_insertion_point(field_get:Npc.EndGame.level)
+  return _internal_level();
+}
+inline void EndGame::_internal_set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  level_ = value;
+}
+inline void EndGame::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Npc.EndGame.level)
 }
 
 // -------------------------------------------------------------------
@@ -2074,6 +2489,10 @@ inline void Vector3::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

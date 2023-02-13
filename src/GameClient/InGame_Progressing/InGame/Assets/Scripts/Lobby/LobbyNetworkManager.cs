@@ -93,7 +93,7 @@ public class LobbyNetworkManager : MonoBehaviour
             {
                 MatchCheck matchCheck = JsonUtility.FromJson<MatchCheck>(www.downloadHandler.text);
                 Debug.Log(www.downloadHandler.text);
-                if(!matchCheck.result)
+                if(matchCheck.result == -1)
                 {
                     Debug.Log("매치가 아직 시작되지 않음");
                     callback(-1);
@@ -101,7 +101,7 @@ public class LobbyNetworkManager : MonoBehaviour
                 else
                 {
                     Debug.Log("매칭 완료");
-                    callback(matchCheck.room);
+                    callback(matchCheck.result);
                 }
             }
             else
@@ -157,8 +157,7 @@ class MatchStart
 [System.Serializable]
 class MatchCheck
 {
-    public bool result;
-    public int room;
+    public int result;
 }
 
 [System.Serializable]

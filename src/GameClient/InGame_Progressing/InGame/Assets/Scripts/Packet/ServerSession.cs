@@ -43,18 +43,30 @@ public class ServerSession : PacketSession
         {
             PacketQueue.Instance.Push(i, m);
         };
-
-        System.Random rand = new System.Random();
-        int random = 1;
-        Data dataPkt = new Data()
+        
+        Data dataPkt;
+        try
         {
-            Id = random,
-            MapLevel = 2,
-            MatchRoom = 0,
-            //Player = {new Player {X = 0,Y=0,Z=0 } }
-        };
+            dataPkt = new Data()
+            {
+                Id = LobbyInfo.lobbyInfo.userNo,
+                MapLevel = LobbyInfo.lobbyInfo.level,
+                MatchRoom = LobbyInfo.lobbyInfo.room,
+                //Player = {new Player {X = 0,Y=0,Z=0 } }
+            };
+        }
+        catch(Exception e)
+        {
+            dataPkt = new Data()
+            {
+                Id = 1,
+                MapLevel = 2,
+                MatchRoom = 0,
+                //Player = {new Player {X = 0,Y=0,Z=0 } }
+            };
+        }
         Send(dataPkt, INGAME.Connect);
-        Debug.Log("try connection..." + random);
+        Debug.Log("try connection..." + dataPkt.Id);
     }
 
 	public override void OnDisconnected(EndPoint endPoint)

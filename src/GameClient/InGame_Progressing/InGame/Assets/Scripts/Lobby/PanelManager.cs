@@ -92,7 +92,7 @@ public class PanelManager : MonoBehaviour
                 matchStatus = callback;
                 wait = false;
             }));
-
+            
             while (wait)
             {
                 yield return null;
@@ -137,7 +137,8 @@ public class PanelManager : MonoBehaviour
                 //게임 시작 및 씬 전환
                 LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
                 LobbyInfo.lobbyInfo.room = matchStatus;
-                SceneManager.LoadScene("Stage1");
+                LobbyInfo.lobbyInfo.level = modsSum;
+                SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
             }
 
             Debug.Log("매치 상태: " + matchStatus);
