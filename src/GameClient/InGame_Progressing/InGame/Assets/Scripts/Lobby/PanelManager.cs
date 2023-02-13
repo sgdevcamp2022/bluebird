@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,7 +106,7 @@ public class PanelManager : MonoBehaviour
             {
                 Debug.Log("¸ÅÄ¡ ·ë: " + matchStatus);
                 Debug.Log("¸Ê Á¤º¸: " + mapLevel);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(2f);
                 continue;
             }
             else if(matchStatus == -2)
@@ -143,7 +144,14 @@ public class PanelManager : MonoBehaviour
                 LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
                 LobbyInfo.lobbyInfo.room = matchStatus;
                 LobbyInfo.lobbyInfo.level = mapLevel;
-                SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
+                try
+                {
+                    SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
+                }
+                catch(Exception e)
+                {
+                    SceneManager.LoadScene("Stage1");
+                }
             }
         }
         Debug.Log("While¹® Á¾·á");
