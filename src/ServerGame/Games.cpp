@@ -23,26 +23,28 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	{
 		if (!IsRoom(room)) 
 		{
-			cout << "Player Inside = " << id << " " << room << endl;
+			cout << "Player Inside1 = " << id << " " << room << endl;
 			_games[room] = RoomInfo(make_shared<Room>(2, room));
 			session->_room = _games[room]();
 			_games[room]()->GameEnter(session, id);
 			_games[room] << id;
 
-			DoTimer(5000, &Games::StartGame, room);
+			DoTimer(3000, &Games::StartGame, room);
 			auto _ref = GetNpcRef();
 			if (_ref != nullptr) 
 			{
 				Npc::LoginData data;
 				data.set_maplevel(1);
-				data.set_matchroom(0);
+				data.set_matchroom(room);
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 			}
 			else {
+				if (NPC_TEST)
+					_games[room].SetNpc(true);
 				Npc::LoginData input;
-				input.set_maplevel(2);
-				input.set_matchroom(0);
+				input.set_maplevel(1);
+				input.set_matchroom(room);
 				auto ob = input.add_obstacle();
 				ob->set_id(1);
 				ob->set_shape(1);
@@ -65,7 +67,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			}
 			else
 			{
-				cout << "Player Inside = " << id << " " << room << endl;
+				cout << "Player Inside2 = " << id << " " << room << endl;
 				session->_room = _games[room]();
 				_games[room]()->GameEnter(session, id);
 				_games[room] << id;
@@ -110,22 +112,26 @@ void Games::EnterNpc(Npc::LoginData pkt, int32 room)
 
 void Games::StartGame(int32 room)
 {
-	int check = 0;
-	if (_games[room].CheckNpc() && (check = _games[room]()->Start()) == -1)
+	int check = -1;
+	if (_games[room].CheckNpc() && (check = _games[room]()->Start()))
 	{
-		DoTimer(5000, &Games::StartGame, room);
+		cout << "게임 시작 " << room << endl;
+		if (GetNpcRef() != nullptr)
+		{
+			Npc::StartData data;
+			data.set_game(true);
+			data.set_room(room);
+			data.set_size(check);
+			GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
+		}	
+		_games[room].SetStart(true);
+	}
+	else
+	{
+		cout << check << endl;
+		DoTimer(1000, &Games::StartGame, room);
 		return;
 	}
-	else if(GetNpcRef() != nullptr)
-	{
-		Npc::StartData data;
-		data.set_game(true);
-		data.set_room(room);
-		data.set_size(check);
-		GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
-	}
-	cout << "게임 시작 "<< check << endl;
-	_games[room].SetStart(true);
 	//게임 시작
 }
 

@@ -141,7 +141,8 @@ void Room::Leave(PlayerRef ref)
 int Room::Start()
 {
 	if (_playerSize < START_COUNT && !_start.load()) {
-		return -1;
+		cout << "Start Fail" << endl;
+		return 0;
 	}
 
 	cout << "GameStart" << endl;
