@@ -16,6 +16,16 @@ SendBufferRef NpcHandler::MakeSendBuffer(Npc::StartData pkt, Npc::INGAME type)
 	return _MakeSendBuffer<Npc::StartData, NpcHeader, Npc::INGAME>(pkt, type);
 }
 
+SendBufferRef NpcHandler::MakeSendBuffer(Npc::NextStage pkt, Npc::INGAME type)
+{
+	return _MakeSendBuffer<Npc::NextStage, NpcHeader, Npc::INGAME>(pkt, type);
+}
+
+SendBufferRef NpcHandler::MakeSendBuffer(Npc::EndGame pkt, Npc::INGAME type)
+{
+	return _MakeSendBuffer<Npc::EndGame, NpcHeader, Npc::INGAME>(pkt, type);
+}
+
 void NpcHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
 {
 	NpcHeader* head = reinterpret_cast<NpcHeader*>(buffer);

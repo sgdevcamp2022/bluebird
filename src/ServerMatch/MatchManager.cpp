@@ -167,10 +167,14 @@ void MatchManager::MatchPull(int32 level)
 	_users.set_room(_roomId.fetch_add(1));
 	_users.set_level(level);
 
-	if (_gameref != nullptr)
+	if (_gameref != nullptr) {
 		_gameref->Send(PacketHandler::MakeSuccessBuffer(_users, Match::S_MATCH));
-	if (_matchref != nullptr)
+		cout << "GameRef Send" << endl;
+	}
+	if (_matchref != nullptr) {
 		_matchref->Send(PacketHandler::MakeSendBuffer(_users, Match::S_MATCH));
+		cout << "MatchRef Send" << endl;
+	}
 }
 
 void MatchManager::ConnectGameServer(ConnectSessionRef ref)
