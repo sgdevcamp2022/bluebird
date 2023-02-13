@@ -31,7 +31,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			if (_ref != nullptr) 
 			{
 				Npc::LoginData data;
-				data.set_maplevel(2);
+				data.set_maplevel(1);
 				data.set_matchroom(0);
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
@@ -55,6 +55,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			{
 				if (_games[room] >> id)
 				{
+					cout << "reconnect" << endl;
 					session->_room = _games[room]();
 					_games[room]()->DoAsync(&Room::ReConnect, session, id);
 				}

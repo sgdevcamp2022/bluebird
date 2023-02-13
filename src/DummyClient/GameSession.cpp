@@ -6,8 +6,6 @@ void GameSession::OnConnected()
 {
     static atomic<int> th(0);
     id = th.fetch_add(1);
-    if (id == 1)
-        id = th.fetch_add(1);
     {
         Protocol::Data pkt;
         pkt.set_id(id);

@@ -35,7 +35,7 @@ int main() {
 	// true = NPC
 	// false = game client
 
-	bool _test = true;
+	bool _test = false;
 
 	if (_test) {
 		service2 = MakeShared<ClientService>(
@@ -60,7 +60,7 @@ int main() {
 		service2 = MakeShared<ClientService>(
 			NetAddress(L"127.0.0.1", 5000),
 			MakeShared<IocpCore>(),
-			MakeShared<GameSession>, 1);
+			MakeShared<GameSession>, 2);
 	}
 
 	ASSERT_CRASH(service2->Start());

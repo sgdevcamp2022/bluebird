@@ -72,6 +72,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 
 void Room::ObstacleEnter(Npc::LoginData pkt)
 {
+	_startData.clear_obtacle();
 	for (int i = 0; i < pkt.obstacle_size(); i++) {
 		auto data = pkt.obstacle(i);
 		auto ob = _startData.add_obtacle();
@@ -132,7 +133,7 @@ int Room::Start()
 		return -1;
 	}*/
 	//테스트 코드
-	if (_playerSize < START_COUNT) {
+	if (_playerSize < START_COUNT && !_start.load()) {
 		return -1;
 	}
 	vector<int64> keys;
@@ -245,10 +246,16 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::NextStage()
 {
-	cout << "Game End" << endl;
+	cout << "Next Stage" << endl;
+
+	_start.store(false);
+	_spawnPosition.clear();
+
 	int32 past = _stage.fetch_add(1);
 	Protocol::PlayerGoalData data;
-	_startData.Clear();
+
+	// 종료 후 유저들에게 정보 전달
+	_startData.clear_player();
 	for (auto& _ref : _players[past]) {
 		if (_players[_stage].find(_ref.first) == _players[_stage].end()) {
 			data.set_id(_ref.first);
@@ -263,9 +270,12 @@ void Room::NextStage()
 			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
 		}
 	}
+
+	// 다음 스테이지로 넘어가기 위한 정리
 	_playerSize = _players[_stage].size();
 	_players[past].clear();
 
+	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
 	if (_stage == MAX_STAGE)
 		RoomEnd();
 	else

@@ -20,6 +20,9 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     case Protocol::START:
         HandlerStart(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
         break;
+    case Protocol::GAME_COMPLTE:
+        HandlerComplte(ref, ParsingPacket<Protocol::PlayerGoalData, GameHeader>(buffer, (int32)head->size));
+        break;
     case Protocol::GET_TICK:
         HandlerTick(ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
         break;
@@ -54,13 +57,10 @@ void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
     GameSessionRef session = static_pointer_cast<GameSession>(ref);
     this_thread::sleep_for(1s);
     {
-        Protocol::Move pkt;
+        Protocol::PlayerGoalData pkt;
         pkt.set_id(session->id);
-        auto player = pkt.mutable_position();
-        player->set_x(1.0f);
-        player->set_y(2.0f);
-        player->set_z(3.0f);
-        session->Send(GameHandler::MakeSendBuffer(pkt, Protocol::PLAYER_MOVE));
+        pkt.set_success(true);
+        session->Send(GameHandler::MakeSendBuffer(pkt, Protocol::PLAYER_GOAL));
     }
 }
 
@@ -73,6 +73,11 @@ void GameHandler::HandlerFail(Protocol::Data&& data)
     cout << "Fail : " << data.id() << endl;
 }
 
+void GameHandler::HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData&& data)
+{
+    cout << "GameComplte" << endl;
+}
+
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
@@ -80,4 +85,8 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME t
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Move, GameHeader, Protocol::INGAME>(pkt, type);
+}
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::PlayerGoalData, GameHeader, Protocol::INGAME>(pkt, type);
 }
