@@ -39,7 +39,7 @@ private:
     void handle_write(const boost::system::error_code& error, size_t bytes_transferred);
     void handle_receive(const boost::system::error_code& error, size_t bytes_transferred);
 
-    void ThreadInterrupt();
+    void ThreadInterrupt(int matchRoom);
 
     boost::asio::io_context& m_io_service;
     boost::asio::ip::tcp::socket m_Socket;
