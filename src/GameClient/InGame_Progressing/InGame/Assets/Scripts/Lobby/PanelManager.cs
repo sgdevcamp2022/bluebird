@@ -138,7 +138,7 @@ public class PanelManager : MonoBehaviour
                 LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
                 LobbyInfo.lobbyInfo.room = matchStatus;
                 LobbyInfo.lobbyInfo.level = modsSum;
-                SceneManager.LoadScene("Stage1");
+                SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
             }
 
             Debug.Log("매치 상태: " + matchStatus);
