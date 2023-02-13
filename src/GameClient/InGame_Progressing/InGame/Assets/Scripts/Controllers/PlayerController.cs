@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         
         }
 
-        //Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump) ; 
+       // Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " isSliding:  " + isSliding) ; 
 
     }
 
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     protected virtual void UpdateIdle()
     {
         isJumping = false;
+        isSliding = false;
         UpdateAnimation();
     }
 
@@ -160,6 +161,7 @@ public class PlayerController : MonoBehaviour
         {
             State = BirdState.Idle;
             isJumping = false;
+
             return;
         }
         
@@ -171,7 +173,7 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             animator.SetTrigger("doJump");
-            isJumping = true;
+            isJumping = true;   
         }
         
         transform.position = moveVec;
@@ -189,23 +191,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Victory Ground"))
-        {
-           
-            Debug.Log("GameComplete Packet Sent");
-        }
-
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            if(isJumping)
-            {
-                State = BirdState.Idle;
-                isJumping = false;
-                UpdateAnimation();
-
-            }
-            Debug.Log("Collision Enter");
-        }
+       
     }
 
     protected virtual void OnCollisionStay(Collision collision)
@@ -217,11 +203,13 @@ public class PlayerController : MonoBehaviour
             {
                 State = BirdState.Idle;
                 isJumping = false;
+                isSliding = false;
+                animator.SetBool("isSlide", false);
                 UpdateAnimation();
 
             }
 
-            Debug.Log("Collision Stay");
+            //Debug.Log("Collision Stay");
         }
     }
 
@@ -232,16 +220,20 @@ public class PlayerController : MonoBehaviour
         {
             case Google.Protobuf.Protocol.PlayerState.Idle:
                 State = BirdState.Idle;
+            
                 break;
             case Google.Protobuf.Protocol.PlayerState.Move:
                 State = BirdState.Moving;
+          
                 break;
             case Google.Protobuf.Protocol.PlayerState.Jump:
                 State = BirdState.Jumping;
                 break;
+            case Google.Protobuf.Protocol.PlayerState.Slide:
+                State = BirdState.Jumping;
+                isSliding = true;
+                break;
         }
-
-        Debug.Log("Got State and Change State :" + State);
     }
 
     void UpdateAnimation()
@@ -252,15 +244,20 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", false);
                 animator.SetTrigger("backJump");
+                animator.SetBool("isSlide", false);
                 break;
             case BirdState.Moving:
                 animator.SetBool("MoveForward", true);
                 animator.SetBool("inAir", false);
-                animator.ResetTrigger("doJump");
                 break;
             case BirdState.Jumping:
                 animator.SetBool("MoveForward", false);
                 animator.SetBool("inAir", true);
+
+                if (isSliding)
+                    animator.SetBool("isSlide", true);
+                else
+                    animator.SetBool("isSlide", false);
                 break;
 
 
@@ -274,7 +271,9 @@ public class PlayerController : MonoBehaviour
 
     public void SetDestroy()
     {
-        Destroy(this.gameObject);
+        Debug.Log("Player Object Destory " + this.gameObject );
+       
+       // Destroy(this.gameObject);
     }
 
 
