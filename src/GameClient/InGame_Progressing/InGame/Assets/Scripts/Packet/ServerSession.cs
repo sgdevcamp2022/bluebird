@@ -45,6 +45,7 @@ public class ServerSession : PacketSession
         };
         
         ConnectData dataPkt;
+        System.Random rand = new System.Random();
         try
         {
             dataPkt = new ConnectData()
@@ -59,7 +60,7 @@ public class ServerSession : PacketSession
         {
             dataPkt = new ConnectData()
             {
-                Id = 1,
+                Id = rand.Next(100),
                 Level = 2,
                 Room = 0,
                 //Player = {new Player {X = 0,Y=0,Z=0 } }

@@ -119,6 +119,12 @@ void Room::Disconnect(PlayerRef ref)
 {
 	cout << "Disconncet" << endl;
 	_players[_stage][ref->GetId()]->SetOwner(nullptr);
+	_playerSize -= 1;
+	if (_playerSize <= 0)
+	{
+		RoomClear();
+		RoomEnd();
+	}
 }
 
 void Room::Leave(PlayerRef ref)
@@ -133,6 +139,12 @@ void Room::Leave(PlayerRef ref)
 
 	_playerSize -= 1;
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
+
+	if (_playerSize <= 0)
+	{
+		RoomClear();
+		RoomEnd();
+	}
 }
 
 int Room::Start()
