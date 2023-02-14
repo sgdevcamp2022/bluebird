@@ -10,12 +10,15 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 //using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PacketHandler
 {
 
     public static  Google.Protobuf.Protocol.Vector spawnPoint = new Vector { X = 0.1f, Y = 0.2f, Z = 29f };
     public static Google.Protobuf.Protocol.Vector spawnRotation = new Vector { X = 0f, Y = 180f, Z = 0f };
+
+    static bool firstStage = true;
     public static void GetTickCount(IMessage packet)
     {
         //TODO RTT구하기
@@ -29,39 +32,67 @@ public class PacketHandler
         Managers.Network.TICK = times.Time;
         UnityEngine.Debug.Log("GetTime(" + times.Time + ") : " + Managers.Network.TICK + " : " + Managers.Network.RTT);
     }
-
+    //MyPlayer랑 Player 다시 생성해야한다.
+    // 첫 스테이지에서만 실행된다
     public static void GameStart(IMessage packet)
     {
-        Data data = packet as Data;
+            UnityEngine.Debug.Log("Game Start...");
+            Data data = packet as Data;
+
+
+        if (!firstStage)
+        StartData data = packet as StartData;
         foreach (Player player in data.Player)
         {
-            //Player Spawn
-            if (Managers.Object.MyPlayer.playerId == player.Id)
-                continue;
-            Managers.Object.AddPlayer(player.Id, player);
-            UnityEngine.Debug.Log(player.Id + " Inside");
+
+            foreach (Player player in data.Player)
+            {
+                if (player.Id == Managers.Object.myPlayerId)
+                {
+                    UnityEngine.Debug.Log("MyPlayer created" + Managers.Object.myPlayerId);
+                    Managers.Object.AddMyPlayer(player.Id, player);
+                }
+                else
+                {
+
+                    Managers.Object.AddPlayer(player.Id, player);
+                    UnityEngine.Debug.Log(player.Id + " Inside");
+                }
+            }
         }
-        foreach (Obtacle obtacle in data.Obtacle)
+        else
         {
-            Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
-            UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
-            UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
+            foreach (Player player in data.Player)
+            {
+                //Player Spawn
+                if (Managers.Object.MyPlayer.playerId == player.Id)
+                    continue;
+                Managers.Object.AddPlayer(player.Id, player);
+                UnityEngine.Debug.Log(player.Id + " Inside");
+            }
         }
+            foreach (Obtacle obtacle in data.Obtacle)
+            {
+                Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
+                UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
+                UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
+            }
 
-        GameObject go = GameObject.Find("GameScene");
-        GameScene gs = go.GetComponent<GameScene>();
-        gs.SetStartGame();
+            GameObject go = GameObject.Find("GameScene");
+            GameScene gs = go.GetComponent<GameScene>();
+            gs.SetStartGame();
 
-        GameObject go2 = GameObject.Find("GameManager");
-        GameManager igm = go2.GetComponent<GameManager>();
-        igm.GameStartTxt();
+            GameObject go2 = GameObject.Find("GameManager");
+            GameManager igm = go2.GetComponent<GameManager>();
+            igm.GameStartTxt();
 
 
-        UnityEngine.Debug.Log("Game Start!");
+            UnityEngine.Debug.Log("Game Start!");
+        
     }
     public static void ReConnect(IMessage packet)
     {
-        Data data = packet as Data;
+        StartData data = packet as StartData;
         foreach (Player player in data.Player)
         {
             //Player Spawn
@@ -78,7 +109,8 @@ public class PacketHandler
             UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
     }
-    //카메라가 follow하는 프리펩 대상을 특정시켜주기
+
+    //Connect 단계에서는 Random 한 위치에 생성 후, Start 단계에서 스폰위치에 스폰
     public static void GameConnect(IMessage packet)
     {
         Player data = packet as Player;
@@ -115,10 +147,10 @@ public class PacketHandler
     }
     public static void CnnectFail(IMessage packet)
     {
-        Data data = packet as Data;
+        ConnectData data = packet as ConnectData;
         if (data.Id == -1)
             UnityEngine.Debug.Log("Id Error");
-        else if(data.MatchRoom == -1)
+        else if(data.Room == -1)
             UnityEngine.Debug.Log("Room Error");
     }
     public static void PlayerFail(IMessage packet)
@@ -154,6 +186,29 @@ public class PacketHandler
         // bool 보고 성공인지 실패인지 판별해서 성공이면 다음 게임
         // 실패하면 로비로 넘어가게 만들면 될거 같습니다
         PlayerGoalData data = packet as PlayerGoalData;
+
+        if (data.Success)
+        {
+            firstStage = false;
+            Managers.Object.ClearPlaayers();
+            Managers.Object.ClearObstacle();
+            Managers.Object.ClearShape();
+
+            UnityEngine.Debug.Log("Scene Moved");
+            SceneManager.LoadScene("Stage2");
+
+
+
+        }
+        else
+        {
+            firstStage = true;
+            Managers.Object.ClearPlaayers();
+            Managers.Object.ClearObstacle();
+            Managers.Object.ClearShape();
+            SceneManager.LoadScene("LobbyScene");
+        }
+
         UnityEngine.Debug.Log("GameComplte");
         
     }
@@ -166,27 +221,27 @@ public class PacketHandler
     public static void PlayerGoal(IMessage packet)
     {
         PlayerGoalData data = packet as PlayerGoalData;
-        UnityEngine.Debug.Log("PlayerGoal");
-
         GameObject go = Managers.Object.GetPlayer(data.Id);
-        PlayerController pc = go.GetComponent<PlayerController>();
 
         if (go == null)
             return;
 
-        //안보이게 만들고, 비활성화 시키고 카메라를 관전 카메라로 전환??
-        //don't destory on load 사용
+        PlayerController pc = go.GetComponent<PlayerController>();
+        if (pc == null)
+            return;
+
         if (data.Success)
         {
-            UnityEngine.Debug.Log("Goal Packet Arrived");
-            pc.SetClearStageNum();
-            pc.SetDestroy();
-
+          
         }
         else
         {
-            //pc.SetDestroy();
+            
         }
 
+
     }
+
+
+
 }

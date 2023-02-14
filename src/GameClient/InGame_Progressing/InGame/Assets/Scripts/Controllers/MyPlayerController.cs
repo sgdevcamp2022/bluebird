@@ -5,6 +5,7 @@ using UnityEngine;
 using Cinemachine;
 using static Define;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 
@@ -20,6 +21,8 @@ public class MyPlayerController : PlayerController
     GameManager gamemanager;
 
     bool inMenu = false;
+    bool inGoal = false;
+
 
 
     protected override void Init()
@@ -51,7 +54,7 @@ public class MyPlayerController : PlayerController
 
     void GetInput()
     {
-        if (gamescene.CheckStartGame())
+        if (gamescene.CheckStartGame() && !inGoal)
         {
             if (transform.position.y < -1)
             {
@@ -260,20 +263,20 @@ public class MyPlayerController : PlayerController
         }
     }
 
+    //Goal 하면 invisible, 카메라만 움직일 수 있게 만든다.
+    //게임 시간 초과 or 모든 인원이 결승선을 통과해 게임이 종료되면 통과한 플레이어를 다음 Scene으로 옮긴다. 
+    //다음 Scene으로 옮겨진 Player들은 Random 한 출반선안의 Random Position에 스폰된다. 
+
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Victory Ground"))
+        if (collision.gameObject.CompareTag("Victory Ground") && !inGoal)
         {
+            State = BirdState.Idle;
             isJumping = false;
+            isSliding = false;
+            inGoal = true;
 
-            /*
-            Player pkt = new Player()
-            {
-                Id = playerId,
-                Position = playerInfo.Position,
-                Rotation = playerInfo.Rotation
-            };
-            */
+            UpdateAnimation();
 
             PlayerGoalData pkt = new PlayerGoalData
             {
@@ -281,10 +284,14 @@ public class MyPlayerController : PlayerController
                 Success = true,
             };
             Managers.Network.Send(pkt, INGAME.PlayerGoal);
+            clearStageNum++;
+            inGoal = true;
 
-            Debug.Log("GameComplete Packet Sent");
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            this.transform.GetChild(1).gameObject.SetActive(false);
+               
+         
 
-            //Destroy(this.gameObject);
           
         }
 
@@ -309,6 +316,18 @@ public class MyPlayerController : PlayerController
     {
         
     }
+
+    public void MyPlayerComplete(bool success)
+    {
+        if(success)
+          SceneManager.LoadScene("Stage2");
+        else
+        {
+          SceneManager.LoadScene("LobbyScene");
+        }
+    }
+
+
 
 
 
