@@ -46,3 +46,14 @@ const char* Redis::RedisQuery(const char* format, const char* arg1, const char* 
     freeReplyObject(reply);
     return res;
 }
+
+bool Redis::ExistQuery(int userNo)
+{
+    string tempStr = "exists ";
+    bool res = 0;
+    tempStr += to_string(userNo);
+    reply = (redisReply*)redisCommand(context, tempStr.c_str());
+    res = reply->integer;
+    freeReplyObject(reply);
+    return res;
+}

@@ -11,6 +11,7 @@ public:
 	const char* RedisQuery(const char* format);
 	const char* RedisQuery(const char* format, const char* arg1);
 	const char* RedisQuery(const char* format, const char* arg1, const char* arg2);
+	bool ExistQuery(int userNo);
 
 private:
 	redisContext* context;
