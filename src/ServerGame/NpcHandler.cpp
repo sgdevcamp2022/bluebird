@@ -48,7 +48,7 @@ void NpcHandler::HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt)
 	
 	if (pkt.obstacle_size() != 0) {
 		//TODO °íÄ¡±â
-		Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleEnter, std::move(pkt));
+		Ggames->DoAsync(&Games::EnterNpc, std::move(pkt), pkt.matchroom());
 	}
 }
 

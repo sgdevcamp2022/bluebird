@@ -23,6 +23,9 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
     case Protocol::GAME_COMPLTE:
         HandlerComplte(ref, ParsingPacket<Protocol::PlayerGoalData, GameHeader>(buffer, (int32)head->size));
         break;
+    case Protocol::GAME_END:
+        HandlerEnd(ref, ParsingPacket<Protocol::PlayerGoalData, GameHeader>(buffer, (int32)head->size));
+        break;
     case Protocol::GET_TICK:
         HandlerTick(ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
         break;
@@ -73,9 +76,14 @@ void GameHandler::HandlerFail(Protocol::Data&& data)
     cout << "Fail : " << data.id() << endl;
 }
 
+void GameHandler::HandlerEnd(PacketSessionRef& ref, Protocol::PlayerGoalData&& data)
+{
+    cout << "GameEnd" << endl;
+}
+
 void GameHandler::HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData&& data)
 {
-    cout << "GameComplte" << endl;
+    cout << "GameComplte " <<data.success()<< endl;
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)

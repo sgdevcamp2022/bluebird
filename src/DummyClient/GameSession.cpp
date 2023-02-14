@@ -10,7 +10,7 @@ void GameSession::OnConnected()
         Protocol::Data pkt;
         pkt.set_id(id);
         pkt.set_maplevel(2);
-        pkt.set_matchroom(0);
+        pkt.set_matchroom(1);
         auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::CONNECT);
         Send(ref);
     }

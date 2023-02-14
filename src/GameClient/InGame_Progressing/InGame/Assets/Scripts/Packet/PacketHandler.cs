@@ -83,8 +83,6 @@ public class PacketHandler
     {
         Player data = packet as Player;
         Managers.Object.AddMyPlayer(data.Id, data);
- 
-
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
@@ -152,9 +150,18 @@ public class PacketHandler
     }
     public static void GameComplete(IMessage packet)
     {
+        // TODO
+        // bool 보고 성공인지 실패인지 판별해서 성공이면 다음 게임
+        // 실패하면 로비로 넘어가게 만들면 될거 같습니다
         PlayerGoalData data = packet as PlayerGoalData;
         UnityEngine.Debug.Log("GameComplte");
-        //TODO
+        
+    }
+    public static void GameEnds(IMessage packet)
+    {
+
+        PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("GameEnd");
     }
     public static void PlayerGoal(IMessage packet)
     {
@@ -163,7 +170,6 @@ public class PacketHandler
 
         GameObject go = Managers.Object.GetPlayer(data.Id);
         PlayerController pc = go.GetComponent<PlayerController>();
-
 
         if (go == null)
             return;

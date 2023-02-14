@@ -43,6 +43,8 @@ class PacketManager
         handler.Add((ushort)INGAME.ConnectFail, PacketHandler.CnnectFail);
         recv.Add((ushort)INGAME.GameComplte, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
+        recv.Add((ushort)INGAME.GameEnd, MakePacket<PlayerGoalData>);
+        handler.Add((ushort)INGAME.GameEnd, PacketHandler.GameEnds);
         recv.Add((ushort)INGAME.PlayerGoal, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
         recv.Add((ushort)INGAME.Reconnect, MakePacket<Data>);

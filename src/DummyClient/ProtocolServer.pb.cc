@@ -315,19 +315,19 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "\0132\020.Protocol.Vector\022\"\n\010rotation\030\003 \001(\0132\020."
   "Protocol.Vector\022\037\n\005enemy\030\004 \001(\0132\020.Protoco"
   "l.Player\")\n\006Vector\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002"
-  "\022\t\n\001z\030\003 \001(\002*\376\001\n\006INGAME\022\013\n\007CONNECT\020\000\022\t\n\005S"
+  "\022\t\n\001z\030\003 \001(\002*\375\001\n\006INGAME\022\013\n\007CONNECT\020\000\022\t\n\005S"
   "TART\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_MOVE\020\003\022\021\n\rOB"
   "STACLE_MOVE\020\004\022\013\n\007NO_MOVE\020\005\022\020\n\014GAME_COMPL"
-  "TE\020\006\022\r\n\tGAME_FAIL\020\007\022\017\n\013PLAYER_DROP\020\010\022\020\n\014"
-  "PLAYER_CRASH\020\t\022\022\n\016OBSTACLE_CRASH\020\n\022\020\n\014CO"
-  "NNECT_FAIL\020\013\022\010\n\004TIME\020\014\022\014\n\010GET_TICK\020\r\022\017\n\013"
-  "PLAYER_GOAL\020\016\022\r\n\tRECONNECT\020\017*L\n\tAnimatio"
-  "n\022\010\n\004IDLE\020\000\022\010\n\004MOVE\020\001\022\016\n\nJUMP_START\020\002\022\r\n"
-  "\tJUMP_LOOP\020\003\022\014\n\010JUMP_END\020\004b\006proto3"
+  "TE\020\006\022\014\n\010GAME_END\020\007\022\017\n\013PLAYER_DROP\020\010\022\020\n\014P"
+  "LAYER_CRASH\020\t\022\022\n\016OBSTACLE_CRASH\020\n\022\020\n\014CON"
+  "NECT_FAIL\020\013\022\010\n\004TIME\020\014\022\014\n\010GET_TICK\020\r\022\017\n\013P"
+  "LAYER_GOAL\020\016\022\r\n\tRECONNECT\020\017*L\n\tAnimation"
+  "\022\010\n\004IDLE\020\000\022\010\n\004MOVE\020\001\022\016\n\nJUMP_START\020\002\022\r\n\t"
+  "JUMP_LOOP\020\003\022\014\n\010JUMP_END\020\004b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 1354, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 1353, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 10,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
