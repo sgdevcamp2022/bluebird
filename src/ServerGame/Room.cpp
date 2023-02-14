@@ -6,9 +6,6 @@
 
 Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
-	_startData.set_matchroom(room);
-	_startData.set_maplevel(level);
-
 	CHECK = [=](int64 id) {
 		if (_start && (_players[_stage].find(id) != _players[_stage].end()))
 			return true;
@@ -129,10 +126,10 @@ void Room::Leave(PlayerRef ref)
 	_players[_stage][ref->GetId()]->SetOwner(nullptr);
 	_players[_stage].erase(ref->GetId());
 
-	Protocol::Data data;
+	Protocol::ConnectData data;
 	data.set_id(ref->GetId());
-	data.set_matchroom(_matchRoom);
-	data.set_maplevel(_mapLevel);
+	data.set_room(_matchRoom);
+	data.set_level(_mapLevel);
 
 	_playerSize -= 1;
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));

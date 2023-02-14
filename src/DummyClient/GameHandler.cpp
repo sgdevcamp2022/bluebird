@@ -15,10 +15,10 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
         HandlerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::OBSTACLE_MOVE:
-        HandlerOBMove(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HandlerOBMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::START:
-        HandlerStart(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HandlerStart(ref, ParsingPacket<Protocol::StartData, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::GAME_COMPLTE:
         HandlerComplte(ref, ParsingPacket<Protocol::PlayerGoalData, GameHeader>(buffer, (int32)head->size));
@@ -30,7 +30,7 @@ void GameHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, int32 len)
         HandlerTick(ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::CONNECT_FAIL:
-        HandlerFail(ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HandlerFail(ParsingPacket<Protocol::ConnectData, GameHeader>(buffer, (int32)head->size));
         break;
     default:
         break;
@@ -49,12 +49,12 @@ void GameHandler::HandlerMove(PacketSessionRef& ref, Protocol::Move&& pkt)
 }
 
 
-void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HandlerOBMove(PacketSessionRef& ref, Protocol::Move&& pkt)
 {
-    cout << "Ob Move" << pkt.obtacle_size() << endl;
+    //cout << "Ob Move" << pkt.obtacle_size() << endl;
 }
 
-void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HandlerStart(PacketSessionRef& ref, Protocol::StartData&& pkt)
 {
     cout << "Game Start" << endl;
     GameSessionRef session = static_pointer_cast<GameSession>(ref);
@@ -71,7 +71,7 @@ void GameHandler::HandlerTick(Protocol::Times&& time)
 {
 }
 
-void GameHandler::HandlerFail(Protocol::Data&& data)
+void GameHandler::HandlerFail(Protocol::ConnectData&& data)
 {
     cout << "Fail : " << data.id() << endl;
 }
@@ -86,9 +86,9 @@ void GameHandler::HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData
     cout << "GameComplte " <<data.id()<< endl;
 }
 
-SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::ConnectData pkt, Protocol::INGAME type)
 {
-    return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
+    return _MakeSendBuffer<Protocol::ConnectData, GameHeader, Protocol::INGAME>(pkt, type);
 }
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
 {

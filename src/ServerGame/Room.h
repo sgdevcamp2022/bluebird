@@ -40,7 +40,7 @@ private:
 	int32						_matchRoom;
 	int32						_mapLevel;
 
-	Protocol::Data				_startData;
+	Protocol::StartData			_startData;
 	int32						_playerSize = 0;
 
 	array<map<int64, PlayerRef>, 4>			_players;

@@ -36,11 +36,14 @@ public class PacketHandler
     // 첫 스테이지에서만 실행된다
     public static void GameStart(IMessage packet)
     {
+<<<<<<< HEAD
             UnityEngine.Debug.Log("Game Start...");
             Data data = packet as Data;
 
 
         if (!firstStage)
+=======
+>>>>>>> a91960f481ef497d17532ef23fc76cf1cddf3e73
         StartData data = packet as StartData;
         foreach (Player player in data.Player)
         {

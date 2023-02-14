@@ -8,19 +8,16 @@ enum INGAME
 	LEAVE = 2;
 	PLAYER_MOVE = 3;
 	OBSTACLE_MOVE = 4;
-	NO_MOVE = 5;
-	GAME_COMPLTE = 6;
-	GAME_END = 7;
-	PLAYER_DROP = 8;
-	PLAYER_CRASH = 9;
-	OBSTACLE_CRASH = 10;
-	CONNECT_FAIL = 11;
-	TIME = 12;
-	GET_TICK = 13;
-	PLAYER_GOAL = 14;
-	RECONNECT = 15;
+	GAME_COMPLTE = 5;
+	GAME_END = 6;
+	PLAYER_DROP = 7;
+	PLAYER_CRASH = 8;
+	CONNECT_FAIL = 9;
+	TIME = 10;
+	GET_TICK = 11;
+	PLAYER_GOAL = 12;
+	RECONNECT = 13;
 }
-
 enum Animation
 {
 	IDLE = 0;
@@ -41,11 +38,15 @@ message GameCompleteData
 	repeated PlayerGoalData data = 1;
 }
 
-message Data
+message ConnectData
 {
 	int64 id = 1;
-	int32 mapLevel = 2;
-	int32 matchRoom = 3;
+	int32 room = 2;
+	int32 level = 3;
+}
+
+message StartData
+{
 	repeated Player player = 4;
 	repeated Obtacle obtacle = 5;
 }
