@@ -36,32 +36,29 @@ public class PacketHandler
     // 첫 스테이지에서만 실행된다
     public static void GameStart(IMessage packet)
     {
-<<<<<<< HEAD
+
             UnityEngine.Debug.Log("Game Start...");
-            Data data = packet as Data;
+            StartData data = packet as StartData;
 
 
         if (!firstStage)
-=======
->>>>>>> a91960f481ef497d17532ef23fc76cf1cddf3e73
-        StartData data = packet as StartData;
-        foreach (Player player in data.Player)
         {
 
-            foreach (Player player in data.Player)
-            {
-                if (player.Id == Managers.Object.myPlayerId)
+                foreach (Player player in data.Player)
                 {
-                    UnityEngine.Debug.Log("MyPlayer created" + Managers.Object.myPlayerId);
-                    Managers.Object.AddMyPlayer(player.Id, player);
-                }
-                else
-                {
+                    if (player.Id == Managers.Object.myPlayerId)
+                    {
+                        UnityEngine.Debug.Log("MyPlayer created" + Managers.Object.myPlayerId);
+                        Managers.Object.AddMyPlayer(player.Id, player);
+                    }
+                    else
+                    {
 
-                    Managers.Object.AddPlayer(player.Id, player);
-                    UnityEngine.Debug.Log(player.Id + " Inside");
+                        Managers.Object.AddPlayer(player.Id, player);
+                        UnityEngine.Debug.Log(player.Id + " Inside");
+                    }
                 }
-            }
+            
         }
         else
         {

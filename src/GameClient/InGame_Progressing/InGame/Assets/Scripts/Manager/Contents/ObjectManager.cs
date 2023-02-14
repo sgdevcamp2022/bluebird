@@ -20,7 +20,7 @@ public class ObjectManager
 
     public Int64 myPlayerId = -1;
     //플레이어 정보 저장
-    Dictionary<Int64, GameObject>               obtacles = new Dictionary<Int64, GameObject>();
+    Dictionary<Int64, GameObject>               obstacle = new Dictionary<Int64, GameObject>();
     Dictionary<Int64, GameObject>               players = new Dictionary<Int64, GameObject>();
     Dictionary<Int64, ObstacleController>       shapes = new Dictionary<Int64, ObstacleController>();
 
@@ -30,10 +30,10 @@ public class ObjectManager
     {
         GameObject go = Managers.Resource.Instantiate("Creature/Player");
         go.name = "Player" + id;
-;
+
         players.Add(player.Id, go);
 
-       // Debug.Log(players.Count);
+       //Debug.Log(players.Count);
 
         PlayerController pc = go.GetComponent<PlayerController>();
         pc.playerId = id;
@@ -87,7 +87,7 @@ public class ObjectManager
                 go = Managers.Resource.Instantiate("Trap/Sphere");
                 UnityEngine.Debug.Log(0 + " Obtacle");
                 go.name = "Obstacle" + id;
-                obtacles.Add(id, go);
+                obstacle.Add(id, go);
 
                 TrapController tc = go.GetComponent<TrapController>();
                 tc.id = id;
@@ -100,7 +100,7 @@ public class ObjectManager
                 go = Managers.Resource.Instantiate("Trap/MovePlatform");
                 UnityEngine.Debug.Log(1 + " Obtacle");
                 go.name = "Obstacle" + id;
-                obtacles.Add(id, go);
+                obstacle.Add(id, go);
 
                 PlatformController pc = go.GetComponent<PlatformController>();
                 pc.id = id;
@@ -115,7 +115,7 @@ public class ObjectManager
                 go = Managers.Resource.Instantiate("Trap/Cylinder");
                 UnityEngine.Debug.Log(2 + " Obtacle");
                 go.name = "Obstacle" + id;
-                obtacles.Add(id, go);
+                obstacle.Add(id, go);
 
                 RotatingTrapController rc = go.GetComponent<RotatingTrapController>();
                 rc.id = id;
@@ -132,12 +132,12 @@ public class ObjectManager
     }
     public void RemoveObtacle(Int64 id)
     {
-        obtacles.Remove(id);
+        obstacle.Remove(id);
     }
 
     // 저장된 정보 리턴
     public GameObject GetPlayer(Int64 id)
-    {
+    {       
         GameObject player;
         if (players.TryGetValue(id, out player))
             return player;
@@ -146,7 +146,7 @@ public class ObjectManager
     public GameObject GetObtacle(Int64 id)
     {
         GameObject obtacle;
-        if (obtacles.TryGetValue(id, out obtacle))
+        if (obstacle.TryGetValue(id, out obtacle))
             return obtacle;
         return null;
     }
@@ -156,5 +156,20 @@ public class ObjectManager
         if (shapes.TryGetValue(id, out obtacle))
             return obtacle;
         return null;
+    }
+
+    public void ClearPlaayers()
+    {
+        players.Clear();
+    }
+
+    public void ClearObstacle()
+    {
+        obstacle.Clear();
+    }
+
+    public void ClearShape()
+    {
+        shapes.Clear();
     }
 }
