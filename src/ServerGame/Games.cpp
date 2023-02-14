@@ -39,7 +39,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 			}
-			else {
+			else{
 				if (NPC_TEST)
 					_games[room].SetNpc(true);
 				Npc::LoginData input;
@@ -65,7 +65,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 					_games[room]()->DoAsync(&Room::ReConnect, session, id);
 				}
 			}
-			else
+			else if(!(_games[room] >> id))
 			{
 				cout << "Player Inside2 = " << id << " " << room << endl;
 				session->_room = _games[room]();

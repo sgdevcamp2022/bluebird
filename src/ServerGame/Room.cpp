@@ -249,8 +249,10 @@ void Room::TimeSync()
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
-		if(_ref.second->GetOwner() != nullptr)
+		if (_ref.second->GetOwner() != nullptr) {
+			cout << "Send" << endl;
 			_ref.second->GetOwner()->Send(ref);
+		}
 	}
 }
 

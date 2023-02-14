@@ -97,7 +97,7 @@ MatchManager::~MatchManager()
 
 void MatchManager::MatchEnter(int64 id, int32 level)
 {
-	Redis* redis = GRedisManager->GetRedis();
+	/*Redis* redis = GRedisManager->GetRedis();
 	if (redis == nullptr) {
 		cout << "nullptr" << endl;
 		DoAsync(&MatchManager::MatchEnter, id, level);
@@ -105,7 +105,7 @@ void MatchManager::MatchEnter(int64 id, int32 level)
 	}
 
 	auto result = redis->RedisQuery("hgetall 0");
-	cout << result << endl;
+	cout << result << endl;*/
 
 	/*string c = "";
 	ShowDigit(id, c);
@@ -120,18 +120,18 @@ void MatchManager::MatchEnter(int64 id, int32 level)
 		data.set_level(level);
 		if (_lobyref != nullptr)
 			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_CANCLE));
-	}
-	else {
-		Match::S_Login data;
-		data.set_id(id);
-		data.set_level(level);
-		if (_lobyref != nullptr)
-			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
-		auto type = _playerCount[level](id);
-		if (type)
-			DoTimer(1000, &MatchManager::MatchPull, type);
 	}*/
-	GRedisManager->ReturnRedis(redis);
+
+	Match::S_Login data;
+	data.set_id(id);
+	data.set_level(level);
+	if (_lobyref != nullptr)
+		_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
+	auto type = _playerCount[level](id);
+	if (type)
+		DoTimer(1000, &MatchManager::MatchPull, type);
+
+	//GRedisManager->ReturnRedis(redis);
 }
 
 void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
