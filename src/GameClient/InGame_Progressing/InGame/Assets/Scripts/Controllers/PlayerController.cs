@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Google.Protobuf.Protocol;
 using static Define;
+using UnityEngine.SceneManagement;
 
 
 //PlayerMove 패킷 핸들러로부터 playerinfo 및 State 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
@@ -175,6 +176,13 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void OnCollisionStay(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Victory Ground"))
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+
+        }
+
 
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -241,16 +249,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetClearStageNum()
+    public void GoalPlayer()
     {
-        clearStageNum += 1;
+        //Debug.Log("Player destroy");
+  
+
     }
 
-    public void SetDestroy()
+    public void PlayerComplete(bool success)
     {
-        Debug.Log("Player Object Destory " + this.gameObject );
-       
-       // Destroy(this.gameObject);
+        /*
+        if (success)
+            Destroy(this.gameObject);
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        */
     }
+
 
 }

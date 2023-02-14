@@ -43,7 +43,19 @@ public class ServerSession : PacketSession
         {
             PacketQueue.Instance.Push(i, m);
         };
-        
+
+        ConnectData dataPkt;
+        dataPkt = new ConnectData()
+        {
+            Id = 1,
+            Level = 0,
+            Room = 2,
+            //Player = {new Player {X = 0,Y=0,Z=0 } }
+        };
+
+
+
+        /*
         ConnectData dataPkt;
         System.Random rand = new System.Random();
         try
@@ -66,6 +78,8 @@ public class ServerSession : PacketSession
                 //Player = {new Player {X = 0,Y=0,Z=0 } }
             };
         }
+
+    */
         Send(dataPkt, INGAME.Connect);
         Debug.Log("try connection..." + dataPkt.Id);
     }
