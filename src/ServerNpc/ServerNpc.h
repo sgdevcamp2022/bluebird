@@ -52,10 +52,10 @@ private:
     PacketManager* packetManager;
 
     list<pair<int, boost::thread*>> threadGroup;
-    list<pair<int, boost::thread*>>::iterator iter;
+    list<pair<int, boost::thread*>>::const_iterator iter;
 
     list<StartData> roomGroup;
-    list<StartData>::iterator iterRoom;
+    list<StartData>::const_iterator iterRoom;
 
     boost::mutex mutex;
 };
@@ -75,5 +75,5 @@ private:
     LoginData loginData;
     GameData gameData;
     list<StartData>* roomGroup;
-    list<StartData>::iterator iterRoom;
+    list<StartData>::const_iterator iterRoom;
 };
