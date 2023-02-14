@@ -35,7 +35,8 @@ int main() {
 	// true = NPC
 	// false = game client
 
-	bool _test = false;
+	bool _test = true;
+	bool _test2 = false;
 
 	if (_test) {
 		service2 = MakeShared<ClientService>(
@@ -60,19 +61,20 @@ int main() {
 		service2 = MakeShared<ClientService>(
 			NetAddress(L"127.0.0.1", 5000),
 			MakeShared<IocpCore>(),
-			MakeShared<GameSession>, 1);
+			MakeShared<GameSession>, 2);
 	}
 
-	ASSERT_CRASH(service2->Start());
-	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service2]()
-			{
-				while (true)
+	if (_test2) {
+		ASSERT_CRASH(service2->Start());
+		for (int i = 0; i < THREAD_SIZE; i++) {
+			GThreadManager->Launch([&service2]()
 				{
-					DoWorkerJob(service2);
-				}
-			});
+					while (true)
+					{
+						DoWorkerJob(service2);
+					}
+				});
+		}
 	}
-
 	GThreadManager->Join();
 }

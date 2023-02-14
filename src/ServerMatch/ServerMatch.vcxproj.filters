@@ -16,6 +16,9 @@
     <Filter Include="Match">
       <UniqueIdentifier>{fab4f95e-4d72-4a24-8d54-411a11ad8990}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Redis">
+      <UniqueIdentifier>{4cca42cf-364b-4a4f-bef0-dd383590b3ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerMain.cpp">
@@ -43,7 +46,10 @@
       <Filter>Session</Filter>
     </ClCompile>
     <ClCompile Include="Redis.cpp">
-      <Filter>Utils</Filter>
+      <Filter>Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="RedisManager.cpp">
+      <Filter>Redis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +78,10 @@
       <Filter>Session</Filter>
     </ClInclude>
     <ClInclude Include="Redis.h">
-      <Filter>Utils</Filter>
+      <Filter>Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="RedisManager.h">
+      <Filter>Redis</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

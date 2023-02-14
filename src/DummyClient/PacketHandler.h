@@ -7,6 +7,7 @@ public:
 
 	static SendBufferRef MakeSendBuffer(Match::C_Login pkt, Match::STATE type);
 	static SendBufferRef MakeSendBuffer(Match::C_Cancle pkt, Match::STATE type);
+	static SendBufferRef MakeSendBuffer(Match::Check pkt, Match::STATE type);
 
 private:
 	static void HandlerLogin(PacketSessionRef& ref, Match::S_Login&& pkt);
@@ -27,7 +28,7 @@ inline SendBufferRef _MakeSendBuffer(T& pkt, Match::STATE type)
 	header.set_state(type);
 	string s = header.SerializeAsString();
 	s += pkt.SerializeAsString();
-
+	//cout << s.size() << " " << packetSize << endl;
 	memcpy(data, s.data(), packetSize);
 	sendBuffer->Close(packetSize);
 

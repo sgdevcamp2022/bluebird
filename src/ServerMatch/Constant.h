@@ -55,3 +55,9 @@ enum PlayerLevel
 	, DUO_THREE
 	, ALL
 };
+
+static void ShowDigit(int64 i, string s) {
+	if ((i / 10) > 0)
+		ShowDigit(i, s);
+	s += ("0" +(i % 10));
+}
