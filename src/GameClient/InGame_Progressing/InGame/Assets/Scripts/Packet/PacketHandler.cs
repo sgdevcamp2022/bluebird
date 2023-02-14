@@ -32,7 +32,7 @@ public class PacketHandler
 
     public static void GameStart(IMessage packet)
     {
-        Data data = packet as Data;
+        StartData data = packet as StartData;
         foreach (Player player in data.Player)
         {
             //Player Spawn
@@ -61,7 +61,7 @@ public class PacketHandler
     }
     public static void ReConnect(IMessage packet)
     {
-        Data data = packet as Data;
+        StartData data = packet as StartData;
         foreach (Player player in data.Player)
         {
             //Player Spawn
@@ -115,10 +115,10 @@ public class PacketHandler
     }
     public static void CnnectFail(IMessage packet)
     {
-        Data data = packet as Data;
+        ConnectData data = packet as ConnectData;
         if (data.Id == -1)
             UnityEngine.Debug.Log("Id Error");
-        else if(data.MatchRoom == -1)
+        else if(data.Room == -1)
             UnityEngine.Debug.Log("Room Error");
     }
     public static void PlayerFail(IMessage packet)

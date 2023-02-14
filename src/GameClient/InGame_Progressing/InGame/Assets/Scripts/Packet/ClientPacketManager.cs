@@ -29,7 +29,7 @@ class PacketManager
     PacketManager()
     {
         recv.Add((ushort)INGAME.Time, MakePacket<Times>);
-        recv.Add((ushort)INGAME.Start, MakePacket<Data>);
+        recv.Add((ushort)INGAME.Start, MakePacket<StartData>);
         handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
         recv.Add((ushort)INGAME.PlayerMove, MakePacket<Move>);
         handler.Add((ushort)INGAME.PlayerMove, PacketHandler.PlayerMove);
@@ -39,7 +39,7 @@ class PacketManager
         handler.Add((ushort)INGAME.ObstacleMove, PacketHandler.ObtacleMove);
         recv.Add((ushort)INGAME.GetTick, MakePacket<Times>);
         handler.Add((ushort)INGAME.GetTick, PacketHandler.TimeSync);
-        recv.Add((ushort)INGAME.ConnectFail, MakePacket<Data>);
+        recv.Add((ushort)INGAME.ConnectFail, MakePacket<ConnectData>);
         handler.Add((ushort)INGAME.ConnectFail, PacketHandler.CnnectFail);
         recv.Add((ushort)INGAME.GameComplte, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
@@ -47,7 +47,7 @@ class PacketManager
         handler.Add((ushort)INGAME.GameEnd, PacketHandler.GameEnds);
         recv.Add((ushort)INGAME.PlayerGoal, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
-        recv.Add((ushort)INGAME.Reconnect, MakePacket<Data>);
+        recv.Add((ushort)INGAME.Reconnect, MakePacket<ConnectData>);
         handler.Add((ushort)INGAME.Reconnect, PacketHandler.ReConnect);
         recv.Add((ushort)INGAME.PlayerDrop, MakePacket<Player>);
         handler.Add((ushort)INGAME.PlayerDrop, PacketHandler.PlayerFail);

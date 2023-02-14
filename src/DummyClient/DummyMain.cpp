@@ -36,7 +36,7 @@ int main() {
 	// false = game client
 
 	bool _test = false;
-	bool _test2 = false;
+	bool _test2 = true;
 
 	if (_test) {
 		service2 = MakeShared<ClientService>(

@@ -97,9 +97,9 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	}
 	// 犁 立加 内靛 持扁
 	else {
-		Protocol::Data data;
+		Protocol::ConnectData data;
 		data.set_id(id);
-		data.set_matchroom(-1);
+		data.set_room(-1);
 		session->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT_FAIL));
 	}
 }

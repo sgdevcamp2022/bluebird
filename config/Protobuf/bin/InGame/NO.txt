@@ -1,0 +1,5 @@
+enum NO
+{	
+	NO_MOVE = 5;
+	OBSTACLE_CRASH = 10;
+}
