@@ -11,7 +11,7 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     switch (head->type)
     {
     case Protocol::CONNECT:
-        HConnect(ref, ParsingPacket<Protocol::Data, GameHeader>(buffer, (int32)head->size));
+        HConnect(ref, ParsingPacket<Protocol::ConnectData, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::PLAYER_MOVE:
         HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
@@ -33,10 +33,10 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     }
 }
 
-void GameHandler::HConnect(GameSessionRef& ref, Protocol::Data&& pkt)
+void GameHandler::HConnect(GameSessionRef& ref, Protocol::ConnectData&& pkt)
 {
     if ((ref->_mySelf == nullptr) && ref->_room.expired())
-        Ggames->DoAsync(&Games::EnterGame, ref, pkt.id(), pkt.matchroom());
+        Ggames->DoAsync(&Games::EnterGame, ref, pkt.id(), pkt.room());
     //접속 시 전체 유저 정보 전달 -> 고민 이슈
 }
 
@@ -81,9 +81,13 @@ void GameHandler::HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt)
             room->DoAsync(&Room::PlayerGoal, std::move(pkt));
 }
 
-SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::ConnectData pkt, Protocol::INGAME type)
 {
-    return _MakeSendBuffer<Protocol::Data, GameHeader, Protocol::INGAME>(pkt, type);
+    return _MakeSendBuffer<Protocol::ConnectData, GameHeader, Protocol::INGAME>(pkt, type);
+}
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::StartData pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::StartData, GameHeader, Protocol::INGAME>(pkt, type);
 }
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
 {

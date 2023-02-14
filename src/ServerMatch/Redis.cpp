@@ -47,7 +47,7 @@ const char* Redis::RedisQuery(const char* format, const char* arg1, const char* 
     return res;
 }
 
-bool Redis::ExistQuery(int userNo)
+bool Redis::ExistQuery(int64 userNo)
 {
     string tempStr = "exists ";
     bool res = 0;

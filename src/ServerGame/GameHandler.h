@@ -4,7 +4,7 @@
 class GameHandler
 {
 private:
-	static void HConnect(GameSessionRef& ref, Protocol::Data&& pkt);
+	static void HConnect(GameSessionRef& ref, Protocol::ConnectData&& pkt);
 	static void HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt);
 	static void HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt);
 	static void HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt);
@@ -14,7 +14,8 @@ private:
 public:
 	static void HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len);
 
-	static SendBufferRef MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type);
+	static SendBufferRef MakeSendBuffer(Protocol::ConnectData pkt, Protocol::INGAME type);
+	static SendBufferRef MakeSendBuffer(Protocol::StartData pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type);
