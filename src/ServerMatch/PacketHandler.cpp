@@ -25,11 +25,6 @@ void PacketHandler::HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt)
 {
     MatchSessionRef _ref = static_pointer_cast<MatchSession>(ref);
 
-    // TODO 오류체크 : 이 사람이 제대로 매치메이킹 되어있는지 확인할 필요 존재
-    // Redis로 판별해도 괜찮을 듯   
-
-    cout << "Login : " << pkt.id() << " " << pkt.level() << endl;
-
     GMatch->DoAsync(&MatchManager::MatchEnter, pkt.id(), pkt.level());
 }
 
