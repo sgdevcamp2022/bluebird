@@ -49,9 +49,9 @@ public class ServerSession : PacketSession
         {
             dataPkt = new Data()
             {
-                Id = LobbyInfo.lobbyInfo.userNo,
-                MapLevel = LobbyInfo.lobbyInfo.level,
-                MatchRoom = LobbyInfo.lobbyInfo.room,
+                Id = PlayerInfo.playerInfo.userNo,
+                MapLevel = PlayerInfo.playerInfo.level,
+                MatchRoom = PlayerInfo.playerInfo.room,
                 //Player = {new Player {X = 0,Y=0,Z=0 } }
             };
         }

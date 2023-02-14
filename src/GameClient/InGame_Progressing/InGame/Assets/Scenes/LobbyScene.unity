@@ -3345,7 +3345,7 @@ GameObject:
   - component: {fileID: 1070032827}
   - component: {fileID: 1070032826}
   m_Layer: 0
-  m_Name: Lobby Information
+  m_Name: Player Information
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3365,6 +3365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userNo: 0
   room: 0
+  level: 0
+  status: 0
 --- !u!4 &1070032827
 Transform:
   m_ObjectHideFlags: 0

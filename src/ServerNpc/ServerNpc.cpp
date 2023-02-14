@@ -172,18 +172,24 @@ void ServerNpc::handle_receive(const boost::system::error_code& error, size_t by
 
 void ServerNpc::ThreadInterrupt(int matchRoom)
 {
-    for (iter = threadGroup.begin(); iter != threadGroup.end(); iter++)
+    iter = threadGroup.cbegin();
+    
+    while (iter != threadGroup.cend())
     {
+        cout << "Interrupt 1" << endl;
         //해당 matchRoom 끝났을 때
         if (iter->first == matchRoom)
         {
             iter->second->interrupt();
             delete iter->second;
-            threadGroup.erase(iter);
+            iter = threadGroup.erase(iter);
             //break;
         }
+        else
+        {
+            ++iter;
+        }
     }
-
     for (iterRoom = roomGroup.begin(); iterRoom != roomGroup.end(); iterRoom++)
     {
         if (iterRoom->room == matchRoom)

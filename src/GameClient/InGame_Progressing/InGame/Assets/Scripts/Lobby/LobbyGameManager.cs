@@ -39,12 +39,14 @@ public class LobbyGameManager : MonoBehaviour
                     nicknameText.text = "-1";
                 }
                 userNo = int.Parse(arrTemp[2]);
+                PlayerInfo.playerInfo.userNo = userNo;
             }
         }
         else
         {
             nicknameText.text = "-1";
             userNo = -1;
+            PlayerInfo.playerInfo.userNo = userNo;
         }
         //LoadUserInfo();
         //nicknameText.text = player.nickname;

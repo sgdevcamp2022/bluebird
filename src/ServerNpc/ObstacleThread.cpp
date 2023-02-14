@@ -22,6 +22,7 @@ void ObstacleThread::operator()()
     bool isStart = false;
     while (!isStart)
     {
+        boost::this_thread::interruption_point();
         for (iterRoom = roomGroup->begin(); iterRoom != roomGroup->end(); iterRoom++)
         {
             if (iterRoom->room == loginData.matchRoom && iterRoom->game == true)
@@ -63,6 +64,7 @@ void ObstacleThread::MovingObstacle()
 
     while (true)
     {
+        boost::this_thread::interruption_point();
         FPS = duration_cast<frame>(steady_clock::now() - fpsTimer);
         if (FPS.count() >= 1) // 1/60√ 
         {
@@ -152,6 +154,7 @@ void ObstacleThread::RotationObstacle()
 
     while (true)
     {
+        boost::this_thread::interruption_point();
         FPS = duration_cast<frame>(steady_clock::now() - fpsTimer);
         if (FPS.count() >= 1)
         {
