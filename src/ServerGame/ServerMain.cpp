@@ -3,6 +3,7 @@
 #include "NpcSession.h"
 #include "MatchSession.h"
 #include <ThreadManager.h>
+
 enum
 {
 	WORKER_TICK = 64
@@ -34,7 +35,7 @@ int main() {
 		MakeShared<IocpCore>(),
 		MakeShared<GameSession>, 10);
 	ServerServiceRef npcService = MakeShared<ServerService>(
-		NetAddress(L"127.0.0.1", 8000),
+		NetAddress(L"127.0.0.1", 4000),
 		MakeShared<IocpCore>(),
 		MakeShared<NpcSession>, 10);
 	
@@ -64,5 +65,4 @@ int main() {
 	DoWorkerJob(matchService);
 
 	GThreadManager->Join();
-
 }

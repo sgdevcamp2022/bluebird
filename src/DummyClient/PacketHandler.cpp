@@ -9,6 +9,9 @@ void PacketHandler::HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::He
     case Match::S_LOGIN:
         HandlerLogin(ref, ParsingPacket<Match::S_Login>(buffer, (int32)head.size()));
         break;
+    case Match::S_CANCLE:
+        cout << "Cancle" << endl;
+        break;
     case Match::S_MATCH:
         HandlerMatch(ref, ParsingPacket<Match::S_Match>(buffer, (int32)head.size()));
         break;
@@ -23,6 +26,10 @@ SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Login pkt, Match::STATE typ
 }
 
 SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Cancle pkt, Match::STATE type)
+{
+    return _MakeSendBuffer(pkt, type);
+}
+SendBufferRef PacketHandler::MakeSendBuffer(Match::Check pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }

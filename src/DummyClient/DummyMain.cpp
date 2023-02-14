@@ -36,6 +36,7 @@ int main() {
 	// false = game client
 
 	bool _test = false;
+	bool _test2 = false;
 
 	if (_test) {
 		service2 = MakeShared<ClientService>(
@@ -63,16 +64,17 @@ int main() {
 			MakeShared<GameSession>, 2);
 	}
 
-	ASSERT_CRASH(service2->Start());
-	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service2]()
-			{
-				while (true)
+	if (_test2) {
+		ASSERT_CRASH(service2->Start());
+		for (int i = 0; i < THREAD_SIZE; i++) {
+			GThreadManager->Launch([&service2]()
 				{
-					DoWorkerJob(service2);
-				}
-			});
+					while (true)
+					{
+						DoWorkerJob(service2);
+					}
+				});
+		}
 	}
-
 	GThreadManager->Join();
 }

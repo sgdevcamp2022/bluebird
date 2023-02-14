@@ -28,9 +28,10 @@ int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
 			break;
 		
 		// 패킷 조립 성공
+		int32 size = header.size();
 		OnRecvPacket(&buffer[processLen], std::move(header));
 
-		processLen += (header.size() + 4);
+		processLen += (size + 4);
 	}
 
 	return processLen;

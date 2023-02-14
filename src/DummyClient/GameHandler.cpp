@@ -83,7 +83,7 @@ void GameHandler::HandlerEnd(PacketSessionRef& ref, Protocol::PlayerGoalData&& d
 
 void GameHandler::HandlerComplte(PacketSessionRef& ref, Protocol::PlayerGoalData&& data)
 {
-    cout << "GameComplte " <<data.success()<< endl;
+    cout << "GameComplte " <<data.id()<< endl;
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Data pkt, Protocol::INGAME type)

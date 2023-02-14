@@ -5,6 +5,8 @@
 void MatchSession::OnConnected()
 {
     cout << "Session Connected" << endl;
+    GMatch->ConnectLobyServer(static_pointer_cast<MatchSession>(shared_from_this()));
+    GMatch->ConnectMatchServer(static_pointer_cast<MatchSession>(shared_from_this()));
 }
 
 void MatchSession::OnDisconnected()

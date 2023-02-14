@@ -224,11 +224,11 @@ void Room::PlayerGoal(Protocol::Player data)
 			NextStage();
 		}
 		else {
-			Protocol::PlayerGoalData data;
-			data.set_id(data.id());
-			data.set_success(true);
+			Protocol::PlayerGoalData send;
+			send.set_id(data.id());
+			send.set_success(true);
 
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_GOAL));
+			Broadcast(GameHandler::MakeSendBuffer(send, Protocol::PLAYER_GOAL));
 		}
 	}
 }
@@ -249,8 +249,10 @@ void Room::TimeSync()
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
-		if(_ref.second->GetOwner() != nullptr)
+		if (_ref.second->GetOwner() != nullptr) {
+			cout << "Send" << endl;
 			_ref.second->GetOwner()->Send(ref);
+		}
 	}
 }
 
