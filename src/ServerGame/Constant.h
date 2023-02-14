@@ -13,7 +13,7 @@
 //#define WINNER3	1
 
 #define CLIENT_TEST true
-#define NPC_TEST true
+#define NPC_TEST false
 
 struct Vector3
 {
