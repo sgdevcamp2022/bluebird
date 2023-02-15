@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Victory Ground"))
         {
             transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(false);
+
 
         }
 

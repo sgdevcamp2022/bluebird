@@ -291,7 +291,7 @@ public class MyPlayerController : PlayerController
             inGoal = true;
 
             this.transform.GetChild(0).gameObject.SetActive(false);
-            this.transform.GetChild(1).gameObject.SetActive(false);
+
                
          
 
