@@ -235,8 +235,9 @@ void Room::PlayerGoal(Protocol::Player data)
 		_players[_stage + 1][player->GetId()] = player;
 		//TODO 확인 작업 필요
 		//if (_winner.fetch_add(1) == WINNER1(_playerSize))
-		if (_players[_stage + 1].size() == SOLO_GOAL(_stage.load()))
+		if (_players[_stage + 1].size() == Solo_Goal(_stage.load()))
 		{
+			cout << Solo_Goal(_stage.load());
 			_start.store(false);
 			//TODO 넘기는 작업 필요
 			NextStage();
@@ -276,7 +277,8 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::NextStage()
 {
-	//_spawnPosition.clear();
+	if(!NPC_TEST)
+		_spawnPosition.clear();
 
 	int32 past = _stage.fetch_add(1);
 	Protocol::PlayerGoalData data;

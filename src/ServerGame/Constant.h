@@ -5,9 +5,9 @@
 
 #define START_COUNT 3
 #define MAX_STAGE 3
-#define LAST(stage) (MAX_STAGE == stage) ? true : false
+#define LAST(stage) (MAX_STAGE == stage)
 
-#define SOLO_GOAL(stage) (stage == 1) ? 2 : 1
+inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
 
 
 //#define WINNER1(count)	count/3
