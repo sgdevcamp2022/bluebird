@@ -161,8 +161,6 @@ public class PlayerController : MonoBehaviour
         
     }
 
-   
-
     protected void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;

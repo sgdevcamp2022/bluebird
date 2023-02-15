@@ -184,7 +184,9 @@ int Room::Start()
 	_remainUser = _players[_stage].size();
 
 	_start.store(true);
+	//Sync
 	TimeSync();
+	GameSync();
 
 	return _remainUser;
 }
@@ -198,11 +200,11 @@ void Room::PlayerMove(Protocol::Move data)
 		auto point = data.position();
 		PlayerRef player = _players[_stage][data.id()];
 
-		if (point.y() > 0.f) {
+		if (point.y() > -1.0f) {
 			cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 
 			player->Move(data.position(), data.rotation());
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
+			//Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
 		}
 		else if (player->GetMoveRight()) {
 			cout << "DROP" << endl;
@@ -265,15 +267,17 @@ void Room::TimeSync()
 		DoTimer(60000, &Room::TimeSync);
 }
 
-void Room::Gamesync()
+void Room::GameSync()
 {
+	//동기화 테스트
+	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::STATE_SYNC));
+	DoTimer(50, &Room::GameSync);
 }
 
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
 		if (_ref.second->GetOwner() != nullptr) {
-			cout << "Send" << endl;
 			_ref.second->GetOwner()->Send(ref);
 		}
 	}
