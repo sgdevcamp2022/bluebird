@@ -158,8 +158,7 @@ public class PlayerController : MonoBehaviour
         
         transform.position = moveVec;
         UpdateAnimation();
-
-    
+        
     }
 
    

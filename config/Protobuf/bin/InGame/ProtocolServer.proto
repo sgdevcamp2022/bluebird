@@ -17,7 +17,9 @@ enum INGAME
 	GET_TICK = 11;
 	PLAYER_GOAL = 12;
 	RECONNECT = 13;
+	STATE_SYNC = 14;
 }
+
 enum Animation
 {
 	IDLE = 0;
