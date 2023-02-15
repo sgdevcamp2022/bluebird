@@ -6,13 +6,11 @@ using System.Text;
 using System.Web;
 using UnityEngine;
 using UnityEngine.UI;
+using StackExchange.Redis;
 
 public class LobbyGameManager : MonoBehaviour
 {
     public Text nicknameText;
-    public int userNo;
-
-    public UserInfo player;
 
     public string[] args;
 
@@ -38,39 +36,23 @@ public class LobbyGameManager : MonoBehaviour
                 {
                     nicknameText.text = "-1";
                 }
-                userNo = int.Parse(arrTemp[2]);
-                PlayerInfo.playerInfo.userNo = userNo;
+                PlayerInfo.playerInfo.userNo = int.Parse(arrTemp[2]);
+                PlayerInfo.playerInfo.nickname = nicknameText.text;
             }
         }
         else
         {
-            nicknameText.text = "-1";
-            userNo = -1;
-            PlayerInfo.playerInfo.userNo = userNo;
+            nicknameText.text = PlayerInfo.playerInfo.nickname == null ? "-1" : PlayerInfo.playerInfo.nickname;
         }
-        //LoadUserInfo();
-        //nicknameText.text = player.nickname;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
+            PlayerInfo.playerInfo.redis.HashSet(PlayerInfo.playerInfo.userNo.ToString(), "status", "LOGIN");
             Application.Quit();
         }
     }
 
-    void LoadUserInfo()
-    {
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "userInfo.json");
-        string jsonData = File.ReadAllText(path);
-        player = JsonUtility.FromJson<UserInfo>(jsonData);
-    }
-}
-
-[System.Serializable]
-public class UserInfo
-{
-    public int userNo;
-    public string nickname;
 }
