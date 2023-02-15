@@ -4,11 +4,11 @@ enum STATE
 {
 	NULL = 0;
 	C_LOGIN = 1;
-	C_CANCLE = 2;
+	C_CANCEL = 2;
 	FAIL = 3;
 	S_LOGIN = 4;
 	S_MATCH = 5;
-	S_CANCLE = 6;
+	S_CANCEL = 6;
 	CHECK = 7;
 }
 message Header
@@ -18,20 +18,20 @@ message Header
 }
 message Check
 {
-	bool type = 1;
+	int32 type = 1;
 }
 message C_Login
 {
 	int64 id = 1;
 	int32 level = 2;
 }
-message C_Cancle
+message C_Cancel
 {
 	int64 id = 1;
 	int32 level = 2;
 	int32 room = 3;
 }
-message S_Cancle
+message S_Cancel
 {
 	int64 id = 1;
 	int32 room = 2;
