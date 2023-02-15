@@ -20,6 +20,8 @@ public:
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);
 	void TimeSync();
+
+	void Gamesync();
 	void Broadcast(SendBufferRef ref);
 
 	// 다음 스테이지 넘기기

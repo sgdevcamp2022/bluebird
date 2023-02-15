@@ -333,19 +333,19 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "osition\030\002 \001(\0132\020.Protocol.Vector\022\"\n\010rotat"
   "ion\030\003 \001(\0132\020.Protocol.Vector\022\037\n\005enemy\030\004 \001"
   "(\0132\020.Protocol.Player\")\n\006Vector\022\t\n\001x\030\001 \001("
-  "\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\334\001\n\006INGAME\022\013\n\007CO"
+  "\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\354\001\n\006INGAME\022\013\n\007CO"
   "NNECT\020\000\022\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_"
   "MOVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004\022\020\n\014GAME_COMPLT"
   "E\020\005\022\014\n\010GAME_END\020\006\022\017\n\013PLAYER_DROP\020\007\022\020\n\014PL"
   "AYER_CRASH\020\010\022\020\n\014CONNECT_FAIL\020\t\022\010\n\004TIME\020\n"
   "\022\014\n\010GET_TICK\020\013\022\017\n\013PLAYER_GOAL\020\014\022\r\n\tRECON"
-  "NECT\020\r*L\n\tAnimation\022\010\n\004IDLE\020\000\022\010\n\004MOVE\020\001\022"
-  "\016\n\nJUMP_START\020\002\022\r\n\tJUMP_LOOP\020\003\022\014\n\010JUMP_E"
-  "ND\020\004b\006proto3"
+  "NECT\020\r\022\016\n\nSTATE_SYNC\020\016*L\n\tAnimation\022\010\n\004I"
+  "DLE\020\000\022\010\n\004MOVE\020\001\022\016\n\nJUMP_START\020\002\022\r\n\tJUMP_"
+  "LOOP\020\003\022\014\n\010JUMP_END\020\004b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 1332, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 1348, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 11,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
@@ -377,6 +377,7 @@ bool INGAME_IsValid(int value) {
     case 11:
     case 12:
     case 13:
+    case 14:
       return true;
     default:
       return false;

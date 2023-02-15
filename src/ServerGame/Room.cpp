@@ -156,7 +156,7 @@ void Room::Leave(PlayerRef ref)
 
 int Room::Start()
 {
-	if (_playerSize < START_COUNT && !_start.load()) {
+	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) {
 		cout << "Start Fail" << endl;
 		return 0;
 	}
@@ -263,6 +263,10 @@ void Room::TimeSync()
 	}
 	else
 		DoTimer(60000, &Room::TimeSync);
+}
+
+void Room::Gamesync()
+{
 }
 
 void Room::Broadcast(SendBufferRef ref)
