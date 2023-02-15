@@ -18,3 +18,4 @@ The project has been initialized.
 # MySQL Server Address(Npc Server)
 - 121.145.229.137
 - 임시 passward : a12b34
+
