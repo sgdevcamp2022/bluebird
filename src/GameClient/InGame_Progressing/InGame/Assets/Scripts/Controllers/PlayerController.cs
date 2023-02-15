@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateController()
     {
-       
         switch (State)
         {
             case BirdState.Idle:
@@ -126,6 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
             Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+
             transform.position = moveVec;
             transform.rotation = Quaternion.Euler(moveRot);
 

@@ -56,34 +56,34 @@ struct C_LoginDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT C_LoginDefaultTypeInternal _C_Login_default_instance_;
-constexpr C_Cancle::C_Cancle(
+constexpr C_Cancel::C_Cancel(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
   , level_(0)
   , room_(0){}
-struct C_CancleDefaultTypeInternal {
-  constexpr C_CancleDefaultTypeInternal()
+struct C_CancelDefaultTypeInternal {
+  constexpr C_CancelDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~C_CancleDefaultTypeInternal() {}
+  ~C_CancelDefaultTypeInternal() {}
   union {
-    C_Cancle _instance;
+    C_Cancel _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT C_CancleDefaultTypeInternal _C_Cancle_default_instance_;
-constexpr S_Cancle::S_Cancle(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT C_CancelDefaultTypeInternal _C_Cancel_default_instance_;
+constexpr S_Cancel::S_Cancel(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
   , room_(0)
   , state_(false){}
-struct S_CancleDefaultTypeInternal {
-  constexpr S_CancleDefaultTypeInternal()
+struct S_CancelDefaultTypeInternal {
+  constexpr S_CancelDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~S_CancleDefaultTypeInternal() {}
+  ~S_CancelDefaultTypeInternal() {}
   union {
-    S_Cancle _instance;
+    S_Cancel _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT S_CancleDefaultTypeInternal _S_Cancle_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT S_CancelDefaultTypeInternal _S_Cancel_default_instance_;
 constexpr S_Login::S_Login(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(int64_t{0})
@@ -139,21 +139,21 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolMatch_2eproto::offsets
   PROTOBUF_FIELD_OFFSET(::Match::C_Login, id_),
   PROTOBUF_FIELD_OFFSET(::Match::C_Login, level_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Match::C_Cancle, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Match::C_Cancel, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Match::C_Cancle, id_),
-  PROTOBUF_FIELD_OFFSET(::Match::C_Cancle, level_),
-  PROTOBUF_FIELD_OFFSET(::Match::C_Cancle, room_),
+  PROTOBUF_FIELD_OFFSET(::Match::C_Cancel, id_),
+  PROTOBUF_FIELD_OFFSET(::Match::C_Cancel, level_),
+  PROTOBUF_FIELD_OFFSET(::Match::C_Cancel, room_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Match::S_Cancle, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Match::S_Cancel, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Match::S_Cancle, id_),
-  PROTOBUF_FIELD_OFFSET(::Match::S_Cancle, room_),
-  PROTOBUF_FIELD_OFFSET(::Match::S_Cancle, state_),
+  PROTOBUF_FIELD_OFFSET(::Match::S_Cancel, id_),
+  PROTOBUF_FIELD_OFFSET(::Match::S_Cancel, room_),
+  PROTOBUF_FIELD_OFFSET(::Match::S_Cancel, state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Match::S_Login, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -174,8 +174,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::Match::Header)},
   { 7, -1, sizeof(::Match::Check)},
   { 13, -1, sizeof(::Match::C_Login)},
-  { 20, -1, sizeof(::Match::C_Cancle)},
-  { 28, -1, sizeof(::Match::S_Cancle)},
+  { 20, -1, sizeof(::Match::C_Cancel)},
+  { 28, -1, sizeof(::Match::S_Cancel)},
   { 36, -1, sizeof(::Match::S_Login)},
   { 43, -1, sizeof(::Match::S_Match)},
 };
@@ -184,8 +184,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_Header_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_Check_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_C_Login_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_C_Cancle_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_S_Cancle_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_C_Cancel_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_S_Cancel_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_S_Login_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Match::_S_Match_default_instance_),
 };
@@ -194,13 +194,13 @@ const char descriptor_table_protodef_ProtocolMatch_2eproto[] PROTOBUF_SECTION_VA
   "\n\023ProtocolMatch.proto\022\005Match\"3\n\006Header\022\014"
   "\n\004size\030\001 \001(\r\022\033\n\005state\030\002 \001(\0162\014.Match.STAT"
   "E\"\025\n\005Check\022\014\n\004type\030\001 \001(\005\"$\n\007C_Login\022\n\n\002i"
-  "d\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\"3\n\010C_Cancle\022\n\n\002id"
+  "d\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\"3\n\010C_Cancel\022\n\n\002id"
   "\030\001 \001(\003\022\r\n\005level\030\002 \001(\005\022\014\n\004room\030\003 \001(\005\"3\n\010S"
-  "_Cancle\022\n\n\002id\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\r\n\005sta"
+  "_Cancel\022\n\n\002id\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\r\n\005sta"
   "te\030\003 \001(\010\"$\n\007S_Login\022\n\n\002id\030\001 \001(\003\022\r\n\005level"
   "\030\002 \001(\005\"3\n\007S_Match\022\014\n\004room\030\001 \001(\005\022\r\n\005level"
   "\030\002 \001(\005\022\013\n\003ids\030\003 \003(\003*i\n\005STATE\022\010\n\004NULL\020\000\022\013"
-  "\n\007C_LOGIN\020\001\022\014\n\010C_CANCLE\020\002\022\010\n\004FAIL\020\003\022\013\n\007S"
+  "\n\007C_LOGIN\020\001\022\014\n\010C_CANCEL\020\002\022\010\n\004FAIL\020\003\022\013\n\007S"
   "_LOGIN\020\004\022\013\n\007S_MATCH\020\005\022\014\n\010S_CANCLE\020\006\022\t\n\005C"
   "HECK\020\007b\006proto3"
   ;
@@ -882,54 +882,54 @@ void C_Login::InternalSwap(C_Login* other) {
 
 // ===================================================================
 
-class C_Cancle::_Internal {
+class C_Cancel::_Internal {
  public:
 };
 
-C_Cancle::C_Cancle(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+C_Cancel::C_Cancel(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Match.C_Cancle)
+  // @@protoc_insertion_point(arena_constructor:Match.C_Cancel)
 }
-C_Cancle::C_Cancle(const C_Cancle& from)
+C_Cancel::C_Cancel(const C_Cancel& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
     static_cast<size_t>(reinterpret_cast<char*>(&room_) -
     reinterpret_cast<char*>(&id_)) + sizeof(room_));
-  // @@protoc_insertion_point(copy_constructor:Match.C_Cancle)
+  // @@protoc_insertion_point(copy_constructor:Match.C_Cancel)
 }
 
-void C_Cancle::SharedCtor() {
+void C_Cancel::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&room_) -
     reinterpret_cast<char*>(&id_)) + sizeof(room_));
 }
 
-C_Cancle::~C_Cancle() {
-  // @@protoc_insertion_point(destructor:Match.C_Cancle)
+C_Cancel::~C_Cancel() {
+  // @@protoc_insertion_point(destructor:Match.C_Cancel)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void C_Cancle::SharedDtor() {
+void C_Cancel::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void C_Cancle::ArenaDtor(void* object) {
-  C_Cancle* _this = reinterpret_cast< C_Cancle* >(object);
+void C_Cancel::ArenaDtor(void* object) {
+  C_Cancel* _this = reinterpret_cast< C_Cancel* >(object);
   (void)_this;
 }
-void C_Cancle::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void C_Cancel::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void C_Cancle::SetCachedSize(int size) const {
+void C_Cancel::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void C_Cancle::Clear() {
-// @@protoc_insertion_point(message_clear_start:Match.C_Cancle)
+void C_Cancel::Clear() {
+// @@protoc_insertion_point(message_clear_start:Match.C_Cancel)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -940,7 +940,7 @@ void C_Cancle::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* C_Cancle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* C_Cancel::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -990,9 +990,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* C_Cancle::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* C_Cancel::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Match.C_Cancle)
+  // @@protoc_insertion_point(serialize_to_array_start:Match.C_Cancel)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1018,12 +1018,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Match.C_Cancle)
+  // @@protoc_insertion_point(serialize_to_array_end:Match.C_Cancel)
   return target;
 }
 
-size_t C_Cancle::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Match.C_Cancle)
+size_t C_Cancel::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Match.C_Cancel)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1060,23 +1060,23 @@ size_t C_Cancle::ByteSizeLong() const {
   return total_size;
 }
 
-void C_Cancle::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Match.C_Cancle)
+void C_Cancel::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Match.C_Cancel)
   GOOGLE_DCHECK_NE(&from, this);
-  const C_Cancle* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<C_Cancle>(
+  const C_Cancel* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<C_Cancel>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Match.C_Cancle)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Match.C_Cancel)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Match.C_Cancle)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Match.C_Cancel)
     MergeFrom(*source);
   }
 }
 
-void C_Cancle::MergeFrom(const C_Cancle& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Match.C_Cancle)
+void C_Cancel::MergeFrom(const C_Cancel& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Match.C_Cancel)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1093,36 +1093,36 @@ void C_Cancle::MergeFrom(const C_Cancle& from) {
   }
 }
 
-void C_Cancle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Match.C_Cancle)
+void C_Cancel::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Match.C_Cancel)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void C_Cancle::CopyFrom(const C_Cancle& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Match.C_Cancle)
+void C_Cancel::CopyFrom(const C_Cancel& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Match.C_Cancel)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool C_Cancle::IsInitialized() const {
+bool C_Cancel::IsInitialized() const {
   return true;
 }
 
-void C_Cancle::InternalSwap(C_Cancle* other) {
+void C_Cancel::InternalSwap(C_Cancel* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_Cancle, room_)
-      + sizeof(C_Cancle::room_)
-      - PROTOBUF_FIELD_OFFSET(C_Cancle, id_)>(
+      PROTOBUF_FIELD_OFFSET(C_Cancel, room_)
+      + sizeof(C_Cancel::room_)
+      - PROTOBUF_FIELD_OFFSET(C_Cancel, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata C_Cancle::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata C_Cancel::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolMatch_2eproto_getter, &descriptor_table_ProtocolMatch_2eproto_once,
       file_level_metadata_ProtocolMatch_2eproto[3]);
@@ -1130,54 +1130,54 @@ void C_Cancle::InternalSwap(C_Cancle* other) {
 
 // ===================================================================
 
-class S_Cancle::_Internal {
+class S_Cancel::_Internal {
  public:
 };
 
-S_Cancle::S_Cancle(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+S_Cancel::S_Cancel(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Match.S_Cancle)
+  // @@protoc_insertion_point(arena_constructor:Match.S_Cancel)
 }
-S_Cancle::S_Cancle(const S_Cancle& from)
+S_Cancel::S_Cancel(const S_Cancel& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&id_, &from.id_,
     static_cast<size_t>(reinterpret_cast<char*>(&state_) -
     reinterpret_cast<char*>(&id_)) + sizeof(state_));
-  // @@protoc_insertion_point(copy_constructor:Match.S_Cancle)
+  // @@protoc_insertion_point(copy_constructor:Match.S_Cancel)
 }
 
-void S_Cancle::SharedCtor() {
+void S_Cancel::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&state_) -
     reinterpret_cast<char*>(&id_)) + sizeof(state_));
 }
 
-S_Cancle::~S_Cancle() {
-  // @@protoc_insertion_point(destructor:Match.S_Cancle)
+S_Cancel::~S_Cancel() {
+  // @@protoc_insertion_point(destructor:Match.S_Cancel)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void S_Cancle::SharedDtor() {
+void S_Cancel::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void S_Cancle::ArenaDtor(void* object) {
-  S_Cancle* _this = reinterpret_cast< S_Cancle* >(object);
+void S_Cancel::ArenaDtor(void* object) {
+  S_Cancel* _this = reinterpret_cast< S_Cancel* >(object);
   (void)_this;
 }
-void S_Cancle::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void S_Cancel::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void S_Cancle::SetCachedSize(int size) const {
+void S_Cancel::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void S_Cancle::Clear() {
-// @@protoc_insertion_point(message_clear_start:Match.S_Cancle)
+void S_Cancel::Clear() {
+// @@protoc_insertion_point(message_clear_start:Match.S_Cancel)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1188,7 +1188,7 @@ void S_Cancle::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* S_Cancle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* S_Cancel::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -1238,9 +1238,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* S_Cancle::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* S_Cancel::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Match.S_Cancle)
+  // @@protoc_insertion_point(serialize_to_array_start:Match.S_Cancel)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1266,12 +1266,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Match.S_Cancle)
+  // @@protoc_insertion_point(serialize_to_array_end:Match.S_Cancel)
   return target;
 }
 
-size_t S_Cancle::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Match.S_Cancle)
+size_t S_Cancel::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Match.S_Cancel)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1306,23 +1306,23 @@ size_t S_Cancle::ByteSizeLong() const {
   return total_size;
 }
 
-void S_Cancle::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Match.S_Cancle)
+void S_Cancel::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Match.S_Cancel)
   GOOGLE_DCHECK_NE(&from, this);
-  const S_Cancle* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<S_Cancle>(
+  const S_Cancel* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<S_Cancel>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Match.S_Cancle)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Match.S_Cancel)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Match.S_Cancle)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Match.S_Cancel)
     MergeFrom(*source);
   }
 }
 
-void S_Cancle::MergeFrom(const S_Cancle& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Match.S_Cancle)
+void S_Cancel::MergeFrom(const S_Cancel& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Match.S_Cancel)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1339,36 +1339,36 @@ void S_Cancle::MergeFrom(const S_Cancle& from) {
   }
 }
 
-void S_Cancle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Match.S_Cancle)
+void S_Cancel::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Match.S_Cancel)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void S_Cancle::CopyFrom(const S_Cancle& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Match.S_Cancle)
+void S_Cancel::CopyFrom(const S_Cancel& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Match.S_Cancel)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool S_Cancle::IsInitialized() const {
+bool S_Cancel::IsInitialized() const {
   return true;
 }
 
-void S_Cancle::InternalSwap(S_Cancle* other) {
+void S_Cancel::InternalSwap(S_Cancel* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_Cancle, state_)
-      + sizeof(S_Cancle::state_)
-      - PROTOBUF_FIELD_OFFSET(S_Cancle, id_)>(
+      PROTOBUF_FIELD_OFFSET(S_Cancel, state_)
+      + sizeof(S_Cancel::state_)
+      - PROTOBUF_FIELD_OFFSET(S_Cancel, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata S_Cancle::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata S_Cancel::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolMatch_2eproto_getter, &descriptor_table_ProtocolMatch_2eproto_once,
       file_level_metadata_ProtocolMatch_2eproto[4]);
@@ -1875,11 +1875,11 @@ template<> PROTOBUF_NOINLINE ::Match::Check* Arena::CreateMaybeMessage< ::Match:
 template<> PROTOBUF_NOINLINE ::Match::C_Login* Arena::CreateMaybeMessage< ::Match::C_Login >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Match::C_Login >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Match::C_Cancle* Arena::CreateMaybeMessage< ::Match::C_Cancle >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Match::C_Cancle >(arena);
+template<> PROTOBUF_NOINLINE ::Match::C_Cancel* Arena::CreateMaybeMessage< ::Match::C_Cancel >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Match::C_Cancel >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Match::S_Cancle* Arena::CreateMaybeMessage< ::Match::S_Cancle >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Match::S_Cancle >(arena);
+template<> PROTOBUF_NOINLINE ::Match::S_Cancel* Arena::CreateMaybeMessage< ::Match::S_Cancel >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Match::S_Cancel >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Match::S_Login* Arena::CreateMaybeMessage< ::Match::S_Login >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Match::S_Login >(arena);

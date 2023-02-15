@@ -5,14 +5,14 @@ class PacketHandler
 public:
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::Header&& head);
 
-	static SendBufferRef MakeSendBuffer(Match::S_Cancle pkt, Match::STATE type);
+	static SendBufferRef MakeSendBuffer(Match::S_Cancel pkt, Match::STATE type);
 	static SendBufferRef MakeSendBuffer(Match::S_Login pkt, Match::STATE type);
 	static SendBufferRef MakeSendBuffer(Match::S_Match pkt, Match::STATE type);
 	static SendBufferRef MakeSuccessBuffer(Match::S_Match pkt, Match::STATE type);
 
 private:
 	static void HandlerLogin(PacketSessionRef& ref, Match::C_Login&& pkt);
-	static void HandlerCancle(PacketSessionRef& ref, Match::C_Cancle&& pkt);
+	static void HandlerCancle(PacketSessionRef& ref, Match::C_Cancel&& pkt);
 	static void HandlerCheck(PacketSessionRef& ref, Match::Check&& pkt);
 };
 
