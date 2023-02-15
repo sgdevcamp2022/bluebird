@@ -189,8 +189,6 @@ public class PacketHandler
             UnityEngine.Debug.Log("Scene Moved");
             SceneManager.LoadScene("Stage2");
 
-
-
         }
         else
         {

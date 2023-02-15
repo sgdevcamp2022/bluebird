@@ -4,6 +4,7 @@ using ServerCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Net;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -44,42 +45,46 @@ public class ServerSession : PacketSession
             PacketQueue.Instance.Push(i, m);
         };
 
-        ConnectData dataPkt;
-        dataPkt = new ConnectData()
+        //ConnectData dataPkt;
+        //dataPkt = new ConnectData()
+        //{
+        //    Id = 1,
+        //    Level = 0,
+        //    Room = 2,
+        //};
+
+        //ConnectData dataPkt;
+        //System.Random rand = new System.Random();
+        //try
+        //{
+        //    dataPkt = new ConnectData()
+        //    {
+        //        Id = PlayerInfo.playerInfo.userNo,
+        //        Level = PlayerInfo.playerInfo.level,
+        //        Room = PlayerInfo.playerInfo.room,
+        //        //Player = {new Player {X = 0,Y=0,Z=0 } }
+        //    };
+        //}
+        //catch (Exception e)
+        //{
+        //    dataPkt = new ConnectData()
+        //    {
+        //        Id = rand.Next(100),
+        //        Level = 2,
+        //        Room = 0,
+        //        //Player = {new Player {X = 0,Y=0,Z=0 } }
+        //    };
+        //}
+
+        System.Random rand = new System.Random();
+        ConnectData dataPkt = new ConnectData()
         {
-            Id = 1,
-            Level = 0,
-            Room = 2,
+            Id = rand.Next(100),
+            Level = 2,
+            Room = 0,
             //Player = {new Player {X = 0,Y=0,Z=0 } }
         };
 
-
-
-        /*
-        ConnectData dataPkt;
-        System.Random rand = new System.Random();
-        try
-        {
-            dataPkt = new ConnectData()
-            {
-                Id = PlayerInfo.playerInfo.userNo,
-                Level = PlayerInfo.playerInfo.level,
-                Room = PlayerInfo.playerInfo.room,
-                //Player = {new Player {X = 0,Y=0,Z=0 } }
-            };
-        }
-        catch(Exception e)
-        {
-            dataPkt = new ConnectData()
-            {
-                Id = rand.Next(100),
-                Level = 2,
-                Room = 0,
-                //Player = {new Player {X = 0,Y=0,Z=0 } }
-            };
-        }
-
-    */
         Send(dataPkt, INGAME.Connect);
         Debug.Log("try connection..." + dataPkt.Id);
     }

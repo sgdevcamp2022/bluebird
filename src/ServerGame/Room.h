@@ -42,6 +42,7 @@ private:
 
 	Protocol::StartData			_startData;
 	int32						_playerSize = 0;
+	int32						_remainUser = 0;
 
 	array<map<int64, PlayerRef>, 4>			_players;
 	map<int64, ObtacleRef>					_obstacles;
