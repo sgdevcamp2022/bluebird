@@ -13,6 +13,7 @@ public class PlayerInfo : MonoBehaviour
     {
         LOBBY, MATCH, INGAME
     }
+    public string nickname;
     public int userNo;
     public int room;
     public int level;
@@ -21,6 +22,8 @@ public class PlayerInfo : MonoBehaviour
     public static PlayerInfo playerInfo;
     private void Awake()
     {
+        nickname = "-1";
+        userNo = -1;
         playerInfo = this;
     }
 

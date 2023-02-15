@@ -11,9 +11,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
-
-
     public Int64 playerId { get; set; }
     [SerializeField]
     public float speed = 10.0f;
@@ -22,10 +19,7 @@ public class PlayerController : MonoBehaviour
     protected Vector3 moveVec;
     protected Vector3 prevVec;
 
-
-
     protected Camera cam;
-
 
     protected bool pressedJump = false;
     protected bool isJumping = false;
@@ -33,14 +27,10 @@ public class PlayerController : MonoBehaviour
 
     protected Animator animator;
 
-
     protected Rigidbody rigid;
     protected Google.Protobuf.Protocol.PlayerState playerState;
 
     protected int clearStageNum = 0;
-
-
-
 
     [SerializeField]
     protected BirdState _state;
@@ -73,7 +63,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void Start()
     {
         Init();
@@ -86,8 +75,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
     protected virtual void Init()
     {
         cam = Camera.main.gameObject.GetComponent<Camera>();
@@ -95,8 +82,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         prevVec = transform.position;
         State = BirdState.Idle;
-
-        
     }
 
     protected virtual void UpdateController()
@@ -113,8 +98,6 @@ public class PlayerController : MonoBehaviour
             case BirdState.Jumping:
                 UpdateJumping();
                 break;
-          
-        
         }
 
        // Debug.Log("Name: " + this.gameObject.name + " State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " isSliding:  " + isSliding) ; 
@@ -151,13 +134,10 @@ public class PlayerController : MonoBehaviour
    
 
     }
-
-
     //바닥에 착지하여도, 그 사이에 다량의 Jump 패킷이 넘어와서 Jump가 되버린다...
     protected virtual void UpdateJumping()
     {
 
-        
         if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
         {
             State = BirdState.Idle;
@@ -165,7 +145,6 @@ public class PlayerController : MonoBehaviour
 
             return;
         }
-        
 
         Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
         Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
@@ -267,8 +246,6 @@ public class PlayerController : MonoBehaviour
                 else
                     animator.SetBool("isSlide", false);
                 break;
-
-
         }
     }
 
@@ -290,14 +267,6 @@ public class PlayerController : MonoBehaviour
         }
         */
     }
-
-
-
-
-
-
-
-
 
 
 }

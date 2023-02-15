@@ -1,13 +1,5 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 //using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -196,8 +188,6 @@ public class PacketHandler
 
             UnityEngine.Debug.Log("Scene Moved");
             SceneManager.LoadScene("Stage2");
-
-
 
         }
         else

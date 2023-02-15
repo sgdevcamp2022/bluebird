@@ -154,6 +154,7 @@ public class MyPlayerController : PlayerController
                     Move playerMove = new Move()
                     {
                         Id = playerId,
+                        Time = Managers.Network.TICK,
                         Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
                         Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
                         State = PlayerState.Move,
@@ -203,6 +204,7 @@ public class MyPlayerController : PlayerController
             Move playerMove = new Move()
             {
                 Id = playerId,
+                Time = Managers.Network.TICK,
                 Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
                 Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
                 State = PlayerState.Jump,
@@ -215,6 +217,7 @@ public class MyPlayerController : PlayerController
             Move playerMove = new Move()
             {
                 Id = playerId,
+                Time = Managers.Network.TICK,
                 Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
                 Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
                 State = PlayerState.Slide,

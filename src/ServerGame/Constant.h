@@ -3,10 +3,12 @@
 #define THREAD_SIZE 10
 #define ROOM_COUNT 20
 
-#define START_COUNT 2
-#define GOAL_COUNT 2
+#define START_COUNT 3
 #define MAX_STAGE 3
 #define LAST(stage) (MAX_STAGE == stage) ? true : false
+
+#define SOLO_GOAL(stage) (stage == 1) ? 2 : 1
+
 
 //#define WINNER1(count)	count/3
 //#define WINNER2(count)	WINNER1(count)/5
