@@ -39,7 +39,7 @@ public class LobbyNetworkManager : MonoBehaviour
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
 
-        int userNo = LobbyGameManager.gameManager.userNo;
+        int userNo = PlayerInfo.playerInfo.userNo;
         int modsSum = PanelManager.panelManager.modsSum;
 
         Debug.Log("Mods: " + modsSum);
@@ -82,7 +82,7 @@ public class LobbyNetworkManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
 
-        int userNo = LobbyGameManager.gameManager.userNo;
+        int userNo = PlayerInfo.playerInfo.userNo;
 
         form.AddField("userNo", userNo);
 
@@ -126,7 +126,7 @@ public class LobbyNetworkManager : MonoBehaviour
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
 
-        int userNo = LobbyGameManager.gameManager.userNo;
+        int userNo = PlayerInfo.playerInfo.userNo;
 
         form.AddField("userNo", userNo);
 
