@@ -6,9 +6,6 @@
 
 Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 {
-	_startData.set_matchroom(room);
-	_startData.set_maplevel(level);
-
 	CHECK = [=](int64 id) {
 		if (_start && (_players[_stage].find(id) != _players[_stage].end()))
 			return true;
@@ -17,6 +14,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 	};
 	if (NPC_TEST) {
 		Npc::Vector3 data;
+		data.set_x(0.f);
 		data.set_x(0.f);
 		data.set_y(0.1f);
 		data.set_z(30.f);
@@ -97,6 +95,7 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 	}
 	for (int i = 0; i < pkt.spawn_size(); i++) {
 		Npc::PlayerSpawn spawn = pkt.spawn(i);
+		cout << "Spawn Input " << spawn.position().x() << spawn.position().y() << spawn.position().z() << endl;
 		_spawnPosition.push_back({ spawn.position(), spawn.rotation() });
 	}
 	//전체 플레이어에게 정보 전달 필요
@@ -122,6 +121,15 @@ void Room::Disconnect(PlayerRef ref)
 {
 	cout << "Disconncet" << endl;
 	_players[_stage][ref->GetId()]->SetOwner(nullptr);
+
+	if (_start)
+	{
+		_remainUser -= 1;
+		if (_remainUser <= 0) {
+			RoomClear();
+			RoomEnd();
+		}
+	}
 }
 
 void Room::Leave(PlayerRef ref)
@@ -129,13 +137,21 @@ void Room::Leave(PlayerRef ref)
 	_players[_stage][ref->GetId()]->SetOwner(nullptr);
 	_players[_stage].erase(ref->GetId());
 
-	Protocol::Data data;
+	Protocol::ConnectData data;
 	data.set_id(ref->GetId());
-	data.set_matchroom(_matchRoom);
-	data.set_maplevel(_mapLevel);
+	data.set_room(_matchRoom);
+	data.set_level(_mapLevel);
 
-	_playerSize -= 1;
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
+
+	if (_start)
+	{
+		_remainUser -= 1;
+		if (_remainUser <= 0) {
+			RoomClear();
+			RoomEnd();
+		}
+	}
 }
 
 int Room::Start()
@@ -165,10 +181,12 @@ int Room::Start()
 
 	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::START));
 
+	_remainUser = _players[_stage].size();
+
 	_start.store(true);
 	TimeSync();
 
-	return _players[_stage].size();
+	return _remainUser;
 }
 
 void Room::PlayerMove(Protocol::Move data)
@@ -217,18 +235,18 @@ void Room::PlayerGoal(Protocol::Player data)
 		_players[_stage + 1][player->GetId()] = player;
 		//TODO 확인 작업 필요
 		//if (_winner.fetch_add(1) == WINNER1(_playerSize))
-		if (_players[_stage + 1].size() == GOAL_COUNT)
+		if (_players[_stage + 1].size() == SOLO_GOAL(_stage.load()))
 		{
 			_start.store(false);
 			//TODO 넘기는 작업 필요
 			NextStage();
 		}
 		else {
-			Protocol::PlayerGoalData data;
-			data.set_id(data.id());
-			data.set_success(true);
+			Protocol::PlayerGoalData send;
+			send.set_id(data.id());
+			send.set_success(true);
 
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_GOAL));
+			Broadcast(GameHandler::MakeSendBuffer(send, Protocol::PLAYER_GOAL));
 		}
 	}
 }
@@ -249,8 +267,10 @@ void Room::TimeSync()
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
-		if(_ref.second->GetOwner() != nullptr)
+		if (_ref.second->GetOwner() != nullptr) {
+			cout << "Send" << endl;
 			_ref.second->GetOwner()->Send(ref);
+		}
 	}
 }
 

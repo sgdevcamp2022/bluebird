@@ -39,7 +39,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 				_ref->Send(NpcHandler::MakeSendBuffer(data, Npc::LOGIN));
 			}
-			else {
+			else{
 				if (NPC_TEST)
 					_games[room].SetNpc(true);
 				Npc::LoginData input;
@@ -65,7 +65,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 					_games[room]()->DoAsync(&Room::ReConnect, session, id);
 				}
 			}
-			else
+			else if(!(_games[room] >> id))
 			{
 				cout << "Player Inside2 = " << id << " " << room << endl;
 				session->_room = _games[room]();
@@ -97,9 +97,9 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 	}
 	// 재 접속 코드 넣기
 	else {
-		Protocol::Data data;
+		Protocol::ConnectData data;
 		data.set_id(id);
-		data.set_matchroom(-1);
+		data.set_room(-1);
 		session->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT_FAIL));
 	}
 }
@@ -112,7 +112,7 @@ void Games::EnterNpc(Npc::LoginData pkt, int32 room)
 
 void Games::StartGame(int32 room)
 {
-	int check = -1;
+	int check = 0;
 	if (_games[room].CheckNpc() && (check = _games[room]()->Start()))
 	{
 		cout << "게임 시작 " << room << endl;

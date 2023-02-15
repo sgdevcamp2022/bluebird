@@ -3,6 +3,7 @@
 #include "ConnectSession.h"
 #include <CoreGlobal.h>
 #include <ThreadManager.h>
+#include "RedisManager.h"
 
 enum
 {

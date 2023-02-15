@@ -2,6 +2,8 @@
 #include "MatchManager.h"
 #include "MatchSession.h"
 #include "ConnectSession.h"
+#include "RedisManager.h"
+#include "Redis.h"
 
 shared_ptr<MatchManager> GMatch = make_shared<MatchManager>();
 
@@ -95,17 +97,33 @@ MatchManager::~MatchManager()
 
 void MatchManager::MatchEnter(int64 id, int32 level)
 {
-	//에러 체크 필요함
-
-	Match::S_Login data;
-	data.set_id(id);
-	data.set_level(level);
-	if (_lobyref != nullptr)
-		_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
-
-	auto type = _playerCount[level](id);
-	if (type)
-		DoTimer(1000, &MatchManager::MatchPull, type);
+	Redis* redis = GRedisManager->GetRedis();
+	if (redis == nullptr) {
+		cout << "nullptr" << endl;
+		DoAsync(&MatchManager::MatchEnter, id, level);
+		return;
+	}
+	
+	if(redis->ExistQuery(id)){
+		cout << "Login : " << id << " " << level << endl;
+		Match::S_Login data;
+		data.set_id(id);
+		data.set_level(level);
+		if (_lobyref != nullptr)
+			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
+		auto type = _playerCount[level](id);
+		if (type)
+			DoTimer(1000, &MatchManager::MatchPull, type);
+	}
+	else {
+		cout << "Redis에 없음 " << id << endl;
+		Match::S_Login data;
+		data.set_id(id);
+		data.set_level(level);
+		if (_lobyref != nullptr)
+			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_CANCLE));
+	}
+	GRedisManager->ReturnRedis(redis);
 }
 
 void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
@@ -152,6 +170,7 @@ void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 void MatchManager::MatchPull(int32 level)
 {
 	//브로드 캐스트 이후에 확인 작업 필요 한가..?	
+	cout << "MatchPUll" << endl;
 	Match::S_Match _users;
 
 	if (level == SOLO)

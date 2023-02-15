@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using StackExchange.Redis;
 
 public class PanelManager : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class PanelManager : MonoBehaviour
         if (!isMatching)
         {
             isMatching = true;
+            PlayerInfo.playerInfo.status = PlayerInfo.Status.MATCH;
+            PlayerInfo.playerInfo.redis.HashSet(PlayerInfo.playerInfo.userNo.ToString(), "status", PlayerInfo.playerInfo.status.ToString());
             changeMatchTextRoutine = StartCoroutine(ChangeMatchText());
             StartCoroutine(StartMatch());
         }
@@ -82,6 +85,8 @@ public class PanelManager : MonoBehaviour
             StopCoroutine(changeMatchTextRoutine);
             matchText.text = "매치메이킹";
             isMatching = false;
+            PlayerInfo.playerInfo.status = PlayerInfo.Status.LOBBY;
+            PlayerInfo.playerInfo.redis.HashSet(PlayerInfo.playerInfo.userNo.ToString(), "status", PlayerInfo.playerInfo.status.ToString());
             yield break;
         }
         matchCancleButton.SetActive(true);
@@ -133,6 +138,8 @@ public class PanelManager : MonoBehaviour
 
                 isMatching = false;
                 isCancel = false;
+                PlayerInfo.playerInfo.status = PlayerInfo.Status.LOBBY;
+                PlayerInfo.playerInfo.redis.HashSet(PlayerInfo.playerInfo.userNo.ToString(), "status", PlayerInfo.playerInfo.status.ToString());
 
                 matchText.text = "매치메이킹";
                 matchCancleButton.SetActive(false);
@@ -141,12 +148,13 @@ public class PanelManager : MonoBehaviour
             else
             {
                 //게임 시작 및 씬 전환
-                LobbyInfo.lobbyInfo.userNo = LobbyGameManager.gameManager.userNo;
-                LobbyInfo.lobbyInfo.room = matchStatus;
-                LobbyInfo.lobbyInfo.level = mapLevel;
+                PlayerInfo.playerInfo.room = matchStatus;
+                PlayerInfo.playerInfo.level = mapLevel;
+                PlayerInfo.playerInfo.status = PlayerInfo.Status.INGAME;
+                PlayerInfo.playerInfo.redis.HashSet(PlayerInfo.playerInfo.userNo.ToString(), "status", PlayerInfo.playerInfo.status.ToString());
                 try
                 {
-                    SceneManager.LoadScene("Stage" + LobbyInfo.lobbyInfo.level.ToString());
+                    SceneManager.LoadScene("Stage" + PlayerInfo.playerInfo.level.ToString());
                 }
                 catch(Exception e)
                 {

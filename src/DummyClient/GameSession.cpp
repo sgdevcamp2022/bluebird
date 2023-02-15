@@ -7,10 +7,10 @@ void GameSession::OnConnected()
     static atomic<int> th(0);
     id = th.fetch_add(1);
     {
-        Protocol::Data pkt;
+        Protocol::ConnectData pkt;
         pkt.set_id(id);
-        pkt.set_maplevel(2);
-        pkt.set_matchroom(1);
+        pkt.set_level(2);
+        pkt.set_room(1);
         auto ref = GameHandler::MakeSendBuffer(pkt, Protocol::CONNECT);
         Send(ref);
     }

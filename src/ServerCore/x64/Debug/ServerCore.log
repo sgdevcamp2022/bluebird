@@ -1,5 +1,4 @@
-﻿  pch.cpp
-  Allocator.cpp
+﻿  Allocator.cpp
   BufferReader.cpp
   BufferWriter.cpp
   CoreGlobal.cpp
@@ -10,11 +9,11 @@
   IocpCore.cpp
   IocpEvent.cpp
   Job.cpp
-  JobTimer.cpp
-  LockQueue.cpp
   JobQueue.cpp
+  JobTimer.cpp
   Listener.cpp
   Lock.cpp
+  LockQueue.cpp
   Memory.cpp
   MemoryPool.cpp
   NetAddress.cpp
@@ -23,9 +22,5 @@
   컴파일하고 있습니다...
   RefCounting.cpp
   SendBuffer.cpp
-  Service.cpp
-  Session.cpp
-  SocketUtils.cpp
-  ThreadManager.cpp
   코드를 생성하고 있습니다...
   ServerCore.vcxproj -> E:\GitHub\bluebird\src\Libraries\Libs\ServerCore\Debug\ServerCore.lib

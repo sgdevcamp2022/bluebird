@@ -151,6 +151,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Redis.cpp" />
+    <ClCompile Include="RedisManager.cpp" />
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
     <ClInclude Include="Redis.h" />
+    <ClInclude Include="RedisManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
