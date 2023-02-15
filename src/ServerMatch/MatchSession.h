@@ -1,0 +1,15 @@
+#pragma once
+
+class MatchSession : public PacketSession
+{
+public:
+	MatchSession() { }
+	~MatchSession()
+	{
+		cout << "~GameSession" << endl;
+	}
+	virtual void OnConnected() override;
+	virtual void OnDisconnected() override;
+	virtual void OnRecvPacket(BYTE* buffer, Match::Header&& head) override;
+	virtual void OnSend(int32 len) override;
+};
