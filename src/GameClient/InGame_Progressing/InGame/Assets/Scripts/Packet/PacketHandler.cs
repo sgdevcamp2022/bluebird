@@ -11,7 +11,10 @@ public class PacketHandler
     public static Google.Protobuf.Protocol.Vector spawnRotation = new Vector { X = 0f, Y = 180f, Z = 0f };
 
     static bool firstStage = true;
-    static bool lastStage = false;
+    static int goalNum = 0;
+    static int maxGoalNum = 2;
+
+    
     public static void GetTickCount(IMessage packet)
     {
         //TODO RTT구하기
@@ -32,7 +35,7 @@ public class PacketHandler
 
             UnityEngine.Debug.Log("Game Start...");
             StartData data = packet as StartData;
-
+        
 
         if (!firstStage)
         {
@@ -78,6 +81,7 @@ public class PacketHandler
             GameObject go2 = GameObject.Find("GameManager");
             GameManager igm = go2.GetComponent<GameManager>();
             igm.GameStartTxt();
+            igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
 
 
             UnityEngine.Debug.Log("Game Start!");
@@ -186,7 +190,8 @@ public class PacketHandler
                 Managers.Object.ClearPlaayers();
                 Managers.Object.ClearObstacle();
                 Managers.Object.ClearShape();
-
+                goalNum = 0;
+                maxGoalNum -= 1;
                 UnityEngine.Debug.Log("Scene Moved");
                 SceneManager.LoadScene("Stage2");
 
@@ -197,6 +202,8 @@ public class PacketHandler
             Managers.Object.ClearPlaayers();
             Managers.Object.ClearObstacle();
             Managers.Object.ClearShape();
+            goalNum = 0;
+            maxGoalNum = 2;
             SceneManager.LoadScene("LobbyScene");
         }
 
@@ -216,6 +223,8 @@ public class PacketHandler
             Managers.Object.ClearPlaayers();
             Managers.Object.ClearObstacle();
             Managers.Object.ClearShape();
+            goalNum = 0;
+            maxGoalNum = 2;
 
             UnityEngine.Debug.Log("Scene Moved to Complete Scene");
             SceneManager.LoadScene("CompleteScene");
@@ -250,7 +259,11 @@ public class PacketHandler
 
         if (data.Success)
         {
-          
+            goalNum++;
+
+            GameObject go2 = GameObject.Find("GameManager");
+            GameManager igm = go2.GetComponent<GameManager>();
+            igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
         }
         else
         {
