@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{48fdb4d3-6086-4dc0-8ddd-fd604a282a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{6ecd2095-bbc5-4d11-9511-b1f7fa546a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{9dfaab66-16af-4b49-9ef7-96eedccfcedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Session">
+      <UniqueIdentifier>{e13bc1fe-ca04-4d2a-8e83-c885e0320dfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Match">
+      <UniqueIdentifier>{fab4f95e-4d72-4a24-8d54-411a11ad8990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Redis">
+      <UniqueIdentifier>{4cca42cf-364b-4a4f-bef0-dd383590b3ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ServerMain.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocolMatch.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchManager.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="Redis.cpp">
+      <Filter>Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="RedisManager.cpp">
+      <Filter>Redis</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocolMatch.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchManager.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="Redis.h">
+      <Filter>Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="RedisManager.h">
+      <Filter>Redis</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
