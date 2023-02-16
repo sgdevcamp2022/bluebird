@@ -2781,7 +2781,7 @@ GameObject:
   - component: {fileID: -3853315170047701131}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2866,6 +2866,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpPower: 5
+  spawnPoint: {x: 0, y: 0, z: 0}
+  isStarted: 0
   _state: 0
 --- !u!1 &8692607577877473419
 GameObject:
