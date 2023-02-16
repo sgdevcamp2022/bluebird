@@ -10,6 +10,7 @@ public class PacketHandler
     public static Google.Protobuf.Protocol.Vector spawnRotation = new Vector { X = 0f, Y = 180f, Z = 0f };
 
     static bool firstStage = true;
+    static bool lastStage = false;
     public static void GetTickCount(IMessage packet)
     {
         //TODO RTT구하기
@@ -197,13 +198,13 @@ public class PacketHandler
 
         if (data.Success)
         {
-            firstStage = false;
-            Managers.Object.ClearPlaayers();
-            Managers.Object.ClearObstacle();
-            Managers.Object.ClearShape();
+                firstStage = false;
+                Managers.Object.ClearPlaayers();
+                Managers.Object.ClearObstacle();
+                Managers.Object.ClearShape();
 
-            UnityEngine.Debug.Log("Scene Moved");
-            SceneManager.LoadScene("Stage2");
+                UnityEngine.Debug.Log("Scene Moved");
+                SceneManager.LoadScene("Stage2");
 
         }
         else
@@ -218,10 +219,37 @@ public class PacketHandler
         UnityEngine.Debug.Log("GameComplte");
         
     }
+
+    //게임 종료
     public static void GameEnds(IMessage packet)
     {
 
         PlayerGoalData data = packet as PlayerGoalData;
+
+        if (data.Success)
+        {
+            firstStage = true;
+            Managers.Object.ClearPlaayers();
+            Managers.Object.ClearObstacle();
+            Managers.Object.ClearShape();
+
+            UnityEngine.Debug.Log("Scene Moved to Complete Scene");
+            SceneManager.LoadScene("CompleteScene");
+
+        }
+        else
+        {
+            firstStage = true;
+            Managers.Object.ClearPlaayers();
+            Managers.Object.ClearObstacle();
+            Managers.Object.ClearShape();
+
+            UnityEngine.Debug.Log("Scene Moved to Lobby Scene");
+            SceneManager.LoadScene("LobbyScene");
+        }
+
+
+
         UnityEngine.Debug.Log("GameEnd");
     }
     public static void PlayerGoal(IMessage packet)

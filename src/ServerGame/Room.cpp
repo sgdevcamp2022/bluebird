@@ -15,12 +15,16 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 	if (NPC_TEST) {
 		Npc::Vector3 data;
 		data.set_x(0.f);
-		data.set_x(0.f);
 		data.set_y(0.1f);
 		data.set_z(30.f);
 
-		_spawnPosition.push_back({ data, data });
-		_spawnPosition.push_back({ data, data });
+		Npc::Vector3 data2;
+		data2.set_x(0.2f);
+		data2.set_y(0.2f);
+		data2.set_z(60.f);
+
+		_spawnPosition.push_back({ data, data2 });
+		_spawnPosition.push_back({ data2, data });
 	}
 	_syncObstacle = new Protocol::SyncObstacle;
 	_syncPlayer = new Protocol::SyncPlayer;
@@ -169,7 +173,7 @@ void Room::Leave(PlayerRef ref)
 int Room::Start()
 {
 	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) {
-		cout << "Start Fail" << endl;
+		cout << _playerSize << "Start Fail" << endl;
 		return 0;
 	}
 

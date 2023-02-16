@@ -39,6 +39,7 @@ public class ObjectManager
         pc.playerId = id;
         pc.playerInfo = player;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
+        Debug.Log(player.Rotation.X + " " + player.Rotation.Y + " " + player.Rotation.Z + " ");
     }
     public void AddMyPlayer(Int64 id, Player player)
     {

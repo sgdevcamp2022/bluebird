@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"></script>
+
+    <style type="text/css">
+        html,
+        body {
+            height: auto;
+
+            background-color: #3498db;
+            color: black;
+            padding-bottom: 250px;
+        }
+
+        #wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        #container {
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        #header {
+            text-align: center;
+        }
+
+        table {
+            text-align: center;
+            /* padding: 5px 0 5px 0; */
+            width: 100%;
+            height: 100%;
+            border-top: 1px solid #444444;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input:invalid {
+            outline: 1px solid red;
+        }
+
+        input:valid {
+            outline: 1px solid green;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script type="text/javascript">
+        function check_required() {
+            if (document.login_form.userID.value == "") {
+                alert("아이디를 입력하세요!");
+                document.login_form.userID.focus();
+            }
+
+            else if (document.login_form.userPW.value == "") {
+                alert("비밀번호를 입력하세요!");
+                document.login_form.userPW.focus();
+            }
+
+            else {
+                document.forms["login_form"].submit();
+            }
+
+        }
+    </script>
+    
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+        </div>
+        <form id="login_form" name="login_form" method="POST" action="/auth/login">
+            <div id="container">
+                <div id="content">
+                    <table width="940" style="padding:5px 0 5px 0;">
+                        <tr>
+                            <h3>Poor Guys 로그인</h3>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>아이디</h3>
+                            </td>
+                            <td><span><input type="text" id="userID" name="logEmail" /></span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>비밀번호</h3>
+                            </td>
+                            <td><span><input type="password" id="userPW" name="logPass" onchange="check_pw()" /></span>
+                            </td>
+                        </tr>
+                        <tr id="btn_area" style="text-align: center;">
+                            <td>
+                                <button type="button" onclick="check_required()" id="btnSend"><span>로그인</span></button>
+                            </td>
+                            <td><button type="button" onclick="location.href = '/'">메인으로</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

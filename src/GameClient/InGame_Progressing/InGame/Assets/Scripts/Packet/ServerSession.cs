@@ -81,7 +81,7 @@ public class ServerSession : PacketSession
         {
             Id = rand.Next(100),
             Level = 2,
-            Room = 0,
+            Room = 1,
             //Player = {new Player {X = 0,Y=0,Z=0 } }
         };
 

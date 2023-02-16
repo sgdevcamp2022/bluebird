@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메세지 전달 페이지</title>
+    <style type="text/css">
+        body {
+            background: #3498db;  /* fallback for old browsers */
+            /* background: -webkit-linear-gradient(to right, #b29f94, #3498db);
+            background: linear-gradient(to right, #b29f94, #3498db); */
+
+        }
+        #wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        #container {
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        #header {
+            text-align: center;
+        }
+
+        table {
+            text-align: center;
+            /* padding: 5px 0 5px 0; */
+            width: 100%;
+            /* border-top: 1px solid #444444; */
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="container">
+            <table width="800">
+                <tr>
+                    <td>
+                        <h1>{{msg}}</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button onclick="location.href = '/'">메인 화면으로 돌아가기!</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
