@@ -16,7 +16,7 @@ class Config:
 
 @dataclass
 class LocalConfig(Config):
-    DB_URL: str = "mysql+pymysql://root:0000@localhost/member?charset=utf8mb4"
+    DB_URL: str = "mysql+pymysql://root:a12b34@121.145.229.137/member?charset=utf8mb4"
     REDIS_URL : str = "redis://:a12b34@34.84.148.50:6379"
     TRUSTED_HOSTS = ["*"]
     ALLOW_SITE = ["*"]
