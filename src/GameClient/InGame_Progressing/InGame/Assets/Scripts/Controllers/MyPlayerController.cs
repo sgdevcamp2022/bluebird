@@ -241,10 +241,6 @@ public class MyPlayerController : PlayerController
             }
         }
     }
-    protected override void OnCollisionStay(Collision collision)
-    {
-          SceneManager.LoadScene("LobbyScene");
-    }
 }
 /*
  //서버가 좌표를 보내주면 이동하는 형식

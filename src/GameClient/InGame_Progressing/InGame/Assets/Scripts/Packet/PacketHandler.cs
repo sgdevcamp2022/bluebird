@@ -32,28 +32,27 @@ public class PacketHandler
     public static void GameStart(IMessage packet)
     {
 
-            UnityEngine.Debug.Log("Game Start...");
-            StartData data = packet as StartData;
-        
+        UnityEngine.Debug.Log("Game Start...");
+        StartData data = packet as StartData;
 
         if (!firstStage)
         {
 
-                foreach (Player player in data.Players.Player)
+            foreach (Player player in data.Players.Player)
+            {
+                if (player.Id == Managers.Object.myPlayerId)
                 {
-                    if (player.Id == Managers.Object.myPlayerId)
-                    {
-                        UnityEngine.Debug.Log("MyPlayer created" + Managers.Object.myPlayerId);
-                        Managers.Object.AddMyPlayer(player.Id, player);
-                    }
-                    else
-                    {
-
-                        Managers.Object.AddPlayer(player.Id, player);
-                        UnityEngine.Debug.Log(player.Id + " Inside");
-                    }
+                    UnityEngine.Debug.Log("MyPlayer created" + Managers.Object.myPlayerId);
+                    Managers.Object.AddMyPlayer(player.Id, player);
                 }
-            
+                else
+                {
+
+                    Managers.Object.AddPlayer(player.Id, player);
+                    UnityEngine.Debug.Log(player.Id + " Inside");
+                }
+            }
+
         }
         else
         {
@@ -66,25 +65,25 @@ public class PacketHandler
                 UnityEngine.Debug.Log(player.Id + " Inside");
             }
         }
-            foreach (Obtacle obtacle in data.Obstacles.Obtacle)
-            {
-                Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
-                UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
-                UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
-            }
+        foreach (Obtacle obtacle in data.Obstacles.Obtacle)
+        {
+            Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
+            UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
+            UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
+        }
 
-            GameObject go = GameObject.Find("GameScene");
-            GameScene gs = go.GetComponent<GameScene>();
-            gs.SetStartGame();
+        GameObject go = GameObject.Find("GameScene");
+        GameScene gs = go.GetComponent<GameScene>();
+        gs.SetStartGame();
 
-            GameObject go2 = GameObject.Find("GameManager");
-            GameManager igm = go2.GetComponent<GameManager>();
-            igm.GameStartTxt();
-            igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
+        GameObject go2 = GameObject.Find("GameManager");
+        GameManager igm = go2.GetComponent<GameManager>();
+        igm.GameStartTxt();
+        igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
 
 
-            UnityEngine.Debug.Log("Game Start!");
-        
+        UnityEngine.Debug.Log("Game Start!");
+
     }
     public static void ReConnect(IMessage packet)
     {

@@ -176,7 +176,7 @@ int Room::Start()
 		return 0;
 	}
 
-	cout << "GameStart" << endl;
+	
 	vector<int64> keys;
 	int i = 0;
 	for (auto& player : _players[_stage])
@@ -207,6 +207,7 @@ int Room::Start()
 
 	_remainUser = _players[_stage].size();
 
+	cout << "GameStart " << _remainUser<<endl;
 	_start.store(true);
 	//Sync
 	TimeSync();

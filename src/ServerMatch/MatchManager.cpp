@@ -76,12 +76,12 @@ MatchManager::MatchManager()
 
 	_playerOut = [=](Match::S_Match&  _users, array<PlayerLevel, 3> levels, int32 min, int32 max) {
 		if (_playerSize[levels[0]] >= min) {
-			for (int i = 0; i < levels.size(); i++) {
-				while (!_playerWait[levels[i]].empty()) {
+			for(int level : levels) {
+				while (!_playerWait[level].empty()) {
 					if (_users.ids_size() == max)
 						break;
-					_users.add_ids(_playerWait[levels[i]].front());
-					_playerWait[levels[i]].pop_front();
+					_users.add_ids(_playerWait[level].front());
+					_playerWait[level].pop_front();
 				}
 			}
 			_playerSize[levels[0]] -= _users.ids_size();
