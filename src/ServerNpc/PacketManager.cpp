@@ -287,7 +287,7 @@ ConnectToSQL::~ConnectToSQL()
 int ConnectToSQL::SQLInit()
 {
     mysql_init(&Conn);
-    ConnPtr = mysql_real_connect(&Conn, "127.0.0.1", "root", "Z797944z!", "map", 3306, (char*)NULL, 0);
+    ConnPtr = mysql_real_connect(&Conn, "121.145.229.137", "root", "a12b34", "map", 3306, (char*)NULL, 0);
 
     if (ConnPtr == NULL)
     {
