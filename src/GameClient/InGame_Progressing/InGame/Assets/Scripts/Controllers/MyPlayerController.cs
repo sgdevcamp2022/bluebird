@@ -147,7 +147,7 @@ public class MyPlayerController : PlayerController
                 State = BirdState.Idle;
                 UpdateAnimation();
 
-            }
+        }
             else if (prevVec != transform.position)
             {
 
@@ -309,7 +309,6 @@ public class MyPlayerController : PlayerController
 
                 UpdateAnimation();
 
-            
 
             }
         }
@@ -320,16 +319,7 @@ public class MyPlayerController : PlayerController
         
     }
 
-    public void MyPlayerComplete(bool success)
-    {
-        if(success)
-          SceneManager.LoadScene("Stage2");
-        else
-        {
-          SceneManager.LoadScene("LobbyScene");
-        }
-    }
-
+  
 
 
 
