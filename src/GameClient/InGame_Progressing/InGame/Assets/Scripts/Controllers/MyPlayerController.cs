@@ -43,7 +43,8 @@ public class MyPlayerController : PlayerController
         {
             if (transform.position.y < -1)
             {
-                transform.position = new Vector3(0.1f, 0.2f, 29f);
+                Debug.Log("Fail Spawn: " + spawnPoint);
+                transform.position = spawnPoint;
                 transform.rotation = Quaternion.Euler(0, 180f, 0f);
             }
             if (State == BirdState.Jumping && isJumping == false)
