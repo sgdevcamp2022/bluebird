@@ -4,14 +4,17 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gamepanel;
     public GameObject menupanel;
+    public GameObject completepanel;
 
 
     public TMP_Text racestarttxt;
+    public TMP_Text goalnumtxt;
 
 
 
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
     void InActiveGameStartTxt()
     {
         racestarttxt.enabled = false;
-        gamepanel.SetActive(false);
+        //gamepanel.SetActive(false);
     }
 
     public void ActiveMenu()
@@ -47,6 +50,17 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
     }
+
+    public void SetGoalNumText(string txt)
+    {
+        goalnumtxt.text = txt;
+    }
+
+    public void SetLobbyBtn()
+    {
+        SceneManager.LoadScene("LobbyScene");
+    }
+    
 
 
 

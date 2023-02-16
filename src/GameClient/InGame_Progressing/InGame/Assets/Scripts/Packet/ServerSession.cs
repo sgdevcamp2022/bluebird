@@ -68,15 +68,6 @@ public class ServerSession : PacketSession
             };
         }
 
-        //System.Random rand = new System.Random();
-        //ConnectData dataPkt = new ConnectData()
-        //{
-        //    Id = rand.Next(100),
-        //    Level = 2,
-        //    Room = 1,
-        //    //Player = {new Player {X = 0,Y=0,Z=0 } }
-        //};
-
         Send(dataPkt, INGAME.Connect);
         Debug.Log("try connection..." + dataPkt.Id);
     }

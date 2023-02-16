@@ -1290,6 +1290,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8237993594099999768, guid: 1b8b7fdf7ada9f641ab8f10f260e1172, type: 3}
   m_PrefabInstance: {fileID: 1143251181}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1189762169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6009403263695124924, guid: d161eae6acdf36944999e89ff4a9f89b, type: 3}
+  m_PrefabInstance: {fileID: 6171441297216772675}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1262279687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2272,10 @@ PrefabInstance:
       propertyPath: menupanel
       value: 
       objectReference: {fileID: 2138307217}
+    - target: {fileID: 5507444649480480429, guid: 600d3daaaaed2334797b6f2097475466, type: 3}
+      propertyPath: goalnumtxt
+      value: 
+      objectReference: {fileID: 1189762169}
     - target: {fileID: 5507444649480480429, guid: 600d3daaaaed2334797b6f2097475466, type: 3}
       propertyPath: racestarttxt
       value: 
