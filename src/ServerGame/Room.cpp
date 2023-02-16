@@ -32,6 +32,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 
 Room::~Room()
 {
+	RoomClear();
 	delete _syncPlayer;
 	delete _syncObstacle;
 }
@@ -142,7 +143,6 @@ void Room::Disconnect(PlayerRef ref)
 	{
 		_remainUser -= 1;
 		if (_remainUser <= 0) {
-			RoomClear();
 			RoomEnd();
 		}
 	}
@@ -164,7 +164,6 @@ void Room::Leave(PlayerRef ref)
 	{
 		_remainUser -= 1;
 		if (_remainUser <= 0) {
-			RoomClear();
 			RoomEnd();
 		}
 	}
@@ -233,7 +232,7 @@ void Room::PlayerMove(Protocol::Move data)
 			player->Move(data.position(), data.rotation());
 			/*auto moves = _syncMove.add_move();
 			*moves = data;*/
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
+			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_SYNC));
 		}
 		else if (player->GetMoveRight()) {
 			cout << "DROP" << endl;

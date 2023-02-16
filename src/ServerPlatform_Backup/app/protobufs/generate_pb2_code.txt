@@ -1,1 +1,0 @@
-python -m grpc_tools.protoc -I ./app/protobufs --python_out=./app/protobufs --grpc_python_out=./app/protobufs ProtocolMatch.proto
