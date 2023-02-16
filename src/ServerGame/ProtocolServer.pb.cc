@@ -56,10 +56,34 @@ struct ConnectDataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConnectDataDefaultTypeInternal _ConnectData_default_instance_;
+constexpr SyncPlayer::SyncPlayer(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : player_(){}
+struct SyncPlayerDefaultTypeInternal {
+  constexpr SyncPlayerDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~SyncPlayerDefaultTypeInternal() {}
+  union {
+    SyncPlayer _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SyncPlayerDefaultTypeInternal _SyncPlayer_default_instance_;
+constexpr SyncObstacle::SyncObstacle(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : obtacle_(){}
+struct SyncObstacleDefaultTypeInternal {
+  constexpr SyncObstacleDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~SyncObstacleDefaultTypeInternal() {}
+  union {
+    SyncObstacle _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SyncObstacleDefaultTypeInternal _SyncObstacle_default_instance_;
 constexpr StartData::StartData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : player_()
-  , obtacle_(){}
+  : players_(nullptr)
+  , obstacles_(nullptr){}
 struct StartDataDefaultTypeInternal {
   constexpr StartDataDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -172,7 +196,7 @@ struct VectorDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VectorDefaultTypeInternal _Vector_default_instance_;
 }  // namespace Protocol
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ProtocolServer_2eproto[11];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ProtocolServer_2eproto[13];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_ProtocolServer_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_ProtocolServer_2eproto = nullptr;
 
@@ -199,12 +223,24 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::Protocol::ConnectData, room_),
   PROTOBUF_FIELD_OFFSET(::Protocol::ConnectData, level_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SyncPlayer, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SyncPlayer, player_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SyncObstacle, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SyncObstacle, obtacle_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::StartData, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Protocol::StartData, player_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::StartData, obtacle_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::StartData, players_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::StartData, obstacles_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Times, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -283,20 +319,24 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::Protocol::PlayerGoalData)},
   { 7, -1, sizeof(::Protocol::GameCompleteData)},
   { 13, -1, sizeof(::Protocol::ConnectData)},
-  { 21, -1, sizeof(::Protocol::StartData)},
-  { 28, -1, sizeof(::Protocol::Times)},
-  { 34, 44, sizeof(::Protocol::Move)},
-  { 49, -1, sizeof(::Protocol::MoveData)},
-  { 56, 67, sizeof(::Protocol::Obtacle)},
-  { 73, 81, sizeof(::Protocol::Player)},
-  { 84, -1, sizeof(::Protocol::PlayerCrash)},
-  { 93, -1, sizeof(::Protocol::Vector)},
+  { 21, -1, sizeof(::Protocol::SyncPlayer)},
+  { 27, -1, sizeof(::Protocol::SyncObstacle)},
+  { 33, -1, sizeof(::Protocol::StartData)},
+  { 40, -1, sizeof(::Protocol::Times)},
+  { 46, 56, sizeof(::Protocol::Move)},
+  { 61, -1, sizeof(::Protocol::MoveData)},
+  { 68, 79, sizeof(::Protocol::Obtacle)},
+  { 85, 93, sizeof(::Protocol::Player)},
+  { 96, -1, sizeof(::Protocol::PlayerCrash)},
+  { 105, -1, sizeof(::Protocol::Vector)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_PlayerGoalData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_GameCompleteData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_ConnectData_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_SyncPlayer_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_SyncObstacle_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_StartData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_Times_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protocol::_Move_default_instance_),
@@ -312,41 +352,44 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "erGoalData\022\n\n\002id\030\001 \001(\003\022\017\n\007success\030\002 \001(\010\""
   ":\n\020GameCompleteData\022&\n\004data\030\001 \003(\0132\030.Prot"
   "ocol.PlayerGoalData\"6\n\013ConnectData\022\n\n\002id"
-  "\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\r\n\005level\030\003 \001(\005\"Q\n\tS"
-  "tartData\022 \n\006player\030\004 \003(\0132\020.Protocol.Play"
-  "er\022\"\n\007obtacle\030\005 \003(\0132\021.Protocol.Obtacle\"\025"
-  "\n\005Times\022\014\n\004time\030\001 \001(\003\"\257\001\n\004Move\022\n\n\002id\030\001 \001"
-  "(\003\022\014\n\004time\030\002 \001(\003\022!\n\004anim\030\003 \001(\0162\023.Protoco"
-  "l.Animation\022\'\n\010position\030\004 \001(\0132\020.Protocol"
-  ".VectorH\000\210\001\001\022\'\n\010rotation\030\005 \001(\0132\020.Protoco"
+  "\030\001 \001(\003\022\014\n\004room\030\002 \001(\005\022\r\n\005level\030\003 \001(\005\".\n\nS"
+  "yncPlayer\022 \n\006player\030\001 \003(\0132\020.Protocol.Pla"
+  "yer\"2\n\014SyncObstacle\022\"\n\007obtacle\030\001 \003(\0132\021.P"
+  "rotocol.Obtacle\"]\n\tStartData\022%\n\007players\030"
+  "\001 \001(\0132\024.Protocol.SyncPlayer\022)\n\tobstacles"
+  "\030\002 \001(\0132\026.Protocol.SyncObstacle\"\025\n\005Times\022"
+  "\014\n\004time\030\001 \001(\003\"\257\001\n\004Move\022\n\n\002id\030\001 \001(\003\022\014\n\004ti"
+  "me\030\002 \001(\003\022!\n\004anim\030\003 \001(\0162\023.Protocol.Animat"
+  "ion\022\'\n\010position\030\004 \001(\0132\020.Protocol.VectorH"
+  "\000\210\001\001\022\'\n\010rotation\030\005 \001(\0132\020.Protocol.Vector"
+  "H\001\210\001\001B\013\n\t_positionB\013\n\t_rotation\"6\n\010MoveD"
+  "ata\022\014\n\004time\030\001 \001(\003\022\034\n\004move\030\002 \003(\0132\016.Protoc"
+  "ol.Move\"\262\001\n\007Obtacle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape"
+  "\030\002 \001(\005\022\'\n\010position\030\003 \001(\0132\020.Protocol.Vect"
+  "orH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.Protocol.Vec"
+  "torH\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n\tdirection\030\006 \001"
+  "(\005B\013\n\t_positionB\013\n\t_rotation\"\200\001\n\006Player\022"
+  "\n\n\002id\030\001 \001(\003\022\'\n\010position\030\002 \001(\0132\020.Protocol"
+  ".VectorH\000\210\001\001\022\'\n\010rotation\030\003 \001(\0132\020.Protoco"
   "l.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_rotation\""
-  "6\n\010MoveData\022\014\n\004time\030\001 \001(\003\022\034\n\004move\030\002 \003(\0132"
-  "\016.Protocol.Move\"\262\001\n\007Obtacle\022\n\n\002id\030\001 \001(\003\022"
-  "\r\n\005shape\030\002 \001(\005\022\'\n\010position\030\003 \001(\0132\020.Proto"
-  "col.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.Prot"
-  "ocol.VectorH\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n\tdirec"
-  "tion\030\006 \001(\005B\013\n\t_positionB\013\n\t_rotation\"\200\001\n"
-  "\006Player\022\n\n\002id\030\001 \001(\003\022\'\n\010position\030\002 \001(\0132\020."
-  "Protocol.VectorH\000\210\001\001\022\'\n\010rotation\030\003 \001(\0132\020"
-  ".Protocol.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_r"
-  "otation\"\202\001\n\013PlayerCrash\022\n\n\002id\030\001 \001(\003\022\"\n\010p"
-  "osition\030\002 \001(\0132\020.Protocol.Vector\022\"\n\010rotat"
-  "ion\030\003 \001(\0132\020.Protocol.Vector\022\037\n\005enemy\030\004 \001"
-  "(\0132\020.Protocol.Player\")\n\006Vector\022\t\n\001x\030\001 \001("
-  "\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\354\001\n\006INGAME\022\013\n\007CO"
-  "NNECT\020\000\022\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_"
-  "MOVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004\022\020\n\014GAME_COMPLT"
-  "E\020\005\022\014\n\010GAME_END\020\006\022\017\n\013PLAYER_DROP\020\007\022\020\n\014PL"
-  "AYER_CRASH\020\010\022\020\n\014CONNECT_FAIL\020\t\022\010\n\004TIME\020\n"
-  "\022\014\n\010GET_TICK\020\013\022\017\n\013PLAYER_GOAL\020\014\022\r\n\tRECON"
-  "NECT\020\r\022\016\n\nSTATE_SYNC\020\016*L\n\tAnimation\022\010\n\004I"
-  "DLE\020\000\022\010\n\004MOVE\020\001\022\016\n\nJUMP_START\020\002\022\r\n\tJUMP_"
-  "LOOP\020\003\022\014\n\010JUMP_END\020\004b\006proto3"
+  "\202\001\n\013PlayerCrash\022\n\n\002id\030\001 \001(\003\022\"\n\010position\030"
+  "\002 \001(\0132\020.Protocol.Vector\022\"\n\010rotation\030\003 \001("
+  "\0132\020.Protocol.Vector\022\037\n\005enemy\030\004 \001(\0132\020.Pro"
+  "tocol.Player\")\n\006Vector\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002"
+  " \001(\002\022\t\n\001z\030\003 \001(\002*\355\001\n\006INGAME\022\013\n\007CONNECT\020\000\022"
+  "\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYER_MOVE\020\003\022\021"
+  "\n\rOBSTACLE_MOVE\020\004\022\020\n\014GAME_COMPLTE\020\005\022\014\n\010G"
+  "AME_END\020\006\022\017\n\013PLAYER_DROP\020\007\022\020\n\014PLAYER_CRA"
+  "SH\020\010\022\020\n\014CONNECT_FAIL\020\t\022\010\n\004TIME\020\n\022\014\n\010GET_"
+  "TICK\020\013\022\017\n\013PLAYER_GOAL\020\014\022\r\n\tRECONNECT\020\r\022\017"
+  "\n\013PLAYER_SYNC\020\016*L\n\tAnimation\022\010\n\004IDLE\020\000\022\010"
+  "\n\004MOVE\020\001\022\016\n\nJUMP_START\020\002\022\r\n\tJUMP_LOOP\020\003\022"
+  "\014\n\010JUMP_END\020\004b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 1348, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
-  &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 11,
+  false, false, 1461, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 13,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
 };
@@ -1070,27 +1113,437 @@ void ConnectData::InternalSwap(ConnectData* other) {
 
 // ===================================================================
 
-class StartData::_Internal {
+class SyncPlayer::_Internal {
  public:
 };
 
-StartData::StartData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+SyncPlayer::SyncPlayer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  player_(arena),
+  player_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SyncPlayer)
+}
+SyncPlayer::SyncPlayer(const SyncPlayer& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      player_(from.player_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Protocol.SyncPlayer)
+}
+
+void SyncPlayer::SharedCtor() {
+}
+
+SyncPlayer::~SyncPlayer() {
+  // @@protoc_insertion_point(destructor:Protocol.SyncPlayer)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void SyncPlayer::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SyncPlayer::ArenaDtor(void* object) {
+  SyncPlayer* _this = reinterpret_cast< SyncPlayer* >(object);
+  (void)_this;
+}
+void SyncPlayer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void SyncPlayer::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SyncPlayer::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SyncPlayer)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  player_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SyncPlayer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .Protocol.Player player = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_player(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* SyncPlayer::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SyncPlayer)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Player player = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_player_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_player(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SyncPlayer)
+  return target;
+}
+
+size_t SyncPlayer::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SyncPlayer)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Player player = 1;
+  total_size += 1UL * this->_internal_player_size();
+  for (const auto& msg : this->player_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SyncPlayer::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Protocol.SyncPlayer)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SyncPlayer* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SyncPlayer>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Protocol.SyncPlayer)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Protocol.SyncPlayer)
+    MergeFrom(*source);
+  }
+}
+
+void SyncPlayer::MergeFrom(const SyncPlayer& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SyncPlayer)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  player_.MergeFrom(from.player_);
+}
+
+void SyncPlayer::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Protocol.SyncPlayer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SyncPlayer::CopyFrom(const SyncPlayer& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SyncPlayer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SyncPlayer::IsInitialized() const {
+  return true;
+}
+
+void SyncPlayer::InternalSwap(SyncPlayer* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  player_.InternalSwap(&other->player_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SyncPlayer::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
+      file_level_metadata_ProtocolServer_2eproto[3]);
+}
+
+// ===================================================================
+
+class SyncObstacle::_Internal {
+ public:
+};
+
+SyncObstacle::SyncObstacle(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   obtacle_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SyncObstacle)
+}
+SyncObstacle::SyncObstacle(const SyncObstacle& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      obtacle_(from.obtacle_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Protocol.SyncObstacle)
+}
+
+void SyncObstacle::SharedCtor() {
+}
+
+SyncObstacle::~SyncObstacle() {
+  // @@protoc_insertion_point(destructor:Protocol.SyncObstacle)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void SyncObstacle::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SyncObstacle::ArenaDtor(void* object) {
+  SyncObstacle* _this = reinterpret_cast< SyncObstacle* >(object);
+  (void)_this;
+}
+void SyncObstacle::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void SyncObstacle::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SyncObstacle::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SyncObstacle)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  obtacle_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SyncObstacle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .Protocol.Obtacle obtacle = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_obtacle(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* SyncObstacle::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SyncObstacle)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Obtacle obtacle = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_obtacle_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_obtacle(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SyncObstacle)
+  return target;
+}
+
+size_t SyncObstacle::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SyncObstacle)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Obtacle obtacle = 1;
+  total_size += 1UL * this->_internal_obtacle_size();
+  for (const auto& msg : this->obtacle_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SyncObstacle::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Protocol.SyncObstacle)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SyncObstacle* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SyncObstacle>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Protocol.SyncObstacle)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Protocol.SyncObstacle)
+    MergeFrom(*source);
+  }
+}
+
+void SyncObstacle::MergeFrom(const SyncObstacle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SyncObstacle)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  obtacle_.MergeFrom(from.obtacle_);
+}
+
+void SyncObstacle::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Protocol.SyncObstacle)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SyncObstacle::CopyFrom(const SyncObstacle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SyncObstacle)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SyncObstacle::IsInitialized() const {
+  return true;
+}
+
+void SyncObstacle::InternalSwap(SyncObstacle* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  obtacle_.InternalSwap(&other->obtacle_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SyncObstacle::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
+      file_level_metadata_ProtocolServer_2eproto[4]);
+}
+
+// ===================================================================
+
+class StartData::_Internal {
+ public:
+  static const ::Protocol::SyncPlayer& players(const StartData* msg);
+  static const ::Protocol::SyncObstacle& obstacles(const StartData* msg);
+};
+
+const ::Protocol::SyncPlayer&
+StartData::_Internal::players(const StartData* msg) {
+  return *msg->players_;
+}
+const ::Protocol::SyncObstacle&
+StartData::_Internal::obstacles(const StartData* msg) {
+  return *msg->obstacles_;
+}
+StartData::StartData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:Protocol.StartData)
 }
 StartData::StartData(const StartData& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      player_(from.player_),
-      obtacle_(from.obtacle_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_players()) {
+    players_ = new ::Protocol::SyncPlayer(*from.players_);
+  } else {
+    players_ = nullptr;
+  }
+  if (from._internal_has_obstacles()) {
+    obstacles_ = new ::Protocol::SyncObstacle(*from.obstacles_);
+  } else {
+    obstacles_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:Protocol.StartData)
 }
 
 void StartData::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&players_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&obstacles_) -
+    reinterpret_cast<char*>(&players_)) + sizeof(obstacles_));
 }
 
 StartData::~StartData() {
@@ -1101,6 +1554,8 @@ StartData::~StartData() {
 
 void StartData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete players_;
+  if (this != internal_default_instance()) delete obstacles_;
 }
 
 void StartData::ArenaDtor(void* object) {
@@ -1119,8 +1574,14 @@ void StartData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  player_.Clear();
-  obtacle_.Clear();
+  if (GetArenaForAllocation() == nullptr && players_ != nullptr) {
+    delete players_;
+  }
+  players_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && obstacles_ != nullptr) {
+    delete obstacles_;
+  }
+  obstacles_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1130,28 +1591,18 @@ const char* StartData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .Protocol.Player player = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_player(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+      // .Protocol.SyncPlayer players = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_players(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .Protocol.Obtacle obtacle = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_obtacle(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
+      // .Protocol.SyncObstacle obstacles = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_obstacles(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -1183,20 +1634,20 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Protocol.Player player = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_player_size()); i < n; i++) {
+  // .Protocol.SyncPlayer players = 1;
+  if (this->has_players()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_player(i), target, stream);
+      InternalWriteMessage(
+        1, _Internal::players(this), target, stream);
   }
 
-  // repeated .Protocol.Obtacle obtacle = 5;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_obtacle_size()); i < n; i++) {
+  // .Protocol.SyncObstacle obstacles = 2;
+  if (this->has_obstacles()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, this->_internal_obtacle(i), target, stream);
+      InternalWriteMessage(
+        2, _Internal::obstacles(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1215,18 +1666,18 @@ size_t StartData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.Player player = 4;
-  total_size += 1UL * this->_internal_player_size();
-  for (const auto& msg : this->player_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // .Protocol.SyncPlayer players = 1;
+  if (this->has_players()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *players_);
   }
 
-  // repeated .Protocol.Obtacle obtacle = 5;
-  total_size += 1UL * this->_internal_obtacle_size();
-  for (const auto& msg : this->obtacle_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // .Protocol.SyncObstacle obstacles = 2;
+  if (this->has_obstacles()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *obstacles_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1260,8 +1711,12 @@ void StartData::MergeFrom(const StartData& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  player_.MergeFrom(from.player_);
-  obtacle_.MergeFrom(from.obtacle_);
+  if (from.has_players()) {
+    _internal_mutable_players()->::Protocol::SyncPlayer::MergeFrom(from._internal_players());
+  }
+  if (from.has_obstacles()) {
+    _internal_mutable_obstacles()->::Protocol::SyncObstacle::MergeFrom(from._internal_obstacles());
+  }
 }
 
 void StartData::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1285,14 +1740,18 @@ bool StartData::IsInitialized() const {
 void StartData::InternalSwap(StartData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  player_.InternalSwap(&other->player_);
-  obtacle_.InternalSwap(&other->obtacle_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(StartData, obstacles_)
+      + sizeof(StartData::obstacles_)
+      - PROTOBUF_FIELD_OFFSET(StartData, players_)>(
+          reinterpret_cast<char*>(&players_),
+          reinterpret_cast<char*>(&other->players_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata StartData::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[3]);
+      file_level_metadata_ProtocolServer_2eproto[5]);
 }
 
 // ===================================================================
@@ -1482,7 +1941,7 @@ void Times::InternalSwap(Times* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Times::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[4]);
+      file_level_metadata_ProtocolServer_2eproto[6]);
 }
 
 // ===================================================================
@@ -1832,7 +2291,7 @@ void Move::InternalSwap(Move* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Move::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[5]);
+      file_level_metadata_ProtocolServer_2eproto[7]);
 }
 
 // ===================================================================
@@ -2054,7 +2513,7 @@ void MoveData::InternalSwap(MoveData* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MoveData::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[6]);
+      file_level_metadata_ProtocolServer_2eproto[8]);
 }
 
 // ===================================================================
@@ -2424,7 +2883,7 @@ void Obtacle::InternalSwap(Obtacle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Obtacle::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[7]);
+      file_level_metadata_ProtocolServer_2eproto[9]);
 }
 
 // ===================================================================
@@ -2723,7 +3182,7 @@ void Player::InternalSwap(Player* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Player::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[8]);
+      file_level_metadata_ProtocolServer_2eproto[10]);
 }
 
 // ===================================================================
@@ -3041,7 +3500,7 @@ void PlayerCrash::InternalSwap(PlayerCrash* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerCrash::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[9]);
+      file_level_metadata_ProtocolServer_2eproto[11]);
 }
 
 // ===================================================================
@@ -3283,7 +3742,7 @@ void Vector::InternalSwap(Vector* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Vector::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ProtocolServer_2eproto_getter, &descriptor_table_ProtocolServer_2eproto_once,
-      file_level_metadata_ProtocolServer_2eproto[10]);
+      file_level_metadata_ProtocolServer_2eproto[12]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -3297,6 +3756,12 @@ template<> PROTOBUF_NOINLINE ::Protocol::GameCompleteData* Arena::CreateMaybeMes
 }
 template<> PROTOBUF_NOINLINE ::Protocol::ConnectData* Arena::CreateMaybeMessage< ::Protocol::ConnectData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::ConnectData >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SyncPlayer* Arena::CreateMaybeMessage< ::Protocol::SyncPlayer >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SyncPlayer >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SyncObstacle* Arena::CreateMaybeMessage< ::Protocol::SyncObstacle >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SyncObstacle >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::StartData* Arena::CreateMaybeMessage< ::Protocol::StartData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::StartData >(arena);

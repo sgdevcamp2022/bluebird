@@ -42,13 +42,14 @@ private:
 	int32						_matchRoom;
 	int32						_mapLevel;
 
-	Protocol::StartData			_startData;
+	Protocol::SyncObstacle*		_syncObstacle;
+	Protocol::SyncPlayer*		_syncPlayer;
 	int32						_playerSize = 0;
 	int32						_remainUser = 0;
 
-	array<map<int64, PlayerRef>, 4>			_players;
-	map<int64, ObtacleRef>					_obstacles;
-
+	array<map<int64, PlayerRef>, 4>		_players;
+	map<int64, ObtacleRef>				_obstacles;
+	Protocol::MoveData					_syncMove;
 	vector<pair<Npc::Vector3, Npc::Vector3>>	_spawnPosition;
 
 	function<bool(int64 id)> CHECK;

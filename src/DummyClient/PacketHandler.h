@@ -6,7 +6,7 @@ public:
 	static void HandlerPacket(PacketSessionRef& ref, BYTE* buffer, Match::Header&& head);
 
 	static SendBufferRef MakeSendBuffer(Match::C_Login pkt, Match::STATE type);
-	static SendBufferRef MakeSendBuffer(Match::C_Cancle pkt, Match::STATE type);
+	static SendBufferRef MakeSendBuffer(Match::C_Cancel pkt, Match::STATE type);
 	static SendBufferRef MakeSendBuffer(Match::Check pkt, Match::STATE type);
 
 private:

@@ -148,7 +148,6 @@ public class PanelManager : MonoBehaviour
             else
             {
                 //게임 시작 및 씬 전환
-                PlayerInfo.playerInfo.userNo = LobbyGameManager.gameManager.userNo;
                 PlayerInfo.playerInfo.room = matchStatus;
                 PlayerInfo.playerInfo.level = mapLevel;
                 PlayerInfo.playerInfo.status = PlayerInfo.Status.INGAME;

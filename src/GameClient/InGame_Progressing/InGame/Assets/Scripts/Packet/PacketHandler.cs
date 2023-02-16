@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PacketHandler
 {
-
     public static  Google.Protobuf.Protocol.Vector spawnPoint = new Vector { X = 0.1f, Y = 0.2f, Z = 29f };
     public static Google.Protobuf.Protocol.Vector spawnRotation = new Vector { X = 0f, Y = 180f, Z = 0f };
 
@@ -36,7 +35,7 @@ public class PacketHandler
         if (!firstStage)
         {
 
-                foreach (Player player in data.Player)
+                foreach (Player player in data.Players.Player)
                 {
                     if (player.Id == Managers.Object.myPlayerId)
                     {
@@ -54,7 +53,7 @@ public class PacketHandler
         }
         else
         {
-            foreach (Player player in data.Player)
+            foreach (Player player in data.Players.Player)
             {
                 //Player Spawn
                 if (Managers.Object.MyPlayer.playerId == player.Id)
@@ -63,7 +62,7 @@ public class PacketHandler
                 UnityEngine.Debug.Log(player.Id + " Inside");
             }
         }
-            foreach (Obtacle obtacle in data.Obtacle)
+            foreach (Obtacle obtacle in data.Obstacles.Obtacle)
             {
                 Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
                 UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
@@ -85,7 +84,7 @@ public class PacketHandler
     public static void ReConnect(IMessage packet)
     {
         StartData data = packet as StartData;
-        foreach (Player player in data.Player)
+        foreach (Player player in data.Players.Player)
         {
             //Player Spawn
             if (Managers.Object.myPlayerId == player.Id)
@@ -94,7 +93,7 @@ public class PacketHandler
                 Managers.Object.AddPlayer(player.Id, player);
             UnityEngine.Debug.Log(player.Id + " Inside");
         }
-        foreach (Obtacle obtacle in data.Obtacle)
+        foreach (Obtacle obtacle in data.Obstacles.Obtacle)
         {
             Managers.Object.AddObtacle(obtacle.Id, obtacle.Shape, obtacle);
             UnityEngine.Debug.Log("Object " + obtacle.Id + " Inside");
@@ -110,9 +109,26 @@ public class PacketHandler
 
         UnityEngine.Debug.Log("Player connected... " + data.Id);
     }
-    public static void PlayerMove(IMessage packet)
+    public static void PlayersSync(IMessage packet)
     {
+        //MoveData data = packet as MoveData;
+
+        //foreach(Move move in data.Move)
+        //{
+        //    GameObject go = Managers.Object.GetPlayer(move.Id);
+        //    if(go == null)
+        //    {
+        //        continue;
+        //    }
+        //    PlayerController pc = go.GetComponent<PlayerController>();
+
+        //    if (pc == null)
+        //        return;
+
+        //    pc.Moves = move;
+        //}
         Move data = packet as Move;
+
         GameObject go = Managers.Object.GetPlayer(data.Id);
 
         if (go == null)
@@ -123,11 +139,11 @@ public class PacketHandler
         if (pc == null)
             return;
 
-       
+
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
         pc.SetAnim(data.State);
-        
+
     }
     public static void ObtacleMove(IMessage packet)
     {
