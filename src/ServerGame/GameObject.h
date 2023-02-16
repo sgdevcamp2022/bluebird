@@ -16,7 +16,7 @@ public:
 	int32				GetRoom() { return _room; }
 	void				SetSpawnPoint(Npc::Vector3 position, Npc::Vector3 rotation) {
 		GameUtils::SetVector3(_position, position);
-		GameUtils::SetVector3(_position, rotation);
+		GameUtils::SetVector3(_rotation, rotation);
 	}
 protected:
 	int64				_id = 0;
@@ -34,14 +34,16 @@ public:
 		: GameObject(id, room, speed) {}
 	virtual ~Player();
 
-	void			SetPlayer(Protocol::Player* ref);
-	virtual bool	Move(Vector3&& position, Vector3&& rotation);
+	void				SetPlayer(Protocol::Player* ref);
+	virtual bool		Move(Vector3&& position, Vector3&& rotation);
 
-	GameSessionRef	GetOwner() { return _ownerSession; }
-	void			SetOwner(GameSessionRef session) { _ownerSession = session; }
+	GameSessionRef		GetOwner() { return _ownerSession; }
+	void				SetOwner(GameSessionRef session) { _ownerSession = session; }
 	void				MoveChange() { _move = !_move; }
 	bool				GetMoveRight() { return _move; }
+
 private:
+	Protocol::Animation	_anim = Protocol::IDLE;
 	bool				_move = true;
 	GameSessionRef		_ownerSession = nullptr;
 	Protocol::Player*	_ownerPlayer = nullptr;

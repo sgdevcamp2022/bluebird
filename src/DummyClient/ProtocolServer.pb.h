@@ -47,7 +47,7 @@ struct TableStruct_ProtocolServer_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -82,6 +82,12 @@ extern PlayerGoalDataDefaultTypeInternal _PlayerGoalData_default_instance_;
 class StartData;
 struct StartDataDefaultTypeInternal;
 extern StartDataDefaultTypeInternal _StartData_default_instance_;
+class SyncObstacle;
+struct SyncObstacleDefaultTypeInternal;
+extern SyncObstacleDefaultTypeInternal _SyncObstacle_default_instance_;
+class SyncPlayer;
+struct SyncPlayerDefaultTypeInternal;
+extern SyncPlayerDefaultTypeInternal _SyncPlayer_default_instance_;
 class Times;
 struct TimesDefaultTypeInternal;
 extern TimesDefaultTypeInternal _Times_default_instance_;
@@ -99,6 +105,8 @@ template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Are
 template<> ::Protocol::PlayerCrash* Arena::CreateMaybeMessage<::Protocol::PlayerCrash>(Arena*);
 template<> ::Protocol::PlayerGoalData* Arena::CreateMaybeMessage<::Protocol::PlayerGoalData>(Arena*);
 template<> ::Protocol::StartData* Arena::CreateMaybeMessage<::Protocol::StartData>(Arena*);
+template<> ::Protocol::SyncObstacle* Arena::CreateMaybeMessage<::Protocol::SyncObstacle>(Arena*);
+template<> ::Protocol::SyncPlayer* Arena::CreateMaybeMessage<::Protocol::SyncPlayer>(Arena*);
 template<> ::Protocol::Times* Arena::CreateMaybeMessage<::Protocol::Times>(Arena*);
 template<> ::Protocol::Vector* Arena::CreateMaybeMessage<::Protocol::Vector>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -119,13 +127,13 @@ enum INGAME : int {
   GET_TICK = 11,
   PLAYER_GOAL = 12,
   RECONNECT = 13,
-  STATE_SYNC = 14,
+  PLAYER_SYNC = 14,
   INGAME_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   INGAME_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool INGAME_IsValid(int value);
 constexpr INGAME INGAME_MIN = CONNECT;
-constexpr INGAME INGAME_MAX = STATE_SYNC;
+constexpr INGAME INGAME_MAX = PLAYER_SYNC;
 constexpr int INGAME_ARRAYSIZE = INGAME_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* INGAME_descriptor();
@@ -610,6 +618,288 @@ class ConnectData final :
 };
 // -------------------------------------------------------------------
 
+class SyncPlayer final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SyncPlayer) */ {
+ public:
+  inline SyncPlayer() : SyncPlayer(nullptr) {}
+  ~SyncPlayer() override;
+  explicit constexpr SyncPlayer(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SyncPlayer(const SyncPlayer& from);
+  SyncPlayer(SyncPlayer&& from) noexcept
+    : SyncPlayer() {
+    *this = ::std::move(from);
+  }
+
+  inline SyncPlayer& operator=(const SyncPlayer& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SyncPlayer& operator=(SyncPlayer&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SyncPlayer& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SyncPlayer* internal_default_instance() {
+    return reinterpret_cast<const SyncPlayer*>(
+               &_SyncPlayer_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(SyncPlayer& a, SyncPlayer& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SyncPlayer* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SyncPlayer* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SyncPlayer* New() const final {
+    return new SyncPlayer();
+  }
+
+  SyncPlayer* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SyncPlayer>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SyncPlayer& from);
+  void MergeFrom(const SyncPlayer& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SyncPlayer* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SyncPlayer";
+  }
+  protected:
+  explicit SyncPlayer(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPlayerFieldNumber = 1,
+  };
+  // repeated .Protocol.Player player = 1;
+  int player_size() const;
+  private:
+  int _internal_player_size() const;
+  public:
+  void clear_player();
+  ::Protocol::Player* mutable_player(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >*
+      mutable_player();
+  private:
+  const ::Protocol::Player& _internal_player(int index) const;
+  ::Protocol::Player* _internal_add_player();
+  public:
+  const ::Protocol::Player& player(int index) const;
+  ::Protocol::Player* add_player();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >&
+      player() const;
+
+  // @@protoc_insertion_point(class_scope:Protocol.SyncPlayer)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player > player_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolServer_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SyncObstacle final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SyncObstacle) */ {
+ public:
+  inline SyncObstacle() : SyncObstacle(nullptr) {}
+  ~SyncObstacle() override;
+  explicit constexpr SyncObstacle(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SyncObstacle(const SyncObstacle& from);
+  SyncObstacle(SyncObstacle&& from) noexcept
+    : SyncObstacle() {
+    *this = ::std::move(from);
+  }
+
+  inline SyncObstacle& operator=(const SyncObstacle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SyncObstacle& operator=(SyncObstacle&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SyncObstacle& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SyncObstacle* internal_default_instance() {
+    return reinterpret_cast<const SyncObstacle*>(
+               &_SyncObstacle_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(SyncObstacle& a, SyncObstacle& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SyncObstacle* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SyncObstacle* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SyncObstacle* New() const final {
+    return new SyncObstacle();
+  }
+
+  SyncObstacle* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SyncObstacle>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SyncObstacle& from);
+  void MergeFrom(const SyncObstacle& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SyncObstacle* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SyncObstacle";
+  }
+  protected:
+  explicit SyncObstacle(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObtacleFieldNumber = 1,
+  };
+  // repeated .Protocol.Obtacle obtacle = 1;
+  int obtacle_size() const;
+  private:
+  int _internal_obtacle_size() const;
+  public:
+  void clear_obtacle();
+  ::Protocol::Obtacle* mutable_obtacle(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
+      mutable_obtacle();
+  private:
+  const ::Protocol::Obtacle& _internal_obtacle(int index) const;
+  ::Protocol::Obtacle* _internal_add_obtacle();
+  public:
+  const ::Protocol::Obtacle& obtacle(int index) const;
+  ::Protocol::Obtacle* add_obtacle();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
+      obtacle() const;
+
+  // @@protoc_insertion_point(class_scope:Protocol.SyncObstacle)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle > obtacle_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_ProtocolServer_2eproto;
+};
+// -------------------------------------------------------------------
+
 class StartData final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.StartData) */ {
  public:
@@ -654,7 +944,7 @@ class StartData final :
                &_StartData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(StartData& a, StartData& b) {
     a.Swap(&b);
@@ -718,44 +1008,44 @@ class StartData final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPlayerFieldNumber = 4,
-    kObtacleFieldNumber = 5,
+    kPlayersFieldNumber = 1,
+    kObstaclesFieldNumber = 2,
   };
-  // repeated .Protocol.Player player = 4;
-  int player_size() const;
+  // .Protocol.SyncPlayer players = 1;
+  bool has_players() const;
   private:
-  int _internal_player_size() const;
+  bool _internal_has_players() const;
   public:
-  void clear_player();
-  ::Protocol::Player* mutable_player(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >*
-      mutable_player();
+  void clear_players();
+  const ::Protocol::SyncPlayer& players() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::SyncPlayer* release_players();
+  ::Protocol::SyncPlayer* mutable_players();
+  void set_allocated_players(::Protocol::SyncPlayer* players);
   private:
-  const ::Protocol::Player& _internal_player(int index) const;
-  ::Protocol::Player* _internal_add_player();
+  const ::Protocol::SyncPlayer& _internal_players() const;
+  ::Protocol::SyncPlayer* _internal_mutable_players();
   public:
-  const ::Protocol::Player& player(int index) const;
-  ::Protocol::Player* add_player();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >&
-      player() const;
+  void unsafe_arena_set_allocated_players(
+      ::Protocol::SyncPlayer* players);
+  ::Protocol::SyncPlayer* unsafe_arena_release_players();
 
-  // repeated .Protocol.Obtacle obtacle = 5;
-  int obtacle_size() const;
+  // .Protocol.SyncObstacle obstacles = 2;
+  bool has_obstacles() const;
   private:
-  int _internal_obtacle_size() const;
+  bool _internal_has_obstacles() const;
   public:
-  void clear_obtacle();
-  ::Protocol::Obtacle* mutable_obtacle(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
-      mutable_obtacle();
+  void clear_obstacles();
+  const ::Protocol::SyncObstacle& obstacles() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::SyncObstacle* release_obstacles();
+  ::Protocol::SyncObstacle* mutable_obstacles();
+  void set_allocated_obstacles(::Protocol::SyncObstacle* obstacles);
   private:
-  const ::Protocol::Obtacle& _internal_obtacle(int index) const;
-  ::Protocol::Obtacle* _internal_add_obtacle();
+  const ::Protocol::SyncObstacle& _internal_obstacles() const;
+  ::Protocol::SyncObstacle* _internal_mutable_obstacles();
   public:
-  const ::Protocol::Obtacle& obtacle(int index) const;
-  ::Protocol::Obtacle* add_obtacle();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
-      obtacle() const;
+  void unsafe_arena_set_allocated_obstacles(
+      ::Protocol::SyncObstacle* obstacles);
+  ::Protocol::SyncObstacle* unsafe_arena_release_obstacles();
 
   // @@protoc_insertion_point(class_scope:Protocol.StartData)
  private:
@@ -764,8 +1054,8 @@ class StartData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player > player_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle > obtacle_;
+  ::Protocol::SyncPlayer* players_;
+  ::Protocol::SyncObstacle* obstacles_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -815,7 +1105,7 @@ class Times final :
                &_Times_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(Times& a, Times& b) {
     a.Swap(&b);
@@ -947,7 +1237,7 @@ class Move final :
                &_Move_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(Move& a, Move& b) {
     a.Swap(&b);
@@ -1142,7 +1432,7 @@ class MoveData final :
                &_MoveData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(MoveData& a, MoveData& b) {
     a.Swap(&b);
@@ -1294,7 +1584,7 @@ class Obtacle final :
                &_Obtacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(Obtacle& a, Obtacle& b) {
     a.Swap(&b);
@@ -1500,7 +1790,7 @@ class Player final :
                &_Player_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(Player& a, Player& b) {
     a.Swap(&b);
@@ -1673,7 +1963,7 @@ class PlayerCrash final :
                &_PlayerCrash_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(PlayerCrash& a, PlayerCrash& b) {
     a.Swap(&b);
@@ -1865,7 +2155,7 @@ class Vector final :
                &_Vector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(Vector& a, Vector& b) {
     a.Swap(&b);
@@ -2133,84 +2423,258 @@ inline void ConnectData::set_level(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // -------------------------------------------------------------------
 
-// StartData
+// SyncPlayer
 
-// repeated .Protocol.Player player = 4;
-inline int StartData::_internal_player_size() const {
+// repeated .Protocol.Player player = 1;
+inline int SyncPlayer::_internal_player_size() const {
   return player_.size();
 }
-inline int StartData::player_size() const {
+inline int SyncPlayer::player_size() const {
   return _internal_player_size();
 }
-inline void StartData::clear_player() {
+inline void SyncPlayer::clear_player() {
   player_.Clear();
 }
-inline ::Protocol::Player* StartData::mutable_player(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.StartData.player)
+inline ::Protocol::Player* SyncPlayer::mutable_player(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SyncPlayer.player)
   return player_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >*
-StartData::mutable_player() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.StartData.player)
+SyncPlayer::mutable_player() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SyncPlayer.player)
   return &player_;
 }
-inline const ::Protocol::Player& StartData::_internal_player(int index) const {
+inline const ::Protocol::Player& SyncPlayer::_internal_player(int index) const {
   return player_.Get(index);
 }
-inline const ::Protocol::Player& StartData::player(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.StartData.player)
+inline const ::Protocol::Player& SyncPlayer::player(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SyncPlayer.player)
   return _internal_player(index);
 }
-inline ::Protocol::Player* StartData::_internal_add_player() {
+inline ::Protocol::Player* SyncPlayer::_internal_add_player() {
   return player_.Add();
 }
-inline ::Protocol::Player* StartData::add_player() {
-  // @@protoc_insertion_point(field_add:Protocol.StartData.player)
+inline ::Protocol::Player* SyncPlayer::add_player() {
+  // @@protoc_insertion_point(field_add:Protocol.SyncPlayer.player)
   return _internal_add_player();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Player >&
-StartData::player() const {
-  // @@protoc_insertion_point(field_list:Protocol.StartData.player)
+SyncPlayer::player() const {
+  // @@protoc_insertion_point(field_list:Protocol.SyncPlayer.player)
   return player_;
 }
 
-// repeated .Protocol.Obtacle obtacle = 5;
-inline int StartData::_internal_obtacle_size() const {
+// -------------------------------------------------------------------
+
+// SyncObstacle
+
+// repeated .Protocol.Obtacle obtacle = 1;
+inline int SyncObstacle::_internal_obtacle_size() const {
   return obtacle_.size();
 }
-inline int StartData::obtacle_size() const {
+inline int SyncObstacle::obtacle_size() const {
   return _internal_obtacle_size();
 }
-inline void StartData::clear_obtacle() {
+inline void SyncObstacle::clear_obtacle() {
   obtacle_.Clear();
 }
-inline ::Protocol::Obtacle* StartData::mutable_obtacle(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.StartData.obtacle)
+inline ::Protocol::Obtacle* SyncObstacle::mutable_obtacle(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SyncObstacle.obtacle)
   return obtacle_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
-StartData::mutable_obtacle() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.StartData.obtacle)
+SyncObstacle::mutable_obtacle() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SyncObstacle.obtacle)
   return &obtacle_;
 }
-inline const ::Protocol::Obtacle& StartData::_internal_obtacle(int index) const {
+inline const ::Protocol::Obtacle& SyncObstacle::_internal_obtacle(int index) const {
   return obtacle_.Get(index);
 }
-inline const ::Protocol::Obtacle& StartData::obtacle(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.StartData.obtacle)
+inline const ::Protocol::Obtacle& SyncObstacle::obtacle(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SyncObstacle.obtacle)
   return _internal_obtacle(index);
 }
-inline ::Protocol::Obtacle* StartData::_internal_add_obtacle() {
+inline ::Protocol::Obtacle* SyncObstacle::_internal_add_obtacle() {
   return obtacle_.Add();
 }
-inline ::Protocol::Obtacle* StartData::add_obtacle() {
-  // @@protoc_insertion_point(field_add:Protocol.StartData.obtacle)
+inline ::Protocol::Obtacle* SyncObstacle::add_obtacle() {
+  // @@protoc_insertion_point(field_add:Protocol.SyncObstacle.obtacle)
   return _internal_add_obtacle();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
-StartData::obtacle() const {
-  // @@protoc_insertion_point(field_list:Protocol.StartData.obtacle)
+SyncObstacle::obtacle() const {
+  // @@protoc_insertion_point(field_list:Protocol.SyncObstacle.obtacle)
   return obtacle_;
+}
+
+// -------------------------------------------------------------------
+
+// StartData
+
+// .Protocol.SyncPlayer players = 1;
+inline bool StartData::_internal_has_players() const {
+  return this != internal_default_instance() && players_ != nullptr;
+}
+inline bool StartData::has_players() const {
+  return _internal_has_players();
+}
+inline void StartData::clear_players() {
+  if (GetArenaForAllocation() == nullptr && players_ != nullptr) {
+    delete players_;
+  }
+  players_ = nullptr;
+}
+inline const ::Protocol::SyncPlayer& StartData::_internal_players() const {
+  const ::Protocol::SyncPlayer* p = players_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SyncPlayer&>(
+      ::Protocol::_SyncPlayer_default_instance_);
+}
+inline const ::Protocol::SyncPlayer& StartData::players() const {
+  // @@protoc_insertion_point(field_get:Protocol.StartData.players)
+  return _internal_players();
+}
+inline void StartData::unsafe_arena_set_allocated_players(
+    ::Protocol::SyncPlayer* players) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(players_);
+  }
+  players_ = players;
+  if (players) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.StartData.players)
+}
+inline ::Protocol::SyncPlayer* StartData::release_players() {
+  
+  ::Protocol::SyncPlayer* temp = players_;
+  players_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Protocol::SyncPlayer* StartData::unsafe_arena_release_players() {
+  // @@protoc_insertion_point(field_release:Protocol.StartData.players)
+  
+  ::Protocol::SyncPlayer* temp = players_;
+  players_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SyncPlayer* StartData::_internal_mutable_players() {
+  
+  if (players_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SyncPlayer>(GetArenaForAllocation());
+    players_ = p;
+  }
+  return players_;
+}
+inline ::Protocol::SyncPlayer* StartData::mutable_players() {
+  // @@protoc_insertion_point(field_mutable:Protocol.StartData.players)
+  return _internal_mutable_players();
+}
+inline void StartData::set_allocated_players(::Protocol::SyncPlayer* players) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete players_;
+  }
+  if (players) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Protocol::SyncPlayer>::GetOwningArena(players);
+    if (message_arena != submessage_arena) {
+      players = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, players, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  players_ = players;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.StartData.players)
+}
+
+// .Protocol.SyncObstacle obstacles = 2;
+inline bool StartData::_internal_has_obstacles() const {
+  return this != internal_default_instance() && obstacles_ != nullptr;
+}
+inline bool StartData::has_obstacles() const {
+  return _internal_has_obstacles();
+}
+inline void StartData::clear_obstacles() {
+  if (GetArenaForAllocation() == nullptr && obstacles_ != nullptr) {
+    delete obstacles_;
+  }
+  obstacles_ = nullptr;
+}
+inline const ::Protocol::SyncObstacle& StartData::_internal_obstacles() const {
+  const ::Protocol::SyncObstacle* p = obstacles_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SyncObstacle&>(
+      ::Protocol::_SyncObstacle_default_instance_);
+}
+inline const ::Protocol::SyncObstacle& StartData::obstacles() const {
+  // @@protoc_insertion_point(field_get:Protocol.StartData.obstacles)
+  return _internal_obstacles();
+}
+inline void StartData::unsafe_arena_set_allocated_obstacles(
+    ::Protocol::SyncObstacle* obstacles) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(obstacles_);
+  }
+  obstacles_ = obstacles;
+  if (obstacles) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.StartData.obstacles)
+}
+inline ::Protocol::SyncObstacle* StartData::release_obstacles() {
+  
+  ::Protocol::SyncObstacle* temp = obstacles_;
+  obstacles_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Protocol::SyncObstacle* StartData::unsafe_arena_release_obstacles() {
+  // @@protoc_insertion_point(field_release:Protocol.StartData.obstacles)
+  
+  ::Protocol::SyncObstacle* temp = obstacles_;
+  obstacles_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SyncObstacle* StartData::_internal_mutable_obstacles() {
+  
+  if (obstacles_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SyncObstacle>(GetArenaForAllocation());
+    obstacles_ = p;
+  }
+  return obstacles_;
+}
+inline ::Protocol::SyncObstacle* StartData::mutable_obstacles() {
+  // @@protoc_insertion_point(field_mutable:Protocol.StartData.obstacles)
+  return _internal_mutable_obstacles();
+}
+inline void StartData::set_allocated_obstacles(::Protocol::SyncObstacle* obstacles) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete obstacles_;
+  }
+  if (obstacles) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Protocol::SyncObstacle>::GetOwningArena(obstacles);
+    if (message_arena != submessage_arena) {
+      obstacles = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, obstacles, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  obstacles_ = obstacles;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.StartData.obstacles)
 }
 
 // -------------------------------------------------------------------
@@ -3310,6 +3774,10 @@ inline void Vector::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

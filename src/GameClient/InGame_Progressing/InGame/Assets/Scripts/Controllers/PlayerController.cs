@@ -5,6 +5,7 @@ using UnityEngine;
 using Google.Protobuf.Protocol;
 using static Define;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 //PlayerMove 패킷 핸들러로부터 playerinfo 및 State 정보를 최신화하여 현재 상태와 비교한다. 이를 통해, playerd의 위치 및 애니메이션을 변경한다.
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
     }
 
     Player _playerInfo = new Player();
-
+    Queue<Move> moves = new Queue<Move>();
     public Player playerInfo
     {
         get { return _playerInfo; }
@@ -58,8 +59,24 @@ public class PlayerController : MonoBehaviour
             if (_playerInfo.Equals(value))
                 return;
             _playerInfo = value;
-
-
+        }
+    }
+    
+    public Move Moves
+    {
+        set
+        {
+            StartCoroutine(MoveSync(0.1f, value));
+            
+            moves.Enqueue(value);
+        }
+        get 
+        { 
+            if (moves.Count == 0)
+            {
+                return null;
+            }
+            return moves.Dequeue(); 
         }
     }
 
@@ -70,9 +87,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        
         UpdateController();
 
+    }
+
+    public IEnumerator MoveSync(float time, Move data)
+    {
+        yield return new WaitForSeconds(time);
+        playerInfo.Position = data.Position;
+        playerInfo.Rotation = data.Rotation;
+        SetAnim(data.State);
     }
 
     protected virtual void Init()
@@ -160,8 +185,6 @@ public class PlayerController : MonoBehaviour
         UpdateAnimation();
         
     }
-
-   
 
     protected void HideCursor()
     {

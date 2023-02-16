@@ -151,6 +151,7 @@ void Games::NextStageGame(int32 room, int32 level, int32 stage)
 
 void Games::EndGame(int32 room, int32 level)
 {
+	cout << "GameEnd" << endl;
 	if (_npcRef != nullptr) {
 		Npc::EndGame data;
 		data.set_level(level);

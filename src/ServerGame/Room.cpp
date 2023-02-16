@@ -15,18 +15,26 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 	if (NPC_TEST) {
 		Npc::Vector3 data;
 		data.set_x(0.f);
-		data.set_x(0.f);
 		data.set_y(0.1f);
 		data.set_z(30.f);
 
-		_spawnPosition.push_back({ data, data });
-		_spawnPosition.push_back({ data, data });
+		Npc::Vector3 data2;
+		data2.set_x(0.2f);
+		data2.set_y(0.2f);
+		data2.set_z(60.f);
+
+		_spawnPosition.push_back({ data, data2 });
+		_spawnPosition.push_back({ data2, data });
 	}
+	_syncObstacle = new Protocol::SyncObstacle;
+	_syncPlayer = new Protocol::SyncPlayer;
 }
 
 Room::~Room()
 {
-
+	RoomClear();
+	delete _syncPlayer;
+	delete _syncObstacle;
 }
 
 void Room::RoomClear()
@@ -36,7 +44,8 @@ void Room::RoomClear()
 	for (int i = 0; i < _players.size(); i++) {
 		_players[i].clear();
 	}
-	_startData.Clear();
+	_syncPlayer->Clear();
+	_syncObstacle->Clear();
 }
 
 // 방 생성
@@ -52,7 +61,7 @@ void Room::MatchEnter(vector<PlayerRef> ref)
 void Room::GameEnter(GameSessionRef ref, int64 id)
 {
 	//확인 작업 필요
-	auto p = _startData.add_player();
+	auto p = _syncPlayer->add_player();
 	
 	if (CLIENT_TEST) {
 		PlayerRef player = make_shared<Player>(id, _matchRoom);
@@ -81,10 +90,10 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 
 void Room::ObstacleEnter(Npc::LoginData pkt)
 {
-	_startData.clear_obtacle();
+	_syncObstacle->clear_obtacle();
 	for (int i = 0; i < pkt.obstacle_size(); i++) {
 		auto data = pkt.obstacle(i);
-		auto ob = _startData.add_obtacle();
+		auto ob = _syncObstacle->add_obtacle();
 
 		if (data.has_position() && data.has_rotation()) {
 			_obstacles[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), data.speed(), data.direction());
@@ -109,11 +118,19 @@ void Room::ReConnect(GameSessionRef ref, int64 id)
 		cout << "ReConnect" << endl;
 		_players[_stage][id]->SetOwner(ref);
 		ref->_mySelf = _players[_stage][id];
-		for (int i = 0; i < _startData.player_size(); i++) {
-			auto player = _startData.player(i);
+		for (int i = 0; i < _syncPlayer->player_size(); i++) {
+			auto player = _syncPlayer->player(i);
 			cout << player.position().x() << " " << player.position().y() << " " << player.position().z();
 		}
-		ref->Send(GameHandler::MakeSendBuffer(_startData, Protocol::RECONNECT));
+		{
+			Protocol::StartData data;
+			data.set_allocated_obstacles(_syncObstacle);
+			data.set_allocated_players(_syncPlayer);
+			ref->Send(GameHandler::MakeSendBuffer(data, Protocol::RECONNECT));
+
+			data.release_obstacles();
+			data.release_players();
+		}
 	}
 }
 
@@ -126,7 +143,6 @@ void Room::Disconnect(PlayerRef ref)
 	{
 		_remainUser -= 1;
 		if (_remainUser <= 0) {
-			RoomClear();
 			RoomEnd();
 		}
 	}
@@ -148,7 +164,6 @@ void Room::Leave(PlayerRef ref)
 	{
 		_remainUser -= 1;
 		if (_remainUser <= 0) {
-			RoomClear();
 			RoomEnd();
 		}
 	}
@@ -157,12 +172,13 @@ void Room::Leave(PlayerRef ref)
 int Room::Start()
 {
 	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) {
-		cout << "Start Fail" << endl;
+		cout << _playerSize << "Start Fail" << endl;
 		return 0;
 	}
 
-	cout << "GameStart" << endl;
+	
 	vector<int64> keys;
+	int i = 0;
 	for (auto& player : _players[_stage])
 	{
 		if (player.second->GetOwner() == nullptr) {
@@ -170,8 +186,8 @@ int Room::Start()
 			continue;
 		}
 		else {
-			int32 id = player.second->GetId() % _spawnPosition.size();
-			player.second->SetSpawnPoint(_spawnPosition[id].first, _spawnPosition[id].second);
+			player.second->SetSpawnPoint(_spawnPosition[i].first, _spawnPosition[i].second);
+			i = (i + 1)%_spawnPosition.size();
 		}
 	}
 	for (auto key : keys)
@@ -179,12 +195,25 @@ int Room::Start()
 		_players[_stage].erase(key);
 	}
 
-	Broadcast(GameHandler::MakeSendBuffer(_startData, Protocol::START));
+	{
+		Protocol::StartData data;
+		data.set_allocated_obstacles(_syncObstacle);
+		data.set_allocated_players(_syncPlayer);
+		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::START));
+
+		data.release_obstacles();
+		data.release_players();
+	}
 
 	_remainUser = _players[_stage].size();
 
+	cout << "GameStart " << _remainUser<<endl;
 	_start.store(true);
+	//Sync
 	TimeSync();
+
+	/*_syncMove.set_time(GetTickCount64());
+	GameSync();*/
 
 	return _remainUser;
 }
@@ -198,11 +227,13 @@ void Room::PlayerMove(Protocol::Move data)
 		auto point = data.position();
 		PlayerRef player = _players[_stage][data.id()];
 
-		if (point.y() > 0.f) {
+		if (point.y() > -1.0f) {
 			cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
 
 			player->Move(data.position(), data.rotation());
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_MOVE));
+			/*auto moves = _syncMove.add_move();
+			*moves = data;*/
+			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_SYNC));
 		}
 		else if (player->GetMoveRight()) {
 			cout << "DROP" << endl;
@@ -265,15 +296,19 @@ void Room::TimeSync()
 		DoTimer(60000, &Room::TimeSync);
 }
 
-void Room::Gamesync()
+void Room::GameSync()
 {
+	//동기화 테스트
+	Broadcast(GameHandler::MakeSendBuffer(_syncMove, Protocol::PLAYER_SYNC));
+	_syncMove.Clear();
+	_syncMove.set_time(GetTickCount64());
+	DoTimer(50, &Room::GameSync);
 }
 
 void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
 		if (_ref.second->GetOwner() != nullptr) {
-			cout << "Send" << endl;
 			_ref.second->GetOwner()->Send(ref);
 		}
 	}
@@ -288,7 +323,7 @@ void Room::NextStage()
 	Protocol::PlayerGoalData data;
 
 	// 종료 후 유저들에게 정보 전달
-	_startData.clear_player();
+	_syncPlayer->Clear();
 	for (auto& _ref : _players[past]) {
 		if (_players[_stage].find(_ref.first) == _players[_stage].end()) {
 			data.set_id(_ref.first);
@@ -296,7 +331,7 @@ void Room::NextStage()
 		}
 		else
 		{
-			_players[_stage][_ref.first]->SetPlayer(_startData.add_player());
+			_players[_stage][_ref.first]->SetPlayer(_syncPlayer->add_player());
 			data.set_id(_ref.first);
 			data.set_success(true);
 		}

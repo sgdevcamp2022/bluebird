@@ -25,7 +25,7 @@ SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Login pkt, Match::STATE typ
     return _MakeSendBuffer(pkt, type);
 }
 
-SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Cancle pkt, Match::STATE type)
+SendBufferRef PacketHandler::MakeSendBuffer(Match::C_Cancel pkt, Match::STATE type)
 {
     return _MakeSendBuffer(pkt, type);
 }

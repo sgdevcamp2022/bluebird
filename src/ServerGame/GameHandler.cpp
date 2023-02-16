@@ -89,6 +89,10 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::StartData pkt, Protocol::ING
 {
     return _MakeSendBuffer<Protocol::StartData, GameHeader, Protocol::INGAME>(pkt, type);
 }
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::MoveData pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::MoveData, GameHeader, Protocol::INGAME>(pkt, type);
+}
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::Move, GameHeader, Protocol::INGAME>(pkt, type);
@@ -112,4 +116,9 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::GameCompleteData pkt, Protoc
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::PlayerGoalData, GameHeader, Protocol::INGAME>(pkt, type);
+}
+
+SendBufferRef GameHandler::MakeSendBuffer(Protocol::SyncPlayer pkt, Protocol::INGAME type)
+{
+    return _MakeSendBuffer<Protocol::SyncPlayer, GameHeader, Protocol::INGAME>(pkt, type);
 }

@@ -17,7 +17,7 @@ enum INGAME
 	GET_TICK = 11;
 	PLAYER_GOAL = 12;
 	RECONNECT = 13;
-	STATE_SYNC = 14;
+	PLAYER_SYNC = 14;
 }
 
 enum Animation
@@ -47,10 +47,21 @@ message ConnectData
 	int32 level = 3;
 }
 
+message SyncPlayer
+{
+	repeated Player player = 1;
+}
+
+message SyncObstacle
+{
+	repeated Obtacle obtacle = 1;
+}
+
+
 message StartData
 {
-	repeated Player player = 4;
-	repeated Obtacle obtacle = 5;
+	SyncPlayer players = 1;
+	SyncObstacle obstacles = 2;
 }
 
 message Times

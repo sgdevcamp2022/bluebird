@@ -3,7 +3,7 @@
 #define THREAD_SIZE 10
 #define ROOM_COUNT 20
 
-#define START_COUNT 3
+#define START_COUNT 2
 #define MAX_STAGE 3
 #define LAST(stage) (MAX_STAGE == stage)
 
