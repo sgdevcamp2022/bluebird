@@ -34,7 +34,7 @@ public class LobbyNetworkManager : MonoBehaviour
 
     public IEnumerator MatchInitPost(Action<bool> callback)
     {
-        string url = "http://127.0.0.1:8000/lobby/start";
+        string url = "http://121.145.229.137:8000/lobby/start";
         
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();
@@ -78,7 +78,7 @@ public class LobbyNetworkManager : MonoBehaviour
             callback(tempDict);
             yield break;
         }
-        string url = "http://127.0.0.1:8000/lobby/check";
+        string url = "http://121.145.229.137:8000/lobby/check";
 
         WWWForm form = new WWWForm();
 
@@ -121,7 +121,7 @@ public class LobbyNetworkManager : MonoBehaviour
 
     public IEnumerator MatchCancelPost(Action<bool> callback)
     {
-        string url = "http://127.0.0.1:8000/lobby/cancel";
+        string url = "http://121.145.229.137:8000/lobby/cancel";
 
         //Debug.Log("UserNo: " + userNo);
         WWWForm form = new WWWForm();

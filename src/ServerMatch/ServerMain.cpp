@@ -29,7 +29,7 @@ void DoWorkerJob(T& service)
 int main()
 {
 	ServerServiceRef Sservice = MakeShared<ServerService>(
-		NetAddress(L"192.168.0.224", 6000),
+		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
 		MakeShared<MatchSession>, 10);
 

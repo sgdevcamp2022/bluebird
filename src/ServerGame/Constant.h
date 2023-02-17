@@ -6,6 +6,9 @@
 #define MAX_STAGE 3
 #define LAST(stage) (MAX_STAGE == stage)
 
+#define CLIENT_TEST false
+#define NPC_TEST false
+
 inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
 inline int Solo_Start(int stage) { return (stage == 1) ? 3 : 2; }
 
