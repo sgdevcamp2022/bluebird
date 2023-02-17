@@ -90,8 +90,14 @@ public class PacketHandler
         igm.GameStartTxt();
         igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
 
+        foreach (Player player in data.Players.Player)
+        {
+            igm.SetUserId (" Id " + player.Id);
 
-        UnityEngine.Debug.Log("Game Start!");
+        }
+
+
+            UnityEngine.Debug.Log("Game Start!");
 
     }
     public static void ReConnect(IMessage packet)
@@ -144,6 +150,8 @@ public class PacketHandler
 
         GameObject go = Managers.Object.GetPlayer(data.Id);
 
+
+
         if (go == null)
             return;
 
@@ -157,6 +165,10 @@ public class PacketHandler
         pc.playerInfo.Rotation = data.Rotation;
         pc.SetAnim(data.State);
 
+
+        GameObject go2 = GameObject.Find("GameManager");
+        GameManager igm = go2.GetComponent<GameManager>();
+        igm.SetUserPosition("ID: " + data.Id + " Position: " + data.Position + " State: " +  data.State) ;
     }
     public static void ObtacleMove(IMessage packet)
     {

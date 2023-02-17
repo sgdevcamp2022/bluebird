@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     }
 
     Player _playerInfo = new Player();
-    Queue<Move> moves = new Queue<Move>();
+  
     public Player playerInfo
     {
         get { return _playerInfo; }
@@ -80,15 +80,7 @@ public class PlayerController : MonoBehaviour
         UpdateController();
 
     }
-
-    public IEnumerator MoveSync(float time, Move data)
-    {
-        yield return new WaitForSeconds(time);
-        playerInfo.Position = data.Position;
-        playerInfo.Rotation = data.Rotation;
-        SetAnim(data.State);
-    }
-
+    
     protected virtual void Init()
     {
         cam = Camera.main.gameObject.GetComponent<Camera>();
