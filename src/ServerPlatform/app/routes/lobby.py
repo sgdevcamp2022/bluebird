@@ -10,7 +10,8 @@ userDict = dict()
 
 def genThreadSocket():
     threadSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    threadSocket.connect(('127.0.0.1', 6000))
+    #203.241.228.47
+    threadSocket.connect(('203.241.228.47', 6000))
 
     body = pb2.Check()
     body.type = 1
@@ -43,7 +44,7 @@ def matchMakingThread(threadSocket):
 
 def genClientSocket():
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientSocket.connect(('127.0.0.1', 6000))
+    clientSocket.connect(('203.241.228.47', 6000))
 
     body = pb2.Check()
     body.type = -1
@@ -127,7 +128,9 @@ async def cancelMatch(userNo: int = Form(...)):
     clientSocket.send(msg)
     
     try:
+        print("1")
         data = clientSocket.recv(1024)
+        print("2")
 
         head = data[:4]
         body = data[4:]

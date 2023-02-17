@@ -11,7 +11,7 @@ inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
 inline int Solo_Start(int stage) { return (stage == 1) ? 3 : 2; }
 
 #define CLIENT_TEST true
-#define NPC_TEST true
+#define NPC_TEST false
 
 struct Vector3
 {
