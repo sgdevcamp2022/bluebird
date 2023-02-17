@@ -38,6 +38,7 @@ public class ObjectManager
         PlayerController pc = go.GetComponent<PlayerController>();
         pc.playerId = id;
         pc.playerInfo = player;
+        pc.isStarted = true;
         Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
         Debug.Log(player.Rotation.X + " " + player.Rotation.Y + " " + player.Rotation.Z + " ");
     }
@@ -52,7 +53,21 @@ public class ObjectManager
         MyPlayer = go.GetComponent<MyPlayerController>();
         MyPlayer.playerId = player.Id;
         MyPlayer.playerInfo = player;
-       // Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
+        // Debug.Log(player.Position.X + " " + player.Position.Y + " " + player.Position.Z + " ");
+
+        try
+        {
+            MyPlayer.spawnPoint.x = player.Position.X;
+            MyPlayer.spawnPoint.y = player.Position.Y;
+            MyPlayer.spawnPoint.z = player.Position.Z;
+            MyPlayer.isStarted = true;
+        }
+        catch (Exception e)
+        {
+            MyPlayer.gameObject.transform.position = new Vector3(0.1f, 0.2f, 29f);
+            MyPlayer.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            Debug.Log("Connect Game MyPlayer");
+        }
 
         FindCamera(id, player);
 

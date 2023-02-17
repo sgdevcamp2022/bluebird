@@ -41,7 +41,7 @@ GameObject::~GameObject()
 {
 	_position = nullptr;
 	_rotation = nullptr;
-	cout << "Object 삭제" << endl;
+	cout << _id<< " Object 삭제" << endl;
 }
 
 void Obtacle::SetObstacle(Protocol::Obtacle* ref)

@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     protected bool isJumping = false;
     protected bool isSliding = false;
 
+    public Vector3 spawnPoint = Vector3.zero;
+    public bool isStarted = false;
+
     protected Animator animator;
 
     protected Rigidbody rigid;
@@ -111,6 +114,15 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateController()
     {
+        if (isStarted)
+        {
+            spawnPoint.x = playerInfo.Position.X;
+            spawnPoint.y = playerInfo.Position.Y;
+            spawnPoint.z = playerInfo.Position.Z;
+            transform.position = spawnPoint;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            isStarted = false;
+        }
         switch (State)
         {
             case BirdState.Idle:

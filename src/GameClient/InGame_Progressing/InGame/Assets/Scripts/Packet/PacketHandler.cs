@@ -60,8 +60,17 @@ public class PacketHandler
             {
                 //Player Spawn
                 if (Managers.Object.MyPlayer.playerId == player.Id)
-                    continue;
-                Managers.Object.AddPlayer(player.Id, player);
+                {
+                    GameObject tempGo = GameObject.Find("MyPlayer" + player.Id);
+                    MyPlayerController myPlayer = tempGo.GetComponent<MyPlayerController>();
+                    myPlayer.playerInfo = player;
+                    myPlayer.isStarted = true;
+                }
+                else
+                {
+                    Managers.Object.AddPlayer(player.Id, player);
+                }
+
                 UnityEngine.Debug.Log(player.Id + " Inside");
             }
         }
@@ -115,22 +124,6 @@ public class PacketHandler
     }
     public static void PlayersSync(IMessage packet)
     {
-        //MoveData data = packet as MoveData;
-
-        //foreach(Move move in data.Move)
-        //{
-        //    GameObject go = Managers.Object.GetPlayer(move.Id);
-        //    if(go == null)
-        //    {
-        //        continue;
-        //    }
-        //    PlayerController pc = go.GetComponent<PlayerController>();
-
-        //    if (pc == null)
-        //        return;
-
-        //    pc.Moves = move;
-        //}
         Move data = packet as Move;
 
         GameObject go = Managers.Object.GetPlayer(data.Id);
@@ -142,7 +135,6 @@ public class PacketHandler
 
         if (pc == null)
             return;
-
 
         pc.playerInfo.Position = data.Position;
         pc.playerInfo.Rotation = data.Rotation;
@@ -178,15 +170,29 @@ public class PacketHandler
         if (pc == null)
             return;
 
-        pc.playerInfo.Position = spawnPoint;
-        pc.playerInfo.Rotation = spawnRotation;
-        pc.State = Define.BirdState.Idle;
+        try
+        {
+            pc.playerInfo.Position.X = pc.spawnPoint.x;
+            pc.playerInfo.Position.Y = pc.spawnPoint.y;
+            pc.playerInfo.Position.Z = pc.spawnPoint.z;
+            pc.playerInfo.Rotation = spawnRotation;
+            pc.State = Define.BirdState.Idle;
 
-        player.Position = spawnPoint;
-        player.Rotation = spawnRotation;
+            player.Position.X = pc.spawnPoint.x;
+            player.Position.Y = pc.spawnPoint.y;
+            player.Position.Z = pc.spawnPoint.z;
+            player.Rotation = spawnRotation;
+        }
+        catch
+        {
+            pc.playerInfo.Position = spawnPoint;
+            pc.playerInfo.Rotation = spawnRotation;
+            pc.State = Define.BirdState.Idle;
 
+            player.Position = spawnPoint;
+            player.Rotation = spawnRotation;
+        }
 
-            
         if (Managers.Object.myPlayerId == player.Id)
         {
             Managers.Network.Send(player, INGAME.PlayerDrop);

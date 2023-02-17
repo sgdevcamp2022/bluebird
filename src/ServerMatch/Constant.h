@@ -1,7 +1,7 @@
 #pragma once
 
 #define THREAD_SIZE 10
-#define SOLO_PLAYER_COUNT 2
+#define SOLO_PLAYER_COUNT 4
 #define SOLO_MAX_PLAYER_COUNT 8
 
 #define DUO_PLAYER_COUNT 6
@@ -55,9 +55,3 @@ enum PlayerLevel
 	, DUO_THREE
 	, ALL
 };
-
-static void ShowDigit(int64 i, string s) {
-	if ((i / 10) > 0)
-		ShowDigit(i, s);
-	s += ("0" +(i % 10));
-}

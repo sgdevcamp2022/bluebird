@@ -81,6 +81,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 		{
 			if (_games[room] >> id) 
 			{
+				session->_room = _games[room]();
 				_games[room]()->DoAsync(&Room::ReConnect, session, id);
 			}
 		}
@@ -128,7 +129,6 @@ void Games::StartGame(int32 room)
 	}
 	else
 	{
-		cout << check << endl;
 		DoTimer(1000, &Games::StartGame, room);
 		return;
 	}

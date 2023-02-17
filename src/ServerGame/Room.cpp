@@ -12,20 +12,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 		else
 			return false;
 	};
-	if (NPC_TEST) {
-		Npc::Vector3 data;
-		data.set_x(0.f);
-		data.set_y(0.1f);
-		data.set_z(30.f);
 
-		Npc::Vector3 data2;
-		data2.set_x(0.2f);
-		data2.set_y(0.2f);
-		data2.set_z(60.f);
-
-		_spawnPosition.push_back({ data, data2 });
-		_spawnPosition.push_back({ data2, data });
-	}
 	_syncObstacle = new Protocol::SyncObstacle;
 	_syncPlayer = new Protocol::SyncPlayer;
 }
@@ -63,17 +50,11 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	//확인 작업 필요
 	auto p = _syncPlayer->add_player();
 	
-	if (CLIENT_TEST) {
-		PlayerRef player = make_shared<Player>(id, _matchRoom);
-		player->SetOwner(ref);
-
-		_players[_stage][id] = player;
-		ref->_mySelf = player;
-		_playerSize += 1;
-	}
-	else if (_players[_stage].find(id) != _players[_stage].end()) {
+	if (_players[_stage].find(id) != _players[_stage].end()) {
 		_players[_stage][id]->SetOwner(ref);
+
 		ref->_mySelf = _players[_stage][id];
+
 		_playerSize += 1;
 	}
 
@@ -86,6 +67,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 
 		ref->Send(GameHandler::MakeSendBuffer(data, Protocol::CONNECT));
 	}
+
 }
 
 void Room::ObstacleEnter(Npc::LoginData pkt)
@@ -104,7 +86,6 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 	}
 	for (int i = 0; i < pkt.spawn_size(); i++) {
 		Npc::PlayerSpawn spawn = pkt.spawn(i);
-		cout << "Spawn Input " << spawn.position().x() << spawn.position().y() << spawn.position().z() << endl;
 		_spawnPosition.push_back({ spawn.position(), spawn.rotation() });
 	}
 	//전체 플레이어에게 정보 전달 필요
@@ -172,10 +153,9 @@ void Room::Leave(PlayerRef ref)
 int Room::Start()
 {
 	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) {
-		cout << _playerSize << "Start Fail" << endl;
+		cout << "Start Fail " << _playerSize << endl;
 		return 0;
 	}
-
 	
 	vector<int64> keys;
 	int i = 0;
@@ -186,6 +166,7 @@ int Room::Start()
 			continue;
 		}
 		else {
+			cout << i << " " << _spawnPosition[i].first.x() << _spawnPosition[i].first.y() << _spawnPosition[i].first.z() << endl;
 			player.second->SetSpawnPoint(_spawnPosition[i].first, _spawnPosition[i].second);
 			i = (i + 1)%_spawnPosition.size();
 		}
@@ -228,7 +209,7 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 
 		if (point.y() > -1.0f) {
-			cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+			/*cout << "Move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;*/
 
 			player->Move(data.position(), data.rotation());
 			/*auto moves = _syncMove.add_move();
@@ -249,7 +230,6 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 	if (_start) {
 		if (_obstacles.find(id) != _obstacles.end()) {
 			_obstacles[id]->Move(position, rotation);
-			cout << "Object 이동" << endl;
 			GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
 			GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
 		}
@@ -261,9 +241,9 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 void Room::PlayerGoal(Protocol::Player data)
 {
 	if (CHECK(data.id())) {
-		cout << "Input goal" << endl;
+		cout << "Input goal " << data.id() << endl;
 		PlayerRef player = _players[_stage][data.id()];
-		_players[_stage + 1][player->GetId()] = player;
+		_players[_stage + 1][player->GetId()] = player; 
 		//TODO 확인 작업 필요
 		//if (_winner.fetch_add(1) == WINNER1(_playerSize))
 		if (_players[_stage + 1].size() == Solo_Goal(_stage.load()))
@@ -309,6 +289,7 @@ void Room::Broadcast(SendBufferRef ref)
 {
 	for (auto& _ref : _players[_stage]) {
 		if (_ref.second->GetOwner() != nullptr) {
+			cout << "Send BroadCast" << endl;
 			_ref.second->GetOwner()->Send(ref);
 		}
 	}
@@ -316,8 +297,7 @@ void Room::Broadcast(SendBufferRef ref)
 
 void Room::NextStage()
 {
-	if(!NPC_TEST)
-		_spawnPosition.clear();
+	_spawnPosition.clear();
 
 	int32 past = _stage.fetch_add(1);
 	Protocol::PlayerGoalData data;

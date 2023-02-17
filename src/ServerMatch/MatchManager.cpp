@@ -134,7 +134,14 @@ void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 	{
 		_playerWait[level].erase(f);
 	}
-
+	{
+		Match::S_Cancel data;
+		data.set_id(id);
+		data.set_room(level);
+		data.set_state(true);
+		if (_lobyref != nullptr)
+			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_CANCLE));
+	}
 	// 맞습니다...
 
 	switch (level) {
