@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Victory Ground
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX

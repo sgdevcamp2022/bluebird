@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     protected BirdState _state;
 
+
+
     public virtual BirdState State
     {
         get { return _state; }
@@ -65,23 +67,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public Move Moves
-    {
-        set
-        {
-            StartCoroutine(MoveSync(0.1f, value));
-            
-            moves.Enqueue(value);
-        }
-        get 
-        { 
-            if (moves.Count == 0)
-            {
-                return null;
-            }
-            return moves.Dequeue(); 
-        }
-    }
+    
 
     void Start()
     {
@@ -152,8 +138,9 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateMoving()
     {
+        prevVec = transform.position;
 
-        if ((playerInfo.Position.X == transform.position.x && playerInfo.Position.Y == transform.position.y && playerInfo.Position.Z == transform.position.z))
+        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
         {
             State = BirdState.Idle;
             return;
@@ -168,20 +155,14 @@ public class PlayerController : MonoBehaviour
 
             UpdateAnimation();
         }
-   
+
 
     }
     //바닥에 착지하여도, 그 사이에 다량의 Jump 패킷이 넘어와서 Jump가 되버린다...
     protected virtual void UpdateJumping()
     {
+        prevVec = transform.position;
 
-        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
-        {
-            State = BirdState.Idle;
-            isJumping = false;
-
-            return;
-        }
 
         Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
         Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
@@ -190,13 +171,15 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             animator.SetTrigger("doJump");
-            isJumping = true;   
+            isJumping = true;
         }
-        
+
         transform.position = moveVec;
         UpdateAnimation();
-        
+
     }
+
+
 
     protected void HideCursor()
     {
@@ -205,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-       
+
     }
 
     protected virtual void OnCollisionStay(Collision collision)
@@ -237,15 +220,15 @@ public class PlayerController : MonoBehaviour
     public void SetAnim(Google.Protobuf.Protocol.PlayerState state)
     {
 
-        switch(state)
+        switch (state)
         {
             case Google.Protobuf.Protocol.PlayerState.Idle:
                 State = BirdState.Idle;
-            
+
                 break;
             case Google.Protobuf.Protocol.PlayerState.Move:
                 State = BirdState.Moving;
-          
+
                 break;
             case Google.Protobuf.Protocol.PlayerState.Jump:
                 State = BirdState.Jumping;
@@ -286,7 +269,7 @@ public class PlayerController : MonoBehaviour
     public void GoalPlayer()
     {
         //Debug.Log("Player destroy");
-  
+
 
     }
 
