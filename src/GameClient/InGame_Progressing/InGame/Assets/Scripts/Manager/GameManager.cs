@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text racestarttxt;
     public TMP_Text goalnumtxt;
+    public TMP_Text userId;
+    public TMP_Text userposition;
 
 
 
@@ -59,6 +61,16 @@ public class GameManager : MonoBehaviour
     public void SetLobbyBtn()
     {
         SceneManager.LoadScene("LobbyScene");
+    }
+
+    public void SetUserId(string txt)
+    {
+        userId.text += txt;
+    }
+
+    public void SetUserPosition(string txt)
+    {
+        userposition.text = txt;
     }
     
 
