@@ -334,9 +334,9 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "StartData\022%\n\007players\030\001 \001(\0132\024.Protocol.Sy"
   "ncPlayer\022)\n\tobstacles\030\002 \001(\0132\026.Protocol.S"
   "yncObstacle\"\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\244\001\n\004M"
-  "ove\022\n\n\002id\030\001 \001(\003\022$\n\005state\030\003 \001(\0162\025.Protoco"
-  "l.PlayerState\022\'\n\010position\030\004 \001(\0132\020.Protoc"
-  "ol.VectorH\000\210\001\001\022\'\n\010rotation\030\005 \001(\0132\020.Proto"
+  "ove\022\n\n\002id\030\001 \001(\003\022$\n\005state\030\002 \001(\0162\025.Protoco"
+  "l.PlayerState\022\'\n\010position\030\003 \001(\0132\020.Protoc"
+  "ol.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.Proto"
   "col.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_rotatio"
   "n\"6\n\010MoveData\022\014\n\004time\030\001 \001(\003\022\034\n\004move\030\002 \003("
   "\0132\016.Protocol.Move\"\262\001\n\007Obtacle\022\n\n\002id\030\001 \001("
@@ -1840,24 +1840,24 @@ const char* Move::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .Protocol.PlayerState state = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+      // .Protocol.PlayerState state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_state(static_cast<::Protocol::PlayerState>(val));
         } else goto handle_unusual;
         continue;
-      // optional .Protocol.Vector position = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // optional .Protocol.Vector position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional .Protocol.Vector rotation = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+      // optional .Protocol.Vector rotation = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -1898,27 +1898,27 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // .Protocol.PlayerState state = 3;
+  // .Protocol.PlayerState state = 2;
   if (this->state() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      3, this->_internal_state(), target);
+      2, this->_internal_state(), target);
   }
 
-  // optional .Protocol.Vector position = 4;
+  // optional .Protocol.Vector position = 3;
   if (_internal_has_position()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        4, _Internal::position(this), target, stream);
+        3, _Internal::position(this), target, stream);
   }
 
-  // optional .Protocol.Vector rotation = 5;
+  // optional .Protocol.Vector rotation = 4;
   if (_internal_has_rotation()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        5, _Internal::rotation(this), target, stream);
+        4, _Internal::rotation(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1939,14 +1939,14 @@ size_t Move::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional .Protocol.Vector position = 4;
+    // optional .Protocol.Vector position = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *position_);
     }
 
-    // optional .Protocol.Vector rotation = 5;
+    // optional .Protocol.Vector rotation = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1961,7 +1961,7 @@ size_t Move::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // .Protocol.PlayerState state = 3;
+  // .Protocol.PlayerState state = 2;
   if (this->state() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());

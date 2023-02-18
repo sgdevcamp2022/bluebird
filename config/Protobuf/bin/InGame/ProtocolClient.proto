@@ -68,9 +68,9 @@ message Times
 message Move
 {
 	int64 id = 1;
-	PlayerState state = 3;
-	optional Vector position = 4;
-	optional Vector rotation = 5;
+	PlayerState state = 2;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
 }
 
 

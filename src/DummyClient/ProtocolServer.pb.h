@@ -1156,12 +1156,12 @@ class Move final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 4,
-    kRotationFieldNumber = 5,
+    kPositionFieldNumber = 3,
+    kRotationFieldNumber = 4,
     kIdFieldNumber = 1,
-    kStateFieldNumber = 3,
+    kStateFieldNumber = 2,
   };
-  // optional .Protocol.Vector position = 4;
+  // optional .Protocol.Vector position = 3;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -1179,7 +1179,7 @@ class Move final :
       ::Protocol::Vector* position);
   ::Protocol::Vector* unsafe_arena_release_position();
 
-  // optional .Protocol.Vector rotation = 5;
+  // optional .Protocol.Vector rotation = 4;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -1206,7 +1206,7 @@ class Move final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // .Protocol.PlayerState state = 3;
+  // .Protocol.PlayerState state = 2;
   void clear_state();
   ::Protocol::PlayerState state() const;
   void set_state(::Protocol::PlayerState value);
@@ -2526,7 +2526,7 @@ inline void Move::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   // @@protoc_insertion_point(field_set:Protocol.Move.id)
 }
 
-// .Protocol.PlayerState state = 3;
+// .Protocol.PlayerState state = 2;
 inline void Move::clear_state() {
   state_ = 0;
 }
@@ -2546,7 +2546,7 @@ inline void Move::set_state(::Protocol::PlayerState value) {
   // @@protoc_insertion_point(field_set:Protocol.Move.state)
 }
 
-// optional .Protocol.Vector position = 4;
+// optional .Protocol.Vector position = 3;
 inline bool Move::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -2629,7 +2629,7 @@ inline void Move::set_allocated_position(::Protocol::Vector* position) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Move.position)
 }
 
-// optional .Protocol.Vector rotation = 5;
+// optional .Protocol.Vector rotation = 4;
 inline bool Move::_internal_has_rotation() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || rotation_ != nullptr);
