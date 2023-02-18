@@ -10,18 +10,17 @@ using UnityEngine.SceneManagement;
 //goal 못하면 바로 destory. don't destory on load 한건 다음 스테이지에서 스폰위치에 소환
 public class MyPlayerController : PlayerController
 {
-    //public  bool serverCommunication = false;
-    GameScene gamescene;
+
     GameManager gamemanager;
     CameraController cameracontroller;
     bool inMenu = false;
-    bool inGoal = false;
+
 
     GameObject[] enemys;
     protected override void Init()
     {
         base.Init();
-        gamescene = GameObject.Find("GameScene").GetComponent<GameScene>();
+  
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
         cameracontroller = GameObject.Find("Virtual Camera").GetComponent<CameraController>();
 
@@ -44,7 +43,7 @@ public class MyPlayerController : PlayerController
     }
     void GetInput()
     {
-        if (gamescene.CheckStartGame() && !inGoal)
+        if ( !inGoal)
         {
             if (transform.position.y < -1)
             {
@@ -100,7 +99,7 @@ public class MyPlayerController : PlayerController
             }
         }
 
-        else if (gamescene.CheckStartGame() && inGoal)
+        else if ( inGoal)
         {
 
             //Map 내의 Enemy 태그를 가진 플레이어를 follow시킨다. 카메라를
@@ -203,7 +202,15 @@ public class MyPlayerController : PlayerController
             UpdateAnimation();
 
             if (isSliding)
+            {
                 animator.SetBool("isSlide", true);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = slidClip;
+                    audioSource.Play();
+                }
+
+            }
 
             transform.position += movementDirection * speed * Time.deltaTime;
         }
@@ -215,7 +222,7 @@ public class MyPlayerController : PlayerController
                 Id = playerId,
                 Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
                 Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
-                State = PlayerState.Jump,
+                State = PlayerState.JumpLoop,
             };
 
             Managers.Network.Send(playerMove, INGAME.PlayerMove);
@@ -244,6 +251,22 @@ public class MyPlayerController : PlayerController
         {
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             animator.SetTrigger("doJump");
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = jumpClip;
+                audioSource.Play();
+
+            }
+
+            Move playerMove = new Move()
+            {
+                Id = playerId,
+                Position = new Vector { X = transform.position.x, Y = transform.position.y, Z = transform.position.z },
+                Rotation = new Vector { X = transform.eulerAngles.x, Y = transform.eulerAngles.y, Z = transform.eulerAngles.z },
+                State = PlayerState.Jump,
+            };
+
+            Managers.Network.Send(playerMove, INGAME.PlayerMove);
 
         }
         else
@@ -284,7 +307,7 @@ public class MyPlayerController : PlayerController
             State = BirdState.Idle;
             isJumping = false;
             isSliding = false;
-            inGoal = true;
+         
 
             UpdateAnimation();
 
@@ -294,10 +317,16 @@ public class MyPlayerController : PlayerController
                 Success = true,
             };
             Managers.Network.Send(pkt, INGAME.PlayerGoal);
-            clearStageNum++;
-            inGoal = true;
+
+     
 
             this.transform.GetChild(0).gameObject.SetActive(false);
+            this.GetComponent<CapsuleCollider>().enabled = false;
+
+            Debug.Log("MyPlayer Goal! " + playerId);
+
+
+            inGoal = true;
 
 
 

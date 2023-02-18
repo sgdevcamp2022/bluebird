@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 10.0f;
     public float jumpPower = 5.0f;
 
+    public AudioClip jumpClip;
+    public AudioClip slidClip;
+
     protected Vector3 moveVec;
     protected Vector3 prevVec;
 
@@ -25,6 +28,8 @@ public class PlayerController : MonoBehaviour
     protected bool pressedJump = false;
     protected bool isJumping = false;
     protected bool isSliding = false;
+    protected bool inGoal = false;
+    protected AudioSource audioSource;
 
     public Vector3 spawnPoint = Vector3.zero;
     public bool isStarted = false;
@@ -90,7 +95,9 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         prevVec = transform.position;
+        audioSource = GetComponent<AudioSource>();    
         State = BirdState.Idle;
+
     }
 
     protected virtual void UpdateController()
@@ -104,10 +111,12 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
             isStarted = false;
         }
+
+
         if (isRecvMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, recvMoveData, speed * Time.deltaTime);
-            Debug.Log("ID: " + playerId + " | Pos: " + transform.position + " | Target: " + recvMoveData);
+            //Debug.Log("ID: " + playerId + " | Pos: " + transform.position + " | Target: " + recvMoveData);
             if (transform.position == recvMoveData)
             {
                 isRecvMove = false;
@@ -142,26 +151,29 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void UpdateMoving()
     {
-        prevVec = transform.position;
-
-        if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
+        if (!inGoal)
         {
-            State = BirdState.Idle;
-            return;
-        }
-        else
-        {
-            Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-            Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+            prevVec = transform.position;
 
-            //transform.position = moveVec;
-            if(transform.position.y < -1.0f)
+            if ((playerInfo.Position.X == prevVec.x && playerInfo.Position.Y == prevVec.y && playerInfo.Position.Z == prevVec.z))
             {
-                transform.position = moveVec;
+                State = BirdState.Idle;
+                return;
             }
-            transform.rotation = Quaternion.Euler(moveRot);
+            else
+            {
+                Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+                Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
 
-            UpdateAnimation();
+                //transform.position = moveVec;
+                if (transform.position.y < -1.0f)
+                {
+                    transform.position = moveVec;
+                }
+                transform.rotation = Quaternion.Euler(moveRot);
+
+                UpdateAnimation();
+            }
         }
 
 
@@ -169,21 +181,20 @@ public class PlayerController : MonoBehaviour
     //바닥에 착지하여도, 그 사이에 다량의 Jump 패킷이 넘어와서 Jump가 되버린다...
     protected virtual void UpdateJumping()
     {
-        prevVec = transform.position;
-
-
-        Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
-        Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
-        transform.rotation = Quaternion.Euler(moveRot);
-
-        if (!isJumping)
+        if (!inGoal)
         {
-            animator.SetTrigger("doJump");
-            isJumping = true;
-        }
+            prevVec = transform.position;
 
-        //transform.position = moveVec;
-        UpdateAnimation();
+
+            Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
+            Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
+            transform.rotation = Quaternion.Euler(moveRot);
+
+          
+
+            //transform.position = moveVec;
+            UpdateAnimation();
+        }
 
     }
 
@@ -204,6 +215,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Victory Ground"))
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            inGoal = true;
+            this.GetComponent<CapsuleCollider>().enabled = false;
 
 
         }
@@ -239,11 +252,31 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case Google.Protobuf.Protocol.PlayerState.Jump:
+                rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+
+                animator.SetTrigger("doJump");
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = jumpClip;
+                    audioSource.Play();
+                }
+
+                State = BirdState.Jumping;
+                break;
+            case Google.Protobuf.Protocol.PlayerState.JumpLoop:
+                isJumping = true;
                 State = BirdState.Jumping;
                 break;
             case Google.Protobuf.Protocol.PlayerState.Slide:
                 State = BirdState.Jumping;
                 isSliding = true;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = slidClip;
+                    audioSource.Play();
+                }
+
                 break;
         }
     }

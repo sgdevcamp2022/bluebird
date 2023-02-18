@@ -81,9 +81,6 @@ public class PacketHandler
             UnityEngine.Debug.Log("ObjectRot " + obtacle.Rotation + " Inside");
         }
 
-        GameObject go = GameObject.Find("GameScene");
-        GameScene gs = go.GetComponent<GameScene>();
-        gs.SetStartGame();
 
         GameObject go2 = GameObject.Find("GameManager");
         GameManager igm = go2.GetComponent<GameManager>();
@@ -131,7 +128,7 @@ public class PacketHandler
         MoveData datas = packet as MoveData;
         if (datas.Move.Count == 0)
             return;
-        UnityEngine.Debug.Log(datas.Move.Count);
+       // UnityEngine.Debug.Log(datas.Move.Count);
 
         foreach (Move data in datas.Move)
         {
@@ -152,7 +149,7 @@ public class PacketHandler
             pc.recvMoveData.x = data.Position.X;
             pc.recvMoveData.y = data.Position.Y;
             pc.recvMoveData.z = data.Position.Z;
-            Debug.Log("ID: " + data.Id + " | Move: " + pc.recvMoveData);
+         //   Debug.Log("ID: " + data.Id + " | Move: " + pc.recvMoveData);
             pc.isRecvMove = true;
             pc.playerInfo.Position = data.Position;
             pc.playerInfo.Rotation = data.Rotation;
@@ -227,6 +224,7 @@ public class PacketHandler
         // bool 보고 성공인지 실패인지 판별해서 성공이면 다음 게임
         // 실패하면 로비로 넘어가게 만들면 될거 같습니다
         PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("Game Complete packet arrived");
 
         if (data.Success)
         {
@@ -243,13 +241,15 @@ public class PacketHandler
         else
         {
             UnityEngine.Debug.Log("Game Failed");
+            SceneManager.LoadScene("LobbyScene");
+
+
             firstStage = true;
+            goalNum = 0;
+            maxGoalNum = 2;
             Managers.Object.ClearPlaayers();
             Managers.Object.ClearObstacle();
             Managers.Object.ClearShape();
-            goalNum = 0;
-            maxGoalNum = 2;
-            SceneManager.LoadScene("LobbyScene");
         }
 
     }
@@ -306,6 +306,8 @@ public class PacketHandler
             GameObject go2 = GameObject.Find("GameManager");
             GameManager igm = go2.GetComponent<GameManager>();
             igm.SetGoalNumText(goalNum + "/" + maxGoalNum);
+
+            Debug.Log("Player Goal Packet Recieved" + data.Id);
         }
         else
         {

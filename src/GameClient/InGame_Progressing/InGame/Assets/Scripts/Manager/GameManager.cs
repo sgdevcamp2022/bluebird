@@ -22,7 +22,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        menupanel.SetActive(false);
+        if (menupanel != null)
+        {
+            menupanel.SetActive(false);
+        }
     }
 
     public void GameStartTxt()
