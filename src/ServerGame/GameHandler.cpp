@@ -108,11 +108,6 @@ SendBufferRef GameHandler::MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME 
     return _MakeSendBuffer<Protocol::Times, GameHeader, Protocol::INGAME>(pkt, type);
 }
 
-SendBufferRef GameHandler::MakeSendBuffer(Protocol::GameCompleteData pkt, Protocol::INGAME type)
-{
-    return _MakeSendBuffer<Protocol::GameCompleteData, GameHeader, Protocol::INGAME>(pkt, type);
-}
-
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type)
 {
     return _MakeSendBuffer<Protocol::PlayerGoalData, GameHeader, Protocol::INGAME>(pkt, type);

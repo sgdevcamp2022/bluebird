@@ -43,10 +43,9 @@ public:
 	bool				GetMoveRight() { return _move; }
 
 private:
-	Protocol::Animation	_anim = Protocol::IDLE;
-	bool				_move = true;
-	GameSessionRef		_ownerSession = nullptr;
-	Protocol::Player*	_ownerPlayer = nullptr;
+	bool					_move = true;
+	GameSessionRef			_ownerSession = nullptr;
+	Protocol::Player*		_ownerPlayer = nullptr;
 };
 
 class Obtacle : public GameObject {
