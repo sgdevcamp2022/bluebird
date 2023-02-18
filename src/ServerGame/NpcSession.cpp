@@ -4,6 +4,7 @@
 
 void NpcSession::OnConnected()
 {
+	cout << "NPC Session Connected" << endl;
 	Ggames->DoAsync(&Games::SetNpcRef, static_pointer_cast<NpcSession>(shared_from_this()));
 }
 

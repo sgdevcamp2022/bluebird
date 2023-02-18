@@ -4,6 +4,7 @@
 Player::~Player() {
 	_ownerSession = nullptr;
 	_ownerPlayer = nullptr;
+	cout << _id << " Player 삭제" << endl;
 }
 
 bool Player::Move(Vector3&& position, Vector3&& rotation)
@@ -27,6 +28,7 @@ void Player::SetPlayer(Protocol::Player* ref)
 
 Obtacle::~Obtacle() {
 	_ownerObtacle = nullptr;
+	cout << _id << " Obstalce 삭제" << endl;
 }
 
 bool Obtacle::Move(Vector3&& position, Vector3&& rotation)
@@ -41,7 +43,6 @@ GameObject::~GameObject()
 {
 	_position = nullptr;
 	_rotation = nullptr;
-	cout << _id<< " Object 삭제" << endl;
 }
 
 void Obtacle::SetObstacle(Protocol::Obtacle* ref)

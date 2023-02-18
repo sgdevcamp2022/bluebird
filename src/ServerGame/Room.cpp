@@ -93,7 +93,9 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 
 		if (data.has_position() && data.has_rotation()) {
 			_obstacles[data.id()] = make_shared<Obtacle>(data.id(), data.shape(), pkt.matchroom(), data.speed(), data.direction());
+
 			_obstacles[data.id()]->SetObstacle(ob);
+
 			_obstacles[data.id()]->SetSpawnPoint(data.position(), data.rotation());
 			ob->set_direction(_obstacles[data.id()]->GetDirection());
 		}
@@ -102,6 +104,7 @@ void Room::ObstacleEnter(Npc::LoginData pkt)
 		Npc::PlayerSpawn spawn = pkt.spawn(i);
 		_spawnPosition.push_back({ spawn.position(), spawn.rotation() });
 	}
+	cout << _obstacles.size() << " " << _spawnPosition.size() << endl;
 	//전체 플레이어에게 정보 전달 필요
 }
 
@@ -222,7 +225,7 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 
 		if (point.y() > -1.0f) {
-			cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+			/*cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;*/
 
 			auto move = _syncMove.add_move();
 			*move = data;
@@ -243,6 +246,7 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 {
 	if (_start) {
 		if (_obstacles.find(id) != _obstacles.end()) {
+			cout << "OBstacle Move " << id << endl;
 			_obstacles[id]->Move(position, rotation);
 			GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
 			GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
@@ -341,6 +345,7 @@ void Room::NextStage()
 	// 다음 스테이지로 넘어가기 위한 정리
 	_playerSize = _players[_stage].size();
 	cout << "Next Stage : " << _playerSize << endl;
+	_obstacles.clear();
 	_players[past].clear();
 
 	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
