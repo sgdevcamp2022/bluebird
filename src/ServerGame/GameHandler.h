@@ -20,7 +20,6 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::Move pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Player pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::Times pkt, Protocol::INGAME type);
-	static SendBufferRef MakeSendBuffer(Protocol::GameCompleteData pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::PlayerGoalData pkt, Protocol::INGAME type);
 	static SendBufferRef MakeSendBuffer(Protocol::SyncPlayer pkt, Protocol::INGAME type);
 };

@@ -95,9 +95,7 @@ public class PacketHandler
             igm.SetUserId (" Id " + player.Id);
 
         }
-
-
-            UnityEngine.Debug.Log("Game Start!");
+        UnityEngine.Debug.Log("Game Start!");
 
     }
     public static void ReConnect(IMessage packet)
@@ -130,28 +128,32 @@ public class PacketHandler
     }
     public static void PlayersSync(IMessage packet)
     {
-        Move data = packet as Move;
-
-        GameObject go = Managers.Object.GetPlayer(data.Id);
-
-
-
-        if (go == null)
+        MoveData datas = packet as MoveData;
+        if (datas.Move.Count == 0)
             return;
+        UnityEngine.Debug.Log(datas.Move.Count);
 
-        PlayerController pc = go.GetComponent<PlayerController>();
+        foreach (Move data in datas.Move)
+        {
+            GameObject go = Managers.Object.GetPlayer(data.Id);
 
-        if (pc == null)
-            return;
+            if (go == null)
+                return;
 
-        pc.playerInfo.Position = data.Position;
-        pc.playerInfo.Rotation = data.Rotation;
-        pc.SetAnim(data.State);
+            PlayerController pc = go.GetComponent<PlayerController>();
+
+            if (pc == null)
+                return;
+
+            pc.playerInfo.Position = data.Position;
+            pc.playerInfo.Rotation = data.Rotation;
+            pc.SetAnim(data.State);
 
 
-        GameObject go2 = GameObject.Find("GameManager");
-        GameManager igm = go2.GetComponent<GameManager>();
-        igm.SetUserPosition("ID: " + data.Id + " Position: " + data.Position + " State: " +  data.State) ;
+            GameObject go2 = GameObject.Find("GameManager");
+            GameManager igm = go2.GetComponent<GameManager>();
+            igm.SetUserPosition("ID: " + data.Id + " Position: " + data.Position + " State: " + data.State);
+        }
     }
     public static void ObtacleMove(IMessage packet)
     {

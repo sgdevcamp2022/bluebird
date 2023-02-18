@@ -41,7 +41,7 @@ public:
 private:
 	int32						_matchRoom;
 	int32						_mapLevel;
-
+	
 	Protocol::SyncObstacle*		_syncObstacle;
 	Protocol::SyncPlayer*		_syncPlayer;
 	int32						_playerSize = 0;

@@ -56,7 +56,7 @@ void NpcHandler::HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt)
 {
 	Protocol::Move data;
 	data.set_id(pkt.id());
-	data.set_time(GetTickCount64());
+	//data.set_time(GetTickCount64());
 
 	//TODO °íÄ¡±â
 	Ggames->GetRoomRef(pkt.matchroom())->DoAsync(&Room::ObstacleMove, pkt.id(), pkt.position(), pkt.rotation(), std::move(data));

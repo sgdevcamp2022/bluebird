@@ -47,7 +47,7 @@ struct TableStruct_ProtocolServer_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,9 +58,6 @@ namespace Protocol {
 class ConnectData;
 struct ConnectDataDefaultTypeInternal;
 extern ConnectDataDefaultTypeInternal _ConnectData_default_instance_;
-class GameCompleteData;
-struct GameCompleteDataDefaultTypeInternal;
-extern GameCompleteDataDefaultTypeInternal _GameCompleteData_default_instance_;
 class Move;
 struct MoveDefaultTypeInternal;
 extern MoveDefaultTypeInternal _Move_default_instance_;
@@ -97,7 +94,6 @@ extern VectorDefaultTypeInternal _Vector_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::ConnectData* Arena::CreateMaybeMessage<::Protocol::ConnectData>(Arena*);
-template<> ::Protocol::GameCompleteData* Arena::CreateMaybeMessage<::Protocol::GameCompleteData>(Arena*);
 template<> ::Protocol::Move* Arena::CreateMaybeMessage<::Protocol::Move>(Arena*);
 template<> ::Protocol::MoveData* Arena::CreateMaybeMessage<::Protocol::MoveData>(Arena*);
 template<> ::Protocol::Obtacle* Arena::CreateMaybeMessage<::Protocol::Obtacle>(Arena*);
@@ -150,33 +146,33 @@ inline bool INGAME_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<INGAME>(
     INGAME_descriptor(), name, value);
 }
-enum Animation : int {
+enum PlayerState : int {
   IDLE = 0,
   MOVE = 1,
-  JUMP_START = 2,
+  JUMP = 2,
   JUMP_LOOP = 3,
-  JUMP_END = 4,
-  Animation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  Animation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  Slide = 4,
+  PlayerState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  PlayerState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool Animation_IsValid(int value);
-constexpr Animation Animation_MIN = IDLE;
-constexpr Animation Animation_MAX = JUMP_END;
-constexpr int Animation_ARRAYSIZE = Animation_MAX + 1;
+bool PlayerState_IsValid(int value);
+constexpr PlayerState PlayerState_MIN = IDLE;
+constexpr PlayerState PlayerState_MAX = Slide;
+constexpr int PlayerState_ARRAYSIZE = PlayerState_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Animation_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PlayerState_descriptor();
 template<typename T>
-inline const std::string& Animation_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, Animation>::value ||
+inline const std::string& PlayerState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, PlayerState>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function Animation_Name.");
+    "Incorrect type passed to function PlayerState_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    Animation_descriptor(), enum_t_value);
+    PlayerState_descriptor(), enum_t_value);
 }
-inline bool Animation_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Animation* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Animation>(
-    Animation_descriptor(), name, value);
+inline bool PlayerState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PlayerState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PlayerState>(
+    PlayerState_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -323,147 +319,6 @@ class PlayerGoalData final :
 };
 // -------------------------------------------------------------------
 
-class GameCompleteData final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.GameCompleteData) */ {
- public:
-  inline GameCompleteData() : GameCompleteData(nullptr) {}
-  ~GameCompleteData() override;
-  explicit constexpr GameCompleteData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  GameCompleteData(const GameCompleteData& from);
-  GameCompleteData(GameCompleteData&& from) noexcept
-    : GameCompleteData() {
-    *this = ::std::move(from);
-  }
-
-  inline GameCompleteData& operator=(const GameCompleteData& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GameCompleteData& operator=(GameCompleteData&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const GameCompleteData& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GameCompleteData* internal_default_instance() {
-    return reinterpret_cast<const GameCompleteData*>(
-               &_GameCompleteData_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(GameCompleteData& a, GameCompleteData& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GameCompleteData* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GameCompleteData* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline GameCompleteData* New() const final {
-    return new GameCompleteData();
-  }
-
-  GameCompleteData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<GameCompleteData>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const GameCompleteData& from);
-  void MergeFrom(const GameCompleteData& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(GameCompleteData* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.GameCompleteData";
-  }
-  protected:
-  explicit GameCompleteData(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kDataFieldNumber = 1,
-  };
-  // repeated .Protocol.PlayerGoalData data = 1;
-  int data_size() const;
-  private:
-  int _internal_data_size() const;
-  public:
-  void clear_data();
-  ::Protocol::PlayerGoalData* mutable_data(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >*
-      mutable_data();
-  private:
-  const ::Protocol::PlayerGoalData& _internal_data(int index) const;
-  ::Protocol::PlayerGoalData* _internal_add_data();
-  public:
-  const ::Protocol::PlayerGoalData& data(int index) const;
-  ::Protocol::PlayerGoalData* add_data();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >&
-      data() const;
-
-  // @@protoc_insertion_point(class_scope:Protocol.GameCompleteData)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData > data_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_ProtocolServer_2eproto;
-};
-// -------------------------------------------------------------------
-
 class ConnectData final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ConnectData) */ {
  public:
@@ -508,7 +363,7 @@ class ConnectData final :
                &_ConnectData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(ConnectData& a, ConnectData& b) {
     a.Swap(&b);
@@ -662,7 +517,7 @@ class SyncPlayer final :
                &_SyncPlayer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(SyncPlayer& a, SyncPlayer& b) {
     a.Swap(&b);
@@ -803,7 +658,7 @@ class SyncObstacle final :
                &_SyncObstacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(SyncObstacle& a, SyncObstacle& b) {
     a.Swap(&b);
@@ -867,25 +722,25 @@ class SyncObstacle final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kObtacleFieldNumber = 1,
+    kObstacleFieldNumber = 1,
   };
-  // repeated .Protocol.Obtacle obtacle = 1;
-  int obtacle_size() const;
+  // repeated .Protocol.Obtacle obstacle = 1;
+  int obstacle_size() const;
   private:
-  int _internal_obtacle_size() const;
+  int _internal_obstacle_size() const;
   public:
-  void clear_obtacle();
-  ::Protocol::Obtacle* mutable_obtacle(int index);
+  void clear_obstacle();
+  ::Protocol::Obtacle* mutable_obstacle(int index);
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
-      mutable_obtacle();
+      mutable_obstacle();
   private:
-  const ::Protocol::Obtacle& _internal_obtacle(int index) const;
-  ::Protocol::Obtacle* _internal_add_obtacle();
+  const ::Protocol::Obtacle& _internal_obstacle(int index) const;
+  ::Protocol::Obtacle* _internal_add_obstacle();
   public:
-  const ::Protocol::Obtacle& obtacle(int index) const;
-  ::Protocol::Obtacle* add_obtacle();
+  const ::Protocol::Obtacle& obstacle(int index) const;
+  ::Protocol::Obtacle* add_obstacle();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
-      obtacle() const;
+      obstacle() const;
 
   // @@protoc_insertion_point(class_scope:Protocol.SyncObstacle)
  private:
@@ -894,7 +749,7 @@ class SyncObstacle final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle > obtacle_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle > obstacle_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -944,7 +799,7 @@ class StartData final :
                &_StartData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(StartData& a, StartData& b) {
     a.Swap(&b);
@@ -1105,7 +960,7 @@ class Times final :
                &_Times_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(Times& a, Times& b) {
     a.Swap(&b);
@@ -1237,7 +1092,7 @@ class Move final :
                &_Move_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(Move& a, Move& b) {
     a.Swap(&b);
@@ -1304,8 +1159,7 @@ class Move final :
     kPositionFieldNumber = 4,
     kRotationFieldNumber = 5,
     kIdFieldNumber = 1,
-    kTimeFieldNumber = 2,
-    kAnimFieldNumber = 3,
+    kStateFieldNumber = 3,
   };
   // optional .Protocol.Vector position = 4;
   bool has_position() const;
@@ -1352,22 +1206,13 @@ class Move final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // int64 time = 2;
-  void clear_time();
-  ::PROTOBUF_NAMESPACE_ID::int64 time() const;
-  void set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  // .Protocol.PlayerState state = 3;
+  void clear_state();
+  ::Protocol::PlayerState state() const;
+  void set_state(::Protocol::PlayerState value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_time() const;
-  void _internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
-  // .Protocol.Animation anim = 3;
-  void clear_anim();
-  ::Protocol::Animation anim() const;
-  void set_anim(::Protocol::Animation value);
-  private:
-  ::Protocol::Animation _internal_anim() const;
-  void _internal_set_anim(::Protocol::Animation value);
+  ::Protocol::PlayerState _internal_state() const;
+  void _internal_set_state(::Protocol::PlayerState value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.Move)
@@ -1382,8 +1227,7 @@ class Move final :
   ::Protocol::Vector* position_;
   ::Protocol::Vector* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
-  ::PROTOBUF_NAMESPACE_ID::int64 time_;
-  int anim_;
+  int state_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1432,7 +1276,7 @@ class MoveData final :
                &_MoveData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(MoveData& a, MoveData& b) {
     a.Swap(&b);
@@ -1584,7 +1428,7 @@ class Obtacle final :
                &_Obtacle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    8;
 
   friend void swap(Obtacle& a, Obtacle& b) {
     a.Swap(&b);
@@ -1790,7 +1634,7 @@ class Player final :
                &_Player_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    9;
 
   friend void swap(Player& a, Player& b) {
     a.Swap(&b);
@@ -1963,7 +1807,7 @@ class PlayerCrash final :
                &_PlayerCrash_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    10;
 
   friend void swap(PlayerCrash& a, PlayerCrash& b) {
     a.Swap(&b);
@@ -2155,7 +1999,7 @@ class Vector final :
                &_Vector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    11;
 
   friend void swap(Vector& a, Vector& b) {
     a.Swap(&b);
@@ -2316,49 +2160,6 @@ inline void PlayerGoalData::set_success(bool value) {
 
 // -------------------------------------------------------------------
 
-// GameCompleteData
-
-// repeated .Protocol.PlayerGoalData data = 1;
-inline int GameCompleteData::_internal_data_size() const {
-  return data_.size();
-}
-inline int GameCompleteData::data_size() const {
-  return _internal_data_size();
-}
-inline void GameCompleteData::clear_data() {
-  data_.Clear();
-}
-inline ::Protocol::PlayerGoalData* GameCompleteData::mutable_data(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.GameCompleteData.data)
-  return data_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >*
-GameCompleteData::mutable_data() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.GameCompleteData.data)
-  return &data_;
-}
-inline const ::Protocol::PlayerGoalData& GameCompleteData::_internal_data(int index) const {
-  return data_.Get(index);
-}
-inline const ::Protocol::PlayerGoalData& GameCompleteData::data(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.GameCompleteData.data)
-  return _internal_data(index);
-}
-inline ::Protocol::PlayerGoalData* GameCompleteData::_internal_add_data() {
-  return data_.Add();
-}
-inline ::Protocol::PlayerGoalData* GameCompleteData::add_data() {
-  // @@protoc_insertion_point(field_add:Protocol.GameCompleteData.data)
-  return _internal_add_data();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::PlayerGoalData >&
-GameCompleteData::data() const {
-  // @@protoc_insertion_point(field_list:Protocol.GameCompleteData.data)
-  return data_;
-}
-
-// -------------------------------------------------------------------
-
 // ConnectData
 
 // int64 id = 1;
@@ -2468,43 +2269,43 @@ SyncPlayer::player() const {
 
 // SyncObstacle
 
-// repeated .Protocol.Obtacle obtacle = 1;
-inline int SyncObstacle::_internal_obtacle_size() const {
-  return obtacle_.size();
+// repeated .Protocol.Obtacle obstacle = 1;
+inline int SyncObstacle::_internal_obstacle_size() const {
+  return obstacle_.size();
 }
-inline int SyncObstacle::obtacle_size() const {
-  return _internal_obtacle_size();
+inline int SyncObstacle::obstacle_size() const {
+  return _internal_obstacle_size();
 }
-inline void SyncObstacle::clear_obtacle() {
-  obtacle_.Clear();
+inline void SyncObstacle::clear_obstacle() {
+  obstacle_.Clear();
 }
-inline ::Protocol::Obtacle* SyncObstacle::mutable_obtacle(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.SyncObstacle.obtacle)
-  return obtacle_.Mutable(index);
+inline ::Protocol::Obtacle* SyncObstacle::mutable_obstacle(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SyncObstacle.obstacle)
+  return obstacle_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >*
-SyncObstacle::mutable_obtacle() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.SyncObstacle.obtacle)
-  return &obtacle_;
+SyncObstacle::mutable_obstacle() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SyncObstacle.obstacle)
+  return &obstacle_;
 }
-inline const ::Protocol::Obtacle& SyncObstacle::_internal_obtacle(int index) const {
-  return obtacle_.Get(index);
+inline const ::Protocol::Obtacle& SyncObstacle::_internal_obstacle(int index) const {
+  return obstacle_.Get(index);
 }
-inline const ::Protocol::Obtacle& SyncObstacle::obtacle(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.SyncObstacle.obtacle)
-  return _internal_obtacle(index);
+inline const ::Protocol::Obtacle& SyncObstacle::obstacle(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SyncObstacle.obstacle)
+  return _internal_obstacle(index);
 }
-inline ::Protocol::Obtacle* SyncObstacle::_internal_add_obtacle() {
-  return obtacle_.Add();
+inline ::Protocol::Obtacle* SyncObstacle::_internal_add_obstacle() {
+  return obstacle_.Add();
 }
-inline ::Protocol::Obtacle* SyncObstacle::add_obtacle() {
-  // @@protoc_insertion_point(field_add:Protocol.SyncObstacle.obtacle)
-  return _internal_add_obtacle();
+inline ::Protocol::Obtacle* SyncObstacle::add_obstacle() {
+  // @@protoc_insertion_point(field_add:Protocol.SyncObstacle.obstacle)
+  return _internal_add_obstacle();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Obtacle >&
-SyncObstacle::obtacle() const {
-  // @@protoc_insertion_point(field_list:Protocol.SyncObstacle.obtacle)
-  return obtacle_;
+SyncObstacle::obstacle() const {
+  // @@protoc_insertion_point(field_list:Protocol.SyncObstacle.obstacle)
+  return obstacle_;
 }
 
 // -------------------------------------------------------------------
@@ -2725,44 +2526,24 @@ inline void Move::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   // @@protoc_insertion_point(field_set:Protocol.Move.id)
 }
 
-// int64 time = 2;
-inline void Move::clear_time() {
-  time_ = int64_t{0};
+// .Protocol.PlayerState state = 3;
+inline void Move::clear_state() {
+  state_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Move::_internal_time() const {
-  return time_;
+inline ::Protocol::PlayerState Move::_internal_state() const {
+  return static_cast< ::Protocol::PlayerState >(state_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 Move::time() const {
-  // @@protoc_insertion_point(field_get:Protocol.Move.time)
-  return _internal_time();
+inline ::Protocol::PlayerState Move::state() const {
+  // @@protoc_insertion_point(field_get:Protocol.Move.state)
+  return _internal_state();
 }
-inline void Move::_internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
+inline void Move::_internal_set_state(::Protocol::PlayerState value) {
   
-  time_ = value;
+  state_ = value;
 }
-inline void Move::set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_time(value);
-  // @@protoc_insertion_point(field_set:Protocol.Move.time)
-}
-
-// .Protocol.Animation anim = 3;
-inline void Move::clear_anim() {
-  anim_ = 0;
-}
-inline ::Protocol::Animation Move::_internal_anim() const {
-  return static_cast< ::Protocol::Animation >(anim_);
-}
-inline ::Protocol::Animation Move::anim() const {
-  // @@protoc_insertion_point(field_get:Protocol.Move.anim)
-  return _internal_anim();
-}
-inline void Move::_internal_set_anim(::Protocol::Animation value) {
-  
-  anim_ = value;
-}
-inline void Move::set_anim(::Protocol::Animation value) {
-  _internal_set_anim(value);
-  // @@protoc_insertion_point(field_set:Protocol.Move.anim)
+inline void Move::set_state(::Protocol::PlayerState value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:Protocol.Move.state)
 }
 
 // optional .Protocol.Vector position = 4;
@@ -3796,8 +3577,6 @@ inline void Vector::set_z(float value) {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -3810,10 +3589,10 @@ template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::INGAME>() {
   return ::Protocol::INGAME_descriptor();
 }
-template <> struct is_proto_enum< ::Protocol::Animation> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::PlayerState> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::Animation>() {
-  return ::Protocol::Animation_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::PlayerState>() {
+  return ::Protocol::PlayerState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

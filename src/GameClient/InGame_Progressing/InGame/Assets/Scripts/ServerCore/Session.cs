@@ -250,9 +250,10 @@ namespace ServerCore
 			}
 			else
 			{
-                UnityEngine.Debug.Log("else Disconnect");
+				UnityEngine.Debug.Log(args.BytesTransferred + " " + args.SocketError);
+                RegisterRecv();
                 //Disconnect();
-			}
+            }
 		}
 
 		#endregion

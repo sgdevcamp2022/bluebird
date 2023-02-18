@@ -31,7 +31,7 @@ class PacketManager
         recv.Add((ushort)INGAME.Time, MakePacket<Times>);
         recv.Add((ushort)INGAME.Start, MakePacket<StartData>);
         handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
-        recv.Add((ushort)INGAME.PlayerSync, MakePacket<Move>);
+        recv.Add((ushort)INGAME.PlayerSync, MakePacket<MoveData>);
         handler.Add((ushort)INGAME.PlayerSync, PacketHandler.PlayersSync);
         recv.Add((ushort)INGAME.Connect, MakePacket<Player>);
         handler.Add((ushort)INGAME.Connect, PacketHandler.GameConnect);
