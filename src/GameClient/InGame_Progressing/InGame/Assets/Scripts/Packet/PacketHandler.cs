@@ -135,6 +135,10 @@ public class PacketHandler
 
         foreach (Move data in datas.Move)
         {
+            if(data.Id == Managers.Object.myPlayerId)
+            {
+                continue;
+            }
             GameObject go = Managers.Object.GetPlayer(data.Id);
 
             if (go == null)
@@ -145,6 +149,11 @@ public class PacketHandler
             if (pc == null)
                 return;
 
+            pc.recvMoveData.x = data.Position.X;
+            pc.recvMoveData.y = data.Position.Y;
+            pc.recvMoveData.z = data.Position.Z;
+            Debug.Log("ID: " + data.Id + " | Move: " + pc.recvMoveData);
+            pc.isRecvMove = true;
             pc.playerInfo.Position = data.Position;
             pc.playerInfo.Rotation = data.Rotation;
             pc.SetAnim(data.State);
