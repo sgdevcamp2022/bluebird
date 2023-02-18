@@ -224,10 +224,14 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 
 		if (point.y() > -1.0f) {
-			cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
-
+			/*cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;*/
+			cout << data.time() << " " << GetTickCount64() << endl;
+			int64 time = GetTickCount64() - data.time();
+			cout << time << endl;
+			data.set_time(time);
 			auto move = _syncMove.add_move();
 			*move = data;
+
 			player->Move(data.position(), data.rotation());
 			//Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_SYNC));
 		}
@@ -280,15 +284,10 @@ void Room::PlayerGoal(Protocol::Player data)
 
 void Room::TimeSync()
 {
-	if (_start) {
-		Protocol::Times time;
-		time.set_time(GetTickCount64());
-		cout << time.time() << endl;
+	Protocol::Times time;
+	time.set_time(GetTickCount64());
 
-		Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
-	}
-	else
-		DoTimer(60000, &Room::TimeSync);
+	Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
 }
 
 void Room::GameSync()

@@ -16,7 +16,7 @@ public class NetworkManager
 
     public Int64 TICK
 	{
-		get { return _tick.Ticks; }
+		get { return _tick.Ticks + _rtt; }
 		set { _tick = new DateTime(value); }
 	}
 	public Int64 RTT
@@ -32,7 +32,8 @@ public class NetworkManager
 	public void Init()
 	{
         //string mIp = "127.0.0.1";
-        string mIp = "121.145.229.137";
+        string mIp = "203.241.228.47";
+        //string mIp = "121.145.229.137";
         IPAddress ipAddress = IPAddress.Parse(mIp);
         IPEndPoint endPoint = new IPEndPoint(ipAddress, 5000);
 
@@ -63,7 +64,7 @@ public class NetworkManager
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(10);
 
 			Times times = new Times()
 			{

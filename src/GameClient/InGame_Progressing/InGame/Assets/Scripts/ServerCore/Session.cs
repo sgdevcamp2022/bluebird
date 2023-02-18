@@ -251,8 +251,8 @@ namespace ServerCore
 			else
 			{
 				UnityEngine.Debug.Log(args.BytesTransferred + " " + args.SocketError);
-                RegisterRecv();
-                //Disconnect();
+                //RegisterRecv();
+                Disconnect();
             }
 		}
 
