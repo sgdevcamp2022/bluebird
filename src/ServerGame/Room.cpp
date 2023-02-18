@@ -224,11 +224,8 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 
 		if (point.y() > -1.0f) {
-			/*cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;*/
-			cout << data.time() << " " << GetTickCount64() << endl;
-			int64 time = GetTickCount64() - data.time();
-			cout << time << endl;
-			data.set_time(time);
+			cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;
+
 			auto move = _syncMove.add_move();
 			*move = data;
 

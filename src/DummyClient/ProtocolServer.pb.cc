@@ -98,7 +98,6 @@ constexpr Move::Move(
   : position_(nullptr)
   , rotation_(nullptr)
   , id_(int64_t{0})
-  , time_(int64_t{0})
   , state_(0)
 {}
 struct MoveDefaultTypeInternal {
@@ -235,11 +234,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ProtocolServer_2eproto::offset
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, id_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Move, time_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, state_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Move, rotation_),
-  ~0u,
   ~0u,
   ~0u,
   0,
@@ -304,12 +301,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 21, -1, sizeof(::Protocol::SyncObstacle)},
   { 27, -1, sizeof(::Protocol::StartData)},
   { 34, -1, sizeof(::Protocol::Times)},
-  { 40, 50, sizeof(::Protocol::Move)},
-  { 55, -1, sizeof(::Protocol::MoveData)},
-  { 62, 73, sizeof(::Protocol::Obtacle)},
-  { 79, 87, sizeof(::Protocol::Player)},
-  { 90, -1, sizeof(::Protocol::PlayerCrash)},
-  { 99, -1, sizeof(::Protocol::Vector)},
+  { 40, 49, sizeof(::Protocol::Move)},
+  { 53, -1, sizeof(::Protocol::MoveData)},
+  { 60, 71, sizeof(::Protocol::Obtacle)},
+  { 77, 85, sizeof(::Protocol::Player)},
+  { 88, -1, sizeof(::Protocol::PlayerCrash)},
+  { 97, -1, sizeof(::Protocol::Vector)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -336,37 +333,37 @@ const char descriptor_table_protodef_ProtocolServer_2eproto[] PROTOBUF_SECTION_V
   "#\n\010obstacle\030\001 \003(\0132\021.Protocol.Obtacle\"]\n\t"
   "StartData\022%\n\007players\030\001 \001(\0132\024.Protocol.Sy"
   "ncPlayer\022)\n\tobstacles\030\002 \001(\0132\026.Protocol.S"
-  "yncObstacle\"\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\262\001\n\004M"
-  "ove\022\n\n\002id\030\001 \001(\003\022\014\n\004time\030\002 \001(\003\022$\n\005state\030\003"
-  " \001(\0162\025.Protocol.PlayerState\022\'\n\010position\030"
-  "\004 \001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010rotation"
-  "\030\005 \001(\0132\020.Protocol.VectorH\001\210\001\001B\013\n\t_positi"
-  "onB\013\n\t_rotation\"6\n\010MoveData\022\014\n\004time\030\001 \001("
-  "\003\022\034\n\004move\030\002 \003(\0132\016.Protocol.Move\"\262\001\n\007Obta"
-  "cle\022\n\n\002id\030\001 \001(\003\022\r\n\005shape\030\002 \001(\005\022\'\n\010positi"
-  "on\030\003 \001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010rotat"
-  "ion\030\004 \001(\0132\020.Protocol.VectorH\001\210\001\001\022\r\n\005spee"
-  "d\030\005 \001(\002\022\021\n\tdirection\030\006 \001(\005B\013\n\t_positionB"
-  "\013\n\t_rotation\"\200\001\n\006Player\022\n\n\002id\030\001 \001(\003\022\'\n\010p"
-  "osition\030\002 \001(\0132\020.Protocol.VectorH\000\210\001\001\022\'\n\010"
-  "rotation\030\003 \001(\0132\020.Protocol.VectorH\001\210\001\001B\013\n"
-  "\t_positionB\013\n\t_rotation\"\202\001\n\013PlayerCrash\022"
-  "\n\n\002id\030\001 \001(\003\022\"\n\010position\030\002 \001(\0132\020.Protocol"
-  ".Vector\022\"\n\010rotation\030\003 \001(\0132\020.Protocol.Vec"
-  "tor\022\037\n\005enemy\030\004 \001(\0132\020.Protocol.Player\")\n\006"
-  "Vector\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*"
-  "\355\001\n\006INGAME\022\013\n\007CONNECT\020\000\022\t\n\005START\020\001\022\t\n\005LE"
-  "AVE\020\002\022\017\n\013PLAYER_MOVE\020\003\022\021\n\rOBSTACLE_MOVE\020"
-  "\004\022\020\n\014GAME_COMPLTE\020\005\022\014\n\010GAME_END\020\006\022\017\n\013PLA"
-  "YER_DROP\020\007\022\020\n\014PLAYER_CRASH\020\010\022\020\n\014CONNECT_"
-  "FAIL\020\t\022\010\n\004TIME\020\n\022\014\n\010GET_TICK\020\013\022\017\n\013PLAYER"
-  "_GOAL\020\014\022\r\n\tRECONNECT\020\r\022\017\n\013PLAYER_SYNC\020\016*"
-  "E\n\013PlayerState\022\010\n\004IDLE\020\000\022\010\n\004MOVE\020\001\022\010\n\004JU"
-  "MP\020\002\022\r\n\tJUMP_LOOP\020\003\022\t\n\005Slide\020\004b\006proto3"
+  "yncObstacle\"\025\n\005Times\022\014\n\004time\030\001 \001(\003\"\244\001\n\004M"
+  "ove\022\n\n\002id\030\001 \001(\003\022$\n\005state\030\003 \001(\0162\025.Protoco"
+  "l.PlayerState\022\'\n\010position\030\004 \001(\0132\020.Protoc"
+  "ol.VectorH\000\210\001\001\022\'\n\010rotation\030\005 \001(\0132\020.Proto"
+  "col.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t_rotatio"
+  "n\"6\n\010MoveData\022\014\n\004time\030\001 \001(\003\022\034\n\004move\030\002 \003("
+  "\0132\016.Protocol.Move\"\262\001\n\007Obtacle\022\n\n\002id\030\001 \001("
+  "\003\022\r\n\005shape\030\002 \001(\005\022\'\n\010position\030\003 \001(\0132\020.Pro"
+  "tocol.VectorH\000\210\001\001\022\'\n\010rotation\030\004 \001(\0132\020.Pr"
+  "otocol.VectorH\001\210\001\001\022\r\n\005speed\030\005 \001(\002\022\021\n\tdir"
+  "ection\030\006 \001(\005B\013\n\t_positionB\013\n\t_rotation\"\200"
+  "\001\n\006Player\022\n\n\002id\030\001 \001(\003\022\'\n\010position\030\002 \001(\0132"
+  "\020.Protocol.VectorH\000\210\001\001\022\'\n\010rotation\030\003 \001(\013"
+  "2\020.Protocol.VectorH\001\210\001\001B\013\n\t_positionB\013\n\t"
+  "_rotation\"\202\001\n\013PlayerCrash\022\n\n\002id\030\001 \001(\003\022\"\n"
+  "\010position\030\002 \001(\0132\020.Protocol.Vector\022\"\n\010rot"
+  "ation\030\003 \001(\0132\020.Protocol.Vector\022\037\n\005enemy\030\004"
+  " \001(\0132\020.Protocol.Player\")\n\006Vector\022\t\n\001x\030\001 "
+  "\001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002*\355\001\n\006INGAME\022\013\n\007"
+  "CONNECT\020\000\022\t\n\005START\020\001\022\t\n\005LEAVE\020\002\022\017\n\013PLAYE"
+  "R_MOVE\020\003\022\021\n\rOBSTACLE_MOVE\020\004\022\020\n\014GAME_COMP"
+  "LTE\020\005\022\014\n\010GAME_END\020\006\022\017\n\013PLAYER_DROP\020\007\022\020\n\014"
+  "PLAYER_CRASH\020\010\022\020\n\014CONNECT_FAIL\020\t\022\010\n\004TIME"
+  "\020\n\022\014\n\010GET_TICK\020\013\022\017\n\013PLAYER_GOAL\020\014\022\r\n\tREC"
+  "ONNECT\020\r\022\017\n\013PLAYER_SYNC\020\016*E\n\013PlayerState"
+  "\022\010\n\004IDLE\020\000\022\010\n\004MOVE\020\001\022\010\n\004JUMP\020\002\022\r\n\tJUMP_L"
+  "OOP\020\003\022\t\n\005Slide\020\004b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ProtocolServer_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ProtocolServer_2eproto = {
-  false, false, 1398, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
+  false, false, 1384, descriptor_table_protodef_ProtocolServer_2eproto, "ProtocolServer.proto", 
   &descriptor_table_ProtocolServer_2eproto_once, nullptr, 0, 12,
   schemas, file_default_instances, TableStruct_ProtocolServer_2eproto::offsets,
   file_level_metadata_ProtocolServer_2eproto, file_level_enum_descriptors_ProtocolServer_2eproto, file_level_service_descriptors_ProtocolServer_2eproto,
@@ -1843,13 +1840,6 @@ const char* Move::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int64 time = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
       // .Protocol.PlayerState state = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
@@ -1906,12 +1896,6 @@ failure:
   if (this->id() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_id(), target);
-  }
-
-  // int64 time = 2;
-  if (this->time() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_time(), target);
   }
 
   // .Protocol.PlayerState state = 3;
@@ -1977,13 +1961,6 @@ size_t Move::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // int64 time = 2;
-  if (this->time() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_time());
-  }
-
   // .Protocol.PlayerState state = 3;
   if (this->state() != 0) {
     total_size += 1 +
@@ -2032,9 +2009,6 @@ void Move::MergeFrom(const Move& from) {
   }
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
-  }
-  if (from.time() != 0) {
-    _internal_set_time(from._internal_time());
   }
   if (from.state() != 0) {
     _internal_set_state(from._internal_state());

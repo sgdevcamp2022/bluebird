@@ -1159,7 +1159,6 @@ class Move final :
     kPositionFieldNumber = 4,
     kRotationFieldNumber = 5,
     kIdFieldNumber = 1,
-    kTimeFieldNumber = 2,
     kStateFieldNumber = 3,
   };
   // optional .Protocol.Vector position = 4;
@@ -1207,15 +1206,6 @@ class Move final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
-  // int64 time = 2;
-  void clear_time();
-  ::PROTOBUF_NAMESPACE_ID::int64 time() const;
-  void set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_time() const;
-  void _internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value);
-  public:
-
   // .Protocol.PlayerState state = 3;
   void clear_state();
   ::Protocol::PlayerState state() const;
@@ -1237,7 +1227,6 @@ class Move final :
   ::Protocol::Vector* position_;
   ::Protocol::Vector* rotation_;
   ::PROTOBUF_NAMESPACE_ID::int64 id_;
-  ::PROTOBUF_NAMESPACE_ID::int64 time_;
   int state_;
   friend struct ::TableStruct_ProtocolServer_2eproto;
 };
@@ -2535,26 +2524,6 @@ inline void Move::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
 inline void Move::set_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_id(value);
   // @@protoc_insertion_point(field_set:Protocol.Move.id)
-}
-
-// int64 time = 2;
-inline void Move::clear_time() {
-  time_ = int64_t{0};
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 Move::_internal_time() const {
-  return time_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 Move::time() const {
-  // @@protoc_insertion_point(field_get:Protocol.Move.time)
-  return _internal_time();
-}
-inline void Move::_internal_set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  
-  time_ = value;
-}
-inline void Move::set_time(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_time(value);
-  // @@protoc_insertion_point(field_set:Protocol.Move.time)
 }
 
 // .Protocol.PlayerState state = 3;
