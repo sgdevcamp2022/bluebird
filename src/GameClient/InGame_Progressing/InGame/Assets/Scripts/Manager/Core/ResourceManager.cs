@@ -58,6 +58,25 @@ public class ResourceManager
         return go;
     }
 
+    public GameObject Instantiate(string path, Vector3 position, Quaternion rotation)
+    {
+
+        //Load를 사용해 prefab에 path에 해당하는 Gameobject 타입의 애셋을 할당한다.
+        GameObject original = Load<GameObject>($"Prefabs/{path}");
+        if (original == null)
+        {
+            Debug.Log($"Failed to load prefab : {path}");
+            return null;
+        }
+        if (original.GetComponent<Poolable>() != null)
+            return Managers.Pool.Pop(original, null).gameObject;
+
+        //Object. 을 붙여 재귀를 막는다.
+        GameObject go = Object.Instantiate(original, position, rotation);
+        go.name = original.name;
+        return go;
+    }
+
     public void Destroy(GameObject go)
     {
         if (go == null)
