@@ -73,6 +73,7 @@ message Move
 	optional Vector rotation = 5;
 }
 
+
 message MoveData
 {
 	int64 time = 1;

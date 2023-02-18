@@ -228,6 +228,7 @@ void Room::PlayerMove(Protocol::Move data)
 
 			auto move = _syncMove.add_move();
 			*move = data;
+
 			player->Move(data.position(), data.rotation());
 			//Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_SYNC));
 		}
@@ -280,15 +281,10 @@ void Room::PlayerGoal(Protocol::Player data)
 
 void Room::TimeSync()
 {
-	if (_start) {
-		Protocol::Times time;
-		time.set_time(GetTickCount64());
-		cout << time.time() << endl;
+	Protocol::Times time;
+	time.set_time(GetTickCount64());
 
-		Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
-	}
-	else
-		DoTimer(60000, &Room::TimeSync);
+	Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
 }
 
 void Room::GameSync()
