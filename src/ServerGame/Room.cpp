@@ -28,7 +28,7 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 
 Room::~Room()
 {
-	RoomClear();
+	cout << "Room Clear" << endl;
 	delete _syncPlayer;
 	delete _syncObstacle;
 }
@@ -69,9 +69,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 	}
 	else if (_players[_stage].find(id) != _players[_stage].end()) {
 		_players[_stage][id]->SetOwner(ref);
-		cout << "플레이 정보 이동" << endl;
 		ref->_mySelf = _players[_stage][id];
-		cout << "플레이 정보 이동 완료" << endl;
 		_playerSize += 1;
 	}
 
@@ -131,10 +129,10 @@ void Room::ReConnect(GameSessionRef ref, int64 id)
 	}
 }
 
-void Room::Disconnect(PlayerRef ref)
+void Room::Disconnect(int64 id)
 {
 	cout << "Disconncet" << endl;
-	_players[_stage][ref->GetId()]->SetOwner(nullptr);
+	_players[_stage][id]->SetOwner(nullptr);
 
 	if (_start)
 	{
@@ -145,17 +143,17 @@ void Room::Disconnect(PlayerRef ref)
 	}
 }
 
-void Room::Leave(PlayerRef ref)
+void Room::Leave(int64 id)
 {
-	_players[_stage][ref->GetId()]->SetOwner(nullptr);
-	_players[_stage].erase(ref->GetId());
+	_players[_stage].erase(id);
 
 	Protocol::ConnectData data;
-	data.set_id(ref->GetId());
+	data.set_id(id);
 	data.set_room(_matchRoom);
 	data.set_level(_mapLevel);
 
 	Broadcast(GameHandler::MakeSendBuffer(data, Protocol::LEAVE));
+	_playerSize -= 1;
 
 	if (_start)
 	{
@@ -206,7 +204,7 @@ int Room::Start()
 	cout << "GameStart " << _remainUser<<endl;
 	_start.store(true);
 	//Sync
-	TimeSync();
+	//TimeSync();
 
 	_syncMove.set_time(GetTickCount64());
 	GameSync();
@@ -249,7 +247,6 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 			GameUtils::SetVector3(data.mutable_position(), _obstacles[id]->GetPosition());
 			GameUtils::SetVector3(data.mutable_rotation(), _obstacles[id]->GetRotation());
 		}
-
 		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 	}
 }
@@ -258,10 +255,8 @@ void Room::PlayerGoal(Protocol::Player data)
 {
 	if (CHECK(data.id())) {
 		cout << "Input goal " << data.id() << endl;
-		PlayerRef player = _players[_stage][data.id()];
-		_players[_stage + 1][player->GetId()] = player; 
-		//TODO 확인 작업 필요
-		//if (_winner.fetch_add(1) == WINNER1(_playerSize))
+		_players[_stage + 1][data.id()] = _players[_stage][data.id()];
+
 		if (_players[_stage + 1].size() == Solo_Goal(_stage.load()))
 		{
 			cout << Solo_Goal(_stage.load());
@@ -285,15 +280,19 @@ void Room::TimeSync()
 	time.set_time(GetTickCount64());
 
 	Broadcast(GameHandler::MakeSendBuffer(time, Protocol::GET_TICK));
+	DoTimer(60000, &Room::TimeSync);
 }
 
 void Room::GameSync()
 {
-	//동기화 테스트
-	Broadcast(GameHandler::MakeSendBuffer(_syncMove, Protocol::PLAYER_SYNC));
-	_syncMove.Clear();
-	_syncMove.set_time(GetTickCount64());
-	DoTimer(50, &Room::GameSync);
+	if (_start) {
+		//동기화 테스트
+		Broadcast(GameHandler::MakeSendBuffer(_syncMove, Protocol::PLAYER_SYNC));
+		_syncMove.Clear();
+		_syncMove.set_time(GetTickCount64());
+
+		DoTimer(50, &Room::GameSync);
+	}
 }
 
 void Room::Broadcast(SendBufferRef ref)
@@ -315,6 +314,7 @@ void Room::NextStage()
 
 	// 종료 후 유저들에게 정보 전달
 	_syncPlayer->Clear();
+
 	for (auto& _ref : _players[past]) {
 		if (_players[_stage].find(_ref.first) == _players[_stage].end()) {
 			data.set_id(_ref.first);
@@ -326,10 +326,16 @@ void Room::NextStage()
 			data.set_id(_ref.first);
 			data.set_success(true);
 		}
-		if(LAST(_stage))
+
+		if (Last_Stage(_stage)) {
+			cout << "GameEnd "<< _ref.first << endl;
 			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_END));
-		else
+		}
+		else {
+			cout << "Game Complte " << _ref.first << endl;
 			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
+		}
+		
 	}
 
 	// 다음 스테이지로 넘어가기 위한 정리
@@ -338,7 +344,7 @@ void Room::NextStage()
 	_players[past].clear();
 
 	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
-	if (LAST(_stage))
+	if (Last_Stage(_stage))
 		RoomEnd();
 	else
 		Ggames->DoAsync(&Games::NextStageGame, _matchRoom, _mapLevel, _stage.load());
@@ -347,8 +353,9 @@ void Room::NextStage()
 void Room::RoomEnd()
 {
 	//TODO 정리하기
-	_jobs.Clear();
-	
+	this->ClearJobs();
+	RoomClear();
+
 	Ggames->EndGame(_matchRoom, _mapLevel);
 }
 

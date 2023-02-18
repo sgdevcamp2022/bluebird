@@ -1,11 +1,11 @@
 #pragma once
 
-#define THREAD_SIZE 10
+#define THREAD_SIZE 5
 #define ROOM_COUNT 20
 
 #define MAX_STAGE 3
-#define LAST(stage) (MAX_STAGE == stage)
 
+inline bool Last_Stage(int stage) { return (stage == MAX_STAGE) ? true : false; }
 inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
 inline int Solo_Start(int stage) { return (stage == 1) ? 3 : 2; }
 

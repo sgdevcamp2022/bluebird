@@ -14,9 +14,6 @@ public:
 private:
 	static void HandlerLogin(PacketSessionRef& ref, Npc::LoginData&& pkt);
 	static void HandlerGame(PacketSessionRef& ref, Npc::GameData&& pkt);
-
-public:
-	
 };
 
 struct NpcHeader {

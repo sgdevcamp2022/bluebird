@@ -16,9 +16,6 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     case Protocol::PLAYER_MOVE:
         HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
-    case Protocol::GAME_COMPLTE:
-        HGameComplete(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
-        break;
     case Protocol::PLAYER_DROP:
         HGameDrop(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
         break;;
@@ -35,37 +32,49 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
 
 void GameHandler::HConnect(GameSessionRef& ref, Protocol::ConnectData&& pkt)
 {
-    if ((ref->_mySelf == nullptr) && ref->_room.expired())
+    if ((ref->_mySelf.expired()) && ref->_room.expired())
         Ggames->DoAsync(&Games::EnterGame, ref, pkt.id(), pkt.room());
     //접속 시 전체 유저 정보 전달 -> 고민 이슈
 }
 
 void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
-    if (ref->_mySelf != nullptr)
-        if (auto room = ref->_room.lock())
+    if (!ref->_mySelf.expired()) {
+        if (auto room = ref->_room.lock()) {
             room->DoAsync(&Room::PlayerMove, pkt);
+        }
+    }
+    else
+    {
+        cout << "Player Move Disconnected" << endl;
+    }
 }
 
 
-void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
-{
-    bool expected = true;
-    bool desired = true;
-
-    if (ref->_mySelf != nullptr)
-        if (auto room = ref->_room.lock())
-            if (pkt.id() == pkt.id())
-                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
-}
+//void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
+//{
+//    if (!ref->_mySelf.expired()) {
+//        if (auto room = ref->_room.lock())
+//            if (pkt.id() == pkt.id())
+//                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
+//    }
+//    else
+//    {
+//        cout << "GameComplete Disconnected" << endl;
+//    }
+//}
 
 
 void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
 {
-    if (pkt.id() == ref->_mySelf->GetId()) 
+    if (pkt.id() == ref->_mySelf.lock()->GetId())
     {
         cout << "정상" << endl;
-        ref->_mySelf->MoveChange();
+        ref->_mySelf.lock()->MoveChange();
+    }
+    else
+    {
+        cout << "GameDrop Disconnected" << endl;
     }
 }
 
@@ -76,9 +85,13 @@ void GameHandler::HTime(GameSessionRef& ref, Protocol::Times&& pkt)
 
 void GameHandler::HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt)
 {
-    if (ref->_mySelf != nullptr)
+    if (!ref->_mySelf.expired()) {
         if (auto room = ref->_room.lock())
             room->DoAsync(&Room::PlayerGoal, std::move(pkt));
+    }
+    else {
+        cout << "PlayerGoal Disconnected" << endl;
+    }
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::ConnectData pkt, Protocol::INGAME type)

@@ -9,16 +9,14 @@ void GameSession::OnConnected()
 
 void GameSession::OnDisconnected()
 {
-	if (_mySelf != nullptr) {
+	if (!_mySelf.expired()) {
 		if (auto room = _room.lock()) {
 			if (room->_start)
-				room->DoAsync(&Room::Disconnect, _mySelf);
+				room->DoAsync(&Room::Disconnect, _mySelf.lock()->GetId());
 			else
-				room->DoAsync(&Room::Leave, _mySelf);
+				room->DoAsync(&Room::Leave, _mySelf.lock()->GetId());
 		}
 	}
-
-	_mySelf = nullptr;
 }
 
 void GameSession::OnRecvPacket(BYTE* buffer, int32 len)

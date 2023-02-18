@@ -13,8 +13,8 @@ public:
 	void ObstacleEnter(Npc::LoginData pkt);
 
 	void ReConnect(GameSessionRef ref, int64 id);
-	void Disconnect(PlayerRef ref);
-	void Leave(PlayerRef ref);
+	void Disconnect(int64 id);
+	void Leave(int64 id);
 	int	 Start();
 
 	void PlayerMove(Protocol::Move data);

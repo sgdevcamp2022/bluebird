@@ -14,7 +14,7 @@ public class PacketHandler
     static int maxGoalNum = 2;
 
     
-    public static void GetTickCount(IMessage packet)
+    public static void RTTSync(IMessage packet)
     {
         //TODO RTT구하기
         Times times = packet as Times;
@@ -227,12 +227,13 @@ public class PacketHandler
                 Managers.Object.ClearShape();
                 goalNum = 0;
                 maxGoalNum -= 1;
-                UnityEngine.Debug.Log("Scene Moved");
+                UnityEngine.Debug.Log("Game Complete");
                 SceneManager.LoadScene("Stage2");
 
         }
         else
         {
+            UnityEngine.Debug.Log("Game Failed");
             firstStage = true;
             Managers.Object.ClearPlaayers();
             Managers.Object.ClearObstacle();
@@ -242,15 +243,13 @@ public class PacketHandler
             SceneManager.LoadScene("LobbyScene");
         }
 
-        UnityEngine.Debug.Log("GameComplte");
-        
     }
 
     //게임 종료
     public static void GameEnds(IMessage packet)
     {
-
         PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("GameEnd Packet");
 
         if (data.Success)
         {
@@ -275,7 +274,6 @@ public class PacketHandler
             UnityEngine.Debug.Log("Scene Moved to Lobby Scene");
             SceneManager.LoadScene("LobbyScene");
         }
-
 
 
         UnityEngine.Debug.Log("GameEnd");
