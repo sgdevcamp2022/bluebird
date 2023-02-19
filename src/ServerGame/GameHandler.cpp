@@ -16,11 +16,8 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
     case Protocol::PLAYER_MOVE:
         HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
-    case Protocol::GAME_COMPLTE:
-        HGameComplete(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
-        break;
     case Protocol::PLAYER_DROP:
-        HGameDrop(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
+        HGameDrop(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;;
     case Protocol::TIME:
         HTime(ref, ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
@@ -42,30 +39,27 @@ void GameHandler::HConnect(GameSessionRef& ref, Protocol::ConnectData&& pkt)
 
 void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
 {
-    if (ref->_mySelf != nullptr)
-        if (auto room = ref->_room.lock())
+    if (ref->_mySelf != nullptr) {
+        if (auto room = ref->_room.lock()) {
             room->DoAsync(&Room::PlayerMove, pkt);
-}
-
-
-void GameHandler::HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt)
-{
-    bool expected = true;
-    bool desired = true;
-
-    if (ref->_mySelf != nullptr)
-        if (auto room = ref->_room.lock())
-            if (pkt.id() == pkt.id())
-                room->DoAsync(&Room::PlayerGoal, std::move(pkt));
-}
-
-
-void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
-{
-    if (pkt.id() == ref->_mySelf->GetId()) 
+        }
+    }
+    else
     {
-        cout << "Á¤»ó" << endl;
-        ref->_mySelf->MoveChange();
+        ref->Disconnect(L"Player Move Disconnected");
+    }
+}
+
+void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Move&& pkt)
+{
+    if ((ref->_mySelf != nullptr) && (pkt.id() == ref->_mySelf->GetId()))
+    {
+        cout << pkt.position().x() << " " << pkt.position().y()<< " " << pkt.position().z();
+        ref->_room.lock()->DoAsync(&Room::PlayerDropSpawn, pkt.id());
+    }
+    else
+    {
+        ref->Disconnect(L"Drop Disconnected");
     }
 }
 
@@ -76,9 +70,13 @@ void GameHandler::HTime(GameSessionRef& ref, Protocol::Times&& pkt)
 
 void GameHandler::HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt)
 {
-    if (ref->_mySelf != nullptr)
+    if (ref->_mySelf != nullptr) {
         if (auto room = ref->_room.lock())
-            room->DoAsync(&Room::PlayerGoal, std::move(pkt));
+            room->DoAsync(&Room::PlayerGoal, pkt);
+    }
+    else {
+        ref->Disconnect(L"PlayerGoal Disconnected");
+    }
 }
 
 SendBufferRef GameHandler::MakeSendBuffer(Protocol::ConnectData pkt, Protocol::INGAME type)

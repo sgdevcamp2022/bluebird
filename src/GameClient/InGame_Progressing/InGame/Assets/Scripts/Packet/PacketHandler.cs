@@ -14,7 +14,7 @@ public class PacketHandler
     static int maxGoalNum = 2;
 
     
-    public static void GetTickCount(IMessage packet)
+    public static void RTTSync(IMessage packet)
     {
         //TODO RTT구하기
         Times times = packet as Times;
@@ -135,6 +135,10 @@ public class PacketHandler
 
         foreach (Move data in datas.Move)
         {
+            if(data.Id == Managers.Object.myPlayerId)
+            {
+                continue;
+            }
             GameObject go = Managers.Object.GetPlayer(data.Id);
 
             if (go == null)
@@ -145,6 +149,11 @@ public class PacketHandler
             if (pc == null)
                 return;
 
+            pc.recvMoveData.x = data.Position.X;
+            pc.recvMoveData.y = data.Position.Y;
+            pc.recvMoveData.z = data.Position.Z;
+            Debug.Log("ID: " + data.Id + " | Move: " + pc.recvMoveData);
+            pc.isRecvMove = true;
             pc.playerInfo.Position = data.Position;
             pc.playerInfo.Rotation = data.Rotation;
             pc.SetAnim(data.State);
@@ -173,8 +182,8 @@ public class PacketHandler
     }
     public static void PlayerFail(IMessage packet)
     {
-        Player player = packet as Player;
-        GameObject go = Managers.Object.GetPlayer(player.Id);
+        Move move = packet as Move;
+        GameObject go = Managers.Object.GetPlayer(move.Id);
 
         if (go == null)
             return;
@@ -186,30 +195,30 @@ public class PacketHandler
 
         try
         {
-            pc.playerInfo.Position.X = pc.spawnPoint.x;
-            pc.playerInfo.Position.Y = pc.spawnPoint.y;
-            pc.playerInfo.Position.Z = pc.spawnPoint.z;
-            pc.playerInfo.Rotation = spawnRotation;
+            UnityEngine.Debug.Log("Drop Success " + move.Id);
+            pc.transform.position = pc.spawnPoint;
+            pc.transform.rotation = Quaternion.Euler(0, 180f, 0f);
             pc.State = Define.BirdState.Idle;
 
-            player.Position.X = pc.spawnPoint.x;
-            player.Position.Y = pc.spawnPoint.y;
-            player.Position.Z = pc.spawnPoint.z;
-            player.Rotation = spawnRotation;
+            move.Position.X = pc.spawnPoint.x;
+            move.Position.Y = pc.spawnPoint.y;
+            move.Position.Z = pc.spawnPoint.z;
+            move.Rotation = spawnRotation;
         }
         catch
         {
+            UnityEngine.Debug.Log("Drop Fail");
             pc.playerInfo.Position = spawnPoint;
             pc.playerInfo.Rotation = spawnRotation;
             pc.State = Define.BirdState.Idle;
 
-            player.Position = spawnPoint;
-            player.Rotation = spawnRotation;
+            move.Position = spawnPoint;
+            move.Rotation = spawnRotation;
         }
 
-        if (Managers.Object.myPlayerId == player.Id)
+        if (Managers.Object.myPlayerId == move.Id)
         {
-            Managers.Network.Send(player, INGAME.PlayerDrop);
+            Managers.Network.Send(move, INGAME.PlayerDrop);
         }
     }
     public static void GameComplete(IMessage packet)
@@ -227,12 +236,13 @@ public class PacketHandler
                 Managers.Object.ClearShape();
                 goalNum = 0;
                 maxGoalNum -= 1;
-                UnityEngine.Debug.Log("Scene Moved");
+                UnityEngine.Debug.Log("Game Complete");
                 SceneManager.LoadScene("Stage2");
 
         }
         else
         {
+            UnityEngine.Debug.Log("Game Failed");
             firstStage = true;
             Managers.Object.ClearPlaayers();
             Managers.Object.ClearObstacle();
@@ -242,15 +252,13 @@ public class PacketHandler
             SceneManager.LoadScene("LobbyScene");
         }
 
-        UnityEngine.Debug.Log("GameComplte");
-        
     }
 
     //게임 종료
     public static void GameEnds(IMessage packet)
     {
-
         PlayerGoalData data = packet as PlayerGoalData;
+        UnityEngine.Debug.Log("GameEnd Packet");
 
         if (data.Success)
         {
@@ -275,7 +283,6 @@ public class PacketHandler
             UnityEngine.Debug.Log("Scene Moved to Lobby Scene");
             SceneManager.LoadScene("LobbyScene");
         }
-
 
 
         UnityEngine.Debug.Log("GameEnd");

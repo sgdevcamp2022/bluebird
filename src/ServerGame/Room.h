@@ -13,12 +13,13 @@ public:
 	void ObstacleEnter(Npc::LoginData pkt);
 
 	void ReConnect(GameSessionRef ref, int64 id);
-	void Disconnect(PlayerRef ref);
-	void Leave(PlayerRef ref);
-	int	 Start();
+	void Disconnect(int64 id);
+	void Leave(int64 id);
+	void Start();
 
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);
+	void PlayerDropSpawn(int64 id);
 	void TimeSync();
 
 	void GameSync();

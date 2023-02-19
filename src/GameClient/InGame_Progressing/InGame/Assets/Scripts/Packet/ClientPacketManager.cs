@@ -29,27 +29,39 @@ class PacketManager
     PacketManager()
     {
         recv.Add((ushort)INGAME.Time, MakePacket<Times>);
+        handler.Add((ushort)INGAME.Time, PacketHandler.RTTSync);
+
         recv.Add((ushort)INGAME.Start, MakePacket<StartData>);
         handler.Add((ushort)INGAME.Start, PacketHandler.GameStart);
+
         recv.Add((ushort)INGAME.PlayerSync, MakePacket<MoveData>);
         handler.Add((ushort)INGAME.PlayerSync, PacketHandler.PlayersSync);
+
         recv.Add((ushort)INGAME.Connect, MakePacket<Player>);
         handler.Add((ushort)INGAME.Connect, PacketHandler.GameConnect);
+
         recv.Add((ushort)INGAME.ObstacleMove, MakePacket<Move>);
         handler.Add((ushort)INGAME.ObstacleMove, PacketHandler.ObtacleMove);
+
         recv.Add((ushort)INGAME.GetTick, MakePacket<Times>);
         handler.Add((ushort)INGAME.GetTick, PacketHandler.TimeSync);
+
         recv.Add((ushort)INGAME.ConnectFail, MakePacket<ConnectData>);
         handler.Add((ushort)INGAME.ConnectFail, PacketHandler.CnnectFail);
+
         recv.Add((ushort)INGAME.GameComplte, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.GameComplte, PacketHandler.GameComplete);
+
         recv.Add((ushort)INGAME.GameEnd, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.GameEnd, PacketHandler.GameEnds);
+
         recv.Add((ushort)INGAME.PlayerGoal, MakePacket<PlayerGoalData>);
         handler.Add((ushort)INGAME.PlayerGoal, PacketHandler.PlayerGoal);
+
         recv.Add((ushort)INGAME.Reconnect, MakePacket<ConnectData>);
         handler.Add((ushort)INGAME.Reconnect, PacketHandler.ReConnect);
-        recv.Add((ushort)INGAME.PlayerDrop, MakePacket<Player>);
+
+        recv.Add((ushort)INGAME.PlayerDrop, MakePacket<Move>);
         handler.Add((ushort)INGAME.PlayerDrop, PacketHandler.PlayerFail);
     }
 
@@ -68,16 +80,8 @@ class PacketManager
 
         T pkt = new T();
         pkt.MergeFrom(data, size, (int)len);
-        if(id == time)
-        {
-            PacketHandler.GetTickCount(pkt);
-        }
-        else if(customHandler != null)
-        {
-            customHandler.Invoke(id, pkt);
-        }
 
-        //customHandler.Invoke(id, pkt);
+        customHandler.Invoke(id, pkt);
     }
 
     public Action<IMessage> GetHandler(ushort id)

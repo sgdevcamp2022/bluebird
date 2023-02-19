@@ -96,11 +96,13 @@ public class ObjectManager
     //삭제
     public void AddObtacle(Int64 id, Int32 shape, Obtacle obtacle)
     {
+        Vector3 tempVec = new Vector3(obtacle.Position.X, obtacle.Position.Y, obtacle.Position.Z);
+        Quaternion tempRot = Quaternion.Euler(obtacle.Rotation.X, obtacle.Rotation.Y, obtacle.Rotation.Z);
         GameObject go = null;
         switch (shape)
         {
             case 0:
-                go = Managers.Resource.Instantiate("Trap/Sphere");
+                go = Managers.Resource.Instantiate("Trap/Sphere", tempVec, tempRot);
                 UnityEngine.Debug.Log(0 + " Obtacle");
                 go.name = "Obstacle" + id;
                 obstacle.Add(id, go);
@@ -113,7 +115,7 @@ public class ObjectManager
                 shapes.Add(id, tc);
                 break;
             case 1:
-                go = Managers.Resource.Instantiate("Trap/MovePlatform");
+                go = Managers.Resource.Instantiate("Trap/MovePlatform", tempVec, tempRot);
                 UnityEngine.Debug.Log(1 + " Obtacle");
                 go.name = "Obstacle" + id;
                 obstacle.Add(id, go);
@@ -128,7 +130,7 @@ public class ObjectManager
                 shapes.Add(id, pc);
                 break;
             case 2:
-                go = Managers.Resource.Instantiate("Trap/Cylinder");
+                go = Managers.Resource.Instantiate("Trap/Cylinder", tempVec, tempRot);
                 UnityEngine.Debug.Log(2 + " Obtacle");
                 go.name = "Obstacle" + id;
                 obstacle.Add(id, go);

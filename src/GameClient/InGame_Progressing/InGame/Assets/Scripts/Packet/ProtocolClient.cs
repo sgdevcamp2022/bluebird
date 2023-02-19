@@ -32,9 +32,9 @@ namespace Google.Protobuf.Protocol {
             "dGFjbGUiLgoKU3luY1BsYXllchIgCgZwbGF5ZXIYASADKAsyEC5Qcm90b2Nv",
             "bC5QbGF5ZXIiMgoMU3luY09ic3RhY2xlEiIKB29idGFjbGUYASADKAsyES5Q",
             "cm90b2NvbC5PYnRhY2xlIhUKBVRpbWVzEgwKBHRpbWUYASABKAMipAEKBE1v",
-            "dmUSCgoCaWQYASABKAMSJAoFc3RhdGUYAyABKA4yFS5Qcm90b2NvbC5QbGF5",
-            "ZXJTdGF0ZRInCghwb3NpdGlvbhgEIAEoCzIQLlByb3RvY29sLlZlY3RvckgA",
-            "iAEBEicKCHJvdGF0aW9uGAUgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFC",
+            "dmUSCgoCaWQYASABKAMSJAoFc3RhdGUYAiABKA4yFS5Qcm90b2NvbC5QbGF5",
+            "ZXJTdGF0ZRInCghwb3NpdGlvbhgDIAEoCzIQLlByb3RvY29sLlZlY3RvckgA",
+            "iAEBEicKCHJvdGF0aW9uGAQgASgLMhAuUHJvdG9jb2wuVmVjdG9ySAGIAQFC",
             "CwoJX3Bvc2l0aW9uQgsKCV9yb3RhdGlvbiI2CghNb3ZlRGF0YRIMCgR0aW1l",
             "GAEgASgDEhwKBG1vdmUYAiADKAsyDi5Qcm90b2NvbC5Nb3ZlIrIBCgdPYnRh",
             "Y2xlEgoKAmlkGAEgASgDEg0KBXNoYXBlGAIgASgFEicKCHBvc2l0aW9uGAMg",
@@ -1331,7 +1331,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "state" field.</summary>
-    public const int StateFieldNumber = 3;
+    public const int StateFieldNumber = 2;
     private global::Google.Protobuf.Protocol.PlayerState state_ = global::Google.Protobuf.Protocol.PlayerState.Idle;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.PlayerState State {
@@ -1342,7 +1342,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 4;
+    public const int PositionFieldNumber = 3;
     private global::Google.Protobuf.Protocol.Vector position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Vector Position {
@@ -1353,7 +1353,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "rotation" field.</summary>
-    public const int RotationFieldNumber = 5;
+    public const int RotationFieldNumber = 4;
     private global::Google.Protobuf.Protocol.Vector rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Vector Rotation {
@@ -1411,15 +1411,15 @@ namespace Google.Protobuf.Protocol {
         output.WriteInt64(Id);
       }
       if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteEnum((int) State);
       }
       if (position_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(Position);
       }
       if (rotation_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteMessage(Rotation);
       }
       if (_unknownFields != null) {
@@ -1436,15 +1436,15 @@ namespace Google.Protobuf.Protocol {
         output.WriteInt64(Id);
       }
       if (State != global::Google.Protobuf.Protocol.PlayerState.Idle) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteEnum((int) State);
       }
       if (position_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(Position);
       }
       if (rotation_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteMessage(Rotation);
       }
       if (_unknownFields != null) {
@@ -1515,18 +1515,18 @@ namespace Google.Protobuf.Protocol {
             Id = input.ReadInt64();
             break;
           }
-          case 24: {
+          case 16: {
             State = (global::Google.Protobuf.Protocol.PlayerState) input.ReadEnum();
             break;
           }
-          case 34: {
+          case 26: {
             if (position_ == null) {
               Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 42: {
+          case 34: {
             if (rotation_ == null) {
               Rotation = new global::Google.Protobuf.Protocol.Vector();
             }
@@ -1551,18 +1551,18 @@ namespace Google.Protobuf.Protocol {
             Id = input.ReadInt64();
             break;
           }
-          case 24: {
+          case 16: {
             State = (global::Google.Protobuf.Protocol.PlayerState) input.ReadEnum();
             break;
           }
-          case 34: {
+          case 26: {
             if (position_ == null) {
               Position = new global::Google.Protobuf.Protocol.Vector();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 42: {
+          case 34: {
             if (rotation_ == null) {
               Rotation = new global::Google.Protobuf.Protocol.Vector();
             }

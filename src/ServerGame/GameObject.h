@@ -39,6 +39,7 @@ public:
 
 	GameSessionRef		GetOwner() { return _ownerSession; }
 	void				SetOwner(GameSessionRef session) { _ownerSession = session; }
+
 	void				MoveChange() { _move = !_move; }
 	bool				GetMoveRight() { return _move; }
 
