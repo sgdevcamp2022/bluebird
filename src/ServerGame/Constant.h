@@ -1,6 +1,7 @@
 #pragma once
 
 #define THREAD_SIZE 5
+#define HEAD_SIZE 8
 #define ROOM_COUNT 20
 
 #define MAX_STAGE 3
@@ -10,7 +11,7 @@ inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
 inline int Solo_Start(int stage) { return (stage == 1) ? 3 : 2; }
 
 #define CLIENT_TEST true
-#define NPC_TEST false
+#define NPC_TEST true
 
 struct Vector3
 {

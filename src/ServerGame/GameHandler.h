@@ -6,8 +6,7 @@ class GameHandler
 private:
 	static void HConnect(GameSessionRef& ref, Protocol::ConnectData&& pkt);
 	static void HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt);
-	//static void HGameComplete(GameSessionRef& ref, Protocol::Player&& pkt);
-	static void HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt);
+	static void HGameDrop(GameSessionRef& ref, Protocol::Move&& pkt);
 	static void HTime(GameSessionRef& ref, Protocol::Times&& pkt);
 	static void HPlayerGoal(GameSessionRef& ref, Protocol::Player&& pkt);
 

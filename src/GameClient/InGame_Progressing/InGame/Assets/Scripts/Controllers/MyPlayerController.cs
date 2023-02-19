@@ -46,12 +46,12 @@ public class MyPlayerController : PlayerController
     {
         if (gamescene.CheckStartGame() && !inGoal)
         {
-            if (transform.position.y < -1)
-            {
-                Debug.Log("Fail Spawn: " + spawnPoint);
-                transform.position = spawnPoint;
-                transform.rotation = Quaternion.Euler(0, 180f, 0f);
-            }
+            //if (transform.position.y < -1)
+            //{
+            //    Debug.Log("Fail Spawn: " + spawnPoint);
+            //    transform.position = spawnPoint;
+            //    transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            //}
             if (State == BirdState.Jumping && isJumping == false)
             {
                 State = BirdState.Idle;
@@ -114,9 +114,7 @@ public class MyPlayerController : PlayerController
 
             }
         }
-
         //  Debug.Log("State : " + State + " isJumping: " + isJumping + " moveVec: " + moveVec + " pressedJump: " + pressedJump + "isSliding" + isSliding) ; 
-
     }
 
     //Idle로 계속 남을지, 다른 상태로 넘어갈지를 판단.
@@ -136,11 +134,7 @@ public class MyPlayerController : PlayerController
     //플레이어가 먼저 이동하고 좌표를 보냄, 플레이어의 지상에서의 움직임을 제어한다.
     protected override void UpdateMoving()
     {
-
-
-
         prevVec = transform.position;
-
 
         Vector3 movementDirection = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up) * moveVec;
 
@@ -173,11 +167,7 @@ public class MyPlayerController : PlayerController
             Managers.Network.Send(playerMove, INGAME.PlayerMove);
 
         }
-
-
-
     }
-
 
     protected override void UpdateJumping()
     {
