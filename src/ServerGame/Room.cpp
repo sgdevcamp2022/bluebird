@@ -148,6 +148,7 @@ void Room::Disconnect(int64 id)
 
 void Room::Leave(int64 id)
 {
+	_players[_stage][id]->SetOwner(nullptr);
 	_players[_stage].erase(id);
 
 	Protocol::ConnectData data;
@@ -167,52 +168,59 @@ void Room::Leave(int64 id)
 	}
 }
 
-int Room::Start()
+void Room::Start()
 {
-	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) {
+	if (_playerSize < Solo_Start(_stage.load()) && !_start.load()) 
+	{
 		cout << "Start Fail " << _playerSize << endl;
-		return 0;
+		DoTimer(3000, &Room::Start);
 	}
-	
-	vector<int64> keys;
-	int i = 0;
-	for (auto& player : _players[_stage])
-	{
-		if (player.second->GetOwner() == nullptr) {
-			keys.push_back(player.first);
-			continue;
+	else {
+		if (Ggames->GetNpcRef() != nullptr)
+		{
+			Npc::StartData data;
+			data.set_game(true);
+			data.set_room(_matchRoom);
+			data.set_size(_playerSize);
+			Ggames->GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
 		}
-		else {
-			player.second->SetSpawnPoint(_spawnPosition[i].first, _spawnPosition[i].second);
-			i = (i + 1)%_spawnPosition.size();
+
+		vector<int64> keys;
+		int i = 0;
+		for (auto& player : _players[_stage])
+		{
+			if (player.second->GetOwner() == nullptr) {
+				keys.push_back(player.first);
+				continue;
+			}
+			else {
+				player.second->SetSpawnPoint(_spawnPosition[i].first, _spawnPosition[i].second);
+				i = (i + 1) % _spawnPosition.size();
+			}
 		}
+		for (auto key : keys)
+		{
+			_players[_stage].erase(key);
+		}
+
+		{
+			Protocol::StartData data;
+			data.set_allocated_obstacles(_syncObstacle);
+			data.set_allocated_players(_syncPlayer);
+			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::START));
+
+			data.release_obstacles();
+			data.release_players();
+
+		}
+		_remainUser = _playerSize;
+		_start.store(true);
+		//Sync
+		//TimeSync();
+
+		_syncMove.set_time(GetTickCount64());
+		GameSync();
 	}
-	for (auto key : keys)
-	{
-		_players[_stage].erase(key);
-	}
-
-	{
-		Protocol::StartData data;
-		data.set_allocated_obstacles(_syncObstacle);
-		data.set_allocated_players(_syncPlayer);
-		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::START));
-
-		data.release_obstacles();
-		data.release_players();
-	}
-
-	_remainUser = _players[_stage].size();
-
-	cout << "GameStart " << _remainUser<<endl;
-	_start.store(true);
-	//Sync
-	//TimeSync();
-
-	_syncMove.set_time(GetTickCount64());
-	GameSync();
-
-	return _remainUser;
 }
 
 void Room::PlayerMove(Protocol::Move data)
@@ -225,13 +233,11 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 
 		if (point.y() > -1.0f) {
-			/*cout << "move(" << data.id() << ") : " << point.x() << " " << point.y() << " " << point.z() << endl;*/
 
 			auto move = _syncMove.add_move();
 			*move = data;
 
 			player->Move(data.position(), data.rotation());
-			//Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_SYNC));
 		}
 		else if (player->GetMoveRight()) {
 			cout << "DROP" << endl;
@@ -239,6 +245,10 @@ void Room::PlayerMove(Protocol::Move data)
 			player->MoveChange();
 			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_DROP));
 		}
+	}
+	else 
+	{
+		cout << "Something is wrong" << endl;
 	}
 }
 
@@ -268,7 +278,8 @@ void Room::PlayerGoal(Protocol::Player data)
 			//TODO 넘기는 작업 필요
 			NextStage();
 		}
-		else {
+		else 
+		{
 			Protocol::PlayerGoalData send;
 			send.set_id(data.id());
 			send.set_success(true);
@@ -333,13 +344,17 @@ void Room::NextStage()
 
 		if (Last_Stage(_stage)) {
 			cout << "GameEnd "<< _ref.first << endl;
-			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_END));
+			if (_ref.second->GetOwner() != nullptr)
+				_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_END));
 		}
 		else {
 			cout << "Game Complte " << _ref.first << endl;
-			_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
+			if (_ref.second->GetOwner() != nullptr)
+				_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
 		}
-		
+
+		if (!data.success())
+			_ref.second->SetOwner(nullptr);
 	}
 
 	// 다음 스테이지로 넘어가기 위한 정리

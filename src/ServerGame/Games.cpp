@@ -26,7 +26,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			cout << "Player Inside1 = " << id << " " << room << endl;
 			_games[room] = RoomInfo(make_shared<Room>(2, room));
 			session->_room = _games[room]();
-			_games[room]()->GameEnter(session, id);
+			_games[room]()->DoAsync(&Room::GameEnter, session, id);
 			_games[room] << id;
 
 			DoTimer(3000, &Games::StartGame, room);
@@ -69,7 +69,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			{
 				cout << "Player Inside2 = " << id << " " << room << endl;
 				session->_room = _games[room]();
-				_games[room]()->GameEnter(session, id);
+				_games[room]()->DoAsync(&Room::GameEnter, session, id);
 				_games[room] << id;
 			}
 		}
@@ -91,7 +91,7 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 			{
 				cout << "Player Inside = " << id << " " << room << endl;
 				session->_room = _games[room]();
-				_games[room]()->GameEnter(session, id);
+				_games[room]()->DoAsync(&Room::GameEnter, session, id);
 				_games[room] << id;
 			}
 		}
@@ -107,30 +107,20 @@ void Games::EnterGame(GameSessionRef session, int64 id, int32 room)
 
 void Games::EnterNpc(Npc::LoginData pkt, int32 room)
 {
-	_games[room]()->ObstacleEnter(std::move(pkt));
+	_games[room]()->DoAsync(&Room::ObstacleEnter, std::move(pkt));
 	_games[room].SetNpc(true);
 }
 
 void Games::StartGame(int32 room)
 {
-	int check = 0;
-	if (_games[room].CheckNpc() && (check = _games[room]()->Start()))
+	if (_games[room].CheckNpc())
 	{
-		cout << "게임 시작 " << room << endl;
-		if (GetNpcRef() != nullptr)
-		{
-			Npc::StartData data;
-			data.set_game(true);
-			data.set_room(room);
-			data.set_size(check);
-			GetNpcRef()->Send(NpcHandler::MakeSendBuffer(data, Npc::START));
-		}	
-		_games[room].SetStart(true);
+		_games[room]()->Start();
+		//_games[room].SetStart(true);
 	}
 	else
 	{
 		DoTimer(1000, &Games::StartGame, room);
-		return;
 	}
 	//게임 시작
 }

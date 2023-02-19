@@ -15,7 +15,7 @@ public:
 	void ReConnect(GameSessionRef ref, int64 id);
 	void Disconnect(int64 id);
 	void Leave(int64 id);
-	int	 Start();
+	void Start();
 
 	void PlayerMove(Protocol::Move data);
 	void ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, Protocol::Move data);

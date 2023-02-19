@@ -1,6 +1,7 @@
 #pragma once
 
 #define THREAD_SIZE 5
+#define HEAD_SIZE 8
 #define ROOM_COUNT 20
 
 #define MAX_STAGE 3

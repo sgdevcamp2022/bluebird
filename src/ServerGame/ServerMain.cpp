@@ -38,14 +38,14 @@ int main() {
 	ServerServiceRef npcService = MakeShared<ServerService>(
 		NetAddress(L"192.168.0.224", 4000),
 		MakeShared<IocpCore>(),
-		MakeShared<NpcSession>, 10);
+		MakeShared<NpcSession>, 5);
 	
 	ASSERT_CRASH(matchService->Start());
 	ASSERT_CRASH(gameService->Start());
 	ASSERT_CRASH(npcService->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([=]()
+		GThreadManager->Launch([&gameService]()
 			{
 				while (true)
 				{
@@ -53,14 +53,16 @@ int main() {
 				}
 			});
 	}
-	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([=]()
-			{
-				while (true)
+	if (!NPC_TEST) {
+		for (int i = 0; i < THREAD_SIZE; i++) {
+			GThreadManager->Launch([&npcService]()
 				{
-					DoWorkerJob(npcService);
-				}
-			});
+					while (true)
+					{
+						DoWorkerJob(npcService);
+					}
+				});
+		}
 	}
 
 	DoWorkerJob(matchService);
