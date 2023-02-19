@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 10.0f;
     public float jumpPower = 5.0f;
 
+    public AudioClip jumpClip;
+    public AudioClip slidClip;
+
+    protected AudioSource audioSource;
+
     protected Vector3 moveVec;
     protected Vector3 prevVec;
 
@@ -91,6 +96,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         prevVec = transform.position;
         State = BirdState.Idle;
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void UpdateController()
@@ -179,6 +185,13 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             animator.SetTrigger("doJump");
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = jumpClip;
+                audioSource.Play();
+
+            }
             isJumping = true;
         }
 
@@ -243,6 +256,13 @@ public class PlayerController : MonoBehaviour
                 break;
             case Google.Protobuf.Protocol.PlayerState.Slide:
                 State = BirdState.Jumping;
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = slidClip;
+                    audioSource.Play();
+                }
+
                 isSliding = true;
                 break;
         }
