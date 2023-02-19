@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 spawnPoint = Vector3.zero;
     public bool isStarted = false;
 
+    public Vector3 recvMoveData = Vector3.zero;
+    public bool isRecvMove = false;
+
     protected Animator animator;
 
     protected Rigidbody rigid;
@@ -101,6 +104,15 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
             isStarted = false;
         }
+        if (isRecvMove)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, recvMoveData, speed * Time.deltaTime);
+            Debug.Log("ID: " + playerId + " | Pos: " + transform.position + " | Target: " + recvMoveData);
+            if (transform.position == recvMoveData)
+            {
+                isRecvMove = false;
+            }
+        }
         switch (State)
         {
             case BirdState.Idle:
@@ -142,7 +154,11 @@ public class PlayerController : MonoBehaviour
             Vector3 moveVec = new Vector3(playerInfo.Position.X, playerInfo.Position.Y, playerInfo.Position.Z);
             Vector3 moveRot = new Vector3(playerInfo.Rotation.X, playerInfo.Rotation.Y, playerInfo.Rotation.Z);
 
-            transform.position = moveVec;
+            //transform.position = moveVec;
+            if(transform.position.y < -1.0f)
+            {
+                transform.position = moveVec;
+            }
             transform.rotation = Quaternion.Euler(moveRot);
 
             UpdateAnimation();
@@ -166,7 +182,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
         }
 
-        transform.position = moveVec;
+        //transform.position = moveVec;
         UpdateAnimation();
 
     }
