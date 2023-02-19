@@ -195,11 +195,9 @@ public class PacketHandler
 
         try
         {
-            UnityEngine.Debug.Log("Drop Success");
-            pc.playerInfo.Position.X = pc.spawnPoint.x;
-            pc.playerInfo.Position.Y = pc.spawnPoint.y;
-            pc.playerInfo.Position.Z = pc.spawnPoint.z;
-            pc.playerInfo.Rotation = spawnRotation;
+            UnityEngine.Debug.Log("Drop Success " + move.Id);
+            pc.transform.position = pc.spawnPoint;
+            pc.transform.rotation = Quaternion.Euler(0, 180f, 0f);
             pc.State = Define.BirdState.Idle;
 
             move.Position.X = pc.spawnPoint.x;
@@ -209,7 +207,7 @@ public class PacketHandler
         }
         catch
         {
-            UnityEngine.Debug.Log("Drop Success");
+            UnityEngine.Debug.Log("Drop Fail");
             pc.playerInfo.Position = spawnPoint;
             pc.playerInfo.Rotation = spawnRotation;
             pc.State = Define.BirdState.Idle;

@@ -54,6 +54,7 @@ void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Move&& pkt)
 {
     if ((ref->_mySelf != nullptr) && (pkt.id() == ref->_mySelf->GetId()))
     {
+        cout << pkt.position().x() << " " << pkt.position().y()<< " " << pkt.position().z();
         ref->_room.lock()->DoAsync(&Room::PlayerDropSpawn, pkt.id());
     }
     else
