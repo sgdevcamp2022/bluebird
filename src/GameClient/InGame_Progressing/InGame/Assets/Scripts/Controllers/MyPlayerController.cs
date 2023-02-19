@@ -46,12 +46,12 @@ public class MyPlayerController : PlayerController
     {
         if (gamescene.CheckStartGame() && !inGoal)
         {
-            if (transform.position.y < -1)
-            {
-                Debug.Log("Fail Spawn: " + spawnPoint);
-                transform.position = spawnPoint;
-                transform.rotation = Quaternion.Euler(0, 180f, 0f);
-            }
+            //if (transform.position.y < -1)
+            //{
+            //    Debug.Log("Fail Spawn: " + spawnPoint);
+            //    transform.position = spawnPoint;
+            //    transform.rotation = Quaternion.Euler(0, 180f, 0f);
+            //}
             if (State == BirdState.Jumping && isJumping == false)
             {
                 State = BirdState.Idle;

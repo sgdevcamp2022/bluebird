@@ -61,7 +61,7 @@ class PacketManager
         recv.Add((ushort)INGAME.Reconnect, MakePacket<ConnectData>);
         handler.Add((ushort)INGAME.Reconnect, PacketHandler.ReConnect);
 
-        recv.Add((ushort)INGAME.PlayerDrop, MakePacket<Player>);
+        recv.Add((ushort)INGAME.PlayerDrop, MakePacket<Move>);
         handler.Add((ushort)INGAME.PlayerDrop, PacketHandler.PlayerFail);
     }
 

@@ -17,7 +17,7 @@ void GameHandler::HandlerPacket(GameSessionRef ref, BYTE* buffer, int32 len)
         HPlayerMove(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;
     case Protocol::PLAYER_DROP:
-        HGameDrop(ref, ParsingPacket<Protocol::Player, GameHeader>(buffer, (int32)head->size));
+        HGameDrop(ref, ParsingPacket<Protocol::Move, GameHeader>(buffer, (int32)head->size));
         break;;
     case Protocol::TIME:
         HTime(ref, ParsingPacket<Protocol::Times, GameHeader>(buffer, (int32)head->size));
@@ -50,15 +50,11 @@ void GameHandler::HPlayerMove(GameSessionRef& ref, Protocol::Move&& pkt)
     }
 }
 
-void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
+void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Move&& pkt)
 {
     if ((ref->_mySelf != nullptr) && (pkt.id() == ref->_mySelf->GetId()))
     {
-        if (!(ref->_mySelf->GetMove())) {
-            cout << "Á¤»ó" << endl;
-                if (ref->_mySelf != nullptr)
-                    ref->_mySelf->MoveChange();
-        }
+        ref->_room.lock()->DoAsync(&Room::PlayerDropSpawn, pkt.id());
     }
     else
     {

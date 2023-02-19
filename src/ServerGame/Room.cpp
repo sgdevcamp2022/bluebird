@@ -231,8 +231,7 @@ void Room::PlayerMove(Protocol::Move data)
 		auto point = data.position();
 		PlayerRef player = _players[_stage][data.id()];
 
-		if (point.y() > -1.0f) {
-
+		if (point.y() > -10.0f) {
 			auto move = _syncMove.add_move();
 			*move = data;
 
@@ -242,6 +241,8 @@ void Room::PlayerMove(Protocol::Move data)
 			cout << "DROP" << endl;
 			player->SetSpawnPoint(_spawnPosition[0].first, _spawnPosition[0].second);
 			player->MoveChange();
+			GameUtils::SetVector3(data.mutable_position(), _spawnPosition[0].first);
+			GameUtils::SetVector3(data.mutable_rotation(), _spawnPosition[0].second);
 			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_DROP));
 		}
 	}
@@ -262,6 +263,11 @@ void Room::ObstacleMove(int64 id, Npc::Vector3 position, Npc::Vector3 rotation, 
 		}
 		Broadcast(GameHandler::MakeSendBuffer(data, Protocol::OBSTACLE_MOVE));
 	}
+}
+
+void Room::PlayerDropSpawn(int64 id)
+{
+	_players[_stage][id]->MoveChange();
 }
 
 void Room::PlayerGoal(Protocol::Player data)

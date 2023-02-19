@@ -182,8 +182,8 @@ public class PacketHandler
     }
     public static void PlayerFail(IMessage packet)
     {
-        Player player = packet as Player;
-        GameObject go = Managers.Object.GetPlayer(player.Id);
+        Move move = packet as Move;
+        GameObject go = Managers.Object.GetPlayer(move.Id);
 
         if (go == null)
             return;
@@ -195,30 +195,32 @@ public class PacketHandler
 
         try
         {
+            UnityEngine.Debug.Log("Drop Success");
             pc.playerInfo.Position.X = pc.spawnPoint.x;
             pc.playerInfo.Position.Y = pc.spawnPoint.y;
             pc.playerInfo.Position.Z = pc.spawnPoint.z;
             pc.playerInfo.Rotation = spawnRotation;
             pc.State = Define.BirdState.Idle;
 
-            player.Position.X = pc.spawnPoint.x;
-            player.Position.Y = pc.spawnPoint.y;
-            player.Position.Z = pc.spawnPoint.z;
-            player.Rotation = spawnRotation;
+            move.Position.X = pc.spawnPoint.x;
+            move.Position.Y = pc.spawnPoint.y;
+            move.Position.Z = pc.spawnPoint.z;
+            move.Rotation = spawnRotation;
         }
         catch
         {
+            UnityEngine.Debug.Log("Drop Success");
             pc.playerInfo.Position = spawnPoint;
             pc.playerInfo.Rotation = spawnRotation;
             pc.State = Define.BirdState.Idle;
 
-            player.Position = spawnPoint;
-            player.Rotation = spawnRotation;
+            move.Position = spawnPoint;
+            move.Rotation = spawnRotation;
         }
 
-        if (Managers.Object.myPlayerId == player.Id)
+        if (Managers.Object.myPlayerId == move.Id)
         {
-            Managers.Network.Send(player, INGAME.PlayerDrop);
+            Managers.Network.Send(move, INGAME.PlayerDrop);
         }
     }
     public static void GameComplete(IMessage packet)
