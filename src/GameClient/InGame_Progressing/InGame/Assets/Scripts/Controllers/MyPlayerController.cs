@@ -328,11 +328,6 @@ public class MyPlayerController : PlayerController
 
             inGoal = true;
 
-
-
-
-
-
         }
 
         if (collision.gameObject.CompareTag("Ground"))

@@ -228,14 +228,15 @@ public class PacketHandler
 
         if (data.Success)
         {
+                
+                UnityEngine.Debug.Log("Game Complete");
+                SceneManager.LoadScene("Stage2");
                 firstStage = false;
                 Managers.Object.ClearPlaayers();
                 Managers.Object.ClearObstacle();
                 Managers.Object.ClearShape();
                 goalNum = 0;
                 maxGoalNum -= 1;
-                UnityEngine.Debug.Log("Game Complete");
-                SceneManager.LoadScene("Stage2");
 
         }
         else
