@@ -54,9 +54,11 @@ void GameHandler::HGameDrop(GameSessionRef& ref, Protocol::Player&& pkt)
 {
     if ((ref->_mySelf != nullptr) && (pkt.id() == ref->_mySelf->GetId()))
     {
-        cout << "정상" << endl;
-        if(ref->_mySelf != nullptr)
-            ref->_mySelf->MoveChange();
+        if (!(ref->_mySelf->GetMove())) {
+            cout << "정상" << endl;
+                if (ref->_mySelf != nullptr)
+                    ref->_mySelf->MoveChange();
+        }
     }
     else
     {

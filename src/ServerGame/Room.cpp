@@ -148,7 +148,6 @@ void Room::Disconnect(int64 id)
 
 void Room::Leave(int64 id)
 {
-	_players[_stage][id]->SetOwner(nullptr);
 	_players[_stage].erase(id);
 
 	Protocol::ConnectData data;
@@ -276,6 +275,7 @@ void Room::PlayerGoal(Protocol::Player data)
 			cout << Solo_Goal(_stage.load());
 			_start.store(false);
 			//TODO 넘기는 작업 필요
+			ClearJobs();
 			NextStage();
 		}
 		else 
@@ -342,19 +342,23 @@ void Room::NextStage()
 			data.set_success(true);
 		}
 
-		if (Last_Stage(_stage)) {
+		if (Last_Stage(_stage)) 
+		{
 			cout << "GameEnd "<< _ref.first << endl;
 			if (_ref.second->GetOwner() != nullptr)
 				_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_END));
 		}
-		else {
+		else 
+		{
 			cout << "Game Complte " << _ref.first << endl;
 			if (_ref.second->GetOwner() != nullptr)
 				_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
+			if (!data.success())
+			{
+				_ref.second->GetOwner()->_mySelf = nullptr;
+				_ref.second->SetOwner(nullptr);
+			}
 		}
-
-		if (!data.success())
-			_ref.second->SetOwner(nullptr);
 	}
 
 	// 다음 스테이지로 넘어가기 위한 정리
