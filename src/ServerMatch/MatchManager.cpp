@@ -36,21 +36,21 @@ void MatchManager::MatchEnter(int64 id, int32 level)
 		if (_lobyref != nullptr)
 			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
 
-		int32 type = 0;
+		_playerWait[level].push_back(id);
 		if (level & SOLO)
 		{
-			type |= PlayerInsideMatch(SOLO, id);
-			DoTimer(1000, &MatchManager::PlayerOutputMatch, { SOLO, SOLO_DUO, SOLO_THREE }, SOLO_PLAYER_COUNT, SOLO_MAX_PLAYER_COUNT);
+			if (PlayerInsideMatch(SOLO, id));
+				DoTimer(1000, &MatchManager::PlayerOutputMatch, { SOLO, SOLO_DUO, SOLO_THREE }, SOLO_PLAYER_COUNT, SOLO_MAX_PLAYER_COUNT);
 		}
 		if (level & DUO)
 		{
-			type |= PlayerInsideMatch(DUO, id);
-			DoTimer(1000, &MatchManager::PlayerOutputMatch, { DUO, SOLO_DUO, DUO_THREE }, DUO_PLAYER_COUNT, DUO_MAX_PLAYER_COUNT);
+			if(PlayerInsideMatch(DUO, id));
+				DoTimer(1000, &MatchManager::PlayerOutputMatch, { DUO, SOLO_DUO, DUO_THREE }, DUO_PLAYER_COUNT, DUO_MAX_PLAYER_COUNT);
 		}
 		if (level & THREE)
 		{
-			type |= PlayerInsideMatch(THREE, id);
-			DoTimer(1000, &MatchManager::PlayerOutputMatch, { THREE, SOLO_THREE, DUO_THREE }, THREE_PLAYER_COUNT, THREE_MAX_PLAYER_COUNT);
+			if (PlayerInsideMatch(THREE, id));
+				DoTimer(1000, &MatchManager::PlayerOutputMatch, { THREE, SOLO_THREE, DUO_THREE }, THREE_PLAYER_COUNT, THREE_MAX_PLAYER_COUNT);
 		}
 	}
 	else {
@@ -92,9 +92,9 @@ void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 
 int32 MatchManager::PlayerInsideMatch(PlayerLevel level, int32 id)
 {
-	_playerWait[level].push_back(id);
+	//TODO
 	_playerSize[level].fetch_add(1);
-	if (_playerSize[level] >= SOLO_PLAYER_COUNT)
+	if (_playerSize[level].load() >= SOLO_PLAYER_COUNT)
 		return level;
 	else
 		return EMPTY;
