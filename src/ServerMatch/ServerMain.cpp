@@ -1,14 +1,17 @@
 #include "pch.h"
 #include "MatchSession.h"
+#include "ConnectSession.h"
 #include <CoreGlobal.h>
 #include <ThreadManager.h>
+#include "RedisManager.h"
 
 enum
 {
 	WORKER_TICK = 64
 };
 
-void DoWorkerJob(ServerServiceRef& service)
+template<typename T>
+void DoWorkerJob(T& service)
 {
 	while (true)
 	{
@@ -16,6 +19,8 @@ void DoWorkerJob(ServerServiceRef& service)
 
 		//네트워크 입출력 처리 -> 인게임 로직까지 (패킷 핸들러에 의해서)
 		service->GetIocpCore()->Dispatch(10);
+		
+		ThreadManager::DistributeReserveJobs();
 
 		ThreadManager::DoGlobalQueueWork();
 	}
@@ -23,24 +28,29 @@ void DoWorkerJob(ServerServiceRef& service)
 
 int main()
 {
-	ServerServiceRef service = MakeShared<ServerService>(
-		NetAddress(L"127.0.0.1", 8000),
+	ServerServiceRef Sservice = MakeShared<ServerService>(
+		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
 		MakeShared<MatchSession>, 10);
 
-	ASSERT_CRASH(service->Start());
+	ClientServiceRef Cservice = MakeShared<ClientService>(
+		NetAddress(L"127.0.0.1", 7000),
+		MakeShared<IocpCore>(),
+		MakeShared<ConnectSession>, 1);
+
+	ASSERT_CRASH(Sservice->Start());
+	ASSERT_CRASH(Cservice->Start());
 
 	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service]()
+		GThreadManager->Launch([&Sservice]()
 			{
 				while (true)
 				{
-					DoWorkerJob(service);
+					DoWorkerJob(Sservice);
 				}
 			});
 	}
-
-	DoWorkerJob(service);
+	DoWorkerJob(Cservice);
 
 	GThreadManager->Join();
 }

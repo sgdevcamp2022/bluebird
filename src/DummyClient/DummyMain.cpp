@@ -4,6 +4,7 @@
 #include <ThreadManager.h>
 #include "MatchSession.h"
 #include "PacketSession.h"
+#include "GameSession.h"
 
 enum
 {
@@ -21,30 +22,59 @@ void DoWorkerJob(ClientServiceRef& service)
 
 		ThreadManager::DoGlobalQueueWork();
 	}
-
+	
 }
 int main() {
-	ClientServiceRef service = MakeShared<ClientService>(
-		NetAddress(L"127.0.0.1", 8000),
+	ClientServiceRef service1 = MakeShared<ClientService>(
+		NetAddress(L"127.0.0.1", 6000),
 		MakeShared<IocpCore>(),
-		MakeShared<MatchSession>, 20);
+		MakeShared<MatchSession>, 1);
+	ClientServiceRef service2;
 
-	ASSERT_CRASH(service->Start());
+	// 테스트 작동 
+	// true = NPC
+	// false = game client
 
-	if (!service->Start())
-		ASSERT_CRASH("Start Error");
+	bool _test = true;
+	bool _test2 = false;
 
-	for (int i = 0; i < THREAD_SIZE; i++) {
-		GThreadManager->Launch([&service]()
+	if (_test) {
+		service2 = MakeShared<ClientService>(
+			NetAddress(L"127.0.0.1", 5000),
+			MakeShared<IocpCore>(),
+			MakeShared<GameSession>, 10);
+
+		ASSERT_CRASH(service1->Start());
+		GThreadManager->Launch([&service1]()
 			{
 				while (true)
 				{
-					DoWorkerJob(service);
+					DoWorkerJob(service1);
 				}
 			});
+		this_thread::sleep_for(1s);
+
+		//게임 클라이언트 접속 테스트
+		this_thread::sleep_for(5s);
+	}
+	else {
+		service2 = MakeShared<ClientService>(
+			NetAddress(L"127.0.0.1", 5000),
+			MakeShared<IocpCore>(),
+			MakeShared<GameSession>, 2);
 	}
 
-	DoWorkerJob(service);
-
+	if (_test2) {
+		ASSERT_CRASH(service2->Start());
+		for (int i = 0; i < THREAD_SIZE; i++) {
+			GThreadManager->Launch([&service2]()
+				{
+					while (true)
+					{
+						DoWorkerJob(service2);
+					}
+				});
+		}
+	}
 	GThreadManager->Join();
 }

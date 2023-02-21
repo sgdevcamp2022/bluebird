@@ -1,0 +1,110 @@
+syntax = "proto3";
+package Protocol;
+
+enum INGAME
+{
+	CONNECT = 0;
+	START = 1;
+	LEAVE = 2;
+	PLAYER_MOVE = 3;
+	OBSTACLE_MOVE = 4;
+	GAME_COMPLTE = 5;
+	GAME_END = 6;
+	PLAYER_DROP = 7;
+	PLAYER_CRASH = 8;
+	CONNECT_FAIL = 9;
+	TIME = 10;
+	GET_TICK = 11;
+	PLAYER_GOAL = 12;
+	RECONNECT = 13;
+	PLAYER_SYNC = 14;
+}
+
+enum PlayerState
+{
+	IDLE = 0;
+	MOVE = 1;
+	JUMP = 2;
+	JUMP_LOOP = 3;
+	Slide = 4;
+}
+
+message PlayerGoalData
+{
+	int64 id = 1;
+	bool success = 2;
+}
+
+message ConnectData
+{
+	int64 id = 1;
+	int32 room = 2;
+	int32 level = 3;
+}
+
+message SyncPlayer
+{
+	repeated Player player = 1;
+}
+
+message SyncObstacle
+{
+	repeated Obtacle obstacle = 1;
+}
+
+message StartData
+{
+	SyncPlayer players = 1;
+	SyncObstacle obstacles = 2;
+}
+
+message Times
+{
+	int64 time = 1;
+}
+
+message Move
+{
+	int64 id = 1;
+	PlayerState state = 2;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
+}
+
+message MoveData
+{
+	int64 time = 1;
+	repeated Move move = 2;
+}
+
+message Obtacle
+{
+	int64 id = 1;
+	int32 shape = 2;
+	optional Vector position = 3;
+	optional Vector rotation = 4;
+	float speed = 5;
+	int32 direction = 6;
+}
+
+message Player
+{
+	int64 id = 1;
+	optional Vector position = 2;
+	optional Vector rotation = 3;
+}
+
+message PlayerCrash
+{
+	int64 id = 1;
+	Vector position = 2;
+	Vector rotation = 3;
+	Player enemy = 4;
+}
+
+message Vector
+{
+	float x = 1;
+	float y = 2;
+	float z = 3;
+}

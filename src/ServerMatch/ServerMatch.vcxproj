@@ -139,30 +139,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConnectSession.cpp" />
     <ClCompile Include="MatchManager.cpp" />
-    <ClCompile Include="MatchRoom.cpp" />
     <ClCompile Include="MatchSession.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
     <ClCompile Include="PacketSession.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProtocolMatch.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Redis.cpp" />
+    <ClCompile Include="RedisManager.cpp" />
     <ClCompile Include="ServerMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConnectSession.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="MatchManager.h" />
-    <ClInclude Include="MatchRoom.h" />
     <ClInclude Include="MatchSession.h" />
     <ClInclude Include="PacketHandler.h" />
     <ClInclude Include="PacketSession.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="ProtocolMatch.pb.h" />
+    <ClInclude Include="Redis.h" />
+    <ClInclude Include="RedisManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,71 @@
+syntax = "proto3";
+package Npc;
+
+enum INGAME
+{
+	LOGIN = 0;
+	GAME = 1;
+	START = 2;
+	NEXT = 3;
+	END = 4;
+}
+
+message StartData
+{
+	int32 room = 1;
+	int32 size = 2;
+	bool game = 3;
+}
+
+message NextStage
+{
+	int32 room = 1;
+	int32 level = 2;
+	int32 stage = 3;
+}
+
+message EndGame
+{
+	int32 room = 1;
+	int32 level = 2;
+}
+
+message PlayerSpawn
+{
+	optional Vector3 position = 1;
+	optional Vector3 rotation = 2;
+}
+
+message LoginData
+{
+	int32 mapLevel = 1;
+	int32 matchRoom = 2;
+	repeated Obstacle obstacle = 3;
+	repeated PlayerSpawn spawn = 4;
+}
+
+message GameData
+{
+	int32 matchRoom = 1;
+	int64 id = 2;
+	int32 shape = 3;
+	optional Vector3 position = 4;
+	optional Vector3 rotation = 5;
+}
+
+message Obstacle
+{
+	int64 id = 1;
+	int32 shape = 2;
+	optional Vector3 position = 3;
+	optional Vector3 rotation = 4;
+	float speed = 5;
+	int32 direction = 6;
+}
+
+message Vector3
+{
+	float x = 1;
+	float y = 2;
+	float z = 3;
+}

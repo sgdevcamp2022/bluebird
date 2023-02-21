@@ -16,6 +16,9 @@
     <Filter Include="Match">
       <UniqueIdentifier>{fab4f95e-4d72-4a24-8d54-411a11ad8990}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Redis">
+      <UniqueIdentifier>{4cca42cf-364b-4a4f-bef0-dd383590b3ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerMain.cpp">
@@ -36,14 +39,17 @@
     <ClCompile Include="PacketHandler.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="MatchRoom.cpp">
-      <Filter>Match</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Match</Filter>
-    </ClCompile>
     <ClCompile Include="MatchManager.cpp">
       <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="Redis.cpp">
+      <Filter>Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="RedisManager.cpp">
+      <Filter>Redis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,17 +68,20 @@
     <ClInclude Include="PacketHandler.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="MatchRoom.h">
-      <Filter>Match</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Match</Filter>
-    </ClInclude>
     <ClInclude Include="MatchManager.h">
       <Filter>Match</Filter>
     </ClInclude>
     <ClInclude Include="Constant.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="Redis.h">
+      <Filter>Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="RedisManager.h">
+      <Filter>Redis</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
