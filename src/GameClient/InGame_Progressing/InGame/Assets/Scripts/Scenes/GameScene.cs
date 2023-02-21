@@ -19,7 +19,7 @@ public class GameScene : BaseScene
 
         //Managers.Map.LoadMap(1);
 
-        Screen.SetResolution(640, 480, false);
+        Screen.SetResolution(1920, 1080, true);
 
 
         
