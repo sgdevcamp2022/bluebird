@@ -41,10 +41,10 @@ int main() {
 		MakeShared<NpcSession>, 5);
 	
 	ASSERT_CRASH(matchService->Start());
-	ASSERT_CRASH(gameService->Start());
+	ASSERT_CRASH(gameService->Start());	
 	ASSERT_CRASH(npcService->Start());
 
-	for (int i = 0; i < THREAD_SIZE; i++) {
+	for (int i = 0; i < THREAD_SIZE + THREAD_SIZE; i++) {
 		GThreadManager->Launch([&gameService]()
 			{
 				while (true)
