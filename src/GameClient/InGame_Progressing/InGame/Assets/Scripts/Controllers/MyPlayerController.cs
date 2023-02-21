@@ -193,7 +193,15 @@ public class MyPlayerController : PlayerController
             UpdateAnimation();
 
             if (isSliding)
+            {
                 animator.SetBool("isSlide", true);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = slidClip;
+                    audioSource.Play();
+                }
+
+            }
 
             transform.position += movementDirection * speed * Time.deltaTime;
         }
@@ -234,6 +242,12 @@ public class MyPlayerController : PlayerController
         {
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             animator.SetTrigger("doJump");
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = jumpClip;
+                audioSource.Play();
+
+            }
 
         }
         else

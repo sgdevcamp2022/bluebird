@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject completepanel;
 
 
-    public TMP_Text racestarttxt;
-    public TMP_Text goalnumtxt;
+    public Text racestarttxt;
+    public Text goalnumtxt;
     public TMP_Text userId;
     public TMP_Text userposition;
 
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStartTxt()
     {
-        racestarttxt.text = "Game Start!";
+        racestarttxt.text = "레이스 시작!";
         Invoke("InActiveGameStartTxt", 2f);
     }
 
@@ -56,11 +56,6 @@ public class GameManager : MonoBehaviour
     public void SetGoalNumText(string txt)
     {
         goalnumtxt.text = txt;
-    }
-
-    public void SetLobbyBtn()
-    {
-        SceneManager.LoadScene("LobbyScene");
     }
 
     public void SetUserId(string txt)

@@ -113,13 +113,13 @@ void ObstacleThread::MovingObstacle()
 
 void ObstacleThread::RotationObstacle()
 {
-    float deltaTime = 360.0f / (gameData.obstacle.speed / 0.045);
-    boost::chrono::duration<float> waitTime(deltaTime);
-    while (true)
-    {
-        gameData.obstacle.rotationZ = -180;
-        cout << "MatchRoom: " << gameData.matchRoom << " | RotZ: " << gameData.obstacle.rotationZ << endl;
-        npcServer.PostWrite(gameData);
-        boost::this_thread::sleep_for(waitTime);
-    }
+    //float deltaTime = 360.0f / (gameData.obstacle.speed / 0.045);
+    //boost::chrono::duration<float> waitTime(deltaTime);
+    //while (true)
+    //{
+    //    gameData.obstacle.rotationZ = -180;
+    //    cout << "MatchRoom: " << gameData.matchRoom << " | RotZ: " << gameData.obstacle.rotationZ << endl;
+    //    npcServer.PostWrite(gameData);
+    //    boost::this_thread::sleep_for(waitTime);
+    //}
 }
