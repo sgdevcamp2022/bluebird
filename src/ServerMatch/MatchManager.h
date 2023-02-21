@@ -1,9 +1,6 @@
 #pragma once
 #include <JobQueue.h>
 
-using InFun = function<int32(int32)>;
-using OutFn = function<void(Match::S_Match&, array<PlayerLevel,3>, int32, int32)>;
-
 class MatchManager : public JobQueue
 {
 public:
@@ -12,7 +9,9 @@ public:
 
 	void MatchEnter(int64 id, int32 level);
 	void MatchLeave(int64 id, int32 level, int32 room);
-	void MatchPull(int32 level);
+
+	int32 PlayerInsideMatch(PlayerLevel level, int32 id);
+	void PlayerOutputMatch(array<PlayerLevel, 3> levels, int32 min, int32 max);
 
 	void ConnectGameServer(ConnectSessionRef ref);
 	void ConnectMatchServer(MatchSessionRef ref);
@@ -20,19 +19,13 @@ public:
 
 private:
 	array<deque<int32>, 8>		_playerWait;
-	map<int32, int32>			_playerSize;
-
-	array<InFun, 8>				_playerCount;
-	OutFn						_playerOut;
+	map<int32, atomic<int32>>	_playerSize;
 
 	atomic<int32>				_roomId = 1;
 
 	ConnectSessionRef			_gameref = nullptr;
 	MatchSessionRef				_lobyref = nullptr;
 	MatchSessionRef				_matchref = nullptr;
-
-private:
-
 };
 
 extern shared_ptr<MatchManager> GMatch;

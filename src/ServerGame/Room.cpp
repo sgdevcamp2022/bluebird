@@ -28,7 +28,9 @@ Room::Room(int32 level, int32 room) : _mapLevel(level), _matchRoom(room)
 
 Room::~Room()
 {
+	RoomClear();
 	cout << "Room Clear" << endl;
+
 	delete _syncPlayer;
 	delete _syncObstacle;
 }
@@ -134,7 +136,7 @@ void Room::ReConnect(GameSessionRef ref, int64 id)
 
 void Room::Disconnect(int64 id)
 {
-	cout << "Disconncet" << endl;
+	cout << "Disconncet " << id << endl;
 	_players[_stage][id]->SetOwner(nullptr);
 
 	if (_start)
@@ -148,6 +150,7 @@ void Room::Disconnect(int64 id)
 
 void Room::Leave(int64 id)
 {
+	cout << "Leave " << id << endl;
 	_players[_stage].erase(id);
 
 	Protocol::ConnectData data;
@@ -230,20 +233,21 @@ void Room::PlayerMove(Protocol::Move data)
 		// 추가 구현 방식 생각 해보기
 		auto point = data.position();
 		PlayerRef player = _players[_stage][data.id()];
+		if (player->GetOwner() != nullptr) {
+			if (point.y() > -10.0f) {
+				auto move = _syncMove.add_move();
+				*move = data;
 
-		if (point.y() > -10.0f) {
-			auto move = _syncMove.add_move();
-			*move = data;
-
-			player->Move(data.position(), data.rotation());
-		}
-		else if (player->GetMoveRight()) {
-			cout << "DROP" << endl;
-			player->SetSpawnPoint(_spawnPosition[0].first, _spawnPosition[0].second);
-			player->MoveChange();
-			GameUtils::SetVector3(data.mutable_position(), _spawnPosition[0].first);
-			GameUtils::SetVector3(data.mutable_rotation(), _spawnPosition[0].second);
-			Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_DROP));
+				player->Move(data.position(), data.rotation());
+			}
+			else if (player->GetMoveRight()) {
+				cout << "DROP" << endl;
+				player->SetSpawnPoint(_spawnPosition[0].first, _spawnPosition[0].second);
+				player->MoveChange();
+				GameUtils::SetVector3(data.mutable_position(), _spawnPosition[0].first);
+				GameUtils::SetVector3(data.mutable_rotation(), _spawnPosition[0].second);
+				Broadcast(GameHandler::MakeSendBuffer(data, Protocol::PLAYER_DROP));
+			}
 		}
 	}
 	else 
@@ -274,15 +278,14 @@ void Room::PlayerGoal(Protocol::Player data)
 {
 	if (CHECK(data.id())) {
 		cout << "Input goal " << data.id() << endl;
-		_players[_stage + 1][data.id()] = _players[_stage][data.id()];
+		_players[NEXT_STAGE(_stage)][data.id()] = _players[_stage][data.id()];
 
-		if (_players[_stage + 1].size() == Solo_Goal(_stage.load()))
+		if (_players[NEXT_STAGE(_stage)].size() == Solo_Goal(_stage.load()))
 		{
 			cout << Solo_Goal(_stage.load());
 			_start.store(false);
 			//TODO 넘기는 작업 필요
-			ClearJobs();
-			NextStage();
+			DoAsync(&Room::NextStage);
 		}
 		else 
 		{
@@ -308,8 +311,10 @@ void Room::GameSync()
 {
 	if (_start) {
 		//동기화 테스트
-		Broadcast(GameHandler::MakeSendBuffer(_syncMove, Protocol::PLAYER_SYNC));
-		_syncMove.Clear();
+		if (_syncMove.move_size() > 0) {
+			Broadcast(GameHandler::MakeSendBuffer(_syncMove, Protocol::PLAYER_SYNC));
+			_syncMove.Clear();
+		}
 		_syncMove.set_time(GetTickCount64());
 
 		DoTimer(50, &Room::GameSync);
@@ -359,9 +364,11 @@ void Room::NextStage()
 			cout << "Game Complte " << _ref.first << endl;
 			if (_ref.second->GetOwner() != nullptr)
 				_ref.second->GetOwner()->Send(GameHandler::MakeSendBuffer(data, Protocol::GAME_COMPLTE));
+
 			if (!data.success())
 			{
-				_ref.second->GetOwner()->_mySelf = nullptr;
+				if (_ref.second->GetOwner() != nullptr)
+					_ref.second->GetOwner()->_mySelf = nullptr;
 				_ref.second->SetOwner(nullptr);
 			}
 		}
@@ -375,7 +382,7 @@ void Room::NextStage()
 
 	// 마지막 스테이지 일 경우는 방 종료 아니면 다음 게임 진행.
 	if (Last_Stage(_stage))
-		RoomEnd();
+		DoAsync(&Room::RoomEnd);
 	else
 		Ggames->DoAsync(&Games::NextStageGame, _matchRoom, _mapLevel, _stage.load());
 }
@@ -383,9 +390,6 @@ void Room::NextStage()
 void Room::RoomEnd()
 {
 	//TODO 정리하기
-	this->ClearJobs();
-	RoomClear();
-
 	Ggames->EndGame(_matchRoom, _mapLevel);
 }
 
