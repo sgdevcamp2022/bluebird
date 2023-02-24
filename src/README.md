@@ -1,15 +1,24 @@
-# 게임 서버 실행 순서
-### 게임서버 -> NPC서버 -> 매치서버 -> 더미 클라이언트
+# 각 인원 파트에 따른 폴더 정리
 
-### 테스트 순서
-- 1. 더미클라이언트가 40개의 유저를 매치에 접속시킴
-- 2. 매치에서 20명이 될 시 정보를 모아 게임서버에 전송
-- 3. 전송받은 게임서버는 방을 생성하고 정보를 NPC서버에 전송
-- 4. NPC 서버의 생성을 받으면 게임을 실행.
-- 5. 유저는 매치 이후 게임서버에 접속하여 세션 등록(구현 X)
+## 김정도
+- ServerPlatform
+- Libraries
 
-### 포트 번호는 아래와 같음
-- 4000 : Server - Npc
-- 5000 : Server - Client
-- 6000 : Loby - Match
-- 7000 : Server - Match
+
+## 임우영
+- ServerNpc
+- GameClient
+- Libraries
+
+
+## 홍지현
+- ServerCore
+- ServerGame
+- ServerMatch
+- DummyClient
+- Libraries
+
+
+## 김민관
+- GameClient
+- Libraries
