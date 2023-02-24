@@ -131,8 +131,8 @@ void Games::NextStageGame(int32 room, int32 level, int32 stage)
 		_games[room].SetNpc(false);
 
 		Npc::NextStage data;
-		data.set_level(level);
 		data.set_room(room);
+		data.set_level(level);
 		data.set_stage(stage);
 
 		_npcRef->Send(NpcHandler::MakeSendBuffer(data, Npc::NEXT));

@@ -19,7 +19,7 @@ private:
 template<typename T>
 inline SendBufferRef _MakeSendBuffer(T& pkt, Match::STATE type)
 {
-	const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
+	const uint32 dataSize = static_cast<uint32>(pkt.ByteSizeLong());
 	const uint16 packetSize = dataSize + 4;
 
 	SendBufferRef sendBuffer = GSendBufferManager->Open(packetSize);

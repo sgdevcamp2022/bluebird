@@ -60,4 +60,10 @@ public:
 	{
 		PoolAllocator::Release(ptr);
 	}
+
+	template<typename U>
+	bool operator==(const StlAllocator<U>&) { return true; }
+
+	template<typename U>
+	bool operator!=(const StlAllocator<U>&) { return false; }
 };

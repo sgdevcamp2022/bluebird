@@ -1,10 +1,9 @@
 #pragma once
 
-/*-------------------
+/*----------------
 	BufferReader
----------------------*/
+-----------------*/
 
-//[                  ]
 class BufferReader
 {
 public:
@@ -30,8 +29,8 @@ public:
 
 private:
 	BYTE*			_buffer = nullptr;
-	uint32			 _size = 0;
-	uint32			_pos = 0;	
+	uint32			_size = 0;
+	uint32			_pos = 0;
 };
 
 template<typename T>
