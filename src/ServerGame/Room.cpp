@@ -89,6 +89,7 @@ void Room::GameEnter(GameSessionRef ref, int64 id)
 void Room::ObstacleEnter(Npc::LoginData pkt)
 {
 	_syncObstacle->clear_obstacle();
+
 	for (int i = 0; i < pkt.obstacle_size(); i++) {
 		auto data = pkt.obstacle(i);
 		auto ob = _syncObstacle->add_obstacle();
@@ -235,8 +236,8 @@ void Room::PlayerMove(Protocol::Move data)
 		PlayerRef player = _players[_stage][data.id()];
 		if (player->GetOwner() != nullptr) {
 			if (point.y() > -10.0f) {
-				auto move = _syncMove.add_move();
-				*move = data;
+
+				_syncMove.add_move()->CopyFrom(data);
 
 				player->Move(data.position(), data.rotation());
 			}
@@ -376,7 +377,7 @@ void Room::NextStage()
 
 	// 다음 스테이지로 넘어가기 위한 정리
 	_playerSize = _players[_stage].size();
-	cout << "Next Stage : " << _playerSize << endl;
+	cout << "Next Stage : " << _stage << endl;
 	_obstacles.clear();
 	_players[past].clear();
 

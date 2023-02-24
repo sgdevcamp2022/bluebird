@@ -37,10 +37,10 @@ void PacketHandler::HandlerCancle(PacketSessionRef& ref, Match::C_Cancel&& pkt)
 void PacketHandler::HandlerCheck(PacketSessionRef& ref, Match::Check&& pkt)
 {
     if (pkt.type() == 1) {
-        GMatch->ConnectMatchServer(static_pointer_cast<MatchSession>(ref));
+        GMatch->DoAsync(&MatchManager::ConnectMatchServer, static_pointer_cast<MatchSession>(ref));
     }
     else if(pkt.type() == -1) {
-        GMatch->ConnectLobyServer(static_pointer_cast<MatchSession>(ref));
+        GMatch->DoAsync(&MatchManager::ConnectLobyServer, static_pointer_cast<MatchSession>(ref));
     }
 }
 

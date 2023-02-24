@@ -28,7 +28,7 @@ inline SendBufferRef _MakeSendBuffer(T& pkt, Match::STATE type)
 	header.set_state(type);
 	string s = header.SerializeAsString();
 	s += pkt.SerializeAsString();
-	//cout << s.size() << " " << packetSize << endl;
+	cout << s.size() << " " << packetSize << endl;
 	memcpy(data, s.data(), packetSize);
 	sendBuffer->Close(packetSize);
 

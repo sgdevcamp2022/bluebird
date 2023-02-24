@@ -20,7 +20,6 @@ private:
 private:
 	unordered_map<const char*, int32>	_nameToId;
 	unordered_map<int32, const char*>	_idToName;
-	
 	map<int32, set<int32>>				_lockHistory;
 
 	Mutex _lock;

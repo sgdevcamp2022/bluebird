@@ -9,10 +9,10 @@
 
 inline bool Last_Stage(int stage) { return (stage == MAX_STAGE) ? true : false; }
 inline int Solo_Goal(int stage) { return (stage == 1) ? 2 : 1; }
-inline int Solo_Start(int stage) { return (stage == 1) ? 2 : 2; }
+inline int Solo_Start(int stage) { return (stage == 1) ? 3 : 2; }
 
 #define CLIENT_TEST true
-#define NPC_TEST false
+#define NPC_TEST true
 
 struct Vector3
 {
@@ -49,3 +49,5 @@ inline SendBufferRef _MakeSendBuffer(T& pkt, S type)
 
 	return sendBuffer;
 }
+
+Protocol::MoveData data;
