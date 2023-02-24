@@ -21,8 +21,7 @@ class IocpEvent : public OVERLAPPED
 public:
 	IocpEvent(EventType type);
 
-	void		Init();
-	EventType	GetType() { return eventType; }
+	void			Init();
 
 public:
 	EventType		eventType;
@@ -39,9 +38,9 @@ public:
 	ConnectEvent() : IocpEvent(EventType::Connect) { }
 };
 
-/*----------------
+/*--------------------
 	DisconnectEvent
------------------*/
+----------------------*/
 
 class DisconnectEvent : public IocpEvent
 {
@@ -80,6 +79,6 @@ class SendEvent : public IocpEvent
 {
 public:
 	SendEvent() : IocpEvent(EventType::Send) { }
-
+	 
 	Vector<SendBufferRef> sendBuffers;
 };

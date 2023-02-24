@@ -25,4 +25,3 @@ using ConnectSessionRef		= shared_ptr<class ConnectSession>;
 using PlayerRef				= shared_ptr<class Player>;
 
 #include "PacketHandler.h"
-#include "Redis.h"

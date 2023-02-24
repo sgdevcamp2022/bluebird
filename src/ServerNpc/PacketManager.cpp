@@ -119,6 +119,17 @@ int PacketManager::GetField(LoginData* loginData, ::google::protobuf::Message& m
                     loginData->matchRoom = -1;
                 }
             }
+            else if (fieldName == "stage")
+            {
+                try
+                {
+                    loginData->mapLevel = refl->GetInt32(msg, field);
+                }
+                catch (exception)
+                {
+                    loginData->mapLevel = -1;
+                }
+            }
         }
     }
 

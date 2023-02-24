@@ -2,8 +2,8 @@
 #include "MatchManager.h"
 #include "MatchSession.h"
 #include "ConnectSession.h"
-#include "RedisManager.h"
 #include "Redis.h"
+#include "RedisManager.h"
 
 shared_ptr<MatchManager> GMatch = make_shared<MatchManager>();
 
@@ -21,47 +21,49 @@ MatchManager::~MatchManager()
 
 void MatchManager::MatchEnter(int64 id, int32 level)
 {
-	Redis* redis = GRedisManager->GetRedis();
-	if (redis == nullptr) {
-		cout << "nullptr" << endl;
-		DoAsync(&MatchManager::MatchEnter, id, level);
-		return;
-	}
+	if (REDIS) {
+		Redis* redis = GRedisManager->GetRedis();
+		if (redis == nullptr) {
+			cout << "nullptr" << endl;
+			DoAsync(&MatchManager::MatchEnter, id, level);
+			return;
+		}
 
-	if (redis->ExistQuery(id)) {
-		cout << "Login : " << id << " " << level << endl;
-		Match::S_Login data;
-		data.set_id(id);
-		data.set_level(level);
-		if (_lobyref != nullptr)
+		if (redis->ExistQuery(id)) {
+			cout << "Login : " << id << " " << level << endl;
+
+			if (_lobyref != nullptr) {
+				Match::S_Login data;
+				data.set_id(id);
+				data.set_level(level);
+				_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
+				DoAsync(&MatchManager::PlayerInsideMatch, level, id);
+			}
+		}
+		else {
+			cout << "Redis에 없음 " << id << endl;
+
+			if (_lobyref != nullptr) {
+				Match::S_Login data;
+				data.set_id(id);
+				data.set_level(level);
+				_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_CANCLE));
+			}
+		}
+		GRedisManager->ReturnRedis(redis);
+	}
+	else
+	{
+		//cout << "Login : " << id << " " << level << endl;
+
+		/*if (_lobyref != nullptr) {
+			Match::S_Login data;
+			data.set_id(id);
+			data.set_level(level);
 			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_LOGIN));
-
-		_playerWait[level].push_back(id);
-		if (level & SOLO)
-		{
-			if (PlayerInsideMatch(SOLO, id));
-				DoTimer(1000, &MatchManager::PlayerOutputMatch, { SOLO, SOLO_DUO, SOLO_THREE }, SOLO_PLAYER_COUNT, SOLO_MAX_PLAYER_COUNT);
-		}
-		if (level & DUO)
-		{
-			if(PlayerInsideMatch(DUO, id));
-				DoTimer(1000, &MatchManager::PlayerOutputMatch, { DUO, SOLO_DUO, DUO_THREE }, DUO_PLAYER_COUNT, DUO_MAX_PLAYER_COUNT);
-		}
-		if (level & THREE)
-		{
-			if (PlayerInsideMatch(THREE, id));
-				DoTimer(1000, &MatchManager::PlayerOutputMatch, { THREE, SOLO_THREE, DUO_THREE }, THREE_PLAYER_COUNT, THREE_MAX_PLAYER_COUNT);
-		}
+			DoAsync(&MatchManager::PlayerInsideMatch, level, id);
+		}*/
 	}
-	else {
-		cout << "Redis에 없음 " << id << endl;
-		Match::S_Login data;
-		data.set_id(id);
-		data.set_level(level);
-		if (_lobyref != nullptr)
-			_lobyref->Send(PacketHandler::MakeSendBuffer(data, Match::S_CANCLE));
-	}
-	GRedisManager->ReturnRedis(redis);
 }
 
 void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
@@ -90,14 +92,17 @@ void MatchManager::MatchLeave(int64 id, int32 level, int32 room)
 		_playerSize[THREE].fetch_sub(1);
 }
 
-int32 MatchManager::PlayerInsideMatch(PlayerLevel level, int32 id)
+void MatchManager::PlayerInsideMatch(int32 level, int64 id)
 {
 	//TODO
-	_playerSize[level].fetch_add(1);
-	if (_playerSize[level].load() >= SOLO_PLAYER_COUNT)
-		return level;
-	else
-		return EMPTY;
+	_playerWait[level].push_back(id);
+
+	if (level & SOLO)
+		_playerSize[SOLO].fetch_add(1);
+	if (level & DUO)
+		_playerSize[DUO].fetch_add(1);
+	if (level & THREE)
+		_playerSize[THREE].fetch_add(1);
 }
 
 void MatchManager::PlayerOutputMatch(array<PlayerLevel, 3> levels, int32 min, int32 max)
@@ -130,15 +135,31 @@ void MatchManager::PlayerOutputMatch(array<PlayerLevel, 3> levels, int32 min, in
 	}
 }
 
+void MatchManager::CheckingMatchPull()
+{
+	if (_playerSize[SOLO].load() >= SOLO_PLAYER_COUNT)
+		DoAsync(&MatchManager::PlayerOutputMatch, { SOLO, SOLO_DUO, SOLO_THREE }, SOLO_PLAYER_COUNT, SOLO_MAX_PLAYER_COUNT);
+	if (_playerSize[DUO].load() >= DUO_PLAYER_COUNT)
+		DoAsync(&MatchManager::PlayerOutputMatch, { DUO, SOLO_DUO, DUO_THREE }, DUO_PLAYER_COUNT, DUO_MAX_PLAYER_COUNT);
+	if (_playerSize[THREE].load() >= THREE_PLAYER_COUNT)
+		DoAsync(&MatchManager::PlayerOutputMatch, { THREE, SOLO_THREE, DUO_THREE }, THREE_PLAYER_COUNT, THREE_MAX_PLAYER_COUNT);
+
+	DoTimer(50, &MatchManager::CheckingMatchPull);
+}
+
 void MatchManager::ConnectGameServer(ConnectSessionRef ref)
 {
 	_gameref = ref;
+
+	DoAsync(&MatchManager::CheckingMatchPull);
 }
 
 void MatchManager::ConnectMatchServer(MatchSessionRef ref)
 {
 	cout << "Connect Match" << endl;
 	_matchref = ref;
+
+	
 }
 
 void MatchManager::ConnectLobyServer(MatchSessionRef ref)

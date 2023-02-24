@@ -3,7 +3,6 @@
 #include "CoreTLS.h"
 #include "CoreGlobal.h"
 #include "GlobalQueue.h"
-#include "JobQueue.h"
 
 /*------------------
 	ThreadManager
@@ -69,7 +68,7 @@ void ThreadManager::DoGlobalQueueWork()
 	}
 }
 
-void ThreadManager::DistributeReserveJobs()
+void ThreadManager::DistributeReservedJobs()
 {
 	const uint64 now = ::GetTickCount64();
 

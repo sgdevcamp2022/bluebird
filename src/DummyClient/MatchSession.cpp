@@ -6,7 +6,7 @@ void MatchSession::OnConnected()
     this_thread::sleep_for(1s);
     atomic<int32> th = 0;
     for (int i = 1; i <= 7; i++) {
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 100; j++) {
             Match::C_Login pkt;
             pkt.set_id(th.fetch_add(1));
             pkt.set_level(i);

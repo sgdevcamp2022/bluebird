@@ -50,7 +50,7 @@ private:
 
 	array<map<int64, PlayerRef>, 4>		_players;
 	map<int64, ObtacleRef>				_obstacles;
-	Protocol::MoveData					_syncMove;
+	Protocol::MoveData _syncMove;
 	vector<pair<Npc::Vector3, Npc::Vector3>>	_spawnPosition;
 
 	function<bool(int64 id)> CHECK;

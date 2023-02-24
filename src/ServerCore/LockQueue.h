@@ -18,7 +18,6 @@ public:
 
 		T ret = _items.front();
 		_items.pop();
-
 		return ret;
 	}
 
@@ -38,5 +37,4 @@ public:
 private:
 	USE_LOCK;
 	Queue<T> _items;
-
 };

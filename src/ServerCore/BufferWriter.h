@@ -1,8 +1,8 @@
 #pragma once
 
-/*-------------------
+/*----------------
 	BufferWriter
----------------------*/
+-----------------*/
 
 class BufferWriter
 {
@@ -30,13 +30,12 @@ private:
 	BYTE*			_buffer = nullptr;
 	uint32			_size = 0;
 	uint32			_pos = 0;
-
 };
 
 template<typename T>
 T* BufferWriter::Reserve(uint16 count)
 {
-	if(FreeSize() < sizeof(T) * count)
+	if (FreeSize() < (sizeof(T) * count))
 		return nullptr;
 
 	T* ret = reinterpret_cast<T*>(&_buffer[_pos]);
@@ -48,7 +47,6 @@ template<typename T>
 BufferWriter& BufferWriter::operator<<(T&& src)
 {
 	using DataType = std::remove_reference_t<T>;
-
 	*reinterpret_cast<DataType*>(&_buffer[_pos]) = std::forward<DataType>(src);
 	_pos += sizeof(T);
 	return *this;

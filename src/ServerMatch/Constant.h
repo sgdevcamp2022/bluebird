@@ -13,6 +13,8 @@
 #define TestLevel 5
 #define TestRoom 10
 
+#define REDIS false
+
 struct MatchHeader
 {
 	google::protobuf::uint32 size;
@@ -47,7 +49,7 @@ SendBufferRef _Making(T& pkt, S type)
 enum PlayerLevel
 {
 	EMPTY
-	,SOLO
+	, SOLO
 	, DUO
 	, SOLO_DUO
 	, THREE
