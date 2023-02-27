@@ -24,7 +24,8 @@ The project has been initialized.
 - C++ 초급자 탈출하기
 
 ### 김민관
-- 
+- 백엔드와 협업할 수 있는 개발자
+- 꾸준히 개발하는 습관 형성
 
 ## 시스템 아키텍처
 ![image](https://user-images.githubusercontent.com/48054868/221210118-c19a660d-947e-46a3-a76d-bee3a08def3e.png)
